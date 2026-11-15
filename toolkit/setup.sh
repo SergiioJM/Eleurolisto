@@ -14,5 +14,8 @@ for m in vits-piper-es_ES-davefx-medium vits-piper-es_ES-sharvard-medium; do
 done
 
 command -v ffmpeg >/dev/null || { echo "Falta ffmpeg"; exit 1; }
+# Motor 3D (Three.js + Chrome headless)
+(cd "$(dirname "$0")/escena3d" && npm install --silent) || echo "Aviso: npm install del motor 3D falló"
+[ -x /usr/bin/google-chrome ] || echo "Aviso: no hay /usr/bin/google-chrome (exporta CHROME=ruta)"
 fc-list | grep -q Poppins || echo "Aviso: no está la fuente Poppins"
 python3 -c "import sys; sys.path.insert(0, '$(dirname "$0")'); import voces, reelkit; print('toolkit OK')"
