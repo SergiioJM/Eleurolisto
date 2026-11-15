@@ -1,0 +1,73 @@
+{
+ "total": 14.7,
+ "segments": [
+  {
+   "start": 0.1,
+   "dur": 2.435,
+   "text": "¿Un café de dos euros al día? Parece poca cosa.",
+   "parts": [
+    {
+     "start": 0.1,
+     "dur": 1.339
+    },
+    {
+     "start": 1.699,
+     "dur": 0.836
+    }
+   ]
+  },
+  {
+   "start": 2.795,
+   "dur": 2.376,
+   "text": "Pero al año son setecientos treinta euros.",
+   "parts": [
+    {
+     "start": 2.795,
+     "dur": 2.376
+    }
+   ]
+  },
+  {
+   "start": 5.431,
+   "dur": 2.9,
+   "text": "Y en diez años, siete mil trescientos. Solo en café.",
+   "parts": [
+    {
+     "start": 5.431,
+     "dur": 1.936
+    },
+    {
+     "start": 7.626,
+     "dur": 0.705
+    }
+   ]
+  },
+  {
+   "start": 8.591,
+   "dur": 3.007,
+   "text": "Son los gastos hormiga: no se notan, pero suman.",
+   "parts": [
+    {
+     "start": 8.591,
+     "dur": 3.007
+    }
+   ]
+  },
+  {
+   "start": 11.859,
+   "dur": 2.041,
+   "text": "¿Cuál es tu café? Te leo en comentarios.",
+   "parts": [
+    {
+     "start": 11.859,
+     "dur": 0.596
+    },
+    {
+     "start": 12.714,
+     "dur": 1.186
+    }
+   ]
+  }
+ ],
+ "nota": "tiempos estimados (voz Javier de Madrid, 14,0 s)"
+}
