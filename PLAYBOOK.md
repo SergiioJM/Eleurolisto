@@ -79,4 +79,4 @@ Cada noche se crean **dos reels originales para el día siguiente**, se envían 
 ## Estilo de marca
 - Fondo azul noche con degradado verde, Poppins Bold para titulares, Inter para textos pequeños.
 - Colores: verde #22C55E (ahorro/positivo), ámbar #F59E0B (gasto/aviso), azul #3B82F6, rojo #EF4444 (pérdida).
-- Captions: frase gancho + 1–2 frases de valor + CTA (guardar/comentar) + 5 hashtags como máximo.
+- **Captions (decisión de Sergio: corto, buen gancho, buenos #)**: nada de relleno. Empieza por la palabra clave que la gente busca ("Gastos hormiga:", "Cómo ahorrar…"), una cifra que enganche, una pregunta o CTA de compartir/comentar y 5 hashtags exactos (el máximo de Instagram): 3–4 de nicho que describan el tema (p. ej. #gastoshormiga, #ahorrardinero, #comoahorrar, #pagateprimero, #consejosdeahorro) + #finanzaspersonales o #ahorro + la de marca #eleurolisto. Nada de #fyp/#viral. Rota los conjuntos según el tema. La misma palabra clave debe salir en pantalla y decirse en la voz.
