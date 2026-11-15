@@ -87,6 +87,14 @@ def escena_anyo(c, t):
           alpha=ease_out(prog(t, 0.1, 0.3)))
 
 
+def efectos(r):
+    """Efectos de sonido sincronizados con lo que aparece en pantalla (segundos globales)."""
+    b = r.bounds
+    return [(b[0] + 1.75, "thud", 0.6), (b[0] + 3.05, "pop"),
+            (b[1] + 0.55, "pop", 0.7), (b[1] + 0.85, "pop", 0.7), (b[1] + 1.15, "pop", 0.7),
+            (b[4] + 2.95, "pop"), (b[5] + 0.35 + 11 * 0.12 + 0.3, "ding"), (b[6] + 0.05, "pop")]
+
+
 def escenas(r):
     return [escena_gancho, escena_regla, escena_donut(0, r), escena_donut(1, r), escena_donut(2, r),
             escena_anyo, lambda c, t: cta(c, t)]
@@ -102,4 +110,4 @@ if __name__ == "__main__":
         if cmd == "frames":
             print(r.frames([3.6, 5.5, 11.0, 20.5, 23.5, 26.5], escenas(r)))
         else:
-            print(r.render(escenas(r), "video_render.mp4", music_seed=0))
+            print(r.render(escenas(r), "video_render.mp4", music_seed=0, sfx=efectos(r)))

@@ -21,6 +21,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 sys.path.insert(0, os.path.dirname(__file__))
 import music as _music  # noqa: E402
+import sfx as _sfx  # noqa: E402
 
 W, H, FPS = 1080, 1920, 30
 CX = W // 2
@@ -337,7 +338,9 @@ class Reel:
         return f"{self.d}/{sheet}"
 
     def render(self, scenes, out_name="video.mp4", bpm=100, style="upbeat", music_seed=1,
-               music_gain=0.42, duck_gain=0.16):
+               music_gain=0.42, duck_gain=0.16, sfx=None, auto_sfx=True, punch=True, sfx_gain=0.35):
+        """sfx: lista de (segundo_global, "pop"|"ding"|"whoosh"|"tick"|"thud"[, ganancia]).
+        auto_sfx: whoosh en cada corte de escena. punch: zoom-in corto al empezar cada escena (salvo la primera)."""
         assert len(scenes) == len(self.bounds) - 1, "una escena por frase"
         os.makedirs(f"{self.d}/scenes", exist_ok=True)
         lst = []
@@ -350,8 +353,15 @@ class Reel:
                                  stdin=subprocess.PIPE)
             for f in range(f0, f1):
                 c = self.bg.copy()
-                fn(c, f / FPS - self.bounds[i])
-                p.stdin.write(c.convert("RGB").tobytes())
+                lt = f / FPS - self.bounds[i]
+                fn(c, lt)
+                img = c.convert("RGB")
+                if punch and i > 0 and lt < 0.22:
+                    s = 1 + 0.05 * (1 - ease_out(lt / 0.22))
+                    big = img.resize((int(W * s), int(H * s)), Image.BILINEAR)
+                    ox, oy = (big.width - W) // 2, (big.height - H) // 2
+                    img = big.crop((ox, oy, ox + W, oy + H))
+                p.stdin.write(img.tobytes())
             p.stdin.close()
             if p.wait() != 0:
                 raise SystemExit(f"ffmpeg falló en la escena {i}")
@@ -379,7 +389,11 @@ class Reel:
             gain[max(a, 0):b] = duck_gain
         k = int(0.15 * msr)
         gain = np.convolve(gain, np.ones(k) / k, mode="same")
-        mixd = m * gain[:, None] + v[:, None] * 0.95
+        events = list(sfx or [])
+        if auto_sfx:
+            events += [(b - 0.12, "whoosh", 0.8) for b in self.bounds[1:-1]]
+        fx = _sfx.track(events, L) * sfx_gain if events else np.zeros(L)
+        mixd = m * gain[:, None] + v[:, None] * 0.95 + fx[:, None]
         mixd /= max(1.0, np.max(np.abs(mixd)) / 0.97)
         sf.write(f"{self.d}/mix.wav", mixd, msr)
         final = f"{self.d}/{out_name}"

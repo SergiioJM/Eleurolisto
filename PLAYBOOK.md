@@ -14,7 +14,7 @@ Cada noche se crean **dos reels originales para el día siguiente**, se envían 
 2. `bash toolkit/setup.sh` (instala dependencias y descarga las voces; tarda ~1 min).
 
 ## 2. Investigar (noticias cada noche, virales cada semana)
-- **Noticias (cada noche, gratis)**: 3–5 búsquedas web de lo que afecta al bolsillo en España: IPC/inflación (INE), euríbor e hipotecas, BCE y tipos, depósitos y Letras del Tesoro, SMI y salarios, pensiones, Hacienda/renta, vivienda/alquiler, bancos y comisiones, timos financieros. Apunta en `content/noticias.md` solo datos verificados, con fuente y fecha. Si hay algo importante para la audiencia, uno de los dos reels del día puede ser sobre eso (con la fuente en el caption). Sin opinión política ni partidos.
+- **Noticias (cada noche, gratis)**: 3–6 búsquedas web de lo que afecta al bolsillo, en España y a nivel global (BCE, Reserva Federal, mercados, petróleo y energía, divisas, grandes bancos y fintech, timos que circulan). En España: IPC/inflación (INE), euríbor e hipotecas, BCE y tipos, depósitos y Letras del Tesoro, SMI y salarios, pensiones, Hacienda/renta, vivienda/alquiler, bancos y comisiones, timos financieros. Apunta en `content/noticias.md` solo datos verificados, con fuente y fecha. Si hay algo importante para la audiencia, uno de los dos reels del día puede ser sobre eso (con la fuente en el caption). Sin opinión política ni partidos.
 - **Virales (los lunes, o si `content/virales.md` tiene más de 7 días)**: una búsqueda `vidiq_instagram_tiktok_outlier_search` (5 créditos) de reels de finanzas personales en español de los últimos 30 días, con audienceQuery de España. Si quedan > 60 créditos, opcionalmente `vidiq_outliers` de Shorts en español (5 créditos). Guarda ganchos, estructura, formato y patrones en `content/virales.md` y propón recreaciones. `vidiq_watch_shortform_content` cuesta 10 créditos: úsalo solo si un viral es clave y no se entiende su estructura.
 - Recrear ≠ copiar: misma idea de gancho o estructura, pero guion, cifras, diseño y voz nuestros.
 
@@ -60,6 +60,13 @@ Cada noche se crean **dos reels originales para el día siguiente**, se envían 
 
 ## 10. Registrar
 - Actualiza `content/registro.md` (fecha, hora, tipo, tema, voz, estado) y `content/reserva.md` si usaste algo de ahí. Commit y push.
+
+## Edición: que cada reel sea original
+- Cada noche, algo distinto en la edición: estructura (lista, A vs B, reto, mito vs realidad, historia), gráfico protagonista (barras, línea, donut, contador, termómetro), fondo/acento de color y ritmo.
+- `Reel.render` ya mete un whoosh y un zoom de entrada en cada corte (`auto_sfx`, `punch`). Añade `sfx=[(segundo, "pop"|"ding"|"thud"|"tick"|"whoosh"), …]` sincronizados con lo que aparece (pop en cifras que saltan, ding en el resultado final, thud en el problema).
+- Gráficas: al menos 3–4 reels por semana con una gráfica clara (`bars`, `line_chart`, `donut`, contadores).
+- **Personas (1–2 veces por semana)**: con vídeo de stock real, no generado. `vidiq_find_broll` (1 crédito, vertical) para clips de gente (pagando, comprando, haciendo cuentas…). El workspace no puede descargarlos, así que se montan en vidIQ con `vidiq_compose` (1 crédito por cada 4 s): escenas = clips de stock + nuestras escenas animadas (renderizadas como MP4 y subidas al repo, URL raw) + voz (`voice.wav` convertida a MP3 y subida al repo) + música. Acredita al autor del clip en el caption ("Vídeo: Nombre / Pexels").
+- Si Sergio configura CellCog u otro plugin de vídeo con IA, se pueden usar personajes o avatares generados, siempre con etiqueta de IA y nunca imitando a personas reales.
 
 ## Estilo de marca
 - Fondo azul noche con degradado verde, Poppins Bold para titulares, Inter para textos pequeños.
