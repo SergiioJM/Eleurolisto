@@ -13,6 +13,10 @@ for m in vits-piper-es_ES-davefx-medium vits-piper-es_ES-sharvard-medium; do
   fi
 done
 
+for f in kokoro-v1.0.int8.onnx voices-v1.0.bin; do
+  [ -f "$MODELS/$f" ] || curl -sSL -o "$MODELS/$f" "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/$f"
+done
+
 command -v ffmpeg >/dev/null || { echo "Falta ffmpeg"; exit 1; }
 # Motor 3D (Three.js + Chrome headless)
 (cd "$(dirname "$0")/escena3d" && npm install --silent) || echo "Aviso: npm install del motor 3D falló"

@@ -1,15 +1,19 @@
 """Voces en off en español de España (Piper es_ES, ejecutadas con onnxruntime).
 
-Voces:
-  v1 -> hombre A (davefx)      · la elegida por Sergio como principal
-  v2 -> hombre B (sharvard M)
-  v3 -> mujer   (sharvard F)
+Voces (comparativa enviada a Sergio el 16-nov; "Hombre 1..4", "Mujer 1..2"):
+  v1      -> Hombre 1 (Piper davefx)
+  v2      -> Hombre 2 (Piper sharvard M)
+  k_alex  -> Hombre 3 (Kokoro em_alex, fonemas castellanos)
+  k_santa -> Hombre 4 (Kokoro em_santa)
+  v3      -> Mujer 1  (Piper sharvard F)
+  k_dora  -> Mujer 2  (Kokoro ef_dora)
 
 make(frases, carpeta, voz="v1") escribe voice.wav y timings.json (inicio y duración de cada frase).
 Consejo: escribe los números con letras en el guion ("mil quinientos euros"), suena más natural.
 """
 import json
 import os
+import re
 
 import numpy as np
 import onnxruntime as ort
@@ -22,6 +26,8 @@ VOCES = {
     "v2": ("es_ES-sharvard-medium", 0),
     "v3": ("es_ES-sharvard-medium", 1),
 }
+KOKORO = {"k_alex": "em_alex", "k_santa": "em_santa", "k_dora": "ef_dora"}
+_kok = None
 _tok, _sess = None, {}
 
 
@@ -33,6 +39,13 @@ def phonemize(text):
 
 
 def synth(text, voz="v1", length_scale=0.92, noise_scale=0.667, noise_w=0.8):
+    if voz in KOKORO:
+        global _kok
+        if _kok is None:
+            from kokoro_onnx import Kokoro
+            _kok = Kokoro(f"{MODELS}/kokoro-v1.0.int8.onnx", f"{MODELS}/voices-v1.0.bin")
+        x, sr = _kok.create(text, voice=KOKORO[voz], speed=round(0.92 / length_scale, 2), lang="es")
+        return np.asarray(x, dtype=np.float32), sr
     model, sid = VOCES[voz]
     d = f"{MODELS}/vits-piper-{model}"
     cfg = json.load(open(f"{d}/{model}.onnx.json"))
@@ -64,7 +77,18 @@ def make(frases, carpeta, voz="v1", lead=0.35, gap=0.30, tail=0.9, length_scale=
         if not track:
             track.append(np.zeros(int(lead * sr), dtype=np.float32))
         dur = len(x) / sr
-        timings.append({"i": i, "start": round(t, 3), "dur": round(dur, 3), "text": text})
+        palabras = text.split()
+        pesos = []
+        for w in palabras:
+            y, ysr = synth(re.sub(r"[¿¡…\.,\?\!:]", "", w) or w, "v2")
+            a = np.abs(y); nzw = np.where(a > 0.02 * a.max())[0]
+            pesos.append(max((nzw[-1] - nzw[0]) / ysr if len(nzw) else 0.1, 0.08))
+        pesos = np.array(pesos) / sum(pesos) * dur
+        words, tw = [], t
+        for w, pw in zip(palabras, pesos):
+            words.append({"w": w, "start": round(tw, 3), "end": round(tw + pw, 3)})
+            tw += pw
+        timings.append({"i": i, "start": round(t, 3), "dur": round(dur, 3), "text": text, "words": words})
         track.append(x)
         t += dur
         g = tail if i == len(frases) - 1 else gap
