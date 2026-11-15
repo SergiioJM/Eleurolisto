@@ -1,0 +1,10 @@
+{
+  "name": "eleurolisto-escena3d",
+  "private": true,
+  "type": "module",
+  "description": "Motor 3D de El Euro Listo: Three.js renderizado fotograma a fotograma en Chrome headless",
+  "dependencies": {
+    "puppeteer-core": "^24.0.0",
+    "three": "^0.187.0"
+  }
+}

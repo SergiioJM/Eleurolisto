@@ -1,0 +1,406 @@
+{
+ "total": 23.5,
+ "escala": 1.034,
+ "segments": [
+  {
+   "text": "Hay un ladrón que entra en tu casa todos los años… y no lo ves.",
+   "start": 0.103,
+   "words": [
+    {
+     "w": "Hay",
+     "start": 0.103,
+     "end": 0.279
+    },
+    {
+     "w": "un",
+     "start": 0.279,
+     "end": 0.466
+    },
+    {
+     "w": "ladrón",
+     "start": 0.466,
+     "end": 0.91
+    },
+    {
+     "w": "que",
+     "start": 0.91,
+     "end": 1.051
+    },
+    {
+     "w": "entra",
+     "start": 1.051,
+     "end": 1.4
+    },
+    {
+     "w": "en",
+     "start": 1.4,
+     "end": 1.574
+    },
+    {
+     "w": "tu",
+     "start": 1.574,
+     "end": 1.704
+    },
+    {
+     "w": "casa",
+     "start": 1.704,
+     "end": 1.985
+    },
+    {
+     "w": "todos",
+     "start": 1.985,
+     "end": 2.252
+    },
+    {
+     "w": "los",
+     "start": 2.252,
+     "end": 2.518
+    },
+    {
+     "w": "años…",
+     "start": 2.518,
+     "end": 2.814
+    },
+    {
+     "w": "y",
+     "start": 3.176,
+     "end": 3.269
+    },
+    {
+     "w": "no",
+     "start": 3.269,
+     "end": 3.501
+    },
+    {
+     "w": "lo",
+     "start": 3.501,
+     "end": 3.655
+    },
+    {
+     "w": "ves.",
+     "start": 3.655,
+     "end": 3.919
+    }
+   ],
+   "dur": 3.816
+  },
+  {
+   "text": "Tienes diez mil euros guardados en un cajón.",
+   "start": 4.209,
+   "words": [
+    {
+     "w": "Tienes",
+     "start": 4.209,
+     "end": 4.581
+    },
+    {
+     "w": "diez",
+     "start": 4.581,
+     "end": 4.81
+    },
+    {
+     "w": "mil",
+     "start": 4.81,
+     "end": 5.071
+    },
+    {
+     "w": "euros",
+     "start": 5.071,
+     "end": 5.407
+    },
+    {
+     "w": "guardados",
+     "start": 5.407,
+     "end": 5.902
+    },
+    {
+     "w": "en",
+     "start": 5.902,
+     "end": 6.066
+    },
+    {
+     "w": "un",
+     "start": 6.066,
+     "end": 6.237
+    },
+    {
+     "w": "cajón.",
+     "start": 6.237,
+     "end": 6.573
+    }
+   ],
+   "dur": 2.365
+  },
+  {
+   "text": "Hoy, con ese dinero, compras todo esto.",
+   "start": 6.863,
+   "words": [
+    {
+     "w": "Hoy,",
+     "start": 6.863,
+     "end": 7.065
+    },
+    {
+     "w": "con",
+     "start": 7.065,
+     "end": 7.322
+    },
+    {
+     "w": "ese",
+     "start": 7.322,
+     "end": 7.609
+    },
+    {
+     "w": "dinero,",
+     "start": 7.609,
+     "end": 8.037
+    },
+    {
+     "w": "compras",
+     "start": 8.037,
+     "end": 8.466
+    },
+    {
+     "w": "todo",
+     "start": 8.466,
+     "end": 8.74
+    },
+    {
+     "w": "esto.",
+     "start": 8.74,
+     "end": 9.09
+    }
+   ],
+   "dur": 2.227
+  },
+  {
+   "text": "Pero cada año, algo desaparece.",
+   "start": 9.379,
+   "words": [
+    {
+     "w": "Pero",
+     "start": 9.379,
+     "end": 9.635
+    },
+    {
+     "w": "cada",
+     "start": 9.635,
+     "end": 9.913
+    },
+    {
+     "w": "año,",
+     "start": 9.913,
+     "end": 10.202
+    },
+    {
+     "w": "algo",
+     "start": 10.202,
+     "end": 10.517
+    },
+    {
+     "w": "desaparece.",
+     "start": 10.517,
+     "end": 11.174
+    }
+   ],
+   "dur": 1.795
+  },
+  {
+   "text": "En diez años, con una inflación del tres por ciento, ese dinero pierde más de una cuarta parte de su valor.",
+   "start": 11.464,
+   "words": [
+    {
+     "w": "En",
+     "start": 11.464,
+     "end": 11.626
+    },
+    {
+     "w": "diez",
+     "start": 11.626,
+     "end": 11.906
+    },
+    {
+     "w": "años,",
+     "start": 11.906,
+     "end": 12.191
+    },
+    {
+     "w": "con",
+     "start": 12.191,
+     "end": 12.414
+    },
+    {
+     "w": "una",
+     "start": 12.414,
+     "end": 12.672
+    },
+    {
+     "w": "inflación",
+     "start": 12.672,
+     "end": 13.266
+    },
+    {
+     "w": "del",
+     "start": 13.266,
+     "end": 13.529
+    },
+    {
+     "w": "tres",
+     "start": 13.529,
+     "end": 13.793
+    },
+    {
+     "w": "por",
+     "start": 13.793,
+     "end": 13.972
+    },
+    {
+     "w": "ciento,",
+     "start": 13.972,
+     "end": 14.466
+    },
+    {
+     "w": "ese",
+     "start": 14.466,
+     "end": 14.724
+    },
+    {
+     "w": "dinero",
+     "start": 14.724,
+     "end": 15.088
+    },
+    {
+     "w": "pierde",
+     "start": 15.088,
+     "end": 15.44
+    },
+    {
+     "w": "más",
+     "start": 15.44,
+     "end": 15.736
+    },
+    {
+     "w": "de",
+     "start": 15.736,
+     "end": 15.899
+    },
+    {
+     "w": "una",
+     "start": 15.899,
+     "end": 16.142
+    },
+    {
+     "w": "cuarta",
+     "start": 16.142,
+     "end": 16.513
+    },
+    {
+     "w": "parte",
+     "start": 16.513,
+     "end": 16.834
+    },
+    {
+     "w": "de",
+     "start": 16.834,
+     "end": 16.984
+    },
+    {
+     "w": "su",
+     "start": 16.984,
+     "end": 17.199
+    },
+    {
+     "w": "valor.",
+     "start": 17.199,
+     "end": 17.515
+    }
+   ],
+   "dur": 6.051
+  },
+  {
+   "text": "El ladrón se llama inflación.",
+   "start": 17.804,
+   "words": [
+    {
+     "w": "El",
+     "start": 17.804,
+     "end": 17.983
+    },
+    {
+     "w": "ladrón",
+     "start": 17.983,
+     "end": 18.503
+    },
+    {
+     "w": "se",
+     "start": 18.503,
+     "end": 18.735
+    },
+    {
+     "w": "llama",
+     "start": 18.735,
+     "end": 19.084
+    },
+    {
+     "w": "inflación.",
+     "start": 19.084,
+     "end": 19.771
+    }
+   ],
+   "dur": 1.966
+  },
+  {
+   "text": "El dinero parado se encoge. ¿El tuyo está trabajando?",
+   "start": 20.06,
+   "words": [
+    {
+     "w": "El",
+     "start": 20.06,
+     "end": 20.212
+    },
+    {
+     "w": "dinero",
+     "start": 20.212,
+     "end": 20.533
+    },
+    {
+     "w": "parado",
+     "start": 20.533,
+     "end": 20.866
+    },
+    {
+     "w": "se",
+     "start": 20.866,
+     "end": 21.062
+    },
+    {
+     "w": "encoge.",
+     "start": 21.062,
+     "end": 21.52
+    },
+    {
+     "w": "¿El",
+     "start": 21.882,
+     "end": 22.044
+    },
+    {
+     "w": "tuyo",
+     "start": 22.044,
+     "end": 22.336
+    },
+    {
+     "w": "está",
+     "start": 22.336,
+     "end": 22.672
+    },
+    {
+     "w": "trabajando?",
+     "start": 22.672,
+     "end": 23.241
+    }
+   ],
+   "dur": 3.181
+  }
+ ],
+ "nota": "tiempos estimados (voz Javier de Madrid, 23,5 s; pesos por palabra con Piper)"
+}

@@ -1,0 +1,11 @@
+{
+  "fecha": "2026-11-17",
+  "hora": "13:30",
+  "titulo": "El ladrón invisible (inflación)",
+  "formato": "3D propio (Three.js, toolkit/escena3d) · simulación con contador · subtítulos palabra a palabra",
+  "voz": "Javier de Madrid (Creative Claw, speech/gemini-3.8-flash-tts), 23,5 s",
+  "etiqueta_ia": true,
+  "datos": "10.000 € / 1,03^10 = 7.441 € de poder de compra (−25,6 %) con inflación del 3 % anual",
+  "caption": "Inflación: 10.000 € quietos en un cajón pierden más de una cuarta parte de su valor en 10 años (con un 3 % anual) 💸 ¿El tuyo está trabajando? 🔖 #inflacion #educacionfinanciera #poderadquisitivo #ahorro #eleurolisto",
+  "estado": "prueba 3D, pendiente de OK de Sergio"
+}
