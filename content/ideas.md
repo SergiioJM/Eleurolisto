@@ -13,6 +13,16 @@ Todo lo que dependa de datos actuales (IPC, tipos de interés, SMI, impuestos, n
 - Fondo de emergencia: entre 3 y 6 meses de gastos (con 1.200 €/mes → 3.600–7.200 €).
 - Subida de sueldo: si gastas toda la subida, tu ahorro no cambia (inflación del estilo de vida).
 
+## De actualidad (verificar el dato el mismo día; ver noticias.md)
+- Inflación en el 4,9 % (IPC adelantado de octubre 2026): 10.000 € parados pierden ~467 € de poder de compra en un año. Confirmar con el dato definitivo del INE.
+- Euríbor de octubre en el 3,239 % (+1,052 puntos en un año): qué pasa al revisar una hipoteca variable (ejemplo con supuestos claros, sin recomendar fija o variable).
+
+## Recreaciones de virales (ver virales.md)
+- "Estos dos cobran 1.500 €" (págate primero vs ahorrar lo que sobra).
+- "Haz este cálculo con tu sueldo".
+- "El 15 del mes y ya sin dinero": 3 pasos.
+- "5 reglas de dinero que nadie te explica".
+
 ## Elaborados (20:30, 20–35 s, con voz y etiqueta IA)
 - Interés compuesto (bola de nieve): 200 €/mes durante 30 años al 7 % → aportas 72.000 €, acabas con ~244.000 € (hipotético). Gráfico de líneas aportado vs total.
 - Empezar a los 25 o a los 35: 100 €/mes al 7 % hasta los 65 → ~262.000 € frente a ~122.000 € (hipotético).
