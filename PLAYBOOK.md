@@ -24,16 +24,17 @@ Cada noche se crean **dos reels originales para el día siguiente**, se envían 
 - Si un dato depende de la actualidad (IPC, tipos, SMI, impuestos, normativa), verifícalo con una búsqueda web ese día; si no puedes verificarlo, elige otro tema.
 - Aplica los patrones de `content/virales.md`: problema en segunda persona en el primer segundo, cifra que cambia en pantalla desde el frame 1, método numerado, comparación A vs B, final en bucle, CTA de guardar o compartir.
 
-## 4. Reel de las 13:30 — corto (8–14 s, SIN voz, solo música)
-- Una idea, una cifra, gancho en el primer segundo. Por defecto con reelkit sin voz: `Reel(carpeta, duraciones=[...])` y música propia (gratis).
+## 4. Reel de las 13:30 — corto (12–20 s, con VOZ LOCAL gratis)
+- **Decisión de Sergio (16-nov): el de las 13:30 lleva voz local gratuita; el de las 20:30, Javier.** Voces locales elegidas por Sergio: `v1` (Hombre 1, Piper davefx) y `k_santa` (Hombre 4, Kokoro em_santa). Altérnalas día a día (apunta cuál en el registro). `voces.make(frases, carpeta, voz)` da `voice.wav` y `timings.json` con tiempos exactos por frase y por palabra → subtítulos perfectos y mezcla 100 % local (0 créditos): en reels 3D usa `audio.mezclar` añadiendo la voz al final, en reelkit `Reel(carpeta)` con voz propia.
+- Una idea, una cifra, gancho en el primer segundo.
 - Alternativa: vidIQ `vidiq_motion_graphics` (vertical) + `vidiq_compose` con la pista de música de vidIQ
   `https://ai-music-tracks.s3.us-east-1.amazonaws.com/f5512ee3-0af8-41b2-b757-9c188468a11f/2d7bbf53-fdd9-404d-85e6-c5fa6de9feda.wav` (≈4 créditos por reel). Úsala solo si quedan más de 40 créditos.
-- Sin voz → sin etiqueta de IA → se programa directamente en vidIQ.
+- Con voz sintética → **etiqueta de IA** (`isAiGenerated: true`).
 
 ## 5. Reel de las 20:30 — elaborado (20–35 s, CON voz)
 - Copia `reels/2026-11-16_2030_regla_50_30_20/render.py` como plantilla y crea una animación nueva con `toolkit/reelkit.py` (texto animado, contadores, donut, barras, líneas, banner, CTA).
 - Guion: 5–8 frases cortas, la primera es el gancho (problema o cifra que sorprende en < 2 s). Números escritos con letras para la voz. Cierre con CTA ("Guárdate este vídeo…").
-- Voz (`toolkit/voces.py`): `v1` hombre A (la principal), `v2` hombre B, `v3` mujer. Ve alternando según el tono del tema.
+- Voz: **Javier de Madrid** (Creative Claw, ≈11–12 créditos por reel con transcripción y mezcla). Si `get_credits_balance` < 12, usa la voz local (`v1` o `k_santa`) y avisa a Sergio de que puede recargar créditos.
 - **Lleva etiqueta de IA** (Meta la exige en reels narrados con voz sintética realista): se publica con `vidiq_instagram_publish_reel` e `isAiGenerated: true`.
 
 ## 6. Revisar antes de enviar
@@ -80,7 +81,7 @@ Motor propio en `toolkit/escena3d/`: Three.js renderizado fotograma a fotograma 
 7. Varía escenarios (salón, súper, oficina, banco, calle) y cámara; reutiliza piezas de `lib3d.js` (persona, cámara suave, subtítulos, partículas).
 
 ## Herramientas premium (con créditos limitados: mirar saldo antes)
-- **Voz premium "Javier de Madrid"** (elegida por Sergio): Creative Claw `generate_speech` con `model: speech/gemini-3.8-flash-tts`, `voice_id: voice_gdlx1kyxtwal`, `extras.style` = "Joven madrileño, cercano y con energía, ritmo ágil de reel, acento castellano de España". Llama antes a `get_model_params` de ese modelo. Coste ≈ 8–9 créditos por guion de 30 s. Es la voz por defecto del reel de las 20:30 mientras `get_credits_balance` de Creative Claw tenga ≥ 15 créditos; si no, voces locales v1–v3.
+- **Voz premium "Javier de Madrid"** (elegida por Sergio): Creative Claw `generate_speech` con `model: speech/gemini-3.8-flash-tts`, `voice_id: voice_gdlx1kyxtwal`, `extras.style` = "Joven madrileño, cercano y con energía, ritmo ágil de reel, acento castellano de España". Llama antes a `get_model_params` de ese modelo. Coste ≈ 8–9 créditos por guion de 30 s. Es la voz del reel de las 20:30 mientras `get_credits_balance` de Creative Claw tenga ≥ 12 créditos; si no, voces locales `v1` / `k_santa`. Truco: tras `transcribe`, `check_job` con `<job_id>:word-timings` no da los tiempos visibles; usa `toolkit/tiempos.py`.
   - El workspace no puede descargar el audio de Creative Claw. Flujo: (1) generar la voz; (2) `transcribe` (≈1 crédito) para comprobar el texto y la duración total; (3) estimar los tiempos de cada frase con las voces locales escaladas a esa duración (ver el bloque de `reels/2026-11-17_2030_estos_dos_cobran_lo_mismo`, timings.json) y animar las revelaciones como fracción de la frase, no en segundos exactos; (4) renderizar con `Reel(carpeta, voz_externa=timings)` → vídeo con música y efectos ya bajados donde habla la voz; (5) subirlo al repo y unirlo con `add_audio_to_video` (`audio_mode: mix`, `original_volume: 1`, `start_offset` = inicio de la primera frase). Usa la URL raw con el SHA del commit (`raw.githubusercontent.com/SergiioJM/Eleurolisto/<sha>/...`): la URL con `main` puede servir una copia antigua en caché ≈ 2 créditos; (6) importar la URL final a vidIQ con `vidiq_video_upload`.
 - **HyperFrames by HeyGen** (`compose`): Sergio prefiere claramente nuestra animación propia; HyperFrames solo si él lo pide o para una prueba puntual (animación HTML más cinematográfica). Pedir siempre vertical 1080x1920, español de España, paleta de marca y zona segura. Revisa el resultado antes de proponerlo.
 - **Creative Claw** también da música (`generate_music`, ≈16 créditos/30 s), efectos de sonido y clips de vídeo con IA (≈31 créditos/5 s): solo para reels especiales, con etiqueta de IA.
