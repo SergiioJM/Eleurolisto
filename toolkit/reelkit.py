@@ -346,7 +346,7 @@ class Reel:
         return f"{self.d}/{sheet}"
 
     def render(self, scenes, out_name="video.mp4", bpm=100, style="upbeat", music_seed=1,
-               music_gain=0.42, duck_gain=0.16, sfx=None, auto_sfx=True, punch=True, sfx_gain=0.35):
+               music_gain=0.30, duck_gain=0.09, sfx=None, auto_sfx=True, punch=True, sfx_gain=0.35):
         """sfx: lista de (segundo_global, "pop"|"ding"|"whoosh"|"tick"|"thud"[, ganancia]).
         auto_sfx: whoosh en cada corte de escena. punch: zoom-in corto al empezar cada escena (salvo la primera)."""
         assert len(scenes) == len(self.bounds) - 1, "una escena por frase"
@@ -405,8 +405,10 @@ class Reel:
         mixd /= max(1.0, np.max(np.abs(mixd)) / 0.97)
         sf.write(f"{self.d}/mix.wav", mixd, msr)
         final = f"{self.d}/{out_name}"
+        # Con voz externa NO se normaliza: si no, la música sola se subiría a -14 LUFS y taparía la voz al mezclar.
+        af = "anull" if (self.seg and not self.has_voice) else "loudnorm=I=-14:TP=-1.5:LRA=11"
         subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", f"{self.d}/video_noaudio.mp4", "-i",
                         f"{self.d}/mix.wav", "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-c:a", "aac",
-                        "-b:a", "192k", "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", "-shortest",
+                        "-b:a", "192k", "-af", af, "-shortest",
                         "-movflags", "+faststart", final], check=True)
         return final
