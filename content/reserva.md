@@ -7,6 +7,6 @@
 - Estado: pendiente de aprobación (proponer para un 13:30).
 
 ## Estos dos cobran lo mismo (elaborado, 28 s, voz premium Javier de Madrid)
-- Vídeo final con voz: https://cdn.creativeclaw.co/u/626ff63d/videos/84e296a7-fa9e-4348-8a3e-c1c0fc89d597.mp4
+- Vídeo final con voz: https://cdn.creativeclaw.co/u/626ff63d/videos/0748541d-ee79-4f22-8029-a6fd164c0924.mp4
 - Carpeta: reels/2026-11-17_2030_estos_dos_cobran_lo_mismo (info.json con el caption propuesto)
 - Lleva voz sintética → etiqueta de IA. Estado: pendiente de aprobación (propuesto para el martes 17 a las 20:30).
