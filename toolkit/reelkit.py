@@ -302,9 +302,17 @@ def cta(canvas, t, line1="Guárdate este vídeo", line2="y empieza este mes",
 
 # ---------------- render ----------------
 class Reel:
-    def __init__(self, carpeta, duraciones=None, bg=None):
+    def __init__(self, carpeta, duraciones=None, bg=None, voz_externa=None):
+        """voz_externa: {"total": s, "segments": [{"start": s, "dur": s}, ...]} cuando la voz se genera fuera
+        (p. ej. Creative Claw / ElevenLabs). El vídeo se renderiza sin voz pero con la música ya bajada en
+        esos tramos; la voz se añade después con add_audio_to_video (mix)."""
         self.d = carpeta
-        if duraciones is None:
+        if voz_externa is not None:
+            self.seg = voz_externa["segments"]
+            self.total = voz_externa["total"]
+            self.bounds = [0.0] + [s["start"] - 0.15 for s in self.seg[1:]] + [self.total]
+            self.has_voice = False
+        elif duraciones is None:
             tim = json.load(open(f"{carpeta}/timings.json"))
             self.seg = tim["segments"]
             self.total = tim["total"]
@@ -383,7 +391,7 @@ class Reel:
         else:
             v = np.zeros(L)
         m = np.pad(m, ((0, L - len(m)), (0, 0)))
-        gain = np.full(L, music_gain if self.has_voice else 0.9)
+        gain = np.full(L, music_gain if (self.has_voice or self.seg) else 0.9)
         for s in self.seg:
             a, b = int((s["start"] - 0.1) * msr), int((s["start"] + s["dur"] + 0.1) * msr)
             gain[max(a, 0):b] = duck_gain
