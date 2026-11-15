@@ -1,0 +1,11 @@
+{
+  "fecha": "2026-11-16",
+  "hora": "20:30",
+  "tipo": "elaborado",
+  "tema": "Regla 50/30/20 con un sueldo de 1.500 €",
+  "voz": "v1",
+  "etiqueta_ia": true,
+  "caption": "Cobras, pagas… y a final de mes no queda nada. Prueba la regla 50/30/20: 50 % necesidades, 30 % caprichos y 20 % ahorro, que se aparta nada más cobrar. Guárdalo para tu próxima nómina 📌 #finanzaspersonales #ahorro #regla503020 #presupuesto #dinero",
+  "estado": "aprobado por Sergio el 15-nov; publicación a las 20:30 con aviso programado en la sesión",
+  "nota": "video.mp4 es la versión aprobada; render.py la reproduce (música con otra semilla)."
+}

@@ -1,0 +1,8 @@
+scenes/
+*.tmp.mp4
+video_noaudio.mp4
+video_render.mp4
+mix.wav
+voice.wav
+contact.png
+__pycache__/
