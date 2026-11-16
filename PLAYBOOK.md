@@ -9,6 +9,8 @@ Cada noche se crean **dos reels originales para el día siguiente**, se envían 
 - Idioma: español de España. Público: gente joven de España que quiere ordenar su dinero.
 - Créditos vidIQ: plan de 150 al mes (se renuevan el día 15). Usa `vidiq_balance` antes de gastar.
 
+- **TikTok** (conectada el 16-nov): cuenta "ElEuroListo", platformAccountId `_000b2tJjlVPLTMeBn-1fa43rOYtI8PMc2in`. **El OK de Sergio a un reel vale para Instagram y TikTok a la vez** (mismo vídeo, mismo texto aprobado). Ajustes elegidos por Sergio: `privacyLevel: PUBLIC_TO_EVERYONE`, `allowComment: true`, `musicUsageConfirmed: true` (aceptó la Confirmación de uso de música de TikTok), `isAiGenerated: true` si lleva voz sintética. Se publica a la hora con `vidiq_social_post_draft_create` (destino TIKTOK, sin `publishAt`) + `vidiq_social_post_publish` en el mismo aviso `send_later` que Instagram. Nunca con `publishAt` (no se puede cancelar).
+
 ## 1. Preparar el entorno
 1. `add_repo` SergiioJM/Eleurolisto con acceso `push`, clonarlo y `register_repo_root`.
 2. `bash toolkit/setup.sh` (instala dependencias y descarga las voces; tarda ~1 min).
