@@ -1,0 +1,7 @@
+{"fecha":"17 nov 2026","fuente":"Ejemplo de prueba (no publicar)","etiqueta":"ÚLTIMA HORA",
+ "slides":[
+  {"tipo":"portada","titular":"El euríbor <em>baja</em> por tercer mes seguido","bajada":"Qué significa para tu hipoteca variable en 2027"},
+  {"tipo":"cifra","cifra":"−0,15","texto":"puntos en un mes","nota":"En una hipoteca de 150.000 € a 25 años son unos 12 € menos al mes."},
+  {"tipo":"puntos","titulo":"Cómo te afecta","puntos":["Si tu hipoteca es <em>variable</em>, bajará en la próxima revisión","Si es fija, no cambia nada","Los depósitos pagarán algo menos"]},
+  {"tipo":"cierre","titulo":"Qué puedes hacer","puntos":["Mira cuándo se revisa tu hipoteca","Compara con la oferta de otros bancos"],"cta":"Guárdalo 🔖"}
+ ]}
