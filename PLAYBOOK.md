@@ -26,6 +26,7 @@ Funcionas en automático: decide tú temas, formatos (3D, 2D, animation-studio, 
 - **Aprender de los datos (cada noche, 0 créditos):** `vidiq_instagram_owner_insights` con `platformAccountId` y `mode: "reels"` → visualizaciones, % visto, skip rate, compartidos y guardados de cada reel publicado. Apunta en `content/aprendizajes.md` qué gancho, formato (3D/2D), voz y duración retienen más, y prioriza eso en los temas y guiones siguientes. Inclúyelo en una línea en el mensaje a Sergio ("Ayer: X visualizaciones, Y % visto…").
 
 ## 3. Elegir los dos temas
+- **Vamos adelantados (Sergio, 16-nov: "así eso que adelantamos")**: si los dos huecos del día siguiente ya tienen reel aprobado (mira `content/registro.md`), no repitas: crea los dos del primer día que tenga huecos libres (p. ej., el martes por la noche, los del jueves) y díselo así al enviarlos.
 - Lee `content/registro.md` (no repetir temas recientes), `content/reserva.md`, `content/noticias.md`, `content/virales.md` y `content/ideas.md`.
 - Prioridad: (1) noticia importante del día si la hay, (2) recreación de un patrón viral, (3) banco de ideas. Puedes inventar temas nuevos.
 - Si un dato depende de la actualidad (IPC, tipos, SMI, impuestos, normativa), verifícalo con una búsqueda web ese día; si no puedes verificarlo, elige otro tema.
