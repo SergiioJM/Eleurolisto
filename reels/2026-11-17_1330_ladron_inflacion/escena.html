@@ -39,7 +39,6 @@
   <div><svg width="46" height="46" viewBox="0 0 46 46"><path d="M3 21 43 3 30 43 21 26z" fill="#14181f"/></svg>Pásaselo a quien ahorra en un cajón</div>
 </div>
 <div id="marca" class="ov">@eleurolisto</div>
-<div id="portada" class="ov"><div class="kicker">SIMULACIÓN</div><h1>Hay un <em>ladrón</em> en tu casa</h1><div class="sub">y no lo ves</div></div>
 <script type="module">
 import * as THREE from "three";
 import * as L from "lib3d";
@@ -334,8 +333,6 @@ window.renderAt = (t) => {
 
   // ----- 2D -----
   subs(t);
-  L.portada($("portada"), t, 1.05);
-  $("subs").style.visibility = t < 1.25 ? "hidden" : "visible";
   [...barra.children].forEach((el, i) => { const a = st(i), b = i < S.length - 1 ? st(i + 1) : DUR; el.firstChild.style.width = 100 * clamp((t - a) / (b - a)) + "%"; });
   const kp = easeOut(prog(t, T3 - 0.35, 0.45)), panel = $("panel");
   panel.style.opacity = kp * (1 - 0.65 * prog(t, tSello - 0.2, 0.3));
@@ -352,7 +349,7 @@ window.renderAt = (t) => {
   sello.style.opacity = (ks > 0 ? 1 : 0) * (1 - prog(t, tTuyo - 0.35, 0.3));
   sello.firstChild.style.transform = `rotate(-7deg) scale(${lerp(2.3, 1, easeOut(ks))})`;
   sello.lastChild.style.opacity = easeOut(prog(t, tSello + 0.35, 0.3));
-  $("marca").style.opacity = (1 - prog(t, tTuyo - 0.2, 0.3)) * prog(t, 1.2, 0.3);
+  $("marca").style.opacity = 1 - prog(t, tTuyo - 0.2, 0.3);
   const kc = prog(t, tTuyo, 0.45), cta = $("cta");
   cta.style.opacity = kc > 0 ? 1 : 0;
   [...cta.children].forEach((el, i) => { const k = easeBack(prog(t, tTuyo + i * 0.18, 0.4), 1.8); el.style.transform = `translateY(${(1 - k) * 80}px) scale(${0.6 + 0.4 * k})`; el.style.opacity = clamp(k * 2); });
