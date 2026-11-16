@@ -18,6 +18,8 @@ Cada noche se crean **dos reels originales para el día siguiente**, se envían 
 - **Virales (los lunes, o si `content/virales.md` tiene más de 7 días)**: una búsqueda `vidiq_instagram_tiktok_outlier_search` (5 créditos) de reels de finanzas personales en español de los últimos 30 días, con audienceQuery de España. Si quedan > 60 créditos, opcionalmente `vidiq_outliers` de Shorts en español (5 créditos). Guarda ganchos, estructura, formato y patrones en `content/virales.md` y propón recreaciones. `vidiq_watch_shortform_content` cuesta 10 créditos: úsalo solo si un viral es clave y no se entiende su estructura.
 - Recrear ≠ copiar: misma idea de gancho o estructura, pero guion, cifras, diseño y voz nuestros.
 
+- **Aprender de los datos (cada noche, 0 créditos):** `vidiq_instagram_owner_insights` con `platformAccountId` y `mode: "reels"` → visualizaciones, % visto, skip rate, compartidos y guardados de cada reel publicado. Apunta en `content/aprendizajes.md` qué gancho, formato (3D/2D), voz y duración retienen más, y prioriza eso en los temas y guiones siguientes. Inclúyelo en una línea en el mensaje a Sergio ("Ayer: X visualizaciones, Y % visto…").
+
 ## 3. Elegir los dos temas
 - Lee `content/registro.md` (no repetir temas recientes), `content/reserva.md`, `content/noticias.md`, `content/virales.md` y `content/ideas.md`.
 - Prioridad: (1) noticia importante del día si la hay, (2) recreación de un patrón viral, (3) banco de ideas. Puedes inventar temas nuevos.
