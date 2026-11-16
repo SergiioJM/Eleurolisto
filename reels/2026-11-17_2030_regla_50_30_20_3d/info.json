@@ -9,5 +9,9 @@
   "datos": "1.400 € × 50/30/20 = 700/420/280 €; 280 € × 12 = 3.360 €; 60/20/20 = 840/280/280 € (recalculado con Python)",
   "caption": "Regla 50/30/20: con una nómina de 1.400 €, 280 € al mes para ti = 3.360 € al año 💶 ¿Alquiler caro? Haz 60/20/20, pero el ahorro no se toca. Guárdalo para tu próxima nómina 📌 #regla503020 #presupuesto #comoahorrar #finanzaspersonales #eleurolisto",
   "estado": "pendiente de aprobación de Sergio",
-  "origen": "content/reserva.md (rehacer el 50/30/20 con Javier) + patrón viral 'Haz este cálculo con tu sueldo'"
+  "origen": "content/reserva.md (rehacer el 50/30/20 con Javier) + patrón viral 'Haz este cálculo con tu sueldo'",
+  "video_sin_voz_sha": "https://raw.githubusercontent.com/SergiioJM/Eleurolisto/a73103cb197126db4322fbf7cb63df5b552590c3/reels/2026-11-17_2030_regla_50_30_20_3d/video_sin_voz.mp4",
+  "video_final": "https://cdn.creativeclaw.co/u/626ff63d/videos/68fffb94-2391-4dea-9b70-4b369b19a166.mp4",
+  "vidiq_uploadId": "dd9837d0-b3ca-4a76-b404-3845f3c8d5c7",
+  "comprobacion": "transcribe del vídeo final: voz completa y correcta, 26,8 s"
 }
