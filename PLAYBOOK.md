@@ -57,7 +57,7 @@ Funcionas en automático: decide tú temas, formatos (3D, 2D, animation-studio, 
 ## 8. Enviar a Sergio para aprobación
 - `SendUserFile` (status `proactive`, display `render`) con los dos vídeos.
 - Mensaje corto con, para cada reel: hora, tema, texto exacto del caption (máx. 5 hashtags) y si lleva etiqueta de IA.
-- **Aprobación de un toque (decisión de Sergio, 16-nov):** pregunta con `AskUserQuestion`, una pregunta por vídeo ("13:30 · <tema>", "20:30 · <tema>"), opciones `✅ Publicar` y `❌ Cambiar` (descripción: "Escribe el motivo en Otro"). Lo que escriba en "Otro" es su comentario: aplícalo y reenvía ese vídeo con una nueva pregunta. Si elige ❌ sin motivo, rehazlo con tu criterio. Si `AskUserQuestion` no está disponible, pídele que responda "✅" o "❌ 2: motivo".
+- **Aprobación de un toque (decisión de Sergio, 16-nov):** envía cada vídeo y su portada (imagen) y pregunta con `AskUserQuestion`, una pregunta por vídeo ("13:30 · <tema>", "20:30 · <tema>"), opciones `✅ Con portada` (la portada en el primer fotograma), `✅ Sin portada` (vídeo tal cual; la pone él a mano si quiere) y `❌ Cambiar` (descripción: "Escribe el motivo en Otro"). Lo que escriba en "Otro" es su comentario: aplícalo y reenvía ese vídeo con una nueva pregunta. Si elige ❌ sin motivo, rehazlo con tu criterio. Si `AskUserQuestion` no está disponible, pídele que responda "✅" o "❌ 2: motivo".
 - Cada noche la revisión va en su propia conversación (la de la tarea programada), no en el chat principal: ahí van también los avisos de publicación y los enlaces.
 - **Correo (decisión de Sergio, 16-nov: "usa Gmail")**: cada noche, además del chat y del `PushNotification`, manda el mismo resumen (vídeos con enlace, textos, métricas, noticias) por Gmail (`send_message`, HTML) desde la cuenta conectada de El Euro Listo a la dirección de la cuenta de Sergio (no la escribas en este repo, que es público). Los enlaces de lo publicado, también por correo. La aprobación sigue siendo solo en el chat. Si Gmail no está en la sesión, sigue y díselo en una línea.
 - Añade al final "Noticias de hoy": 2–4 líneas con lo relevante del nicho y su fuente (o "nada relevante hoy"). Los lunes, añade también 2–3 patrones virales nuevos.
@@ -73,12 +73,11 @@ Funcionas en automático: decide tú temas, formatos (3D, 2D, animation-studio, 
 ## 10. Registrar
 - Actualiza `content/registro.md` (fecha, hora, tipo, tema, voz, estado) y `content/reserva.md` si usaste algo de ahí. Commit y push.
 
-## Portada (obligatoria en cada reel — Sergio, 16-nov)
-Ni vidIQ ni la API de TikTok permiten subir una portada aparte (TikTok solo deja elegir un fotograma del vídeo; las herramientas que dicen "portada personalizada" en TikTok hacen justo esto). Por eso:
-1. **Diseña la portada como imagen aparte** con `node toolkit/portada.mjs portada.json` (fondo = el fotograma más potente del reel sin textos; gancho de 3–6 palabras ENORME, Inter 800 en mayúsculas, palabra clave o cifra en ámbar, kicker rojo arriba, línea corta debajo; todo dentro de la franja que se ve en la cuadrícula del perfil, y 240–1680 de 1920).
-2. **El vídeo NO se toca** (decisión de Sergio): la portada solo sustituye el primer fotograma (1/30 s, invisible al verlo) con `toolkit/poner_portada.sh video_sin_voz.mp4 portada/portada.jpg video_sin_voz_portada.mp4`. Ese es el vídeo que se sube y se mezcla con la voz. Instagram y TikTok toman ese fotograma como portada.
-3. Envía a Sergio la portada (imagen) junto con el vídeo para aprobar: aprueba las dos cosas a la vez.
-4. Para reels ya publicados sin portada: se la mandas y la cambia a mano en Instagram (Editar → Editar portada → Añadir desde el carrete); en TikTok no se puede cambiar después.
+## Portada (cada reel lleva una — Sergio, 16-nov: "atractiva para que la gente pulse y entre; yo decido si la pongo")
+Diseña SIEMPRE una portada aparte con `node toolkit/portada.mjs portada.json` y mándasela a Sergio junto al vídeo. Él decide si se usa.
+- **Objetivo: que pulsen.** Se ve en pequeño (cuadrícula del perfil, explorar, TikTok): 3–5 palabras enormes que abran una pregunta o prometan una cifra ("Hay un ladrón en tu casa", "2 € al día = 7.300 €", "Ella: 3.600 €. Él: 0 €"), la palabra clave o la cifra en ámbar, kicker rojo arriba, el visual más potente del reel de fondo (personaje con emoción, objeto en acción, cifra gigante), mucho contraste. Nunca fondo vacío ni texto pequeño. Todo dentro de la franja que se ve en la cuadrícula (y 240–1680 de 1920). Mantén la misma plantilla para que el perfil se vea coherente.
+- **Cómo se pone** (lo elige Sergio en la aprobación): "✅ Con portada" → `toolkit/poner_portada.sh` la mete solo en el primer fotograma (1/30 s, el vídeo se ve igual) y sale sola en Instagram y TikTok (vidIQ y la API de TikTok no permiten portada aparte). "✅ Sin portada" → se publica el vídeo tal cual y Sergio la pone a mano en Instagram si quiere (Editar → Editar portada → desde el carrete; en TikTok no se puede cambiar después).
+- Comprueba la portada a tamaño pequeño (reduce a 360 px de ancho y míralo) antes de enviarla.
 
 ## Edición: que cada reel sea original
 - **Música baja**: Sergio la quiere discreta, por debajo de la voz (por defecto `music_gain=0.30`, `duck_gain=0.09`). No la subas.
