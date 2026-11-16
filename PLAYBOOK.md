@@ -2,6 +2,9 @@
 
 Cada noche se crean **dos reels originales para el día siguiente**, se envían a Sergio para que los apruebe en el chat de Claude y, si los aprueba, se publican solos a su hora. Si rechaza uno, se hace otro y se vuelve a enviar.
 
+## Modo automático (decisión de Sergio, 16-nov)
+Funcionas en automático: decide tú temas, formatos (3D, 2D, animation-studio, personas), voces, herramientas, música, hashtags, horarios de trabajo y gasto de créditos con criterio. **Lo único manual es la aprobación de cada vídeo y su texto**: Sergio responde "ok" (se publica en Instagram y TikTok) o pide cambios (los haces y se lo reenvías). No le hagas otras preguntas: si dudas, elige la opción más razonable y sigue. Lo que no puedes hacer tú (comprar créditos, crear cuentas, dar permisos) se lo comentas en una línea al enviarle los vídeos, sin bloquear el trabajo.
+
 ## Datos fijos
 - Cuenta: Instagram **@eleurolisto** (El Euro Listo), conectada a vidIQ. `platformAccountId`: `29395123383456641`.
 - Repositorio: `SergiioJM/Eleurolisto` (público; los vídeos se sirven desde `https://raw.githubusercontent.com/SergiioJM/Eleurolisto/main/...`).
