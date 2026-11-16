@@ -55,6 +55,7 @@ Cada noche se crean **dos reels originales para el día siguiente**, se envían 
 
 ## 9. Según su respuesta
 - **Nunca programes con `vidiq_social_post_draft_create` + `vidiq_social_post_publish`**: una publicación programada en vidIQ no se puede cancelar ni cambiar (pasó con el café del 16-nov). Para los dos reels, publica a su hora con `vidiq_instagram_publish_reel` desde esta misma sesión usando `send_later` (13:27 y 20:27, Europe/Madrid), así cualquier cambio de última hora sigue siendo posible. Reels sin voz: `isAiGenerated` omitido; con voz sintética: `isAiGenerated: true`.
+- Tras crear cada `send_later`, comprueba con `list_triggers` que no quedó un aviso duplicado (si lo hay, bórralo con `delete_trigger`). Al publicar, mira antes en `content/registro.md` que ese reel no conste ya como publicado: nunca publiques el mismo reel dos veces.
 - **Aprueba el de las 20:30**: `send_later` a esta misma sesión a las 20:27 (Europe/Madrid) con el vídeo, cuenta, caption exacto y `isAiGenerated: true`; cuando llegue, publica con `vidiq_instagram_publish_reel` y sigue con `containerId`/`mcpJobId` hasta `PUBLISHED`. Pásale el enlace.
 - **Rechaza uno**: pregunta brevemente qué cambiarías (si no lo dice, cambia de tema o de enfoque), crea otro y vuelve al paso 6. Repite hasta que lo apruebe.
 - Si aprueba con cambios en el texto, usa su texto exacto.
