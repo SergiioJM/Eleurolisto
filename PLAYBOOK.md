@@ -73,6 +73,13 @@ Funcionas en automático: decide tú temas, formatos (3D, 2D, animation-studio, 
 ## 10. Registrar
 - Actualiza `content/registro.md` (fecha, hora, tipo, tema, voz, estado) y `content/reserva.md` si usaste algo de ahí. Commit y push.
 
+## Portada (obligatoria en cada reel — Sergio, 16-nov)
+vidIQ no deja subir una portada aparte: **la portada es el fotograma 0 del vídeo**, y en la cuadrícula del perfil se ve recortada a 3:4 (franja y 240–1680 de 1920). Por eso cada reel empieza con su portada ya montada:
+- Gancho en 3–6 palabras, ENORME (Inter 800, mayúsculas, 130–140 px), con la palabra clave o la cifra en ámbar, un "kicker" rojo arriba (SIMULACIÓN, GASTOS HORMIGA, ÚLTIMA HORA…) y una línea corta debajo. Centrado, dentro de la franja visible y sobre el visual más potente del reel (nunca un fondo vacío).
+- Se ve quieta en t=0 y sale con un zoom suave hacia t≈1 s (mientras tanto ocultar subtítulos y marca de agua). En 3D: `<div id="portada">` + `L.portada(el, t, 1.05)` de `lib3d.js` (ejemplo en `reels/2026-11-17_1330_ladron_inflacion`). En 2D (reelkit): dibuja lo mismo en la primera escena.
+- Comprueba siempre el fotograma 0 (`ffmpeg -ss 0 -frames:v 1`) antes de enviarlo a aprobar, y que el texto no choque con nada.
+- Si hace falta una portada suelta (para cambiarla a mano en Instagram: Editar → Editar portada → desde el carrete), `node toolkit/portada.mjs portada.json` (fondo = un fotograma del reel).
+
 ## Edición: que cada reel sea original
 - **Música baja**: Sergio la quiere discreta, por debajo de la voz (por defecto `music_gain=0.30`, `duck_gain=0.09`). No la subas.
 - Cada noche, algo distinto en la edición: estructura (lista, A vs B, reto, mito vs realidad, historia), gráfico protagonista (barras, línea, donut, contador, termómetro), fondo/acento de color y ritmo.
