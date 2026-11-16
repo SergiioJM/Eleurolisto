@@ -1,0 +1,321 @@
+{
+ "total": 16.94,
+ "voz": "v1",
+ "segments": [
+  {
+   "i": 0,
+   "start": 0.35,
+   "dur": 2.537,
+   "text": "Para recibir un Bizum, no tienes que aceptar nada.",
+   "words": [
+    {
+     "w": "Para",
+     "start": 0.35,
+     "end": 0.58
+    },
+    {
+     "w": "recibir",
+     "start": 0.58,
+     "end": 1.076
+    },
+    {
+     "w": "un",
+     "start": 1.076,
+     "end": 1.215
+    },
+    {
+     "w": "Bizum,",
+     "start": 1.215,
+     "end": 1.512
+    },
+    {
+     "w": "no",
+     "start": 1.512,
+     "end": 1.715
+    },
+    {
+     "w": "tienes",
+     "start": 1.715,
+     "end": 2.042
+    },
+    {
+     "w": "que",
+     "start": 2.042,
+     "end": 2.158
+    },
+    {
+     "w": "aceptar",
+     "start": 2.158,
+     "end": 2.575
+    },
+    {
+     "w": "nada.",
+     "start": 2.575,
+     "end": 2.887
+    }
+   ]
+  },
+  {
+   "i": 1,
+   "start": 3.187,
+   "dur": 3.664,
+   "text": "Si alguien te dice que te lo ha enviado por error, y te pide que lo aceptes…",
+   "words": [
+    {
+     "w": "Si",
+     "start": 3.187,
+     "end": 3.412
+    },
+    {
+     "w": "alguien",
+     "start": 3.412,
+     "end": 3.757
+    },
+    {
+     "w": "te",
+     "start": 3.757,
+     "end": 3.883
+    },
+    {
+     "w": "dice",
+     "start": 3.883,
+     "end": 4.212
+    },
+    {
+     "w": "que",
+     "start": 4.212,
+     "end": 4.319
+    },
+    {
+     "w": "te",
+     "start": 4.319,
+     "end": 4.452
+    },
+    {
+     "w": "lo",
+     "start": 4.452,
+     "end": 4.578
+    },
+    {
+     "w": "ha",
+     "start": 4.578,
+     "end": 4.722
+    },
+    {
+     "w": "enviado",
+     "start": 4.722,
+     "end": 5.137
+    },
+    {
+     "w": "por",
+     "start": 5.137,
+     "end": 5.32
+    },
+    {
+     "w": "error,",
+     "start": 5.32,
+     "end": 5.586
+    },
+    {
+     "w": "y",
+     "start": 5.586,
+     "end": 5.681
+    },
+    {
+     "w": "te",
+     "start": 5.681,
+     "end": 5.805
+    },
+    {
+     "w": "pide",
+     "start": 5.805,
+     "end": 6.077
+    },
+    {
+     "w": "que",
+     "start": 6.077,
+     "end": 6.201
+    },
+    {
+     "w": "lo",
+     "start": 6.201,
+     "end": 6.35
+    },
+    {
+     "w": "aceptes…",
+     "start": 6.35,
+     "end": 6.851
+    }
+   ]
+  },
+  {
+   "i": 2,
+   "start": 7.151,
+   "dur": 3.881,
+   "text": "en realidad te ha mandado una solicitud de dinero. Si la aceptas, pagas tú.",
+   "words": [
+    {
+     "w": "en",
+     "start": 7.151,
+     "end": 7.311
+    },
+    {
+     "w": "realidad",
+     "start": 7.311,
+     "end": 7.682
+    },
+    {
+     "w": "te",
+     "start": 7.682,
+     "end": 7.807
+    },
+    {
+     "w": "ha",
+     "start": 7.807,
+     "end": 7.945
+    },
+    {
+     "w": "mandado",
+     "start": 7.945,
+     "end": 8.369
+    },
+    {
+     "w": "una",
+     "start": 8.369,
+     "end": 8.606
+    },
+    {
+     "w": "solicitud",
+     "start": 8.606,
+     "end": 9.205
+    },
+    {
+     "w": "de",
+     "start": 9.205,
+     "end": 9.375
+    },
+    {
+     "w": "dinero.",
+     "start": 9.375,
+     "end": 9.679
+    },
+    {
+     "w": "Si",
+     "start": 9.679,
+     "end": 9.89
+    },
+    {
+     "w": "la",
+     "start": 9.89,
+     "end": 10.05
+    },
+    {
+     "w": "aceptas,",
+     "start": 10.05,
+     "end": 10.585
+    },
+    {
+     "w": "pagas",
+     "start": 10.585,
+     "end": 10.882
+    },
+    {
+     "w": "tú.",
+     "start": 10.882,
+     "end": 11.031
+    }
+   ]
+  },
+  {
+   "i": 3,
+   "start": 11.331,
+   "dur": 2.995,
+   "text": "Ante la duda, habla con tu banco antes de devolver nada.",
+   "words": [
+    {
+     "w": "Ante",
+     "start": 11.331,
+     "end": 11.664
+    },
+    {
+     "w": "la",
+     "start": 11.664,
+     "end": 11.833
+    },
+    {
+     "w": "duda,",
+     "start": 11.833,
+     "end": 12.125
+    },
+    {
+     "w": "habla",
+     "start": 12.125,
+     "end": 12.393
+    },
+    {
+     "w": "con",
+     "start": 12.393,
+     "end": 12.611
+    },
+    {
+     "w": "tu",
+     "start": 12.611,
+     "end": 12.75
+    },
+    {
+     "w": "banco",
+     "start": 12.75,
+     "end": 13.075
+    },
+    {
+     "w": "antes",
+     "start": 13.075,
+     "end": 13.438
+    },
+    {
+     "w": "de",
+     "start": 13.438,
+     "end": 13.586
+    },
+    {
+     "w": "devolver",
+     "start": 13.586,
+     "end": 14.012
+    },
+    {
+     "w": "nada.",
+     "start": 14.012,
+     "end": 14.327
+    }
+   ]
+  },
+  {
+   "i": 4,
+   "start": 14.627,
+   "dur": 1.414,
+   "text": "Mándaselo a tus padres.",
+   "words": [
+    {
+     "w": "Mándaselo",
+     "start": 14.627,
+     "end": 15.257
+    },
+    {
+     "w": "a",
+     "start": 15.257,
+     "end": 15.428
+    },
+    {
+     "w": "tus",
+     "start": 15.428,
+     "end": 15.65
+    },
+    {
+     "w": "padres.",
+     "start": 15.65,
+     "end": 16.041
+    }
+   ]
+  }
+ ]
+}

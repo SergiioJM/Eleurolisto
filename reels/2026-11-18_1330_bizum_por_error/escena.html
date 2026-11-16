@@ -1,0 +1,183 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<script type="importmap">{"imports":{"three":"../../toolkit/escena3d/node_modules/three/build/three.module.js","lib3d":"../../toolkit/escena3d/lib3d.js"}}</script>
+<style id="base"></style>
+<style>
+body{background:radial-gradient(ellipse 120% 80% at 50% 30%,#18305a 0%,#0d1830 55%,#08101f 100%)}
+#glow{position:absolute;left:-200px;right:-200px;top:700px;height:900px;background:radial-gradient(ellipse 50% 50% at 50% 50%,rgba(34,197,94,.25),transparent 70%)}
+#barra{left:60px;right:60px;top:92px;height:8px;display:flex;gap:10px}
+#barra i{flex:1;background:rgba(255,255,255,.28);border-radius:4px;overflow:hidden;position:relative}
+#barra i b{position:absolute;left:0;top:0;bottom:0;background:#fff;border-radius:4px}
+#label{left:62px;top:150px;font:600 30px 'DejaVu Sans Mono',monospace;letter-spacing:5px;color:rgba(235,240,255,.85)}
+#tel{left:50%;top:505px;width:640px;height:1000px;margin-left:-320px;border-radius:70px;background:#05070d;box-shadow:0 40px 90px rgba(0,0,0,.6),0 0 0 4px #2b3346 inset;transform-origin:50% 40%}
+#pant{position:absolute;left:18px;right:18px;top:18px;bottom:18px;border-radius:54px;overflow:hidden;background:#f2f4f8;font-family:'Inter',sans-serif;color:#141a26}
+#notch{position:absolute;left:50%;top:14px;width:150px;height:34px;margin-left:-75px;border-radius:20px;background:#05070d;z-index:5}
+.hdr{position:absolute;z-index:6;left:0;right:0;top:0;height:150px;background:#1d2a44;color:#fff;padding:70px 34px 0;box-sizing:border-box}
+.hdr .t{font:700 30px 'Inter'}
+.hdr .s{font:500 22px 'Inter';opacity:.7;margin-top:2px}
+#saldoBox{position:absolute;left:30px;right:30px;top:180px;background:#fff;border-radius:30px;padding:26px 30px;box-shadow:0 6px 20px rgba(20,30,60,.08)}
+#saldoBox .l{font:600 22px 'Inter';color:#6b7385;letter-spacing:2px}
+#saldo{font:800 92px/1.1 'Inter';letter-spacing:-2px;margin-top:6px}
+#delta{position:absolute;right:30px;top:22px;font:800 38px 'Inter'}
+.toast{position:absolute;left:30px;right:30px;top:440px;border-radius:26px;padding:22px 26px;display:flex;gap:18px;align-items:center;background:#e6f8ee;border:3px solid #22c55e}
+.toast b{font:800 38px 'Inter';color:#148a43}
+.toast span{display:block;font:600 25px 'Inter';color:#3b6e50;margin-top:4px}
+#auto{position:absolute;left:30px;right:30px;top:640px;text-align:center;font:800 44px/1.15 'Inter';color:#148a43}
+#chat{position:absolute;left:0;right:0;top:150px;bottom:0;background:#e9edf3}
+.burb{position:absolute;left:28px;max-width:430px;background:#fff;border-radius:28px 28px 28px 8px;padding:20px 24px;font:600 29px/1.3 'Inter';box-shadow:0 4px 12px rgba(0,0,0,.06)}
+#dots{position:absolute;left:28px;top:40px;background:#fff;border-radius:24px;padding:18px 24px;display:flex;gap:10px}
+#dots i{width:14px;height:14px;border-radius:50%;background:#9aa3b5}
+#sol{position:absolute;left:24px;right:24px;top:330px;background:#fff;border-radius:34px;padding:30px;box-shadow:0 18px 50px rgba(10,20,50,.25);border:3px solid transparent}
+#sol .k{font:700 22px 'Inter';letter-spacing:3px;color:#6b7385}
+#sol .q{font:800 36px/1.2 'Inter';margin:10px 0 4px}
+#sol .imp{font:800 84px/1 'Inter';letter-spacing:-2px;margin:14px 0 26px}
+#sol .bts{display:flex;gap:18px}
+#sol .bt{flex:1;text-align:center;font:800 32px 'Inter';padding:22px 0;border-radius:24px}
+#ok{background:#22c55e;color:#fff}
+#no{background:#e3e7ee;color:#3b4252}
+#dedo{position:absolute;width:160px;height:160px;left:0;top:0;z-index:9}
+#llamada{position:absolute;inset:0;background:linear-gradient(180deg,#123b2a,#0b2a1e);color:#fff;text-align:center}
+#llamada .ic{position:absolute;left:50%;top:290px;width:170px;height:170px;margin-left:-85px;border-radius:50%;background:#22c55e;display:flex;align-items:center;justify-content:center}
+#llamada .ring{position:absolute;left:50%;top:290px;width:170px;height:170px;margin-left:-85px;border-radius:50%;border:5px solid #4ade80}
+#llamada .t1{position:absolute;left:0;right:0;top:520px;font:800 44px 'Inter'}
+#llamada .t2{position:absolute;left:0;right:0;top:590px;font:600 28px 'Inter';opacity:.75}
+#sello{left:0;right:0;top:1010px;text-align:center;z-index:20}
+#sello b{display:inline-block;font:800 92px/1 'Inter';letter-spacing:2px;color:#ff4d3d;border:11px solid #ff4d3d;border-radius:24px;padding:18px 34px 14px;background:rgba(30,6,6,.78);box-shadow:0 0 60px rgba(255,77,61,.35)}
+#chip{left:0;right:0;top:420px;text-align:center}
+#chip b{display:inline-block;font:700 40px 'Poppins';color:#0b1a12;background:#4ade80;padding:12px 34px;border-radius:50px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+#fuente{left:0;right:0;top:1515px;text-align:center;font:600 28px 'Poppins';color:rgba(255,255,255,.75)}
+#cta{left:0;right:0;top:1080px;display:flex;flex-direction:column;align-items:center;gap:22px;z-index:20}
+#cta div{display:flex;align-items:center;gap:18px;font:700 44px 'Poppins';color:#14181f;background:#fff;padding:20px 44px;border-radius:70px;box-shadow:0 12px 34px rgba(0,0,0,.45)}
+#cta div.b{background:#ffc547}
+#marca{left:0;right:0;text-align:center;top:1515px;font:600 34px 'Poppins';color:rgba(255,255,255,.85)}
+</style></head>
+<body>
+<div id="glow" class="ov"></div>
+<div id="barra" class="ov"></div>
+<div id="label" class="ov">ALERTA · BIZUM POR ERROR</div>
+<div id="subs" class="ov"></div>
+<div id="tel" class="ov"><div id="notch"></div><div id="pant">
+  <div class="hdr"><div class="t" id="hdrT">Tu banco</div><div class="s" id="hdrS">Cuenta corriente</div></div>
+  <div id="vistaBanco">
+    <div id="saldoBox"><div class="l">SALDO</div><div id="saldo">820,00 €</div><div id="delta"></div></div>
+    <div class="toast" id="toast"><svg width="56" height="56" viewBox="0 0 56 56"><circle cx="28" cy="28" r="26" fill="#22c55e"/><path d="M15 29l9 9 17-19" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Has recibido 150 €</b><span>Ingreso automático · sin aceptar nada</span></div></div>
+    <div id="auto">RECIBIR = AUTOMÁTICO</div>
+  </div>
+  <div id="chat">
+    <div id="dots"><i></i><i></i><i></i></div>
+    <div class="burb" id="b1" style="top:40px">Perdona, te he enviado 150 € por error</div>
+    <div class="burb" id="b2" style="top:175px">¿Me lo aceptas para devolvértelo? Es urgente</div>
+    <div id="sol"><div class="k">SOLICITUD DE DINERO</div><div class="q">Número desconocido te pide:</div><div class="imp">150,00 €</div>
+      <div class="bts"><div class="bt" id="ok">Aceptar</div><div class="bt" id="no">Rechazar</div></div></div>
+  </div>
+  <div id="llamada"><div class="ring" id="r1"></div><div class="ring" id="r2"></div><div class="ic"><svg width="90" height="90" viewBox="0 0 24 24"><path fill="#fff" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg></div>
+    <div class="t1">Llamando a tu banco…</div><div class="t2">Antes de devolver nada</div></div>
+  <svg id="dedo" viewBox="0 0 120 120"><circle cx="40" cy="40" r="30" fill="rgba(255,255,255,.35)" id="tap"/><path d="M40 40 L40 92 Q40 112 60 112 L84 112 Q100 112 100 94 L100 66 Q100 58 92 58 Q86 58 84 64 L84 60 Q84 52 76 52 Q70 52 68 58 L68 56 Q68 48 60 48 Q54 48 52 54 L52 40 Q52 30 46 30 Q40 30 40 40Z" fill="#f2c39b" stroke="#7a4b2a" stroke-width="4"/></svg>
+</div></div>
+<div id="chip" class="ov"><b>No tienes que aceptar nada</b></div>
+<div id="sello" class="ov"><b>PAGAS TÚ</b></div>
+<div id="fuente" class="ov">Fuente: Banco de España (abril 2026)</div>
+<div id="cta" class="ov">
+  <div class="b"><svg width="46" height="46" viewBox="0 0 46 46"><path d="M3 21 43 3 30 43 21 26z" fill="#14181f"/></svg>Mándaselo a tus padres</div>
+  <div><svg width="40" height="48" viewBox="0 0 40 48"><path d="M4 3h32v42L20 33 4 45z" fill="#14181f"/></svg>Guárdalo</div>
+</div>
+<div id="marca" class="ov">@eleurolisto</div>
+<script type="module">
+import * as L from "lib3d";
+const { clamp, lerp, prog, easeOut, easeInOut, easeBack, easeIn, smooth } = L;
+document.getElementById("base").textContent = L.CSS_BASE + "#subs{top:255px}";
+const TIM = window.TIM, S = TIM.segments;
+const st = (i) => S[i].start, en = (i) => S[i].start + S[i].dur;
+const pal = (i, f) => (S[i].words.find((w) => w.w.toLowerCase().includes(f)) || S[i].words[0]).start;
+const DUR = (window.DURACION = +(TIM.total + 0.45).toFixed(2));
+const tChat = st(1) - 0.25, tB1 = pal(1, "enviado") - 0.2, tB2 = pal(1, "pide") - 0.15;
+const tSol = st(2) - 0.1, tSolW = pal(2, "solicitud"), tAcepta = pal(2, "aceptas") - 0.15, tPagas = pal(2, "pagas");
+const tBanco = st(3) - 0.15, tCTA = st(4) - 0.1;
+const $ = (id) => document.getElementById(id);
+const subs = L.subtitulos($("subs"), TIM, { clave: ["bizum", "nada", "error", "solicitud", "pagas", "banco", "padres"] });
+const barra = $("barra"); barra.innerHTML = S.map(() => "<i><b></b></i>").join("");
+const eur = (v) => v.toFixed(2).replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " €";
+const vis = (el, o, tr = "") => { el.style.opacity = o; el.style.transform = tr; };
+
+window.renderAt = (t) => {
+  subs(t);
+  [...barra.children].forEach((el, i) => { const a = i === 0 ? 0 : st(i), b = i < S.length - 1 ? st(i + 1) : DUR; el.firstChild.style.width = 100 * clamp((t - a) / (b - a)) + "%"; });
+  // teléfono: entra ya visible, leve flotación
+  const kt = easeOut(prog(t, 0, 0.35));
+  const fuera = easeIn(prog(t, tCTA - 0.1, 0.5));
+  $("tel").style.transform = `translateY(${(1 - kt) * 80 + Math.sin(t * 1.3) * 6 + fuera * 60}px) scale(${(0.96 + 0.04 * kt) * (1 - 0.12 * fuera)}) rotate(${Math.sin(t * 0.9) * 0.6}deg)`;
+  $("tel").style.opacity = 1 - 0.55 * fuera;
+  // vista banco (gancho): ingreso automático
+  const enBanco = t < tChat;
+  $("vistaBanco").style.display = enBanco || (t >= tSol && t < tBanco) ? "block" : "none";
+  const kIn = easeOut(prog(t, 0.15, 0.7));
+  let saldo = 820 + 150 * kIn, delta = kIn > 0.05 ? "+150 €" : "", colD = "#148a43";
+  // cuando acepta la solicitud: baja 150 desde el saldo inicial (escena del timo)
+  if (t >= tChat) { saldo = 820; delta = ""; }
+  const kPaga = easeInOut(prog(t, tAcepta + 0.25, 0.6));
+  if (t >= tAcepta + 0.25) { saldo = 820 - 150 * kPaga; delta = "−150 €"; colD = "#e0352b"; }
+  $("saldo").textContent = eur(saldo); $("saldo").style.color = t >= tAcepta + 0.25 ? "#e0352b" : "#141a26";
+  $("delta").textContent = delta; $("delta").style.color = colD;
+  vis($("delta"), delta ? 1 : 0, `scale(${1 + 0.25 * Math.exp(-Math.max(0, t - (t >= tAcepta ? tAcepta + 0.25 : 0.15)) * 6)})`);
+  const kToast = easeBack(prog(t, 0.2, 0.45), 2);
+  vis($("toast"), enBanco ? clamp(kToast * 2) : 0, `translateY(${(1 - kToast) * -60}px)`);
+  vis($("auto"), enBanco ? easeOut(prog(t, pal(0, "aceptar") - 0.3, 0.3)) : 0, `scale(${0.8 + 0.2 * easeBack(prog(t, pal(0, "aceptar") - 0.3, 0.35), 2)})`);
+  $("hdrT").textContent = t < tChat || (t >= tSol + 0.0 && false) ? "Tu banco" : t < tBanco ? "Número desconocido" : "Tu banco";
+  $("hdrS").textContent = t < tChat ? "Cuenta corriente" : t < tBanco ? "en línea" : "Atención al cliente";
+  // chat del estafador
+  $("chat").style.display = t >= tChat && t < tBanco ? "block" : "none";
+  const kc = easeOut(prog(t, tChat, 0.3)), kScroll = easeInOut(prog(t, tSol - 0.05, 0.4));
+  $("chat").style.transform = `translateX(${(1 - kc) * 100}%) translateY(${-150 * kScroll}px)`;
+  $("dots").style.opacity = t > tChat && t < tB1 ? 1 : 0;
+  [...$("dots").children].forEach((d, i) => (d.style.transform = `translateY(${-8 * Math.max(0, Math.sin(t * 9 - i * 0.9))}px)`));
+  const k1 = easeBack(prog(t, tB1, 0.35), 1.8), k2 = easeBack(prog(t, tB2, 0.35), 1.8);
+  vis($("b1"), clamp(k1 * 2), `scale(${0.7 + 0.3 * clamp(k1)})`); $("b1").style.transformOrigin = "0 100%";
+  vis($("b2"), clamp(k2 * 2), `scale(${0.7 + 0.3 * clamp(k2)})`); $("b2").style.transformOrigin = "0 100%";
+  // solicitud
+  const ks = easeBack(prog(t, tSol, 0.45), 1.6);
+  vis($("sol"), clamp(ks * 2), `translateY(${(1 - clamp(ks)) * 500}px)`);
+  const kRojo = prog(t, tSolW - 0.05, 0.25);
+  $("sol").style.borderColor = kRojo > 0 ? `rgba(255,77,61,${0.4 + 0.6 * Math.abs(Math.sin((t - tSolW) * 6))})` : "transparent";
+  $("sol").querySelector(".k").style.color = kRojo > 0 ? "#e0352b" : "#6b7385";
+  // en la parte del timo, el saldo se ve arriba del chat: lo mostramos encima
+  if (t >= tSol && t < tBanco) { $("vistaBanco").style.display = "block"; $("toast").style.opacity = 0; $("auto").style.opacity = 0; $("saldoBox").style.zIndex = 3; $("saldoBox").style.top = "770px"; }
+  else { $("saldoBox").style.top = "180px"; }
+  $("vistaBanco").style.position = "absolute"; $("vistaBanco").style.inset = "0"; $("vistaBanco").style.pointerEvents = "none";
+  $("vistaBanco").style.zIndex = t >= tSol ? 4 : 1;
+  $("saldoBox").style.opacity = t >= tChat && t < tSol ? 0 : 1;
+  const kSB = easeOut(prog(t, tSol + 0.2, 0.35));
+  $("saldoBox").style.transform = t >= tSol ? `translateY(${(1 - kSB) * 160}px) scale(0.86)` : "";
+  if (t >= tSol && t < tBanco) $("saldoBox").style.opacity = kSB;
+  // dedo que pulsa "Aceptar"
+  const okEl = $("ok"), pant = $("pant");
+  const kd = easeInOut(prog(t, tAcepta - 0.5, 0.55)), tap = prog(t, tAcepta + 0.05, 0.25);
+  const dedoOn = t > tAcepta - 0.5 && t < tAcepta + 1.4;
+  $("dedo").style.opacity = dedoOn ? 1 : 0;
+  const sol = $("sol"), chat = $("chat");
+  const ox = sol.offsetLeft + okEl.offsetLeft + okEl.offsetWidth * 0.55, oy = chat.offsetTop - 150 * kScroll + sol.offsetTop + okEl.offsetTop + okEl.offsetHeight * 0.5;
+  const dx = lerp(480, ox - 53, kd), dy = lerp(980, oy - 40, kd);
+  $("dedo").style.transform = `translate(${dx}px,${dy}px) scale(${1 - 0.12 * Math.sin(Math.PI * tap)})`;
+  $("tap").style.opacity = tap > 0 && tap < 1 ? 1 - tap : 0; $("tap").setAttribute("r", 20 + 40 * tap);
+  okEl.style.filter = tap > 0 && tap < 1 ? "brightness(.8)" : "";
+  // sello PAGAS TÚ
+  const kp = prog(t, tPagas - 0.05, 0.22);
+  $("sello").style.opacity = (kp > 0 ? 1 : 0) * (1 - prog(t, tBanco - 0.2, 0.25));
+  $("sello").firstChild.style.transform = `rotate(-7deg) scale(${lerp(2.3, 1, easeOut(kp))})`;
+  // llamada al banco
+  const kl = easeOut(prog(t, tBanco, 0.35));
+  $("llamada").style.display = t >= tBanco ? "block" : "none";
+  $("llamada").style.transform = `translateY(${(1 - kl) * 100}%)`;
+  ["r1", "r2"].forEach((id, i) => { const ph = ((t - tBanco) * 0.9 + i * 0.5) % 1; $(id).style.transform = `scale(${1 + ph * 1.1})`; $(id).style.opacity = 1 - ph; });
+  // chip del gancho
+  const kch = easeBack(prog(t, pal(0, "nada") - 0.1, 0.35), 2.2);
+  vis($("chip"), t < tChat - 0.05 ? clamp(kch * 2) : 0, `scale(${0.6 + 0.4 * clamp(kch)})`);
+  // fuente
+  $("fuente").style.opacity = t > tSol + 0.3 && t < tCTA ? easeOut(prog(t, tSol + 0.3, 0.3)) : 0;
+  // CTA
+  const kc2 = prog(t, tCTA, 0.45);
+  $("cta").style.opacity = kc2 > 0 ? 1 : 0;
+  [...$("cta").children].forEach((el, i) => { const k = easeBack(prog(t, tCTA + i * 0.18, 0.4), 1.8); el.style.transform = `translateY(${(1 - k) * 80}px) scale(${0.6 + 0.4 * k})`; el.style.opacity = clamp(k * 2); });
+  $("marca").style.opacity = t < tCTA && $("fuente").style.opacity < 0.05 ? 1 : 0;
+};
+window.listo = true;
+</script></body></html>

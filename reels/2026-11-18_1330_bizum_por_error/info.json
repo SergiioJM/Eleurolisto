@@ -1,0 +1,12 @@
+{
+  "fecha": "2026-11-18",
+  "hora": "13:30",
+  "titulo": "Bizum por error: si lo aceptas, pagas tú",
+  "formato": "2D propio (HTML animado con el motor de toolkit/escena3d): móvil con ingreso automático, chat del estafador, solicitud de dinero, dedo que acepta, saldo que baja y llamada al banco",
+  "voz": "local v1 (Hombre 1, Piper davefx), 16,9 s",
+  "etiqueta_ia": true,
+  "datos": "Banco de España, Portal del Cliente Bancario, 23-abr-2026: 'Recibir dinero no requiere confirmación'; estafas 'Bizum inverso' y 'falsa devolución' (https://clientebancario.bde.es/pcb/es/blog/estafas-por-bizum.html). Consumo/CEC, 27-abr-2026.",
+  "caption": "Bizum por error: para recibir dinero no tienes que aceptar nada. Si te piden que aceptes una solicitud, pagas tú ⚠️ Fuente: Banco de España. Mándaselo a tus padres 👇 #bizum #estafas #ciberseguridad #finanzaspersonales #eleurolisto",
+  "portada": "portada/portada.jpg (video_portada.mp4 = misma pieza con la portada en el primer fotograma)",
+  "estado": "pendiente de aprobación de Sergio"
+}
