@@ -210,7 +210,24 @@ export function subtitulos(el, tim, { sust = [], clave = [], maxPal = 4, maxCar 
   };
 }
 
+// ---------- portada (el fotograma 0 ES la portada del reel en Instagram y TikTok) ----------
+// <div id="portada" class="ov"><div class="kicker">SIMULACIÓN</div><h1>HAY UN <em>LADRÓN</em> EN TU CASA</h1><div class="sub">y no lo ves</div></div>
+// Visible y quieta en t=0 (portada), se va con un zoom suave hacia t=fin. Texto centrado: sobrevive al recorte 3:4 de la cuadrícula.
+export function portada(el, t, fin = 1.0) {
+  const k = prog(t, fin, 0.35);
+  el.style.opacity = 1 - easeIn(k);
+  el.style.transform = `scale(${1 + 0.12 * easeIn(k)})`;
+  el.style.display = k >= 1 ? "none" : "flex";
+}
+
 export const CSS_BASE = `
+#portada{left:0;right:0;top:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 64px;
+  background:radial-gradient(ellipse 80% 45% at 50% 50%, rgba(6,8,18,.78), rgba(6,8,18,.25) 75%, rgba(6,8,18,0))}
+#portada .kicker{font:700 40px 'Poppins';letter-spacing:6px;color:#fff;background:#ff4d3d;padding:10px 28px;border-radius:40px;margin-bottom:38px}
+#portada h1{font:800 138px/0.98 'Inter';color:#fff;letter-spacing:-4px;text-transform:uppercase;text-shadow:0 10px 40px rgba(0,0,0,.65)}
+#portada h1 em{font-style:normal;color:#ffc547}
+#portada .sub{font:700 58px 'Poppins';color:#fff;margin-top:34px;background:rgba(255,255,255,.12);padding:12px 34px;border-radius:50px}
+
 html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#000;font-family:'Poppins',sans-serif}
 canvas{position:absolute;inset:0}
 .ov{position:absolute;pointer-events:none}
