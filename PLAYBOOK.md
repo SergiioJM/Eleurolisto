@@ -56,7 +56,9 @@ Funcionas en automático: decide tú temas, formatos (3D, 2D, animation-studio, 
 
 ## 8. Enviar a Sergio para aprobación
 - `SendUserFile` (status `proactive`, display `render`) con los dos vídeos.
-- Mensaje con, para cada reel: hora, tema, texto exacto del caption (máx. 5 hashtags) y si lleva etiqueta de IA. Pregunta: "¿Los apruebas?".
+- Mensaje corto con, para cada reel: hora, tema, texto exacto del caption (máx. 5 hashtags) y si lleva etiqueta de IA.
+- **Aprobación de un toque (decisión de Sergio, 16-nov):** pregunta con `AskUserQuestion`, una pregunta por vídeo ("13:30 · <tema>", "20:30 · <tema>"), opciones `✅ Publicar` y `❌ Cambiar` (descripción: "Escribe el motivo en Otro"). Lo que escriba en "Otro" es su comentario: aplícalo y reenvía ese vídeo con una nueva pregunta. Si elige ❌ sin motivo, rehazlo con tu criterio. Si `AskUserQuestion` no está disponible, pídele que responda "✅" o "❌ 2: motivo".
+- Cada noche la revisión va en su propia conversación (la de la tarea programada), no en el chat principal: ahí van también los avisos de publicación y los enlaces.
 - Añade al final "Noticias de hoy": 2–4 líneas con lo relevante del nicho y su fuente (o "nada relevante hoy"). Los lunes, añade también 2–3 patrones virales nuevos.
 - **Solo cuenta la aprobación que Sergio da en este chat.** Nunca publiques sin ella; si no responde antes de la hora, no se publica.
 
