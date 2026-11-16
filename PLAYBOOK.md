@@ -59,6 +59,7 @@ Funcionas en automático: decide tú temas, formatos (3D, 2D, animation-studio, 
 - Mensaje corto con, para cada reel: hora, tema, texto exacto del caption (máx. 5 hashtags) y si lleva etiqueta de IA.
 - **Aprobación de un toque (decisión de Sergio, 16-nov):** pregunta con `AskUserQuestion`, una pregunta por vídeo ("13:30 · <tema>", "20:30 · <tema>"), opciones `✅ Publicar` y `❌ Cambiar` (descripción: "Escribe el motivo en Otro"). Lo que escriba en "Otro" es su comentario: aplícalo y reenvía ese vídeo con una nueva pregunta. Si elige ❌ sin motivo, rehazlo con tu criterio. Si `AskUserQuestion` no está disponible, pídele que responda "✅" o "❌ 2: motivo".
 - Cada noche la revisión va en su propia conversación (la de la tarea programada), no en el chat principal: ahí van también los avisos de publicación y los enlaces.
+- **Correo (16-nov):** a Sergio no le llegó el correo del aviso. Además de `PushNotification`, si el conector de Gmail está activo en la sesión, mándale también el resumen (vídeos, textos y enlace) por Gmail a la dirección de su cuenta (no la escribas en este repo, que es público). Si Gmail no está activo, sigue igual y no le preguntes.
 - Añade al final "Noticias de hoy": 2–4 líneas con lo relevante del nicho y su fuente (o "nada relevante hoy"). Los lunes, añade también 2–3 patrones virales nuevos.
 - **Solo cuenta la aprobación que Sergio da en este chat.** Nunca publiques sin ella; si no responde antes de la hora, no se publica.
 
