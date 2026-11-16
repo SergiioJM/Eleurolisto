@@ -1,0 +1,372 @@
+{
+ "total": 26.3,
+ "fuente": "wordTimings de Creative Claw (voz de Javier)",
+ "segments": [
+  {
+   "text": "Cobras 1.400 €… y el día 20 ya estás a cero.",
+   "start": 0.2,
+   "dur": 3.0,
+   "words": [
+    {
+     "w": "Cobras",
+     "start": 0.2,
+     "end": 0.6
+    },
+    {
+     "w": "1.400 €…",
+     "start": 0.6,
+     "end": 1.6
+    },
+    {
+     "w": "y",
+     "start": 1.7,
+     "end": 1.8
+    },
+    {
+     "w": "el",
+     "start": 1.8,
+     "end": 1.9
+    },
+    {
+     "w": "día",
+     "start": 1.9,
+     "end": 2.1
+    },
+    {
+     "w": "20",
+     "start": 2.1,
+     "end": 2.5
+    },
+    {
+     "w": "ya",
+     "start": 2.5,
+     "end": 2.6
+    },
+    {
+     "w": "estás",
+     "start": 2.6,
+     "end": 2.8
+    },
+    {
+     "w": "a",
+     "start": 2.8,
+     "end": 2.88
+    },
+    {
+     "w": "cero.",
+     "start": 2.8,
+     "end": 3.2
+    }
+   ]
+  },
+  {
+   "text": "Prueba la regla 50/30/20.",
+   "start": 3.4,
+   "dur": 2.0,
+   "words": [
+    {
+     "w": "Prueba",
+     "start": 3.4,
+     "end": 3.6
+    },
+    {
+     "w": "la",
+     "start": 3.6,
+     "end": 3.7
+    },
+    {
+     "w": "regla",
+     "start": 3.7,
+     "end": 4.0
+    },
+    {
+     "w": "50/30/20.",
+     "start": 4.0,
+     "end": 5.4
+    }
+   ]
+  },
+  {
+   "text": "El 50 %, 700 €, para lo que necesitas, alquiler, comida y facturas.",
+   "start": 5.6,
+   "dur": 4.8,
+   "words": [
+    {
+     "w": "El",
+     "start": 5.6,
+     "end": 5.8
+    },
+    {
+     "w": "50 %,",
+     "start": 5.8,
+     "end": 6.6
+    },
+    {
+     "w": "700 €,",
+     "start": 6.7,
+     "end": 7.5
+    },
+    {
+     "w": "para",
+     "start": 7.6,
+     "end": 7.9
+    },
+    {
+     "w": "lo",
+     "start": 7.9,
+     "end": 8.0
+    },
+    {
+     "w": "que",
+     "start": 8.0,
+     "end": 8.2
+    },
+    {
+     "w": "necesitas,",
+     "start": 8.2,
+     "end": 8.7
+    },
+    {
+     "w": "alquiler,",
+     "start": 8.8,
+     "end": 9.4
+    },
+    {
+     "w": "comida",
+     "start": 9.4,
+     "end": 9.8
+    },
+    {
+     "w": "y",
+     "start": 9.8,
+     "end": 9.88
+    },
+    {
+     "w": "facturas.",
+     "start": 9.8,
+     "end": 10.4
+    }
+   ]
+  },
+  {
+   "text": "El 30, 420 € para planes y caprichos.",
+   "start": 10.7,
+   "dur": 2.5,
+   "words": [
+    {
+     "w": "El",
+     "start": 10.7,
+     "end": 10.9
+    },
+    {
+     "w": "30,",
+     "start": 10.9,
+     "end": 11.3
+    },
+    {
+     "w": "420 €",
+     "start": 11.4,
+     "end": 12.1
+    },
+    {
+     "w": "para",
+     "start": 12.1,
+     "end": 12.4
+    },
+    {
+     "w": "planes",
+     "start": 12.4,
+     "end": 12.6
+    },
+    {
+     "w": "y",
+     "start": 12.6,
+     "end": 12.7
+    },
+    {
+     "w": "caprichos.",
+     "start": 12.7,
+     "end": 13.2
+    }
+   ]
+  },
+  {
+   "text": "Y el 20, 280 € para tu ahorro. Nada más cobrar.",
+   "start": 13.6,
+   "dur": 3.4,
+   "words": [
+    {
+     "w": "Y",
+     "start": 13.6,
+     "end": 13.7
+    },
+    {
+     "w": "el",
+     "start": 13.7,
+     "end": 13.8
+    },
+    {
+     "w": "20,",
+     "start": 13.8,
+     "end": 14.3
+    },
+    {
+     "w": "280 €",
+     "start": 14.3,
+     "end": 15.2
+    },
+    {
+     "w": "para",
+     "start": 15.2,
+     "end": 15.6
+    },
+    {
+     "w": "tu",
+     "start": 15.6,
+     "end": 15.7
+    },
+    {
+     "w": "ahorro.",
+     "start": 15.7,
+     "end": 16.1
+    },
+    {
+     "w": "Nada",
+     "start": 16.2,
+     "end": 16.5
+    },
+    {
+     "w": "más",
+     "start": 16.5,
+     "end": 16.7
+    },
+    {
+     "w": "cobrar.",
+     "start": 16.7,
+     "end": 17.0
+    }
+   ]
+  },
+  {
+   "text": "En 1 año son 3.360 €.",
+   "start": 17.4,
+   "dur": 2.2,
+   "words": [
+    {
+     "w": "En",
+     "start": 17.4,
+     "end": 17.5
+    },
+    {
+     "w": "1 año",
+     "start": 17.5,
+     "end": 17.8
+    },
+    {
+     "w": "son",
+     "start": 17.8,
+     "end": 18.0
+    },
+    {
+     "w": "3.360 €.",
+     "start": 18.0,
+     "end": 19.6
+    }
+   ]
+  },
+  {
+   "text": "¿Alquiler caro? Haz 60/20/20. El ahorro no se toca.",
+   "start": 20.1,
+   "dur": 3.9,
+   "words": [
+    {
+     "w": "¿Alquiler",
+     "start": 20.1,
+     "end": 20.5
+    },
+    {
+     "w": "caro?",
+     "start": 20.5,
+     "end": 20.8
+    },
+    {
+     "w": "Haz",
+     "start": 21.0,
+     "end": 21.3
+    },
+    {
+     "w": "60/20/20.",
+     "start": 21.3,
+     "end": 22.5
+    },
+    {
+     "w": "El",
+     "start": 22.6,
+     "end": 22.8
+    },
+    {
+     "w": "ahorro",
+     "start": 22.8,
+     "end": 23.1
+    },
+    {
+     "w": "no",
+     "start": 23.1,
+     "end": 23.4
+    },
+    {
+     "w": "se",
+     "start": 23.4,
+     "end": 23.6
+    },
+    {
+     "w": "toca.",
+     "start": 23.6,
+     "end": 24.0
+    }
+   ]
+  },
+  {
+   "text": "Guárdate este vídeo para tu próxima nómina.",
+   "start": 24.2,
+   "dur": 1.7,
+   "words": [
+    {
+     "w": "Guárdate",
+     "start": 24.2,
+     "end": 24.5
+    },
+    {
+     "w": "este",
+     "start": 24.5,
+     "end": 24.7
+    },
+    {
+     "w": "vídeo",
+     "start": 24.7,
+     "end": 25.0
+    },
+    {
+     "w": "para",
+     "start": 25.0,
+     "end": 25.2
+    },
+    {
+     "w": "tu",
+     "start": 25.2,
+     "end": 25.3
+    },
+    {
+     "w": "próxima",
+     "start": 25.3,
+     "end": 25.6
+    },
+    {
+     "w": "nómina.",
+     "start": 25.6,
+     "end": 25.9
+    }
+   ]
+  }
+ ]
+}

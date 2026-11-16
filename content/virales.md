@@ -3,6 +3,29 @@
 Investigación semanal con vidIQ (`vidiq_instagram_tiktok_outlier_search`, 5 créditos). Aquí se guardan los patrones, no se copian vídeos:
 cada recreación usa guion, cifras, diseño y voz propios de El Euro Listo.
 
+## Semana del 16-nov-2026 (outlier search por FORMATO, español, audiencia España; excluidas las cuentas de la semana anterior)
+
+| Cuenta | Vistas (x su mediana) | Gancho (0–3 s) | Formato |
+|---|---|---|---|
+| @carlospujol__ (IG) | 284 K (91,6x) | Pantalla partida desde el frame 1: "LUJO PRIMERO" arriba vs "ACTIVOS PRIMERO" abajo | Animación 2D en paralelo, mismo personaje en dos caminos, solo música, en bucle |
+| @finanzas.facilitas (IG, España) | 189 K (45,9x) | Multitud 3D + texto "Mañana" (actualidad: huelga general) | Motion graphics que desglosa una nómina de 1.800 € con descuentos; voz + música + efectos; pregunta de debate al final |
+| @nataliaperez.co (IG) | 242 K (70,9x) | "RETO DE PAREJA: 10.000 juntos en 12 meses" | Tabla/plan estático paso a paso, música, CTA guardar y compartir con la pareja |
+| @triunfacontusfinanzas (IG) | 106 K (28,6x) | "Meta: 50 mil en 1 año…" con la mano escribiendo | Dividir una meta anual en al día / a la semana / al mes, a mano en libreta, 15 s, en bucle |
+| @pabloecomm (IG, España) | 49 K (51,9x) | Pregunta larga en pantalla + personaje animado sobre una pila de dinero | Animación 2D problema → 3 soluciones con metáforas visuales → CTA compartir |
+| @maria.lafuente.coach (TikTok, España) | 324 K (128x) | "10 preguntas que debes hacer en la SS antes de jubilarte (P1)" | Lista con serie por partes (P1, P2…), CTA "guarda este vídeo antes de…" |
+
+### Patrones nuevos
+9. **Pantalla partida en paralelo** (dos caminos a la vez, mismo personaje): se entiende sin sonido y engancha desde el frame 0.
+10. **Desglose de nómina con cifras reales de España** ("con un sueldo de 1.800 €…"): lo que te quitan/te queda, paso a paso. Funciona aún mejor si va pegado a la actualidad.
+11. **Meta grande → dividida en día/semana/mes**: convierte una cifra que asusta en una alcanzable.
+12. **Serie por partes (P1, P2…)** y "guarda este vídeo antes de…": fuerza guardados y que vuelvan.
+
+### Recreaciones propuestas (nuestro toque)
+- **"Gasta primero vs ahorra primero" en pantalla partida 3D**: el mismo personaje en dos pisos/caminos con el mismo sueldo; contadores en paralelo y final en bucle.
+- **"Tu nómina de 1.400 € explicada"**: bruto → neto (IRPF y Seguridad Social con supuestos claros y verificados el mismo día).
+- **"Quieres 3.000 € en un año"**: 250 €/mes = ~58 €/semana = ~8,2 €/día (recalcular), escrito a mano (animation-studio) o en 3D con una hucha.
+- **Serie "Antes de firmar…" (P1 hipoteca, P2 alquiler, P3 préstamo)**: preguntas que hacer, CTA guardar.
+
 ## Semana del 15-nov-2026 (reels de los últimos 30 días, español, finanzas personales)
 
 | Cuenta | Vistas (x su mediana) | Gancho (0–3 s) | Formato |
@@ -15,7 +38,7 @@ cada recreación usa guion, cifras, diseño y voz propios de El Euro Listo.
 | @donsaldo_ (TikTok) | 152 K (73x) | "ESTOS DOS GANAN EXACTAMENTE LO MISMO" (rojo vs verde) | Infografía animada comparando hábitos, en bucle |
 | @ahorroenserio (IG) | 81 K (27,5x) | "ESTE RETO SE HA HECHO VIRAL" + cuadrícula 1–52 | Sin cara, interfaz animada, música enérgica desde el primer frame, versión "fácil" al final |
 
-## Patrones que funcionan
+## Patrones que funcionan (semana del 15-nov)
 1. **Problema en segunda persona en el primer segundo**: "Si a mitad de mes estás sin dinero…", "Cobras X y no te llega".
 2. **Promesa concreta + método numerado**: "3 pasos", "5 reglas", "haz estos cálculos".
 3. **Prueba social del formato**: "Este reto se ha hecho viral".

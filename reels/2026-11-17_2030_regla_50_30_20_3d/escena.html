@@ -1,0 +1,435 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<script type="importmap">{"imports":{"three":"../../toolkit/escena3d/node_modules/three/build/three.module.js","lib3d":"../../toolkit/escena3d/lib3d.js"}}</script>
+<style id="base"></style>
+<style>
+#barra{left:60px;right:60px;top:92px;height:8px;display:flex;gap:10px}
+#barra i{flex:1;background:rgba(255,255,255,.28);border-radius:4px;overflow:hidden;position:relative}
+#barra i b{position:absolute;left:0;top:0;bottom:0;background:#fff;border-radius:4px}
+#label{left:62px;top:150px;font:600 30px 'DejaVu Sans Mono',monospace;letter-spacing:5px;color:rgba(235,240,255,.85);text-shadow:0 2px 8px rgba(0,0,0,.6)}
+#panel{left:62px;top:560px;border-left:5px solid rgba(255,255,255,.7);padding-left:28px;color:#fff;text-shadow:0 3px 14px rgba(0,0,0,.6)}
+#panel .lab{font:600 26px 'DejaVu Sans Mono',monospace;letter-spacing:5px;color:#c9d4ff}
+#panel .dia{font:700 120px/1 'Poppins';margin:4px 0 14px}
+#panel .val{font:700 64px/1.1 'Poppins';margin:2px 0 16px}
+#rew{left:0;right:0;top:0;bottom:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 2px,transparent 2px 6px),linear-gradient(180deg,rgba(40,90,200,.25),rgba(20,30,80,.35))}
+#rew b{position:absolute;left:50%;top:462px;transform:translateX(-50%);font:700 64px 'Poppins';color:#fff;background:rgba(15,25,60,.6);padding:14px 40px;border-radius:60px;letter-spacing:3px;white-space:nowrap}
+#titulo{left:0;right:0;top:1290px;text-align:center}
+#titulo b{display:inline-block;font:700 104px/1 'Poppins';color:#14181f;background:#ffc547;padding:20px 44px 14px;border-radius:30px;box-shadow:0 14px 40px rgba(0,0,0,.4)}
+.jl{position:absolute;transform:translate(-50%,-100%);text-align:center;color:#fff;text-shadow:0 3px 12px rgba(0,0,0,.7);white-space:nowrap}
+.jl .pct{display:block;font:700 70px/1 'Poppins'}
+.jl .amt{display:block;font:700 46px/1.15 'Poppins';margin-top:4px}
+.jl small{display:inline-block;font:700 22px 'DejaVu Sans Mono',monospace;letter-spacing:2px;margin-top:8px;padding:6px 14px;border-radius:30px;color:#0f1420;text-shadow:none}
+#anyo{left:50%;top:1245px;transform:translateX(-50%);text-align:center;color:#fff;text-shadow:0 3px 14px rgba(0,0,0,.7);background:rgba(12,18,34,.72);padding:22px 50px 18px;border-radius:34px;white-space:nowrap}
+#anyo .lab{font:700 40px 'DejaVu Sans Mono',monospace;letter-spacing:5px;color:#d7e2ff}
+#anyo .val{font:700 150px/1.05 'Poppins';color:#4ade80}
+#sello{left:0;right:0;top:1300px;text-align:center}
+#sello b{display:inline-block;font:700 92px/1 'Poppins';letter-spacing:4px;color:#22c55e;border:10px solid #22c55e;border-radius:24px;padding:18px 34px 10px;background:rgba(5,40,20,.55);box-shadow:0 0 50px rgba(34,197,94,.35)}
+#cta{left:0;right:0;top:1060px;display:flex;flex-direction:column;align-items:center;gap:22px}
+#cta div{display:flex;align-items:center;gap:18px;font:700 42px 'Poppins';color:#14181f;background:#fff;padding:18px 40px;border-radius:70px;box-shadow:0 12px 34px rgba(0,0,0,.35)}
+#cta div.b{background:#ffc547}
+#marca{left:62px;top:1360px;font:600 34px 'Poppins';color:rgba(255,255,255,.85);text-shadow:0 2px 10px rgba(0,0,0,.6)}
+</style></head>
+<body>
+<div id="barra" class="ov"></div>
+<div id="label" class="ov">SIMULACIÓN · NÓMINA 1.400 €</div>
+<div id="rew" class="ov"><b>⏪ REBOBINA</b></div>
+<div id="subs" class="ov"></div>
+<div id="panel" class="ov">
+  <div class="lab">DÍA DEL MES</div><div class="dia" id="dia">1</div>
+  <div class="lab">EN TU CUENTA</div><div class="val" id="cuenta">1.400 €</div>
+</div>
+<div id="titulo" class="ov"><b>REGLA 50/30/20</b></div>
+<div id="jl0" class="ov jl"><b class="pct">50 %</b><span class="amt">0 €</span><small style="background:#7fb0ff">NECESIDADES</small></div>
+<div id="jl1" class="ov jl"><b class="pct">30 %</b><span class="amt">0 €</span><small style="background:#ffc547">CAPRICHOS</small></div>
+<div id="jl2" class="ov jl"><b class="pct">20 %</b><span class="amt">0 €</span><small style="background:#4ade80">AHORRO</small></div>
+<div id="anyo" class="ov"><div class="lab" id="anyolab">12 MESES × 280 €</div><div class="val" id="anyoval">280 €</div></div>
+<div id="sello" class="ov"><b>NO SE TOCA</b></div>
+<div id="cta" class="ov">
+  <div class="b"><svg width="40" height="48" viewBox="0 0 40 48"><path d="M4 3h32v42L20 33 4 45z" fill="#14181f"/></svg>Guárdalo para tu nómina</div>
+  <div><svg width="46" height="46" viewBox="0 0 46 46"><path d="M3 21 43 3 30 43 21 26z" fill="#14181f"/></svg>Pásaselo a quien el día 20 está a cero</div>
+</div>
+<div id="marca" class="ov">@eleurolisto</div>
+<script type="module">
+import * as THREE from "three";
+import * as L from "lib3d";
+const { clamp, lerp, prog, easeOut, easeInOut, easeBack, easeIn, smooth, v3, caja, cil, bola, mat, malla } = L;
+document.getElementById("base").textContent = L.CSS_BASE;
+const hash = (i) => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+
+// ---------- tiempos (voz de Javier, wordTimings) ----------
+const TIM = window.TIM, S = TIM.segments;
+const st = (i) => S[i].start, en = (i) => S[i].start + S[i].dur;
+const pal = (i, frag) => (S[i].words.find((w) => w.w.toLowerCase().includes(frag)) || S[i].words[0]).start;
+const DUR = (window.DURACION = +(TIM.total + 0.5).toFixed(2));
+const tCero = pal(0, "cero");
+const tRw0 = st(1) - 0.15, tRw1 = tRw0 + 0.7;                 // rebobinado
+const tJar = [pal(1, "50/30"), pal(1, "50/30") + 0.6, pal(1, "50/30") + 1.05];
+const tTit = pal(1, "regla") - 0.05;
+const tF = [pal(2, "700") - 0.1, pal(3, "420") - 0.1, pal(4, "280") - 0.1];   // empiezan los billetes
+const NB = [35, 21, 14], DT = [0.056, 0.056, 0.056], VUELO = 0.45;
+const tIcon0 = [pal(2, "alquiler"), pal(2, "comida"), pal(2, "facturas")];
+const tIcon1 = [pal(3, "planes"), pal(3, "caprichos")];
+const tTapa = pal(4, "nada") - 0.1, tCandado = pal(4, "cobrar") - 0.15;
+const tAnyo0 = st(5) + 0.15, tAnyoFin = en(5) - 0.35, tMes = (i) => tAnyo0 + i * ((tAnyoFin - tAnyo0 - 0.1) / 11);
+const tCaro = st(6), tHaz = pal(6, "60/20"), tToca = pal(6, "toca"), tNo = pal(6, "no");
+const tTrans = (k) => tHaz + 0.05 + k * 0.13;               // 7 billetes del tarro 2 al 1
+const tCTA = st(7);
+
+// ---------- render ----------
+const W = 1080, H = 1920;
+const r = new THREE.WebGLRenderer({ antialias: true });
+r.setPixelRatio(1); r.setSize(W, H);
+r.shadowMap.enabled = true; r.shadowMap.type = THREE.PCFShadowMap;
+r.toneMapping = THREE.NeutralToneMapping; r.toneMappingExposure = 1.0;
+document.body.prepend(r.domElement);
+const esc = new THREE.Scene();
+esc.background = new THREE.Color(0x101626);
+const cam = new THREE.PerspectiveCamera(48, W / H, 0.05, 80);
+
+// ---------- cocina ----------
+const tex = (w, h, fn) => { const c = document.createElement("canvas"); c.width = w; c.height = h; fn(c.getContext("2d"), w, h); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.wrapS = t.wrapT = THREE.RepeatWrapping; return t; };
+const baldosas = tex(512, 512, (g, w) => { const n = 8; for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) { g.fillStyle = (i + j) % 2 ? "#cfc6b4" : "#8f6f55"; g.fillRect(i * w / n, j * w / n, w / n, w / n); } });
+baldosas.repeat.set(3, 3);
+const suelo = new THREE.Mesh(new THREE.PlaneGeometry(8, 8), new THREE.MeshStandardMaterial({ map: baldosas, roughness: 0.85 }));
+suelo.rotation.x = -Math.PI / 2; suelo.position.set(0, 0, 0.5); suelo.receiveShadow = true; esc.add(suelo);
+const ZW = -2.35, HT = 3.2, PARED = 0x35566b;
+// pared del fondo con ventana (x 1.35..2.15, y 1.25..2.3)
+const WX0 = 1.35, WX1 = 2.15, WY0 = 1.25, WY1 = 2.3;
+esc.add(caja(WX0 + 3.5, HT, 0.2, PARED, [(WX0 - 3.5) / 2, HT / 2, ZW]));
+esc.add(caja(3.5 - WX1, HT, 0.2, PARED, [(WX1 + 3.5) / 2, HT / 2, ZW]));
+esc.add(caja(WX1 - WX0, WY0, 0.2, PARED, [(WX0 + WX1) / 2, WY0 / 2, ZW]));
+esc.add(caja(WX1 - WX0, HT - WY1, 0.2, PARED, [(WX0 + WX1) / 2, (HT + WY1) / 2, ZW]));
+esc.add(caja(0.2, HT, 7, 0x2e4b5e, [-3.5, HT / 2, 1])); esc.add(caja(0.2, HT, 7, 0x2e4b5e, [3.5, HT / 2, 1]));
+esc.add(caja(7.2, 0.2, 7, 0x24384a, [0, HT + 0.1, 1]));
+const MARCO = 0xf0e4c8, wx = (WX0 + WX1) / 2, wy = (WY0 + WY1) / 2;
+for (const [w, h, x, y] of [[WX1 - WX0 + 0.14, 0.08, wx, WY0], [WX1 - WX0 + 0.14, 0.08, wx, WY1], [0.08, WY1 - WY0, WX0, wy], [0.08, WY1 - WY0, WX1, wy], [0.05, WY1 - WY0, wx, wy]])
+  esc.add(caja(w, h, 0.1, MARCO, [x, y, ZW + 0.03]));
+const cielo = new THREE.Mesh(new THREE.PlaneGeometry(40, 20), new THREE.MeshBasicMaterial({ color: 0x18224a })); cielo.position.set(2, 4, -12); esc.add(cielo);
+const edifMat = new THREE.MeshBasicMaterial({ color: 0x1c2440 }), luzMat = new THREE.MeshBasicMaterial({ color: 0xffd27a });
+for (const [x, h, z, w] of [[0.6, 3.4, -9, 2.2], [2.4, 2.4, -8, 1.6], [4.0, 3.8, -10, 2.4], [-1.6, 3.0, -9.5, 2.6]]) {
+  const b = new THREE.Mesh(new THREE.BoxGeometry(w, h, 1.2), edifMat); b.position.set(x, h / 2 - 0.3, z); esc.add(b);
+  for (let i = 0; i < 10; i++) { const v = new THREE.Mesh(new THREE.PlaneGeometry(0.22, 0.3), luzMat); v.position.set(x - w / 2 + 0.3 + ((i * 0.53) % (w - 0.5)), 0.6 + ((i * 1.13) % (h - 1.2)), z + 0.61); esc.add(v); }
+}
+const luna = bola(0.35, 0xfff6d8, [3.2, 4.2, -11.5], 2, { emissive: 0xfff2c8, emissiveIntensity: 1 }); esc.add(luna);
+// encimera del fondo, azulejos, nevera, fogones y estantes
+const ZB = -2.0;
+esc.add(caja(3.4, 0.88, 0.6, 0x23303f, [0.5, 0.44, ZB]));
+esc.add(caja(3.5, 0.05, 0.66, 0xe8dcc8, [0.5, 0.905, ZB + 0.02]));
+const azul = tex(256, 128, (g, w, h) => { g.fillStyle = "#e9e4da"; g.fillRect(0, 0, w, h); g.strokeStyle = "#b9b2a4"; g.lineWidth = 3; for (let x = 0; x <= w; x += 32) { g.beginPath(); g.moveTo(x, 0); g.lineTo(x, h); g.stroke(); } for (let y = 0; y <= h; y += 32) { g.beginPath(); g.moveTo(0, y); g.lineTo(w, y); g.stroke(); } });
+azul.repeat.set(4, 1.2);
+const alicat = new THREE.Mesh(new THREE.PlaneGeometry(3.4, 0.62), new THREE.MeshStandardMaterial({ map: azul, roughness: 0.6 })); alicat.position.set(0.5, 1.24, ZW + 0.105); esc.add(alicat);
+const nev = new THREE.Group(); nev.position.set(-1.65, 0, -1.95); esc.add(nev);
+nev.add(caja(0.78, 1.95, 0.7, 0xdfe5ec, [0, 0.975, 0], { roughness: 0.4 }));
+nev.add(caja(0.79, 0.02, 0.71, 0xa9b3bf, [0, 1.3, 0]));
+nev.add(caja(0.04, 0.4, 0.05, 0x8e99a6, [0.3, 1.6, 0.37])); nev.add(caja(0.04, 0.5, 0.05, 0x8e99a6, [0.3, 0.95, 0.37]));
+esc.add(caja(0.7, 0.02, 0.5, 0x15181d, [-0.6, 0.94, ZB]));
+for (const [dx, dz] of [[-0.16, -0.11], [0.16, -0.11], [-0.16, 0.11], [0.16, 0.11]]) esc.add(cil(0.08, 0.08, 0.012, 0x3a3a3a, [-0.6 + dx, 0.955, ZB + dz], 16));
+esc.add(cil(0.15, 0.13, 0.2, 0xb8432f, [-0.76, 1.06, ZB - 0.1], 14)); esc.add(cil(0.155, 0.155, 0.02, 0x8e2f20, [-0.76, 1.17, ZB - 0.1], 14));
+esc.add(cil(0.07, 0.09, 0.16, 0xe8c547, [1.45, 1.01, ZB], 12)); // tetera
+esc.add(cil(0.1, 0.08, 0.16, 0xc0663e, [1.9, 1.01, ZB], 10));
+for (let i = 0; i < 6; i++) { const h = malla(new THREE.ConeGeometry(0.05, 0.32 + (i % 3) * 0.08, 5), 0x4f8a3c, [1.9, 1.22, ZB]); h.rotation.set(Math.cos(i * 1.7) * 0.5, 0, Math.sin(i * 1.7) * 0.5); esc.add(h); }
+const EY = [1.98, 1.58], EZ = ZW + 0.22, EX = [-0.55, -0.33, -0.11, 0.11, 0.33, 0.55];
+for (const y of EY) { esc.add(caja(1.45, 0.04, 0.24, 0xc7925c, [0, y, EZ])); for (const x of [-0.7, 0.7]) esc.add(caja(0.03, 0.12, 0.03, 0x2b2b2b, [x, y - 0.07, ZW + 0.13])); }
+const MESES = ["ENE", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SEP", "OCT", "NOV", "DIC"];
+EY.forEach((y, f) => {
+  const t = tex(1024, 48, (g, w, h) => { g.fillStyle = "#c7925c"; g.fillRect(0, 0, w, h); g.fillStyle = "#3a2414"; g.font = "700 30px Poppins"; g.textAlign = "center"; g.textBaseline = "middle"; EX.forEach((x, i) => g.fillText(MESES[f * 6 + i], (x / 1.45 + 0.5) * w, h / 2 + 2)); });
+  const p = new THREE.Mesh(new THREE.PlaneGeometry(1.45, 0.04), new THREE.MeshStandardMaterial({ map: t, roughness: 0.8 })); p.position.set(0, y, EZ + 0.121); esc.add(p);
+});
+
+// isla
+const IX = 3.0, ID = 0.72, IY = 0.93;
+esc.add(caja(IX, 0.88, ID - 0.06, 0x1f2b3a, [0, 0.44, 0]));
+esc.add(caja(IX + 0.1, 0.05, ID + 0.04, 0xe8dcc8, [0, 0.905, 0], { roughness: 0.55 }));
+for (let i = 0; i < 6; i++) { const x = -IX / 2 + IX / 12 + i * IX / 6; esc.add(caja(IX / 6 - 0.04, 0.78, 0.02, 0x283748, [x, 0.45, ID / 2 - 0.02])); esc.add(caja(0.12, 0.02, 0.03, 0xc9cfd6, [x, 0.74, ID / 2 + 0.01])); }
+// lámparas colgantes
+const lamps = [-0.7, 0.7].map((x) => {
+  const g = new THREE.Group(); g.position.set(x, HT, 0.05); esc.add(g);
+  g.add(cil(0.008, 0.008, 0.85, 0x111111, [0, -0.425, 0], 6));
+  g.add(malla(new THREE.ConeGeometry(0.2, 0.22, 14, 1, true), 0x1d3d2c, [0, -0.95, 0]));
+  const b = new THREE.Mesh(new THREE.SphereGeometry(0.06, 10, 8), new THREE.MeshBasicMaterial({ color: 0xfff1c9 })); b.position.y = -1.04; g.add(b);
+  const l = new THREE.PointLight(0xffc27a, 3.2, 5, 1.6); l.position.y = -1.08; g.add(l);
+  return g;
+});
+
+// ---------- tarros ----------
+const JX = [-0.72, -0.18, 0.36], JZ = 0.04, JR = 0.19, JH = 0.72;
+const JCOL = [0x3b82f6, 0xf59e0b, 0x22c55e];
+const vidrio = new THREE.MeshStandardMaterial({ color: 0xd8ecff, transparent: true, opacity: 0.2, roughness: 0.08, metalness: 0.1, side: THREE.DoubleSide, depthWrite: false });
+const brillo = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.35, depthWrite: false, side: THREE.DoubleSide });
+const tarros = JX.map((x, j) => {
+  const g = new THREE.Group(); g.position.set(x, IY, JZ); esc.add(g);
+  const cuerpo = new THREE.Group(); g.add(cuerpo);
+  const v = new THREE.Mesh(new THREE.CylinderGeometry(JR, JR, JH, 32, 1, true), vidrio); v.position.y = JH / 2 + 0.02; v.renderOrder = 2; cuerpo.add(v);
+  const fondo = new THREE.Mesh(new THREE.CylinderGeometry(JR, JR, 0.02, 32), vidrio); fondo.position.y = 0.01; cuerpo.add(fondo);
+  const aro = new THREE.Mesh(new THREE.TorusGeometry(JR, 0.014, 8, 32), mat(JCOL[j], { roughness: 0.4 })); aro.rotation.x = Math.PI / 2; aro.position.y = JH + 0.02; cuerpo.add(aro);
+  cuerpo.add(cil(JR + 0.04, JR + 0.04, 0.012, JCOL[j], [0, 0.006, 0], 32));
+  const b = new THREE.Mesh(new THREE.PlaneGeometry(0.035, JH * 0.8), brillo); b.position.set(-JR * 0.55, JH * 0.5, JR * 0.83); b.rotation.y = -0.6; b.renderOrder = 3; cuerpo.add(b);
+  const luz = new THREE.PointLight(JCOL[j], 0, 1.4, 2); luz.position.set(0, 0.45, 0.35); g.add(luz);
+  return { g, cuerpo, luz };
+});
+// tapa + candado del tarro de ahorro
+const tapa = new THREE.Group(); esc.add(tapa);
+tapa.add(cil(JR + 0.025, JR + 0.025, 0.06, 0x22c55e, [0, 0, 0], 32, { roughness: 0.45 }));
+tapa.add(cil(0.05, 0.05, 0.03, 0x16a34a, [0, 0.045, 0], 16));
+const candado = new THREE.Group(); esc.add(candado);
+candado.add(caja(0.15, 0.12, 0.05, 0xffc547, [0, 0, 0], { roughness: 0.35, metalness: 0.4 }));
+candado.add(malla(new THREE.TorusGeometry(0.045, 0.014, 8, 16, Math.PI), 0xb8c0c8, [0, 0.06, 0], { roughness: 0.3, metalness: 0.6 }));
+candado.add(cil(0.014, 0.014, 0.02, 0x3a2a10, [0, -0.005, 0.026], 8).rotateX(Math.PI / 2));
+
+// ---------- billetes ----------
+const geoB = new THREE.BoxGeometry(0.24, 0.011, 0.12), geoF = new THREE.BoxGeometry(0.07, 0.012, 0.07);
+const billete = () => { const g = new THREE.Group(); g.add(malla(geoB, 0xf0a54e)); g.add(malla(geoF, 0xf5ecd8)); esc.add(g); return g; };
+const PX = 0.98, PZ = 0.1, NTOT = 70, PSP = 0.0115, JSP = 0.0155;
+const pilaPos = (p) => v3([PX + (p % 2 ? 0.13 : -0.13) + (hash(p) - 0.5) * 0.012, IY + 0.006 + Math.floor(p / 2) * PSP, PZ + (hash(p + 9) - 0.5) * 0.012]);
+const pilaRot = (p) => (hash(p + 3) - 0.5) * 0.12;
+const jarPos = (j, s) => v3([JX[j] + (hash(s * 7 + j) - 0.5) * 0.02, IY + 0.028 + s * JSP, JZ + (hash(s * 5 + j) - 0.5) * 0.02]);
+const jarRot = (j, s) => (hash(s * 3 + j * 11) - 0.5) * 1.6;
+// orden de salida: del más alto al más bajo. d -> p = 69 - d
+const bills = [];
+for (let d = 0; d < NTOT; d++) {
+  const p = NTOT - 1 - d, g = billete();
+  const j = d < 35 ? 0 : d < 56 ? 1 : 2, s = j === 0 ? d : j === 1 ? d - 35 : d - 56;
+  const tSal = tF[j] + s * DT[j];
+  const b = { g, p, d, j, s, tSal, tLleg: tSal + VUELO, tHook: 0.0 + d * 0.039 };
+  // los 7 de arriba del tarro 2 (s 20..14) pasan al tarro 1 (s 35..41)
+  if (j === 1 && s >= 14) { const k = 20 - s; b.tTr = tTrans(k); b.s2 = 35 + k; }
+  bills.push(b);
+}
+const bez = (p0, p1, p2, p3, k) => { const u = 1 - k; return p0.clone().multiplyScalar(u * u * u).add(p1.clone().multiplyScalar(3 * u * u * k)).add(p2.clone().multiplyScalar(3 * u * k * k)).add(p3.clone().multiplyScalar(k * k * k)); };
+function vuela(g, a, b, rotA, rotB, k, alto = 0.5, giro = 1) {
+  const e = easeInOut(k);
+  g.position.copy(bez(a, a.clone().add(v3([0, alto, 0.12])), b.clone().add(v3([0, alto * 0.9, 0])), b, e));
+  const f = Math.sin(Math.PI * k);
+  g.rotation.set(Math.sin(k * 9 + giro) * 0.9 * f, lerp(rotA, rotB, e) + f * 2.2 * giro, Math.cos(k * 7 + giro) * 0.6 * f);
+}
+// gancho: el sueldo sale volando (tau = tiempo del gancho, rebobinable)
+const HOOK_V = 0.7;
+const hookDest = (d) => v3([PX + 1.5 + hash(d + 40) * 1.2, 2.3 + hash(d + 41) * 1.1, 0.9 + hash(d + 42) * 1.4]);
+const tau = (t) => (t < tRw0 ? t : t < tRw1 ? 3.0 * (1 - easeInOut(prog(t, tRw0, tRw1 - tRw0))) : -1);
+const salidasHook = (x) => (x < 0 ? 0 : Math.min(NTOT, Math.floor(x / 0.039) + 1));
+
+// ---------- iconos 3D (necesidades / caprichos) ----------
+const icono = (fn) => { const g = new THREE.Group(); fn(g); g.visible = false; esc.add(g); return g; };
+const icoCasa = icono((g) => { g.add(caja(0.16, 0.12, 0.12, 0xf3efe6, [0, 0.06, 0])); g.add(malla(new THREE.ConeGeometry(0.14, 0.1, 4), 0xd2452f, [0, 0.17, 0]).rotateY(Math.PI / 4)); g.add(caja(0.04, 0.07, 0.01, 0x7a4b2a, [0, 0.035, 0.062])); });
+const icoBolsa = icono((g) => { g.add(caja(0.14, 0.16, 0.08, 0xd9a35b, [0, 0.08, 0])); g.add(malla(new THREE.TorusGeometry(0.035, 0.008, 6, 12, Math.PI), 0x8a5a2a, [0, 0.16, 0])); g.add(bola(0.03, 0x4caf50, [-0.03, 0.17, 0], 0)); g.add(cil(0.012, 0.012, 0.08, 0xf5d142, [0.035, 0.19, 0], 6)); });
+const icoBombilla = icono((g) => { g.add(bola(0.07, 0xffe58a, [0, 0.12, 0], 2, { emissive: 0xffd54a, emissiveIntensity: 0.6 })); g.add(cil(0.035, 0.035, 0.05, 0x9aa3ad, [0, 0.04, 0], 10)); });
+const icoRegalo = icono((g) => { g.add(caja(0.15, 0.13, 0.15, 0xe0412f, [0, 0.065, 0])); g.add(caja(0.03, 0.135, 0.155, 0xffd34d, [0, 0.065, 0])); g.add(caja(0.155, 0.135, 0.03, 0xffd34d, [0, 0.065, 0])); g.add(bola(0.03, 0xffd34d, [0, 0.14, 0], 0)); });
+const icoPizza = icono((g) => { const s = new THREE.Shape(); s.moveTo(0, 0.18); s.lineTo(-0.09, -0.02); s.lineTo(0.09, -0.02); s.lineTo(0, 0.18); const m = malla(new THREE.ExtrudeGeometry(s, { depth: 0.025, bevelEnabled: false }), 0xf2c14e); g.add(m); g.add(caja(0.2, 0.035, 0.03, 0xc98a3a, [0, -0.025, 0.012])); for (const [x, y] of [[0, 0.09], [-0.03, 0.02], [0.035, 0.03]]) g.add(cil(0.02, 0.02, 0.01, 0xc0392b, [x, y, 0.03], 10).rotateX(Math.PI / 2)); });
+const icons = [
+  { g: icoCasa, j: 0, t0: tIcon0[0], dx: -0.14 }, { g: icoBolsa, j: 0, t0: tIcon0[1], dx: 0 }, { g: icoBombilla, j: 0, t0: tIcon0[2], dx: 0.14 },
+  { g: icoRegalo, j: 1, t0: tIcon1[0], dx: -0.09 }, { g: icoPizza, j: 1, t0: tIcon1[1], dx: 0.09 },
+];
+icons.forEach((ic) => (ic.t1 = ic.j === 0 ? st(3) - 0.15 : st(4) - 0.15));
+
+// ---------- huchas de los 12 meses ----------
+const mini = [];
+for (let i = 0; i < 12; i++) {
+  const g = new THREE.Group(); g.position.set(EX[i % 6], EY[Math.floor(i / 6)] + 0.02, EZ + 0.01); esc.add(g);
+  const v = new THREE.Mesh(new THREE.CylinderGeometry(0.075, 0.075, 0.2, 20, 1, true), vidrio); v.position.y = 0.1; v.renderOrder = 2; g.add(v);
+  for (let k = 0; k < 5; k++) { const b = malla(new THREE.BoxGeometry(0.1, 0.012, 0.05), 0xf0a54e, [0, 0.01 + k * 0.014, 0]); b.rotation.y = (hash(i * 5 + k) - 0.5) * 1.5; g.add(b); }
+  g.add(cil(0.082, 0.082, 0.03, 0x22c55e, [0, 0.215, 0], 20));
+  g.scale.setScalar(0.001); mini.push(g);
+}
+
+// ---------- personaje ----------
+const yo = L.persona({ chaqueta: 0x2f8f6a, pantalon: 0x2e3a55, pelo: 0x2a1a10 });
+yo.root.position.set(1.05, 0, -0.78); yo.root.rotation.y = -0.15; esc.add(yo.root);
+
+// ---------- luces ----------
+const hemi = new THREE.HemisphereLight(0xbfd0ff, 0x4a3426, 1.1); esc.add(hemi);
+const key = new THREE.DirectionalLight(0xffe2b8, 2.2); key.position.set(1.5, 5, 3); key.castShadow = true;
+key.shadow.mapSize.set(2048, 2048); Object.assign(key.shadow.camera, { left: -4, right: 4, top: 4, bottom: -4, near: 1, far: 15 });
+key.shadow.bias = -0.0004; key.shadow.normalBias = 0.02; key.shadow.radius = 3; key.target.position.set(0, 0.8, -0.5); esc.add(key, key.target);
+const fill = new THREE.DirectionalLight(0x9fb4ff, 0.6); fill.position.set(-3, 3, 4); esc.add(fill);
+esc.add(new THREE.AmbientLight(0xffe6c8, 0.28));
+const verde = new THREE.PointLight(0x22c55e, 0, 2.2, 2); esc.add(verde);
+
+// ---------- cámara ----------
+const T = [st(1), st(2), st(3), st(4), st(5), st(6), st(7)];
+const camara = L.camaraSuave([
+  { t: 0, p: [0.85, 1.8, 3.05], m: [0.78, 1.45, -0.45], fov: 50 },
+  { t: tCero, p: [0.88, 1.72, 2.6], m: [0.8, 1.45, -0.45], fov: 49 },
+  { t: tRw0 + 0.2, p: [0.86, 1.75, 2.75], m: [0.8, 1.45, -0.45], fov: 50 },
+  { t: tJar[0] + 0.1, p: [-0.05, 2.0, 3.75], m: [-0.05, 1.42, -0.2], fov: 50 },
+  { t: T[1] - 0.1, p: [-0.1, 1.98, 3.6], m: [-0.1, 1.42, -0.2], fov: 50 },
+  { t: tF[0] + 0.8, p: [-0.2, 1.92, 3.25], m: [-0.19, 1.43, -0.1], fov: 50 },
+  { t: T[2] - 0.2, p: [-0.2, 1.9, 3.18], m: [-0.19, 1.43, -0.1], fov: 50 },
+  { t: tF[1] + 0.6, p: [-0.18, 1.9, 3.2], m: [-0.18, 1.43, -0.1], fov: 50 },
+  { t: T[3] - 0.2, p: [-0.17, 1.9, 3.15], m: [-0.18, 1.43, -0.1], fov: 50 },
+  { t: tF[2] + 0.6, p: [-0.16, 1.88, 3.15], m: [-0.17, 1.42, -0.1], fov: 50 },
+  { t: tCandado + 0.3, p: [-0.15, 1.85, 3.1], m: [-0.16, 1.42, -0.1], fov: 50 },
+  { t: T[4] + 0.55, p: [0.0, 2.42, 0.95], m: [0.0, 1.82, -2.2], fov: 50 },
+  { t: T[5] - 0.25, p: [0.05, 2.4, 0.85], m: [0.0, 1.82, -2.2], fov: 50 },
+  { t: T[5] + 0.65, p: [-0.18, 1.95, 3.35], m: [-0.18, 1.43, -0.15], fov: 50 },
+  { t: T[6] - 0.1, p: [-0.12, 1.92, 3.25], m: [-0.14, 1.43, -0.15], fov: 50 },
+  { t: DUR, p: [0.15, 2.2, 4.4], m: [0.1, 1.38, -0.4], fov: 52 },
+], 0.3);
+
+// ---------- capas 2D ----------
+const $ = (id) => document.getElementById(id);
+const subs = L.subtitulos($("subs"), TIM, {
+  clave: ["1.400", "cero", "regla", "50", "700", "30", "420", "20", "280", "ahorro", "3.360", "60", "toca", "nómina"],
+});
+const barra = $("barra"); barra.innerHTML = S.map(() => "<i><b></b></i>").join("");
+const fmt = L.fmtEur;
+const jl = [0, 1, 2].map((j) => $("jl" + j));
+
+window.renderAt = (t) => {
+  const tu = tau(t);
+  // ---- billetes ----
+  let enPila = 0;
+  for (const b of bills) {
+    const g = b.g; g.visible = true; g.scale.setScalar(1);
+    const pp = pilaPos(b.p), pr = pilaRot(b.p);
+    if (tu >= 0) { // gancho o rebobinado
+      const k = (tu - b.tHook) / HOOK_V;
+      if (k < 0) { g.position.copy(pp); g.rotation.set(0, pr, 0); enPila++; }
+      else if (k < 1) vuela(g, pp, hookDest(b.d), pr, pr + 3, k, 0.6, 1 + (b.d % 3));
+      else g.visible = false;
+      continue;
+    }
+    if (t < b.tSal) { g.position.copy(pp); g.rotation.set(0, pr, 0); enPila++; continue; }
+    const ja = jarPos(b.j, b.s), ra = jarRot(b.j, b.s);
+    if (t < b.tLleg) { vuela(g, pp, ja, pr, ra, (t - b.tSal) / VUELO, 0.55, 1); continue; }
+    if (b.tTr === undefined || t < b.tTr) { g.position.copy(ja); g.rotation.set(0, ra, 0); continue; }
+    const jb = jarPos(0, b.s2), rb = jarRot(0, b.s2), k = (t - b.tTr) / 0.5;
+    if (k < 1) vuela(g, ja, jb, ra, rb, k, 0.45, 2); else { g.position.copy(jb); g.rotation.set(0, rb, 0); }
+  }
+  const cuenta = tu >= 0 ? 20 * enPila : null;
+  // importe de cada tarro (billetes ya dentro)
+  const amt = [0, 0, 0];
+  for (const b of bills) {
+    if (tu >= 0) continue;
+    if (t >= b.tLleg) { if (b.tTr !== undefined && t >= b.tTr + 0.5) amt[0] += 20; else if (b.tTr !== undefined && t >= b.tTr) {} else amt[b.j] += 20; }
+  }
+  // ---- tarros ----
+  tarros.forEach((J, j) => {
+    const k = prog(t, tJar[j], 0.45);
+    J.g.visible = k > 0;
+    J.g.scale.setScalar(Math.max(0.001, easeBack(k, 2.4)));
+    let pulso = 0;
+    for (let i = 0; i < 3; i++) if (j === i) pulso = Math.exp(-Math.max(0, t - (tF[j] + NB[j] * DT[j] + VUELO)) * 3) * (t > tF[j] + NB[j] * DT[j] + VUELO ? 1 : 0);
+    J.luz.intensity = 2.5 * pulso;
+  });
+  // tapa y candado (ahorro)
+  const J3 = tarros[2], top3 = IY + JH + 0.05;
+  const kt = prog(t, tTapa, 0.32);
+  tapa.visible = kt > 0;
+  const caida = kt < 1 ? lerp(0.9, 0, easeIn(kt)) : Math.abs(Math.sin((t - tTapa - 0.32) * 18)) * 0.03 * Math.exp(-(t - tTapa - 0.32) * 8);
+  tapa.position.set(JX[2], top3 + caida, JZ); tapa.rotation.set(0, 0, kt < 1 ? (1 - kt) * 0.5 : 0);
+  const kc = prog(t, tCandado, 0.35);
+  candado.visible = kc > 0;
+  candado.scale.setScalar(Math.max(0.001, easeBack(kc, 2.5)));
+  const meneo = t > tNo - 0.1 && t < tToca + 0.5 ? Math.sin((t - tNo) * 30) * 0.18 * Math.exp(-Math.max(0, t - tNo) * 2) : 0;
+  candado.position.set(JX[2], IY + JH - 0.06, JZ + JR + 0.035); candado.rotation.set(0, 0, meneo);
+  const brilloV = Math.max(0.6 * smooth(prog(t, tCandado, 0.4)) * (t < st(5) ? 1 : 0), (t > tNo - 0.2 && t < tCTA) ? 1.2 * smooth(prog(t, tNo - 0.2, 0.3)) * (0.75 + 0.25 * Math.sin(t * 9)) : 0);
+  verde.position.set(JX[2], IY + 0.5, JZ + 0.45); verde.intensity = 3 * brilloV;
+  // ---- iconos ----
+  for (const ic of icons) {
+    const k = prog(t, ic.t0, 0.35), ko = prog(t, ic.t1, 0.35);
+    ic.g.visible = k > 0 && ko < 1;
+    if (!ic.g.visible) continue;
+    const s = easeBack(k, 2.2) * (1 - easeIn(ko));
+    ic.g.scale.setScalar(Math.max(0.001, s * 0.95));
+    ic.g.position.set(JX[ic.j] + ic.dx * 0.9, IY + 0.002 + 0.05 * Math.max(0, Math.sin(Math.PI * clamp(k * 1.4))), JZ + 0.33);
+    ic.g.rotation.set(0, Math.sin(t * 1.6 + ic.dx * 5) * 0.4, 0);
+  }
+  // ---- 12 meses ----
+  mini.forEach((g, i) => { const k = prog(t, tMes(i), 0.3); g.scale.setScalar(Math.max(0.001, easeBack(k, 2.6))); g.visible = k > 0; });
+  // ---- lámparas ----
+  lamps.forEach((g, i) => { g.rotation.z = Math.sin(t * 1.2 + i) * 0.03; });
+  // ---- personaje ----
+  const p = yo; p.root.position.y = 0;
+  p.torso.scale.y = 1 + 0.012 * Math.sin((t / 3.1) * Math.PI * 2);
+  let aX = 0.05 * Math.sin(t * 2), aZ = 0.06, aXd = null;
+  let objetivo = v3([0.8, 1.2, 1.5]);
+  let susto = 0, sonrisa = 0;
+  if (tu >= 0) {
+    const kh = clamp(tu / 3.0);
+    aX = lerp(aX, -2.5, smooth(prog(tu, 1.6, 1.2))); aZ = lerp(0.06, 0.6, smooth(prog(tu, 1.6, 1.2)));
+    susto = smooth(prog(tu, 0.3, 1.0));
+    const vol = bills.find((b) => tu > b.tHook && tu < b.tHook + HOOK_V * 0.6);
+    objetivo = vol ? vol.g.getWorldPosition(new THREE.Vector3()) : v3([PX, 1.2, PZ]);
+  } else {
+    let jAct = t < tF[1] - 0.3 ? 0 : t < tF[2] - 0.3 ? 1 : 2;
+    objetivo = v3([JX[jAct], 1.3, JZ]);
+    if (t < tF[0] - 0.4) objetivo = v3([0, 1.2, 1.8]);
+    if (t > st(5) - 0.1 && t < st(6)) objetivo = v3([0, 1.8, -2.1]);
+    if (t >= st(6)) objetivo = v3([JX[0], 1.25, JZ]);
+    if (t >= tNo - 0.6) objetivo = v3([JX[2], 1.3, JZ]);
+    if (t >= tCTA) objetivo = v3([0.3, 1.6, 4]);
+    sonrisa = smooth(prog(t, tCandado, 0.4)) * (1 - prog(t, tNo - 0.7, 0.3)) + smooth(prog(t, tCTA, 0.4));
+    // intenta coger del tarro de ahorro... y no
+    const kr = smooth(prog(t, tNo - 0.65, 0.4)) * (1 - smooth(prog(t, tNo + 0.05, 0.35)));
+    aXd = lerp(aX, -1.25, kr);
+    p.root.rotation.y = lerp(-0.15, -0.55, kr);
+    susto = 0.6 * Math.sin(Math.PI * prog(t, tNo - 0.05, 0.6));
+  }
+  p.brazoI.rotation.set(aX, 0, aZ); p.brazoD.rotation.set(aXd ?? aX, 0, -aZ);
+  if (tu >= 0) p.root.rotation.y = -0.15;
+  L.mirarA(p, objetivo, 1);
+  if (t > tNo && t < tToca + 0.3) p.cabeza.rotation.y += Math.sin((t - tNo) * 16) * 0.35 * (1 - prog(t, tNo, 0.9));
+  p.boca.scale.set(1 - 0.3 * susto + 0.7 * sonrisa, 1 + 2.6 * susto - 0.2 * sonrisa, 1);
+  p.cejas.forEach((c) => (c.position.y = 0.335 + 0.035 * susto));
+  // ---- cámara ----
+  const c = camara(t);
+  const sh = (x0) => Math.exp(-Math.max(0, t - x0) * 7) * (t > x0 ? 1 : 0) * 0.035;
+  const s = sh(tCero) + sh(tTapa + 0.32) + sh(tNo);
+  cam.position.set(c.p[0] + Math.sin(t * 0.7) * 0.02 + Math.sin(t * 61) * s, c.p[1] + Math.sin(t * 0.53) * 0.015 + Math.cos(t * 53) * s, c.p[2]);
+  cam.lookAt(...c.m); cam.fov = c.fov; cam.updateProjectionMatrix();
+  r.render(esc, cam);
+
+  // ----- 2D -----
+  subs(t);
+  [...barra.children].forEach((el, i) => { const a = i === 0 ? 0 : st(i), b = i < S.length - 1 ? st(i + 1) : DUR; el.firstChild.style.width = 100 * clamp((t - a) / (b - a)) + "%"; });
+  $("label").textContent = t < tTit ? "SIMULACIÓN · NÓMINA 1.400 €" : "REGLA 50/30/20 · NÓMINA 1.400 €";
+  // panel del gancho
+  const panel = $("panel"), kp = tu >= 0 ? 1 : 1 - prog(t, tRw1, 0.3);
+  panel.style.opacity = kp; panel.style.transform = `translateX(${(1 - kp) * -60}px)`;
+  if (tu >= 0) {
+    const dia = Math.min(20, 1 + Math.floor(19 * smooth(clamp(tu / (tCero + 0.05)))));
+    $("dia").textContent = dia;
+    $("cuenta").textContent = fmt(cuenta);
+    const roj = clamp(1 - cuenta / 1400);
+    $("cuenta").style.color = `rgb(255,${Math.round(lerp(255, 90, roj))},${Math.round(lerp(255, 80, roj))})`;
+  }
+  const kr = t > tRw0 && t < tRw1 + 0.15 ? Math.min(prog(t, tRw0, 0.12), 1 - prog(t, tRw1, 0.15)) : 0;
+  $("rew").style.opacity = kr;
+  // título
+  const kti = easeBack(prog(t, tTit, 0.4), 2), kto = prog(t, st(2) - 0.1, 0.3);
+  $("titulo").style.opacity = kti > 0 ? 1 - kto : 0;
+  $("titulo").firstChild.style.transform = `scale(${Math.max(0, kti) * (1 - 0.3 * kto)}) rotate(-3deg)`;
+  // etiquetas de los tarros
+  const pct = t < tHaz ? [50, 30, 20] : [t < tHaz + 0.05 ? 50 : 60, t < pal(6, "60/20") + 0.4 ? 30 : 20, 20];
+  const enAnyo = t > st(5) - 0.15 && t < st(6) + 0.3;
+  const fueraCTA = 1 - prog(t, tCTA - 0.1, 0.3);
+  jl.forEach((el, j) => {
+    const k = easeBack(prog(t, tJar[j] + 0.15, 0.4), 2);
+    const top = new THREE.Vector3(JX[j], IY + JH + (j === 2 && t > tTapa ? 0.12 : 0.04), JZ).project(cam);
+    el.style.left = (top.x * 0.5 + 0.5) * W + "px"; el.style.top = (-top.y * 0.5 + 0.5) * H - 10 + "px";
+    const vis = k > 0 && !enAnyo ? 1 : 0;
+    el.style.opacity = vis * clamp(k * 2) * fueraCTA;
+    el.style.transform = `translate(-50%,-100%) scale(${0.6 + 0.4 * clamp(k)})`;
+    el.querySelector(".pct").textContent = pct[j] + " %";
+    el.querySelector(".amt").textContent = fmt(amt[j]);
+    const llena = j === 0 && amt[0] >= 700 && t < tHaz ? 1 : 0;
+    el.querySelector(".amt").style.color = j === 2 && amt[2] > 0 ? "#4ade80" : "#fff";
+  });
+  // 12 meses
+  let meses = 0; for (let i = 0; i < 12; i++) if (t >= tMes(i) + 0.05) meses++;
+  const ka = t > st(5) - 0.1 && t < st(6) + 0.2 ? Math.min(easeOut(prog(t, st(5), 0.35)), 1 - prog(t, st(6), 0.25)) : 0;
+  $("anyo").style.opacity = ka; $("anyo").style.transform = `translate(-50%,${(1 - ka) * 40}px)`;
+  $("anyolab").textContent = `${Math.max(1, meses)} ${meses === 1 ? "MES" : "MESES"} × 280 €`;
+  $("anyoval").textContent = fmt(280 * Math.max(1, meses));
+  $("anyoval").style.transform = `scale(${1 + 0.12 * Math.exp(-Math.max(0, t - tAnyoFin) * 5) * (t > tAnyoFin ? 1 : 0)})`;
+  // sello "no se toca"
+  const ks = prog(t, tNo, 0.22), sello = $("sello");
+  sello.style.opacity = (ks > 0 ? 1 : 0) * (1 - prog(t, tCTA - 0.15, 0.25));
+  sello.firstChild.style.transform = `rotate(-6deg) scale(${lerp(2.2, 1, easeOut(ks))})`;
+  $("marca").style.opacity = (1 - prog(t, tCTA - 0.2, 0.3)) * (1 - (t > tTit - 0.1 && t < st(2) + 0.2 ? 1 : 0)) * (1 - (t > tNo - 0.1 && t < tCTA ? 1 : 0));
+  const kc2 = prog(t, tCTA, 0.45), cta = $("cta");
+  cta.style.opacity = kc2 > 0 ? 1 : 0;
+  [...cta.children].forEach((el, i) => { const k = easeBack(prog(t, tCTA + i * 0.18, 0.4), 1.8); el.style.transform = `translateY(${(1 - k) * 80}px) scale(${0.6 + 0.4 * k})`; el.style.opacity = clamp(k * 2); });
+};
+window.listo = true;
+</script></body></html>

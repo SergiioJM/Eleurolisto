@@ -1,0 +1,13 @@
+{
+  "fecha": "2026-11-17",
+  "hora": "20:30",
+  "titulo": "Regla 50/30/20 en 3D: los tres tarros",
+  "formato": "3D propio (Three.js, toolkit/escena3d) · cocina de noche · gancho con el sueldo volando y rebobinado · 3 tarros como gráfica de barras · 12 huchas de los meses · subtítulos palabra a palabra",
+  "voz": "Javier de Madrid (Creative Claw, speech/gemini-3.8-flash-tts, voice_gdlx1kyxtwal), 25,9 s",
+  "voz_url": "https://cdn.creativeclaw.co/u/626ff63d/audio/e90eb3f2-38a4-4fbf-a63c-73e86009d897.wav",
+  "etiqueta_ia": true,
+  "datos": "1.400 € × 50/30/20 = 700/420/280 €; 280 € × 12 = 3.360 €; 60/20/20 = 840/280/280 € (recalculado con Python)",
+  "caption": "Regla 50/30/20: con una nómina de 1.400 €, 280 € al mes para ti = 3.360 € al año 💶 ¿Alquiler caro? Haz 60/20/20, pero el ahorro no se toca. Guárdalo para tu próxima nómina 📌 #regla503020 #presupuesto #comoahorrar #finanzaspersonales #eleurolisto",
+  "estado": "pendiente de aprobación de Sergio",
+  "origen": "content/reserva.md (rehacer el 50/30/20 con Javier) + patrón viral 'Haz este cálculo con tu sueldo'"
+}

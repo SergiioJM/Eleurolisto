@@ -7,5 +7,10 @@
 - Estado: pendiente de aprobación (proponer para un 13:30).
 
 ## Regla 50/30/20 (elaborado)
-- Carpeta: reels/2026-11-16_2030_regla_50_30_20 (versión con voz local v1).
-- Rehacer con la voz de Javier, efectos y música baja antes de proponerlo.
+- Carpeta antigua: reels/2026-11-16_2030_regla_50_30_20 (versión 2D con voz local v1).
+- 16-nov: rehecho en 3D con la voz de Javier (reels/2026-11-17_2030_regla_50_30_20_3d) y propuesto para el martes 17 a las 20:30.
+
+## Candidatos para los próximos días (de noticias.md y virales.md)
+- **Euríbor y revisión de hipoteca** (noticia): con la media de octubre (3,239 %), una hipoteca de 167.000 € a 25 años puede pagar ~94 €/mes más al revisar (ejemplo de Rankia, 11-nov). Verificar el dato del día antes de usarlo; sin recomendar fija o variable.
+- **Gasta primero vs ahorra primero en pantalla partida 3D** (patrón viral nuevo del 16-nov).
+- **Timo del Bizum "por error"** (evergreen, útil): qué es, cómo se ve y qué no hacer.
