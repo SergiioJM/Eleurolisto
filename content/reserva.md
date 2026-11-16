@@ -14,3 +14,8 @@
 - **Euríbor y revisión de hipoteca** (noticia): con la media de octubre (3,239 %), una hipoteca de 167.000 € a 25 años puede pagar ~94 €/mes más al revisar (ejemplo de Rankia, 11-nov). Verificar el dato del día antes de usarlo; sin recomendar fija o variable.
 - **Gasta primero vs ahorra primero en pantalla partida 3D** (patrón viral nuevo del 16-nov).
 - **Timo del Bizum "por error"** (evergreen, útil): qué es, cómo se ve y qué no hacer.
+
+## PRIORIDAD para el jueves 19 (Sergio, 17-nov: "llevaremos 3 días hablando de ahorros; habla también de inversión… contenido de más calidad")
+- Los dos reels del jueves, de pilares distintos al ahorro básico. Propuesta (la tarea nocturna del martes decide con la búsqueda viral de esa noche):
+  - **13:30 · Renta fija vs renta variable** (corto, voz local `k_santa` —toca alternar—, A vs B con dos personajes: "prestas" vs "eres dueño").
+  - **20:30 · Dividendos sin humo** (Javier): recrea el gancho viral "¿Y si te pagaran un sueldo extra cada mes?" y lo explica de verdad: qué es un dividendo, por qué la cotización baja ese día, que no está garantizado y que tributa en la base del ahorro (verificar tipos en la AEAT). Sin nombrar empresas concretas como recomendación. Caption con "Contenido educativo, no es asesoramiento financiero."

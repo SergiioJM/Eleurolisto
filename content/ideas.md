@@ -33,3 +33,23 @@ Todo lo que dependa de datos actuales (IPC, tipos de interés, SMI, impuestos, n
 - TIN vs TAE explicado con un ejemplo sencillo.
 - Cómo afecta la inflación a tus ahorros parados (barras que encogen año a año).
 - Compras a plazos "sin intereses": qué mirar antes de aceptar (comisiones, TAE, letra pequeña).
+
+## Inversión (pilar prioritario desde el 17-nov; 2–3 por semana; verificar cada dato y fuente ese día)
+- **Renta fija vs renta variable en 15 s**: prestar (te pagan un interés pactado) vs ser dueño de un trozo (sube y baja). Comparación A vs B con dos personajes 3D.
+- **Dividendos sin humo**: qué son, por qué no son "dinero gratis" (la cotización baja ese día), que no están garantizados y cómo tributan en España (base del ahorro; tipos de la AEAT del año en curso). Gancho viral "¿un sueldo extra cada mes?" con giro honesto.
+- **Gestión activa vs fondo indexado**: qué % de fondos activos no bate a su índice a 10–15 años (informe SPIVA Europa más reciente) y el papel de las comisiones (1,5 % vs 0,2 % durante 30 años, hipotético).
+- **Interés compuesto, la bola de nieve**: 200 €/mes 30 años al 7 % hipotético → aportas 72.000 €, ~244.000 € (recalcular); gráfico de líneas aportado vs total.
+- **Empezar a los 25 o a los 35** (hipotético, recalcular): misma aportación, diferencia enorme por el tiempo.
+- **¿Qué es un ETF / fondo indexado?** con metáfora 3D (una cesta con cientos de empresas).
+- **Volatilidad no es pérdida**: el índice cae un 30 % y vuelve (ejemplos históricos con fuente: 2008, 2020); vender en pánico convierte la caída en pérdida real.
+- **Diversificar**: no todos los huevos en la misma cesta, literal en 3D.
+- **Letras del Tesoro explicadas**: cómo funcionan (compra al descuento) y el último tipo de la subasta (Tesoro Público, verificar el día).
+- **Depósito vs fondo monetario vs Letras**: tabla comparativa sencilla (riesgo, liquidez, fiscalidad).
+- **Comisiones que se comen tu rentabilidad**: 1 % al año durante 30 años (cálculo hipotético).
+- **Mitos de la bolsa**: "la bolsa es un casino", "hace falta mucho dinero", "hay que acertar el momento".
+
+## Dinero y ley / impuestos en España (pilar nuevo; verificar en AEAT/BOE)
+- ¿Te puedes quedar el dinero que encuentras en la calle? (Código Civil, hallazgo)
+- Límite de pagos en efectivo entre empresas/profesionales y particulares.
+- ¿Hacienda ve tus Bizum?
+- Cómo tributan las ganancias de un fondo vs una acción (traspasos entre fondos sin tributar).

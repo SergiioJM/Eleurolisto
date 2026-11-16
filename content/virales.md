@@ -3,6 +3,25 @@
 Investigación semanal con vidIQ (`vidiq_instagram_tiktok_outlier_search`, 5 créditos). Aquí se guardan los patrones, no se copian vídeos:
 cada recreación usa guion, cifras, diseño y voz propios de El Euro Listo.
 
+## 17-nov-2026 · búsqueda diaria (pilar: INVERSIÓN; español, audiencia España, 30 días)
+
+| Cuenta | Vistas (x su mediana) | Gancho (0–3 s) | Formato |
+|---|---|---|---|
+| @iblameeyasu (IG, España) | 239 K (57x) | "Todo el mundo habla de Warren Buffett" + banderas España vs EE. UU. | Voz + gráficos de datos encima: fondos de gestión activa españoles vs índices |
+| @eldatofinanciero_ (IG, España) | 115 K (37x) | "3 empresas españolas te pagan 8 pagas extra al año" + calendario con interrogantes | Sin cara, motion graphics, calendario que se rellena, CTA "comenta DIVIDENDOS" |
+| @elartedeldinerox1 (IG) | 101 K (37x) | "¿Y si te pagaran un sueldo extra cada mes sin trabajar más?" | Animación con iconos, lista de 3, aviso de riesgo al final |
+| @patrimonioinfinito (IG, España) | 62 K (500x) | "Apertura de mercado hoy, martes diez" | Parte diario de mercados en 2 min, texto + barra de progreso |
+| @awtrading.academy (IG) | 101 K (340x) | "¿Por qué el precio rebota una y otra vez en el mismo lugar?" | Velas animadas: pregunta → metáfora animada → definición |
+| @siguealeuro1 (TikTok, España) | 129 K (19x) | Billete de 50 € en la calle + sello "DELITO": "¿Te lo quedas?" | Infografía animada de curiosidad legal del dinero en España |
+| @soypaularose (TikTok, España) | 93 K (12x) | "Cómo prepararte para una recesión" | Lista de 4 pasos, b-roll + voz |
+
+### Lo que está funcionando hoy
+- **Dividendos como "paga extra"** (2 outliers): el gancho de "sueldo extra sin trabajar" arrasa. Nuestro toque: explicarlo bien y con honestidad (qué es un dividendo, que no es dinero gratis porque la cotización baja ese día, que no está garantizado y que tributa en la base del ahorro; cifras verificadas).
+- **Datos que desmontan una creencia** (gestión activa vs indexada): gráfico + dato con fuente (SPIVA).
+- **Pregunta + metáfora animada + definición** para conceptos de bolsa (soportes, volatilidad, interés compuesto…).
+- **Curiosidades legales del dinero en España** (¿te puedes quedar 50 € que encuentras?): pilar nuevo "dinero y ley".
+- **Parte de mercado diario**: le corresponde a la tarea de Noticias (carrusel), no a los reels.
+
 ## Semana del 16-nov-2026 (outlier search por FORMATO, español, audiencia España; excluidas las cuentas de la semana anterior)
 
 | Cuenta | Vistas (x su mediana) | Gancho (0–3 s) | Formato |
