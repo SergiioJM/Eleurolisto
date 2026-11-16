@@ -127,6 +127,9 @@ Decisión de Sergio (16-nov): revisar noticias por la mañana (España y Europa:
 - **Publicar carrusel:** `vidiq_upload_image` (URL raw de GitHub con SHA), `vidiq_social_post_draft_create` con destino INSTAGRAM (`ig_N.jpg`) y TIKTOK (`tt_N.jpg` como `media` propio, `title` ≤ 90, `privacyLevel: PUBLIC_TO_EVERYONE`, `allowComment: true`, `musicUsageConfirmed: true`, `autoAddMusic: true`), sin `publishAt`, y `vidiq_social_post_publish`.
 - Apunta cada publicada en `content/noticias_publicadas.md` (fecha, titular, fuente con enlace, enlaces IG y TikTok).
 
+## Revisión semanal (domingos 11:13, tarea aparte — Sergio, 17-nov)
+Cada domingo: métricas de los 7 días (Instagram con `vidiq_instagram_owner_insights`, TikTok con `vidiq_tiktok_profile_videos`), mejores y peores reels y por qué, aprendizajes en `content/aprendizajes.md`, plan de la semana en `content/plan_semanal.md` (un tema por hueco + 1 experimento) y estado de créditos. Informe corto en su conversación + correo a eleurolisto@gmail.com. **La tarea nocturna usa `content/plan_semanal.md` como guía** (puede cambiarlo si sale algo viral o una noticia importante).
+
 ## Proactividad e insistencia (Sergio: "sé muy proactivo, creativo e insistente")
 - **Pendientes:** todo lo que mandes a aprobar va a `content/pendientes.md` (qué es, en qué conversación está —"Reels nocturnos del <día>" o "Noticias del <día> <mañana/tarde>"—, hora límite) y se borra al aprobarse, rechazarse o caducar.
 - **Insistir:** en cada pasada (noticias de mañana y tarde, y la nocturna) mira `content/pendientes.md`: si algo sigue sin respuesta y aún está a tiempo, recuérdaselo con `PushNotification` y un mensaje corto que diga qué es, por qué merece la pena y dónde aprobarlo. Si la respuesta llega a esta conversación, vale igual: es Sergio en un chat de Claude. Una vez por pasada y por pendiente, sin agobiar.
