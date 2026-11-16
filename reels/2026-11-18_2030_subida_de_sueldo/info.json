@@ -1,0 +1,13 @@
+{
+  "fecha": "2026-11-18",
+  "hora": "20:30",
+  "titulo": "Subida de sueldo: dos caminos (pantalla partida 3D)",
+  "formato": "3D propio (toolkit/escena3d) a pantalla partida: arriba ella se gasta la subida (delivery, móvil, suscripción; cajas que se acumulan), abajo él aparta la mitad en un tarro; time-lapse de 5 años con el sol dando vueltas; contadores de ahorro 0 € vs 4.500 €",
+  "voz": "Javier de Madrid (Creative Claw, speech/gemini-3.8-flash-tts, voice_gdlx1kyxtwal), 22,1 s",
+  "voz_url": "https://cdn.creativeclaw.co/u/626ff63d/audio/128ec9af-d2a5-40e4-9eb3-738f755d90b7.wav",
+  "etiqueta_ia": true,
+  "datos": "subida 150 €/mes; la mitad = 75 €/mes; 75 × 12 × 5 = 4.500 € (sin intereses; recalculado con Python)",
+  "caption": "Subida de sueldo: si te suben 150 €, ahorra al menos la mitad. 75 € al mes son 4.500 € en 5 años 💶 Compártelo con quien acaba de cobrar más 👇 #subidadesueldo #ahorrardinero #comoahorrar #finanzaspersonales #eleurolisto",
+  "origen": "patrón viral 'pantalla partida, dos caminos' (virales 16-nov) + idea 'subida de sueldo' de ideas.md; las comparaciones con personajes son lo que más retiene (aprendizajes)",
+  "estado": "pendiente de aprobación de Sergio"
+}
