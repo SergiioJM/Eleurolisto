@@ -3,7 +3,7 @@
 Cada noche se crean **dos reels originales para el día siguiente**, se envían a Sergio para que los apruebe en el chat de Claude y, si los aprueba, se publican solos a su hora. Si rechaza uno, se hace otro y se vuelve a enviar.
 
 ## Modo automático (decisión de Sergio, 16-nov)
-Funcionas en automático: decide tú temas, formatos (3D, 2D, animation-studio, personas), voces, herramientas, música, hashtags, horarios de trabajo y gasto de créditos con criterio. **Lo único manual es la aprobación de cada vídeo y su texto**: Sergio responde "ok" (se publica en Instagram y TikTok) o pide cambios (los haces y se lo reenvías). No le hagas otras preguntas: si dudas, elige la opción más razonable y sigue. Lo que no puedes hacer tú (comprar créditos, crear cuentas, dar permisos) se lo comentas en una línea al enviarle los vídeos, sin bloquear el trabajo.
+Funcionas en automático: decide tú temas, formatos (3D, 2D, animation-studio, planos de video-shotcraft, personas), voces, herramientas, música, hashtags, horarios de trabajo y gasto de créditos con criterio. **Lo único manual es la aprobación de cada vídeo y su texto**: Sergio responde "ok" (se publica en Instagram y TikTok) o pide cambios (los haces y se lo reenvías). No le hagas otras preguntas: si dudas, elige la opción más razonable y sigue. Lo que no puedes hacer tú (comprar créditos, crear cuentas, dar permisos) se lo comentas en una línea al enviarle los vídeos, sin bloquear el trabajo.
 
 ## Datos fijos
 - Cuenta: Instagram **@eleurolisto** (El Euro Listo), conectada a vidIQ. `platformAccountId`: `29395123383456641`.
@@ -108,6 +108,15 @@ Motor propio en `toolkit/escena3d/`: Three.js renderizado fotograma a fotograma 
 6. Personajes y decorados siempre nuestros: nunca recrear personajes o mascotas de otros (p. ej. los cubos de Claude de los vídeos de referencia).
 7. Varía escenarios (salón, súper, oficina, banco, calle) y cámara; reutiliza piezas de `lib3d.js` (persona, cámara suave, subtítulos, partículas).
 
+## Planos de cine con video-shotcraft (plugin instalado por Sergio el 17-nov; no gasta créditos)
+Biblioteca de 157 "tarjetas de plano" con su demo en Remotion: movimientos de cámara 2.5D, cifras animadas, cortes al ritmo y diseño de sonido. Está pensada para vídeos promocionales de productos, pero cada tarjeta sirve suelta como un plano dentro de nuestros reels.
+- **Frecuencia:** 2–3 veces por semana, en uno de los reels del día, sobre todo en el momento clave (la cifra, la gráfica, la revelación). No en los dos reels del mismo día.
+- **Dónde está:** carga la skill `video-shotcraft:video-shotcraft` o busca la carpeta con `find / -path '*74655670*' -maxdepth 6 -name SKILL.md`. Tarjetas en `references/shots/<categoría>/`, demos en `demos/<categoría>/`. Está escrito en chino: lee la tarjeta entera y su demo antes de adaptarla. Usa el modo "un solo plano"; no sigas el flujo completo de vídeo promocional ni el de "co-creación" (no se le pregunta nada a Sergio).
+- **Tarjetas que encajan con finanzas:** `data/` (odometer-digit-roll, counter-confetti, chart-live-moves, gauge-readout-moves, before-after-slider-scrub, particle-sand-fill), `typography/` (lead-word-zoom-assemble, flying-words, marker-underline-title), `camera/` (crash-zoom-punch, depth-layer-moves), `rhythm/` (beat-cut-moves, speed-ramp-freeze) y `transition/` (card-flip-reveal). Mira las demás categorías para variar.
+- **Cómo meterlo:** lo preferible es llevar la lógica del movimiento (curvas, tiempos, cámara) a nuestro `escena.html` o a `toolkit/reelkit.py`, para que siga sincronizado con la voz. Si no se puede, renderiza el plano con Remotion a 1080x1920 y 30 fps y únelo con ffmpeg. El sonido, con su receta de `references/sound-design.md` (subida, golpe y brillo) usando nuestros efectos.
+- **Siempre con la marca de El Euro Listo** (colores, Poppins/Inter, zona segura), nunca con la paleta ni las tipografías del plugin. Revisa fotogramas como siempre.
+- Apunta en `content/registro.md` qué tarjetas usaste en cada reel para comparar métricas y repetir las que retengan.
+
 ## Noticias (tarea aparte, 2 veces al día: 08:47 Europa y 18:47 EE. UU.)
 Decisión de Sergio (16-nov): revisar noticias por la mañana (España y Europa: INE, BCE, Eurostat, Gobierno, bolsas europeas) y por la tarde (EE. UU.: Fed, datos de empleo e inflación, Wall Street, dólar, petróleo, más lo que haya pasado en España por la tarde), y **publicar una noticia cada 2–3 días**, salvo que pase algo excepcional, que se lanza ese mismo día.
 - **Banco de noticias:** en cada pasada apunta las candidatas en `content/noticias.md` con fecha, fuente con enlace e impacto de 1 a 5 para el bolsillo en España. Impacto 5 = excepcional (el BCE o la Fed cambian tipos, IPC o euríbor muy por encima o por debajo de lo esperado, se aprueba SMI/pensiones/IRPF, caída o subida de bolsa > 3 %, cambio fiscal, crisis energética…).
@@ -131,6 +140,7 @@ Decisión de Sergio (16-nov): revisar noticias por la mañana (España y Europa:
 - **HyperFrames by HeyGen** (`compose`): Sergio prefiere claramente nuestra animación propia; HyperFrames solo si él lo pide o para una prueba puntual (animación HTML más cinematográfica). Pedir siempre vertical 1080x1920, español de España, paleta de marca y zona segura. Revisa el resultado antes de proponerlo.
 - **Creative Claw** también da música (`generate_music`, ≈16 créditos/30 s), efectos de sonido y clips de vídeo con IA (≈31 créditos/5 s): solo para reels especiales, con etiqueta de IA.
 - **CellCog** (200 créditos, plan gratis): reserva para encargos complejos (avatar presentador, investigación profunda).
+- **BlitzReels** (plugin instalado por Sergio el 17-nov; conectado al espacio de trabajo "Sergio"): subtítulos animados (`captions_*`), edición en línea de tiempo, carruseles y generación de voz, música, imágenes o clips (`generation_*`). Gasta créditos de BlitzReels: antes de generar, mira el coste con `generation_options_list`. Úsalo de forma puntual (p. ej. un estilo de subtítulos distinto o un plano generado), con etiqueta de IA si genera imagen, vídeo o voz. Los carruseles de noticias siguen haciéndose con `toolkit/noticias/carrusel.mjs` (gratis). **Nunca publiques ni programes nada con BlitzReels** (`publishing_*`): se publica solo con vidIQ y tras la aprobación de Sergio. Si sus herramientas no aparecen en la sesión, sigue sin él.
 
 ## Estilo de marca
 - Fondo azul noche con degradado verde, Poppins Bold para titulares, Inter para textos pequeños.
