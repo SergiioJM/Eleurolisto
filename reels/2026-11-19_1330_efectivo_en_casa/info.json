@@ -26,5 +26,9 @@
   "audio": "voz local + música + efectos, loudnorm −14 LUFS (medido −14,5), AAC 48 kHz",
   "portada": "portada/portada.jpg (fondo: plano cerrado x7 del reel con Listo sorprendido; kicker 'DINERO Y LEY', '¿Cuánto EFECTIVO en casa?', sub 'y cuándo se entera Hacienda'); video_portada.mp4 = mismo vídeo con la portada en el primer fotograma",
   "duracion_s": 21.3,
-  "estado": "pendiente de aprobación"
+  "estado": "pendiente de aprobación (enviado el 17-nov por la noche)",
+  "vidiq_uploadId_sin_portada": "9f7bee4d-4e74-4d1b-9c15-c6fba8ef2d95",
+  "vidiq_uploadId_con_portada": "ce2967c2-9560-4989-81cd-cf81c18b9caa",
+  "video_raw": "https://raw.githubusercontent.com/SergiioJM/Eleurolisto/3d09727f73169fa62893790a1de2aed635499625/reels/2026-11-19_1330_efectivo_en_casa/video.mp4",
+  "video_raw_portada": "https://raw.githubusercontent.com/SergiioJM/Eleurolisto/3d09727f73169fa62893790a1de2aed635499625/reels/2026-11-19_1330_efectivo_en_casa/video_portada.mp4"
 }

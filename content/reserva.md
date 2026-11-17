@@ -15,6 +15,7 @@
 - **Gasta primero vs ahorra primero en pantalla partida 3D** (patrón viral nuevo del 16-nov).
 - **Timo del Bizum "por error"** (evergreen, útil): qué es, cómo se ve y qué no hacer.
 
+## (HECHO 17-nov noche: el 20:30 del jueves es "Dividendos sin humo" en R3 con ElevenLabs Mateo; el 13:30, efectivo en casa (dinero y ley) para no repetir pilar. "Renta fija vs renta variable" queda para el viernes o el sábado)
 ## PRIORIDAD para el jueves 19 (Sergio, 17-nov: "llevaremos 3 días hablando de ahorros; habla también de inversión… contenido de más calidad")
 - Los dos reels del jueves, de pilares distintos al ahorro básico. Propuesta (la tarea nocturna del martes decide con la búsqueda viral de esa noche):
   - **13:30 · Renta fija vs renta variable** (corto, voz local `k_santa` —toca alternar—, A vs B con dos personajes: "prestas" vs "eres dueño").

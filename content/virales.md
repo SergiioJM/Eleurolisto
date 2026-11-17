@@ -3,6 +3,25 @@
 Investigación semanal con vidIQ (`vidiq_instagram_tiktok_outlier_search`, 5 créditos). Aquí se guardan los patrones, no se copian vídeos:
 cada recreación usa guion, cifras, diseño y voz propios de El Euro Listo.
 
+## 17-nov-2026 · búsqueda nocturna (pilar: DINERO Y LEY / curiosidades legales; español, audiencia España, desde el 3-nov)
+
+| Cuenta | Vistas (x su mediana) | Gancho (0–3 s) | Formato / edición |
+|---|---|---|---|
+| @karlasucrerealtor (IG) | 1,1 M (67,6x) | "Quizás esto le duela a tu ego, pero…" | Fondo fijo estético en bucle + lista de hábitos "normales" en texto; solo música (contrarian) |
+| @datos_continuo (TikTok) | 547 K (47,8x) | "¿Por qué te dicen que mantengas efectivo en casa?" | Mapa animado + brazo 2D con megáfono, narración rápida, efectos |
+| @thebusinessofthe21century (IG, España) | 388 K (53x) | "NIVELES DE INGRESOS EN ESPAÑA" | Selfie estática con lista en pantalla y voz que desmonta un nivel |
+| @baijavier (TikTok) | 216 K (4,7x) | "NUNCA DEJES QUE TE DONEN SU CASA" | Sketch con pantalla partida (él contra él), herencia vs donación |
+| @finanzas.facilitas (IG, España) | 189 K (45,9x) | "¿Cuánto te descuentan por hacer huelga?" | Motion graphics de nómina de 1.800 € con multitud 3D (sigue funcionando) |
+| @siguealeuro1 (TikTok, España) | 129 K (19,4x) | Billete de 50 € + sello "DELITO": "¿Te lo quedas?" | Infografía animada de curiosidad legal (sigue) |
+| @eldatofinanciero_ (IG, España) | 107 K (34x) | "3 empresas españolas te pagan 8 pagas extra" | Calendario + barra de progreso, CTA "comenta DIVIDENDOS" (2.º día seguido) |
+
+### Lo que está funcionando hoy
+- **Efectivo / Hacienda / qué ve Hacienda** (547 K + 129 K + 192 K de recaudación): curiosidad legal del dinero con pregunta directa. → Reel 13:30 del 19-nov "¿Cuánto efectivo puedes guardar en casa?" en R6 pixel art.
+- **Dividendos como paga extra** (2.º día seguido) → reel 20:30 del 19-nov con el giro honesto (la acción baja, retención, no garantizado).
+- **Contrarian "esto le duela a tu ego" + lista de lo que es normal** (1,1 M): formato barato (fondo fijo en bucle + texto). Idea: "Cosas normales con tu dinero que parecen de pobre" (sin juzgar), con nuestra marca.
+- **Herencia vs donación** (216 K): tema de dinero y ley con mucha demanda; ojo, el impuesto depende de la comunidad autónoma (verificar antes).
+- **Edición que arrasa fuera del nicho**: mapa animado con personaje 2D superpuesto y narración rápida (@datos_continuo) → candidato a R8 "mapa animado" (p. ej. "¿Dónde se paga más IRPF en España?").
+
 ## 17-nov-2026 · búsqueda diaria (pilar: INVERSIÓN; español, audiencia España, 30 días)
 
 | Cuenta | Vistas (x su mediana) | Gancho (0–3 s) | Formato |
