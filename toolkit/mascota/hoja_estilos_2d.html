@@ -1,5 +1,5 @@
 <!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#111}canvas{display:block}</style></head>
-<body><canvas id="c" width="1080" height="1500"></canvas>
+<body><canvas id="c" width="1080" height="2180"></canvas>
 <script src="listo2d.js"></script>
 <script>
 const c = document.getElementById('c').getContext('2d');
@@ -11,10 +11,11 @@ const P = [
   ['boceto', 'DIBUJADO A MANO', ['#fbf7ee','#efe7d6'], {expr:'guino', pose:'pulgar'}],
   ['neon', 'TERMINAL DE BOLSA', ['#05080d','#071a12'], {expr:'sorpresa', pose:'piensa'}],
   ['pixel', 'R6 PIXEL ART', ['#3b2a6b','#24184a'], {expr:'normal', pose:'saludo'}],
+  ['tropical', 'R8 NEÓN TROPICAL', ['#ff7a59','#5b1a6b'], {expr:'guino', pose:'pulgar'}],
 ];
 window.DURACION = 1;
 window.renderAt = function(tt){
-  c.fillStyle = '#0B1328'; c.fillRect(0,0,1080,1500);
+  c.fillStyle = '#0B1328'; c.fillRect(0,0,1080,2180);
   t('LISTO · un modelado por tipo de edición', 540, 70, 46, '#4ADE80', 800);
   P.forEach(([est, lab, bg, o], i) => {
     const x0 = (i % 3) * 360, y0 = 140 + Math.floor(i / 3) * 680;

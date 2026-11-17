@@ -1,0 +1,402 @@
+{
+ "total": 21.5,
+ "voz": "Javier de Madrid (Creative Claw, speech/gemini-3.8-flash-tts, voice_gdlx1kyxtwal); tiempos por palabra de Creative Claw (gemini-transcribe)",
+ "offset_voz": 0.2,
+ "voz_url": "https://cdn.creativeclaw.co/u/626ff63d/audio/e4923bf2-0155-4c21-99b2-8ab5fe36d9d8.wav",
+ "segments": [
+  {
+   "i": 0,
+   "start": 0.4,
+   "dur": 2.4,
+   "text": "¿Cuántas horas hay que currar para pagarte GTA 6?",
+   "words": [
+    {
+     "w": "¿Cuántas",
+     "start": 0.4,
+     "end": 0.9
+    },
+    {
+     "w": "horas",
+     "start": 0.9,
+     "end": 1.2
+    },
+    {
+     "w": "hay",
+     "start": 1.2,
+     "end": 1.3
+    },
+    {
+     "w": "que",
+     "start": 1.3,
+     "end": 1.4
+    },
+    {
+     "w": "currar",
+     "start": 1.4,
+     "end": 1.7
+    },
+    {
+     "w": "para",
+     "start": 1.7,
+     "end": 1.8
+    },
+    {
+     "w": "pagarte",
+     "start": 1.8,
+     "end": 2.2
+    },
+    {
+     "w": "GTA",
+     "start": 2.2,
+     "end": 2.5
+    },
+    {
+     "w": "6?",
+     "start": 2.5,
+     "end": 2.8
+    }
+   ]
+  },
+  {
+   "i": 1,
+   "start": 3.2,
+   "dur": 2.4,
+   "text": "La edición normal cuesta 79,99 €",
+   "words": [
+    {
+     "w": "La",
+     "start": 3.2,
+     "end": 3.3
+    },
+    {
+     "w": "edición",
+     "start": 3.3,
+     "end": 3.6
+    },
+    {
+     "w": "normal",
+     "start": 3.6,
+     "end": 3.9
+    },
+    {
+     "w": "cuesta",
+     "start": 3.9,
+     "end": 4.2
+    },
+    {
+     "w": "79,99 €",
+     "start": 4.2,
+     "end": 5.6
+    }
+   ]
+  },
+  {
+   "i": 2,
+   "start": 5.8,
+   "dur": 3.1,
+   "text": "Con el salario mínimo ganas unos 9,36 € la hora en bruto.",
+   "words": [
+    {
+     "w": "Con",
+     "start": 5.8,
+     "end": 6.0
+    },
+    {
+     "w": "el",
+     "start": 6.0,
+     "end": 6.08
+    },
+    {
+     "w": "salario",
+     "start": 6.0,
+     "end": 6.4
+    },
+    {
+     "w": "mínimo",
+     "start": 6.4,
+     "end": 6.7
+    },
+    {
+     "w": "ganas",
+     "start": 6.7,
+     "end": 6.9
+    },
+    {
+     "w": "unos",
+     "start": 6.9,
+     "end": 7.1
+    },
+    {
+     "w": "9,36 €",
+     "start": 7.1,
+     "end": 8.2
+    },
+    {
+     "w": "la",
+     "start": 8.2,
+     "end": 8.3
+    },
+    {
+     "w": "hora",
+     "start": 8.3,
+     "end": 8.5
+    },
+    {
+     "w": "en",
+     "start": 8.6,
+     "end": 8.68
+    },
+    {
+     "w": "bruto.",
+     "start": 8.6,
+     "end": 8.9
+    }
+   ]
+  },
+  {
+   "i": 3,
+   "start": 9.5,
+   "dur": 2.2,
+   "text": "Eso son 8 horas y media de curro, un día entero.",
+   "words": [
+    {
+     "w": "Eso",
+     "start": 9.5,
+     "end": 9.7
+    },
+    {
+     "w": "son",
+     "start": 9.7,
+     "end": 9.9
+    },
+    {
+     "w": "8",
+     "start": 9.9,
+     "end": 10.1
+    },
+    {
+     "w": "horas",
+     "start": 10.1,
+     "end": 10.3
+    },
+    {
+     "w": "y",
+     "start": 10.3,
+     "end": 10.38
+    },
+    {
+     "w": "media",
+     "start": 10.3,
+     "end": 10.5
+    },
+    {
+     "w": "de",
+     "start": 10.5,
+     "end": 10.6
+    },
+    {
+     "w": "curro,",
+     "start": 10.6,
+     "end": 10.9
+    },
+    {
+     "w": "un",
+     "start": 11.0,
+     "end": 11.2
+    },
+    {
+     "w": "día",
+     "start": 11.2,
+     "end": 11.4
+    },
+    {
+     "w": "entero.",
+     "start": 11.4,
+     "end": 11.7
+    }
+   ]
+  },
+  {
+   "i": 4,
+   "start": 12.1,
+   "dur": 1.2,
+   "text": "Y la Ultimate, casi 11 horas",
+   "words": [
+    {
+     "w": "Y",
+     "start": 12.1,
+     "end": 12.2
+    },
+    {
+     "w": "la",
+     "start": 12.2,
+     "end": 12.3
+    },
+    {
+     "w": "Ultimate,",
+     "start": 12.3,
+     "end": 12.8
+    },
+    {
+     "w": "casi",
+     "start": 12.8,
+     "end": 13.0
+    },
+    {
+     "w": "11 horas",
+     "start": 13.0,
+     "end": 13.3
+    }
+   ]
+  },
+  {
+   "i": 5,
+   "start": 13.8,
+   "dur": 2.9,
+   "text": "El truco, antes de comprar algo, pásalo a horas de tu vida.",
+   "words": [
+    {
+     "w": "El",
+     "start": 13.8,
+     "end": 13.9
+    },
+    {
+     "w": "truco,",
+     "start": 13.9,
+     "end": 14.3
+    },
+    {
+     "w": "antes",
+     "start": 14.5,
+     "end": 14.7
+    },
+    {
+     "w": "de",
+     "start": 14.7,
+     "end": 14.8
+    },
+    {
+     "w": "comprar",
+     "start": 14.8,
+     "end": 15.1
+    },
+    {
+     "w": "algo,",
+     "start": 15.1,
+     "end": 15.4
+    },
+    {
+     "w": "pásalo",
+     "start": 15.4,
+     "end": 15.8
+    },
+    {
+     "w": "a",
+     "start": 15.8,
+     "end": 15.9
+    },
+    {
+     "w": "horas",
+     "start": 15.9,
+     "end": 16.1
+    },
+    {
+     "w": "de",
+     "start": 16.1,
+     "end": 16.2
+    },
+    {
+     "w": "tu",
+     "start": 16.2,
+     "end": 16.3
+    },
+    {
+     "w": "vida.",
+     "start": 16.3,
+     "end": 16.7
+    }
+   ]
+  },
+  {
+   "i": 6,
+   "start": 16.9,
+   "dur": 1.5,
+   "text": "Si lo vale, disfrútalo sin culpa.",
+   "words": [
+    {
+     "w": "Si",
+     "start": 16.9,
+     "end": 17.0
+    },
+    {
+     "w": "lo",
+     "start": 17.0,
+     "end": 17.08
+    },
+    {
+     "w": "vale,",
+     "start": 17.0,
+     "end": 17.4
+    },
+    {
+     "w": "disfrútalo",
+     "start": 17.4,
+     "end": 17.9
+    },
+    {
+     "w": "sin",
+     "start": 17.9,
+     "end": 18.0
+    },
+    {
+     "w": "culpa.",
+     "start": 18.0,
+     "end": 18.4
+    }
+   ]
+  },
+  {
+   "i": 7,
+   "start": 18.7,
+   "dur": 1.5,
+   "text": "Mándaselo a quien ya lo tiene reservado.",
+   "words": [
+    {
+     "w": "Mándaselo",
+     "start": 18.7,
+     "end": 19.1
+    },
+    {
+     "w": "a",
+     "start": 19.1,
+     "end": 19.18
+    },
+    {
+     "w": "quien",
+     "start": 19.1,
+     "end": 19.3
+    },
+    {
+     "w": "ya",
+     "start": 19.3,
+     "end": 19.4
+    },
+    {
+     "w": "lo",
+     "start": 19.4,
+     "end": 19.5
+    },
+    {
+     "w": "tiene",
+     "start": 19.5,
+     "end": 19.7
+    },
+    {
+     "w": "reservado.",
+     "start": 19.7,
+     "end": 20.2
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,296 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<script src="../../toolkit/mascota/listo2d.js"></script>
+<style>
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#12051f}
+canvas{position:absolute;inset:0}
+</style></head>
+<body><canvas id="c" width="1080" height="1920"></canvas>
+<script>
+// R8 · NEÓN TROPICAL / MUNDO ABIERTO (ambientación de atardecer en una costa tipo Miami, como el arte de los juegos de
+// mundo abierto): carretera de la costa con palmeras, rascacielos art déco con neones, mar con el reflejo del sol y un
+// descapotable que conduce Listo. HUD propio (reloj de horas de curro + dinero). Sin logos, personajes ni tipografías del juego.
+const C = document.getElementById('c'), X = C.getContext('2d');
+const TIM = window.TIM, S = TIM.segments;
+const DUR = (window.DURACION = TIM.total);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, k) => a + (b - a) * k;
+const prog = (t, a, d) => clamp((t - a) / d);
+const eio = (k) => k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+const eout = (k) => 1 - Math.pow(1 - k, 3);
+const eback = (k, s = 1.7) => { k = clamp(k); return 1 + (s + 1) * Math.pow(k - 1, 3) + s * Math.pow(k - 1, 2); };
+const st = (i) => S[i].start, en = (i) => S[i].start + S[i].dur;
+const pal = (i, f) => (S[i].words.find((w) => w.w.toLowerCase().includes(f)) || S[i].words[0]).start;
+const T = {
+  precio: st(1), precioW: pal(1, '79'), sueldo: st(2), sueldoW: pal(2, '9,36'), horas: st(3), horasW: pal(3, '8'), dia: pal(3, 'día'),
+  ulti: st(4), ultiW: pal(4, '11'), truco: st(5), vida: pal(5, 'vida'), vale: st(6), culpa: pal(6, 'sin'), cta: st(7),
+};
+const PAL = { rosa: '#ff3d8b', rosa2: '#ff7ac0', cian: '#34e5ff', amb: '#FFC547', verde: '#4ADE80', tinta: '#160a22', morado: '#2a0f45' };
+
+// ---------- texto de cómic: relleno, contorno grueso y sombra de color ----------
+function comic(s, x, y, size, fill, { stroke = PAL.tinta, sw = 0.16, sombra = PAL.rosa, ital = true, align = 'center', peso = 900 } = {}) {
+  X.font = `${ital ? 'italic ' : ''}${peso} ${size}px Inter`; X.textAlign = align; X.textBaseline = 'middle'; X.lineJoin = 'round';
+  if (sombra) { X.fillStyle = sombra; X.fillText(s, x + size * 0.06, y + size * 0.07); X.strokeStyle = sombra; X.lineWidth = size * sw; X.strokeText(s, x + size * 0.06, y + size * 0.07); }
+  X.strokeStyle = stroke; X.lineWidth = size * sw; X.strokeText(s, x, y); X.fillStyle = fill; X.fillText(s, x, y);
+}
+function rr(x, y, w, h, r, fill, stroke, lw) { X.beginPath(); X.roundRect(x, y, w, h, r); if (fill) { X.fillStyle = fill; X.fill(); } if (stroke) { X.strokeStyle = stroke; X.lineWidth = lw || 4; X.stroke(); } }
+function neonRect(x, y, w, h, r, col, lw = 6) { // marco de neón ESTABLE (sin parpadeo)
+  X.save(); X.shadowColor = col; X.shadowBlur = 24; X.strokeStyle = col; X.lineWidth = lw; X.beginPath(); X.roundRect(x, y, w, h, r); X.stroke();
+  X.shadowBlur = 0; X.strokeStyle = 'rgba(255,255,255,.75)'; X.lineWidth = lw * 0.35; X.stroke(); X.restore();
+}
+function panel(x, y, w, h, k, col = PAL.rosa) { // tarjeta oscura con neón: entra con rebote, sin aclarar la pantalla
+  X.save(); X.globalAlpha *= clamp(k * 2); X.translate(x, y + (1 - eback(k)) * 70); const s = 0.86 + 0.14 * eback(k); X.scale(s, s); X.rotate(-0.025);
+  rr(-w / 2 + 10, -h / 2 + 14, w, h, 26, 'rgba(10,0,20,.5)'); rr(-w / 2, -h / 2, w, h, 26, 'rgba(26,8,44,.92)'); neonRect(-w / 2, -h / 2, w, h, 26, col);
+  return () => X.restore();
+}
+
+// ---------- el mundo (paralaje) ----------
+const VEL = 520; // px/s de la carretera
+let EDIF = [], PALM = [];
+(function () { // edificios deterministas
+  let s = 7; const r = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  let x = -200; while (x < 4000) { const w = 70 + r() * 120, h = 120 + r() * 360; EDIF.push({ x, w, h, deco: r() < 0.35, neon: r() < 0.5 ? PAL.rosa : PAL.cian, ven: r() }); x += w + 8 + r() * 30; }
+  for (let i = 0; i < 40; i++) PALM.push({ x: i * 330 + r() * 120, h: 300 + r() * 160, inc: (r() - 0.5) * 0.25 });
+})();
+const HOR = 1080; // línea del horizonte
+function cielo() {
+  const g = X.createLinearGradient(0, 0, 0, HOR); g.addColorStop(0, '#1a0733'); g.addColorStop(0.35, '#4a1466'); g.addColorStop(0.68, '#c4307a'); g.addColorStop(0.88, '#ff7a4d'); g.addColorStop(1, '#ffb45e');
+  X.fillStyle = g; X.fillRect(0, 0, 1080, HOR);
+}
+function sol(t) {
+  const sx = 720, sy = HOR - 30, r = 190;
+  const h = X.createRadialGradient(sx, sy, r * 0.6, sx, sy, r * 2.4); h.addColorStop(0, 'rgba(255,190,110,.45)'); h.addColorStop(1, 'rgba(255,120,120,0)');
+  X.fillStyle = h; X.fillRect(0, sy - r * 2.4, 1080, r * 2.4 + 30);
+  X.save(); X.beginPath(); X.rect(0, 0, 1080, HOR); X.clip();
+  const g = X.createLinearGradient(0, sy - r, 0, sy + r); g.addColorStop(0, '#fff4b8'); g.addColorStop(0.6, '#ffb15a'); g.addColorStop(1, '#ff6a5a');
+  X.fillStyle = g; X.beginPath(); X.arc(sx, sy, r, 0, 7); X.fill(); X.restore();
+}
+function nubes(t) {
+  X.fillStyle = 'rgba(255,140,190,.28)';
+  for (let i = 0; i < 7; i++) { const x = ((i * 290 - t * 12) % 1500 + 1500) % 1500 - 260, y = 420 + i * 70 % 330; X.beginPath(); X.ellipse(x, y, 230, 16 + (i % 3) * 6, 0, 0, 7); X.fill(); }
+}
+function skyline(t) {
+  const off = (t * VEL * 0.08) % 3600;
+  for (const b of EDIF) {
+    let x = b.x - off; if (x + b.w < -50) x += 3600; if (x > 1130) continue;
+    const top = HOR - b.h;
+    X.fillStyle = '#331247'; X.fillRect(x, top, b.w, b.h);
+    if (b.deco) { X.fillRect(x + b.w * 0.25, top - 30, b.w * 0.5, 30); X.fillRect(x + b.w * 0.42, top - 70, b.w * 0.16, 40); }
+    X.fillStyle = 'rgba(255,205,120,.55)';
+    for (let yy = top + 16; yy < HOR - 14; yy += 26) for (let xx = x + 10; xx < x + b.w - 12; xx += 20) if (((xx * 7 + yy * 3) | 0) % 5 < 2 + b.ven * 2) X.fillRect(xx, yy, 8, 11);
+    if (b.deco) { X.save(); X.shadowColor = b.neon; X.shadowBlur = 14; X.strokeStyle = b.neon; X.lineWidth = 4; X.strokeRect(x + 3, top + 3, b.w - 6, b.h); X.restore(); }
+  }
+  // neones propios en la azotea (estables)
+  const nx = 860 - ((t * VEL * 0.08) % 3600); if (nx > -300 && nx < 1100) { X.save(); X.shadowColor = PAL.cian; X.shadowBlur = 18; X.font = 'italic 900 46px Inter'; X.fillStyle = '#c9fbff'; X.textAlign = 'center'; X.fillText('HOTEL LISTO', nx, HOR - 330); X.restore(); }
+}
+function mar(t) {
+  const g = X.createLinearGradient(0, HOR, 0, 1290); g.addColorStop(0, '#ff8a5c'); g.addColorStop(0.35, '#b23a86'); g.addColorStop(1, '#3a1458');
+  X.fillStyle = g; X.fillRect(0, HOR, 1080, 210);
+  // reflejo del sol: rayas que se mueven en horizontal (el brillo medio no cambia)
+  for (let i = 0; i < 12; i++) { const y = HOR + 8 + i * 15, w = 260 - i * 16, x = 720 - w / 2 + Math.sin(t * 2 + i) * 18; X.fillStyle = `rgba(255,230,170,${0.55 - i * 0.04})`; X.fillRect(x, y, w, 5); }
+}
+function palmera(x, base, h, inc, t, col) {
+  X.save(); X.translate(x, base); X.strokeStyle = col; X.lineCap = 'round';
+  X.lineWidth = 16; X.beginPath(); X.moveTo(0, 0); X.quadraticCurveTo(h * inc * 0.5 + 10, -h * 0.5, h * inc, -h); X.stroke();
+  X.translate(h * inc, -h); X.fillStyle = col;
+  for (let k = 0; k < 7; k++) { const a = -Math.PI / 2 + (k - 3) * 0.52 + Math.sin(t * 1.4 + k) * 0.05; X.save(); X.rotate(a); X.beginPath(); X.moveTo(0, -6); X.quadraticCurveTo(70, -26, 140, 10); X.quadraticCurveTo(70, 4, 0, 6); X.fill(); X.restore(); }
+  X.restore();
+}
+function playa(t) {
+  X.fillStyle = '#e48a6a'; X.fillRect(0, 1290, 1080, 40); // arena
+  const off = (t * VEL * 0.45) % 330;
+  for (let i = -1; i < 5; i++) palmera(i * 330 - off + 120, 1320, 300 + (i % 2) * 70, 0.12 + (i % 3) * 0.05, t, '#2a0d3a');
+}
+function carretera(t) {
+  X.fillStyle = '#2b1838'; X.fillRect(0, 1330, 1080, 170);
+  X.fillStyle = '#ffcf6a'; const off = (t * VEL) % 160; for (let x = -off; x < 1100; x += 160) X.fillRect(x, 1412, 80, 8);
+  X.fillStyle = '#4b2a5c'; X.fillRect(0, 1330, 1080, 10);
+  X.fillStyle = '#1d0f29'; X.fillRect(0, 1500, 1080, 420);
+  X.save(); X.shadowColor = PAL.rosa; X.shadowBlur = 16; X.fillStyle = PAL.rosa; X.fillRect(0, 1506, 1080, 6); X.restore();
+  X.fillStyle = '#2a1538'; const of4 = (t * VEL) % 120; for (let x = -of4; x < 1100; x += 120) X.fillRect(x, 1540, 112, 60);
+  // farolas que pasan (luz fija)
+  const of2 = (t * VEL) % 540;
+  for (let x = -of2; x < 1200; x += 540) { X.fillStyle = '#120818'; X.fillRect(x, 1210, 10, 130); X.fillRect(x - 30, 1210, 40, 8); const g = X.createRadialGradient(x - 26, 1222, 4, x - 26, 1222, 90); g.addColorStop(0, 'rgba(255,214,150,.6)'); g.addColorStop(1, 'rgba(255,214,150,0)'); X.fillStyle = g; X.fillRect(x - 120, 1130, 190, 190); }
+  // palmeras de primer plano (pasan rápido, enmarcan)
+  const of3 = (t * VEL * 1.5) % 1400;
+  palmera(1300 - of3, 1920, 640, -0.18, t, '#0b0412'); palmera(2000 - of3, 1920, 560, 0.15, t, '#0b0412');
+}
+function coche(t, cx, cy, listo) { // descapotable genérico de los 80, vista lateral
+  const bob = Math.sin(t * 9) * 2;
+  X.save(); X.translate(cx, cy + bob);
+  if (listo) listo();
+  // carrocería
+  X.fillStyle = '#ff3d8b'; X.beginPath(); X.moveTo(-250, 10); X.lineTo(-240, -40); X.lineTo(-120, -52); X.lineTo(-60, -52); X.lineTo(30, -50); X.lineTo(200, -40); X.lineTo(250, -10); X.lineTo(252, 22); X.lineTo(-250, 22); X.closePath(); X.fill();
+  X.strokeStyle = PAL.tinta; X.lineWidth = 7; X.stroke();
+  X.fillStyle = '#34e5ff'; X.fillRect(-235, -8, 480, 9); // franja
+  // parabrisas
+  X.strokeStyle = '#c9fbff'; X.lineWidth = 6; X.beginPath(); X.moveTo(40, -50); X.lineTo(-10, -110); X.stroke();
+  // ruedas
+  for (const wx of [-160, 160]) { X.fillStyle = PAL.tinta; X.beginPath(); X.arc(wx, 24, 46, 0, 7); X.fill(); X.fillStyle = '#cfd6e6'; X.beginPath(); X.arc(wx, 24, 22, 0, 7); X.fill();
+    X.save(); X.translate(wx, 24); X.rotate(t * 14); X.strokeStyle = '#6b7280'; X.lineWidth = 5; for (let k = 0; k < 5; k++) { X.rotate(1.2566); X.beginPath(); X.moveTo(0, 0); X.lineTo(20, 0); X.stroke(); } X.restore(); }
+  // faros
+  X.fillStyle = '#fff1b8'; X.fillRect(238, -14, 14, 12);
+  X.restore();
+}
+
+// ---------- capa: HUD, subtítulos, tarjetas, CTA ----------
+const CLAVE = ['horas', 'gta', '6?', '79,99', '€', '9,36', '8', 'media', 'día', 'entero.', 'ultimate,', '11', 'truco,', 'vida.', 'sin', 'culpa.', 'reservado.'];
+const TROZOS = [];
+S.forEach((s) => { let cur = []; s.words.forEach((w) => { const len = cur.map((x) => x.w).join(' ').length + w.w.length; if (cur.length >= 3 || (cur.length && len > 16)) { TROZOS.push(cur); cur = []; } cur.push(w); }); if (cur.length) TROZOS.push(cur); });
+function subtitulos(t) {
+  let tr = null; for (const c of TROZOS) if (t >= c[0].start - 0.06) tr = c;
+  if (!tr || t > tr[tr.length - 1].end + 0.5) return;
+  const k = eback(prog(t, tr[0].start - 0.06, 0.18), 2);
+  X.font = 'italic 900 84px Inter'; const sp = 24, ws = tr.map((w) => X.measureText(w.w).width), tot = ws.reduce((a, b) => a + b, 0) + sp * (tr.length - 1);
+  let x = 540 - tot / 2;
+  X.save(); X.translate(540, 905); X.scale(0.85 + 0.15 * k, 0.85 + 0.15 * k); X.translate(-540, -905);
+  tr.forEach((w, i) => { const on = t >= w.start - 0.03, cl = CLAVE.includes(w.w.toLowerCase()); comic(w.w, x, 905, 84, on ? (cl ? PAL.amb : '#ffffff') : 'rgba(255,255,255,.55)', { align: 'left', sombra: on ? PAL.rosa : null }); x += ws[i] + sp; });
+  X.restore();
+}
+function hud(t) {
+  // horas de curro y dinero: arrancan con el salario mínimo y llegan a 79,99 € en 8,5 h
+  const kh = eio(prog(t, T.sueldoW, T.horasW + 0.35 - T.sueldoW));
+  const kU = eio(prog(t, T.ultiW - 0.3, 0.6));
+  const horas = 8.546 * kh + (10.683 - 8.546) * kU, dinero = Math.min(99.99, horas * 9.36);
+  const kin = eout(prog(t, 0.05, 0.4));
+  X.save(); X.globalAlpha = kin; X.translate((1 - kin) * 60, 0);
+  // reloj (izquierda)
+  rr(56, 250, 330, 116, 22, 'rgba(18,6,30,.78)'); neonRect(56, 250, 330, 116, 22, PAL.cian, 4);
+  X.font = '800 24px Inter'; X.fillStyle = '#9be9f5'; X.textAlign = 'left'; X.fillText('HORAS DE CURRO', 80, 282);
+  comic(horas.toFixed(1).replace('.', ',') + ' h', 80, 332, 58, '#ffffff', { align: 'left', sombra: null, ital: true });
+  // dinero (derecha)
+  const golpe = 1 + 0.22 * Math.exp(-Math.max(0, t - (T.horasW + 0.35)) * 6) * (t > T.horasW + 0.35 ? 1 : 0);
+  rr(694, 250, 330, 116, 22, 'rgba(18,6,30,.78)'); neonRect(694, 250, 330, 116, 22, PAL.verde, 4);
+  X.font = '800 24px Inter'; X.fillStyle = '#b9f7cf'; X.textAlign = 'right'; X.fillText('GANADO', 1000, 282);
+  X.save(); X.translate(1000, 332); X.scale(golpe, golpe); comic(dinero.toFixed(2).replace('.', ',') + ' €', 0, 0, 58, PAL.verde, { align: 'right', sombra: null }); X.restore();
+  X.restore();
+  // monedas "+9,36 €" que saltan cada hora
+  if (t > T.sueldoW && t < T.horasW + 0.5) {
+    const n = Math.floor(horas); for (let i = Math.max(0, n - 2); i <= n; i++) {
+      const ti = T.sueldoW + (T.horasW + 0.35 - T.sueldoW) * (i / 8.546); const kk = prog(t, ti, 0.6); if (kk <= 0 || kk >= 1) continue;
+      X.save(); X.globalAlpha = 1 - kk; comic('+9,36 €', 860, 420 - kk * 60, 40, PAL.verde, { sombra: null }); X.restore();
+    }
+  }
+}
+function sello(s, x, y, k, col, size = 80, rot = -8) {
+  if (k <= 0) return; X.save(); X.translate(x, y); X.rotate(rot * Math.PI / 180); const sc = lerp(2.2, 1, eout(k)); X.scale(sc, sc); X.globalAlpha *= clamp(k * 3);
+  X.font = `italic 900 ${size}px Inter`; const w = X.measureText(s).width + 70; rr(-w / 2, -size * 0.75, w, size * 1.5, 20, 'rgba(26,8,44,.9)'); neonRect(-w / 2, -size * 0.75, w, size * 1.5, 20, col, 7);
+  comic(s, 0, 4, size, col, { sombra: null }); X.restore();
+}
+function capa(t) {
+  // kicker
+  X.save(); X.globalAlpha = eout(prog(t, 0, 0.3)); rr(540 - 210, 150, 420, 66, 33, PAL.rosa); X.font = '800 30px Inter'; X.fillStyle = '#fff'; X.textAlign = 'center'; X.textBaseline = 'middle'; X.fillText('ESPECIAL GTA 6', 540, 184); X.restore();
+  hud(t);
+  // GANCHO: título de cómic
+  if (t < T.precio + 0.3) {
+    const f = 1 - prog(t, T.precio - 0.1, 0.35);
+    const k1 = lerp(0.55, 1, eback(prog(t, 0.0, 0.35), 2)), k2 = eback(prog(t, 0.25, 0.35), 2);
+    X.save(); X.globalAlpha = f;
+    X.save(); X.translate(540, 520); X.rotate(-0.05); X.scale(k1, k1); comic('¿CUÁNTAS', 0, 0, 120, '#ffffff'); X.restore();
+    X.save(); X.translate(540, 650); X.rotate(-0.05); X.scale(k2, k2); comic('HORAS DE CURRO', 0, 0, 104, PAL.amb); X.restore();
+    const k3 = eback(prog(t, 1.6, 0.35), 2);
+    X.save(); X.translate(540, 775); X.rotate(-0.05); X.scale(k3, k3); comic('CUESTA GTA 6?', 0, 0, 96, '#ffffff', { sombra: PAL.cian }); X.restore();
+    X.restore();
+  }
+  // PRECIO: valla publicitaria de neón
+  if (t > T.precio - 0.1 && t < T.sueldo + 0.3) {
+    const f = 1 - prog(t, T.sueldo - 0.1, 0.35), k = prog(t, T.precio - 0.1, 0.45);
+    X.save(); X.globalAlpha = f; const r = panel(540, 600, 760, 330, k, PAL.cian);
+    X.font = '800 34px Inter'; X.fillStyle = '#9be9f5'; X.textAlign = 'center'; X.fillText('GTA 6 · EDICIÓN ESTÁNDAR', 0, -100);
+    const kp = prog(t, T.precioW - 0.05, 0.25); const sc = 1 + 0.25 * Math.exp(-Math.max(0, t - T.precioW) * 6) * (kp > 0 ? 1 : 0);
+    X.save(); X.scale(sc, sc); comic(kp > 0 ? '79,99 €' : '··,·· €', 0, 30, 150, PAL.amb, { sombra: PAL.rosa }); X.restore();
+    r(); X.restore();
+  }
+  // SALARIO MÍNIMO
+  if (t > T.sueldo - 0.1 && t < T.horas + 0.2) {
+    const f = 1 - prog(t, T.horas - 0.15, 0.35), k = prog(t, T.sueldo - 0.1, 0.45);
+    X.save(); X.globalAlpha = f; const r = panel(540, 600, 760, 300, k, PAL.verde);
+    X.font = '800 34px Inter'; X.fillStyle = '#b9f7cf'; X.textAlign = 'center'; X.fillText('SALARIO MÍNIMO 2026', 0, -88);
+    const kp = prog(t, T.sueldoW - 0.05, 0.25); X.save(); const sc = 1 + 0.2 * Math.exp(-Math.max(0, t - T.sueldoW) * 6) * (kp > 0 ? 1 : 0); X.scale(sc, sc);
+    comic('≈ 9,36 €/hora', 0, 20, 104, PAL.verde, { sombra: PAL.rosa }); X.restore();
+    X.font = '700 28px Inter'; X.fillStyle = 'rgba(255,255,255,.8)'; X.fillText('bruto · 17.094 € al año ÷ ~1.826 h', 0, 104);
+    r(); X.restore();
+  }
+  // 8,5 HORAS = UN DÍA ENTERO
+  if (t > T.horasW - 0.1 && t < T.ulti + 0.2) {
+    const f = 1 - prog(t, T.ulti - 0.15, 0.35), k = eback(prog(t, T.horasW - 0.1, 0.35), 2.2);
+    X.save(); X.globalAlpha = f; X.translate(540, 600); X.rotate(-0.05); X.scale(k, k); comic('8,5 HORAS', 0, 0, 170, PAL.amb, { sombra: PAL.rosa }); X.restore();
+    X.save(); X.globalAlpha = f; sello('UN DÍA ENTERO', 540, 770, prog(t, T.dia - 0.1, 0.25), PAL.rosa2, 70); X.restore();
+  }
+  // ESTÁNDAR vs ULTIMATE (barras)
+  if (t > T.ulti - 0.1 && t < T.truco + 0.2) {
+    const f = 1 - prog(t, T.truco - 0.15, 0.35), k = prog(t, T.ulti - 0.1, 0.4);
+    X.save(); X.globalAlpha = f; const r = panel(540, 610, 860, 330, k, PAL.rosa);
+    const filas = [['ESTÁNDAR · 79,99 €', 8.546, PAL.cian, T.ulti], ['ULTIMATE · 99,99 €', 10.683, PAL.amb, T.ultiW - 0.2]];
+    filas.forEach(([lab, h, col, t0], i) => {
+      const y = -70 + i * 140, kb = eout(prog(t, t0, 0.6)), w = 560 * (h / 11) * kb;
+      X.font = '800 30px Inter'; X.fillStyle = '#fff'; X.textAlign = 'left'; X.fillText(lab, -390, y - 30);
+      rr(-390, y - 6, 560, 54, 14, 'rgba(255,255,255,.1)'); rr(-390, y - 6, Math.max(8, w), 54, 14, col);
+      comic((h * kb).toFixed(1).replace('.', ',') + ' h', 300, y + 22, 52, '#ffffff', { sombra: null });
+    });
+    r(); X.restore();
+  }
+  // EL TRUCO: fórmula
+  if (t > T.truco - 0.1 && t < T.vale + 0.2) {
+    const f = 1 - prog(t, T.vale - 0.15, 0.35), k = prog(t, T.truco - 0.1, 0.45);
+    X.save(); X.globalAlpha = f; const r = panel(540, 610, 900, 380, k, PAL.amb);
+    comic('EL TRUCO', 0, -130, 60, PAL.amb, { sombra: PAL.rosa });
+    const ks = [prog(t, T.truco + 0.5, 0.3), prog(t, T.truco + 1.1, 0.3), prog(t, T.vida - 0.3, 0.3)];
+    X.save(); X.globalAlpha *= clamp(ks[0] * 2); comic('PRECIO ÷ LO QUE GANAS', 0, -30, 54, '#ffffff', { sombra: null }); X.restore();
+    X.save(); X.globalAlpha *= clamp(ks[1] * 2); comic('POR HORA', 0, 40, 54, '#ffffff', { sombra: null }); X.restore();
+    X.save(); X.globalAlpha *= clamp(ks[2] * 2); const sc = 1 + 0.2 * Math.exp(-Math.max(0, t - T.vida + 0.3) * 6); X.scale(sc, sc); comic('= HORAS DE TU VIDA', 0, 120, 62, PAL.amb, { sombra: PAL.rosa }); X.restore();
+    r(); X.restore();
+  }
+  // ¿LO VALE? → sin culpa
+  if (t > T.vale - 0.1 && t < T.cta + 0.2) {
+    const f = 1 - prog(t, T.cta - 0.15, 0.35), k = eback(prog(t, T.vale - 0.1, 0.35), 2);
+    X.save(); X.globalAlpha = f; X.translate(540, 560); X.rotate(-0.05); X.scale(k, k); comic('¿LO VALE?', 0, 0, 140, '#ffffff', { sombra: PAL.cian }); X.restore();
+    X.save(); X.globalAlpha = f; sello('✓ SIN CULPA', 540, 730, prog(t, T.culpa - 0.1, 0.25), PAL.verde, 72, 6); X.restore();
+  }
+  // CTA
+  if (t > T.cta - 0.05) {
+    const k1 = eback(prog(t, T.cta, 0.4)), k2 = eback(prog(t, T.cta + 0.25, 0.4));
+    X.save(); X.globalAlpha = clamp(k1 * 2); X.translate(540, 560 + (1 - k1) * 60); X.scale(0.7 + 0.3 * k1, 0.7 + 0.3 * k1); X.rotate(-0.03);
+    rr(-440, -66, 880, 132, 66, PAL.amb); X.strokeStyle = PAL.tinta; X.lineWidth = 7; X.stroke();
+    X.font = 'italic 900 40px Inter'; X.fillStyle = PAL.tinta; X.textAlign = 'center'; X.textBaseline = 'middle'; X.fillText('Mándaselo a quien ya lo reservó', 0, 4); X.restore();
+    X.save(); X.globalAlpha = clamp(k2 * 2); X.translate(540, 715 + (1 - k2) * 60); X.scale(0.7 + 0.3 * k2, 0.7 + 0.3 * k2); X.rotate(-0.03);
+    rr(-190, -58, 380, 116, 58, '#ffffff'); X.strokeStyle = PAL.tinta; X.lineWidth = 7; X.stroke();
+    X.font = 'italic 900 46px Inter'; X.fillStyle = PAL.tinta; X.textAlign = 'center'; X.textBaseline = 'middle'; X.fillText('Guárdalo', 0, 4); X.restore();
+  }
+  subtitulos(t);
+  // fuente (pequeña) y marca
+  X.save(); X.globalAlpha = 0.85; X.font = '600 24px Inter'; X.fillStyle = '#ffe3f1'; X.textAlign = 'center';
+  X.fillText(t > T.precio - 0.1 && t < T.truco ? 'Precios en España (Vandal, nov. 2026) · SMI 2026: RD 126/2026' : '@eleurolisto', 540, 1540); X.restore();
+}
+
+function listoEnCoche(t) {
+  let expr = 'sorpresa', pose = 'saludo';
+  if (t > 1.0 && t < T.precio) { expr = 'habla'; pose = 'senala'; }
+  else if (t >= T.precio && t < T.horasW) { expr = 'piensa' === 'x' ? 'normal' : 'habla'; pose = 'piensa'; }
+  else if (t >= T.horasW && t < T.truco) { expr = 'sorpresa'; pose = 'celebra'; }
+  else if (t >= T.truco && t < T.vale) { expr = 'idea'; pose = 'senala'; }
+  else if (t >= T.vale && t < T.cta) { expr = 'feliz'; pose = 'celebra'; }
+  else if (t >= T.cta) { expr = 'guino'; pose = 'pulgar'; }
+  return () => Listo2D.dibujar(X, { x: -50, y: 30, s: 0.84, t, expr, pose, estilo: 'tropical', mira: [0.6, -0.3] });
+}
+
+window.renderAt = (t) => {
+  X.setTransform(1, 0, 0, 1, 0, 0);
+  // ligero empuje de cámara en los golpes (movimiento, no luz)
+  const punch = 1 + 0.025 * (Math.exp(-Math.max(0, t - T.precioW) * 5) * (t > T.precioW ? 1 : 0) + Math.exp(-Math.max(0, t - T.horasW) * 5) * (t > T.horasW ? 1 : 0));
+  const zoomFin = 1 + 0.04 * eio(prog(t, T.cta - 0.2, 1.2));
+  const z = punch * zoomFin;
+  X.setTransform(z, 0, 0, z, 540 - 540 * z, 1280 - 1280 * z);
+  cielo(); sol(t); nubes(t); skyline(t); mar(t); playa(t);
+  // el coche entra ya en movimiento y se queda en el centro
+  const cx = lerp(-200, 520, eout(prog(t, 0, 0.9))) + Math.sin(t * 0.8) * 10;
+  carretera(t);
+  coche(t, cx, 1395, listoEnCoche(t));
+  // las palmeras de primer plano van delante del coche
+  X.setTransform(1, 0, 0, 1, 0, 0);
+  const v = X.createRadialGradient(540, 960, 600, 540, 960, 1300); v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(10,0,20,.45)'); X.fillStyle = v; X.fillRect(0, 0, 1080, 1920);
+  if (window.PORTADA) return;
+  capa(t);
+};
+document.fonts.load('italic 900 80px Inter').then(() => document.fonts.load('800 30px Inter')).then(() => { window.listo = true; });
+</script></body></html>

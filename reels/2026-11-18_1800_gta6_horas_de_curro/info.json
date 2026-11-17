@@ -1,0 +1,21 @@
+{
+  "fecha": "2026-11-18",
+  "hora": "18:00",
+  "titulo": "Especial GTA 6: ¿cuántas horas de curro cuesta?",
+  "pilar": "Trabajo y nómina (precio en horas de trabajo)",
+  "look": "R8 neón tropical / mundo abierto (look NUEVO): atardecer en una costa tipo Miami con rascacielos art déco y neones, mar con el reflejo del sol, palmeras en paralaje y un descapotable de los 80 que conduce Listo; HUD propio (horas de curro + dinero ganado), títulos de cómic con contorno grueso y sombra rosa/cian. Sin logos, personajes, tipografías ni rótulos del juego.",
+  "peticion": "Sergio, 17-nov ~23:50: 'mañana sale el GTA, crea uno especial relacionado con los GTA y el dinero, ambientación del estilo de GTA 6 en la animación, lo subimos a las 18:00 hora española'",
+  "voz": "Javier de Madrid (Creative Claw, speech/gemini-3.8-flash-tts, voice_gdlx1kyxtwal), 20,0 s, con tiempos por palabra de Creative Claw. (ElevenLabs falló: 'Free Tier access has been disabled' por actividad inusual)",
+  "voz_url": "https://cdn.creativeclaw.co/u/626ff63d/audio/e4923bf2-0155-4c21-99b2-8ab5fe36d9d8.wav",
+  "etiqueta_ia": true,
+  "guion": "¿Cuántas horas hay que currar para pagarte GTA seis? La edición normal cuesta setenta y nueve con noventa y nueve. Con el salario mínimo ganas unos nueve euros con treinta y seis la hora, en bruto. Eso son ocho horas y media de curro: un día entero. Y la Ultimate, casi once. El truco: antes de comprar algo, pásalo a horas de tu vida. Si lo vale, disfrútalo sin culpa. Mándaselo a quien ya lo tiene reservado.",
+  "datos": "GTA 6: sale el jueves 19-nov-2026 a las 00:00 (hora peninsular) en PS5 y Xbox Series; Standard 79,99 €, Ultimate 99,99 € — Vandal (11-nov-2026) https://vandal.elespanol.com/noticia/2026315041/todas-las-ediciones-de-gta-6-diferencias-contenido-y-precio-en-espana/ · noobs.es https://noobs.es/guia/gta-6-fecha-de-lanzamiento-plataformas-precio-y-ediciones/ · SMI 2026 = 17.094 €/año (RD 126/2026) ÷ ~1.826 h ≈ 9,36 €/h bruto — Cuestiones Laborales https://www.cuestioneslaborales.es/cuantia-smi-2026-diario-mensual-y-anual/ · 79,99/9,36 = 8,55 h; 99,99/9,36 = 10,68 h (Python).",
+  "caption": "GTA 6 sale esta noche a las 00:00 🎮 ¿Cuántas horas de curro cuesta? La edición estándar, 79,99 €: con el salario mínimo (≈ 9,36 € brutos la hora) son unas 8,5 horas, un día entero. La Ultimate (99,99 €), casi 11. Truco: antes de comprar algo, divide el precio entre lo que ganas por hora. Mándaselo a quien ya lo tiene reservado 👇 #gta6 #videojuegos #salariominimo #finanzaspersonales #eleurolisto",
+  "listo_papel": "Modelado nuevo 'tropical' (R8). Conduce el descapotable desde el fotograma 0 (sorpresa + saludo), señala el gancho, piensa con el precio, celebra con '8,5 horas', se enciende (idea) con el truco y cierra con guiño + pulgar junto al CTA. En la portada, de pie junto al coche, sorprendido.",
+  "musica": "original sintetizada, upbeat 104 bpm seed 5 (synth ochentero), baja",
+  "sfx": "biblioteca video-shotcraft (lib:): air-woosh-quick, hit-fast-exciting, ui-message-pop, whoosh-fast, bass-hit-short, ui-confirm-tone, clock-tick-single ×8 (cada hora), impact-zoom-quick, swoosh-quick, ui-option-select, sparkle-touch, ui-success-soft, chime-crystal",
+  "brillo": "52–70; salto máximo 4,0 entre fotogramas (0 saltos > 8)",
+  "portada": "portada/portada.jpg: kicker ESPECIAL GTA 6, 'GTA 6 = 8,5 horas de curro', sub 'con el salario mínimo'; fondo del atardecer con el descapotable y Listo sorprendido",
+  "estado": "pendiente de aprobación (enviado 18-nov ~00:15)",
+  "duracion_s": 21.5
+}

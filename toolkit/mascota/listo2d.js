@@ -10,6 +10,7 @@
 //            'ilustrado'(R3 ilustración en plano de corte: colores cálidos apagados, contorno marrón, textura)
 //            'boceto'   (dibujado a mano / libreta: trazo de lápiz que tiembla a 8 fps, rotulador verde)
 //            'neon'     (terminal de bolsa / datos: solo contornos de neón verde)
+//            'tropical' (R8 neón tropical / mundo abierto al atardecer: contorno grueso de cómic, reflejo rosa)
 //   Listo2D.pixel(ctx, {…, px}) = versión pixel art (R6). En 3D: toolkit/mascota/listo3d.js (toon, plastilina, lowpoly).
 // Identidad (no cambiar en ningún estilo): silueta de bombilla, € verde, ojos grandes, casquillo de rosca, zapatillas verdes.
 // El brillo es estable (regla "sin cambios de luz"): glow cambia despacio, nunca parpadea.
@@ -39,6 +40,12 @@
       soportes: '#4ADE80', ojo: 'rgba(0,0,0,0)', ojoBorde: '#4ADE80', pupila: '#4ADE80', boca: '#4ADE80', lengua: '#4ADE80', mejilla: null, reflejo: null,
       alambre: '#4ADE80', alambreW: 5, mano: 'rgba(0,0,0,0)', manoBorde: '#4ADE80', rosca1: 'rgba(0,0,0,0)', rosca2: 'rgba(0,0,0,0)', punta: 'rgba(0,0,0,0)',
       zapa: 'rgba(0,0,0,0)', zapaBorde: '#4ADE80', suela: 'rgba(0,0,0,0)', soloLinea: true },
+    // R8 neón tropical / mundo abierto (ambientación de atardecer en una ciudad costera, estilo arte de videojuego):
+    // contorno grueso casi negro tipo cómic, cristal con reflejo rosa del atardecer y luz de borde cálida.
+    tropical: { halo: '255,120,190', vidrio: 'rgba(255,196,224,0.24)', sombra: null, borde: '#160a22', bordeW: 8, brilloInt: true, euro: '#4ADE80', euroCore: '#ECFFF3', euroGlow: 1.1,
+      soportes: 'rgba(255,236,250,0.85)', ojoBorde: '#160a22', pupila: '#160a22', boca: '#160a22', mejilla: 'rgba(255,92,150,0.45)', reflejo: 'rgba(255,226,196,0.9)',
+      alambre: '#FFE9F6', alambreW: 8, mano: '#FFF4FA', manoBorde: '#160a22', rosca1: '#E6DDF0', rosca2: '#9C8FB3', punta: '#160a22',
+      zapa: '#22C55E', zapaBorde: '#160a22', sombraSuelo: 'rgba(30,0,40,0.35)' },
   };
   let ST = BASE, TT = 0;
   // temblor de dibujo a mano: cambia 8 veces por segundo (como la animación tradicional), siempre igual para el mismo t
