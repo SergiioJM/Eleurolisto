@@ -91,6 +91,25 @@ Diseña SIEMPRE una portada aparte con `node toolkit/portada.mjs portada.json` y
 - **Cómo se pone** (lo elige Sergio en la aprobación): "✅ Con portada" → `toolkit/poner_portada.sh` la mete solo en el primer fotograma (1/30 s, el vídeo se ve igual) y sale sola en Instagram y TikTok (vidIQ y la API de TikTok no permiten portada aparte). "✅ Sin portada" → se publica el vídeo tal cual y Sergio la pone a mano en Instagram si quiere (Editar → Editar portada → desde el carrete; en TikTok no se puede cambiar después).
 - Comprueba la portada a tamaño pequeño (reduce a 360 px de ancho y míralo) antes de enviarla.
 
+## Variedad de edición — OBLIGATORIO (Sergio, 17-nov: "los vídeos de hoy y los de mañana son la misma edición de bits en 3D; necesito dinamismo, que sean distintos y originales")
+Del 17 al 18-nov salieron 3 reels seguidos con el mismo look (personajes de bloques 3D, kicker "SIMULACIÓN", subtítulos palabra a palabra con recuadro azul, píldoras de CTA iguales). No se repite. Cada reel elige un **look** de este catálogo y lo apunta en `content/registro.md` (columna "Look"):
+1. **3D de bloques** (escena3d con personajes): como mucho 1 de cada 3 reels, nunca dos seguidos ni dos días seguidos en el mismo hueco.
+2. **Tipografía cinética** (motion graphics planos, sin personajes): palabras enormes que golpean al ritmo de la voz con el fondo parpadeando entre dos colores de marca, cifras tipo odómetro, iconos planos, barridos de bloque de color, crash zooms. HTML puro renderizado con `motor.mjs`. Plantilla: `reels/2026-11-18_2030_subida_de_sueldo/escena_kinetic.html`.
+3. **Interfaz / pantalla**: app del banco, WhatsApp, notificaciones que se apilan, Excel que se rellena solo, buscador, calculadora (plantilla: Bizum del 18-nov).
+4. **Dibujado a mano / libreta** (animation-studio): cuentas a mano, flechas, tachones, rotulador.
+5. **Datos tipo terminal de bolsa**: gráfica protagonista en vivo, ticker, indicadores (tarjetas `data/` de video-shotcraft). Ideal para inversión.
+6. **Collage de papel**: billetes, tiques, recibos, sellos y recortes con textura de papel (tarjetas `print-texture-transitions`, `paper-title-card`).
+7. **Personas reales** (stock con vidIQ, ver abajo).
+8. **Videojuego retro**: el dinero como barra de vida, niveles, "LEVEL UP" / "GAME OVER", movimiento a saltos (`color-block-step-wipe`).
+9. **3D de objetos, sin muñecos**: hucha gigante, monedas, ciudad isométrica, plano macro de un objeto (escena3d).
+
+Reglas:
+- **Ningún look se repite en los últimos 3 reels** (mira el registro antes de elegir) y los dos reels del mismo día llevan looks distintos. En 7 días, al menos 5 looks distintos.
+- Cambia también el "envoltorio", no solo el fondo: subtítulos (alterna palabra gigante que golpea, karaoke, subtítulo inferior limpio, a mano o sin subtítulos con el texto como diseño; el recuadro azul es solo del 3D de bloques), kicker superior (no siempre "SIMULACIÓN"), estilo de CTA, transiciones (barrido, iris, giro de tarjeta, bloque de color, corte por coincidencia) y estilo de música (`style` y `bpm` distintos).
+- **Dinamismo**: un cambio visual fuerte cada 1,5–2,5 s (corte, zoom, cambio de color, elemento nuevo); nada quieto más de 2 s salvo la cifra final. Al menos un momento "golpe" (crash zoom, flash, odómetro) en la cifra clave.
+- Inspírate en los virales de `content/virales.md` y en las capturas que pasó Sergio (formatos: "¿Y si…?" con contador, "Tienes 25 años" con llamadas entrantes, elegir camino, sello de revelación, pantalla partida, desglose de nómina, meta dividida en día/semana/mes): copia la idea de ritmo y estructura, nunca el diseño.
+- Al enviarle los reels, di en una línea el look de cada uno.
+
 ## Edición: que cada reel sea original
 - **Música baja**: Sergio la quiere discreta, por debajo de la voz (por defecto `music_gain=0.30`, `duck_gain=0.09`). No la subas.
 - Cada noche, algo distinto en la edición: estructura (lista, A vs B, reto, mito vs realidad, historia), gráfico protagonista (barras, línea, donut, contador, termómetro), fondo/acento de color y ritmo.
@@ -99,7 +118,7 @@ Diseña SIEMPRE una portada aparte con `node toolkit/portada.mjs portada.json` y
 - **Personas (1–2 veces por semana)**: con vídeo de stock real, no generado. `vidiq_find_broll` (1 crédito, vertical) para clips de gente (pagando, comprando, haciendo cuentas…). El workspace no puede descargarlos, así que se montan en vidIQ con `vidiq_compose` (1 crédito por cada 4 s): escenas = clips de stock + nuestras escenas animadas (renderizadas como MP4 y subidas al repo, URL raw) + voz (`voice.wav` convertida a MP3 y subida al repo) + música. Acredita al autor del clip en el caption ("Vídeo: Nombre / Pexels").
 - Si Sergio configura CellCog u otro plugin de vídeo con IA, se pueden usar personajes o avatares generados, siempre con etiqueta de IA y nunca imitando a personas reales.
 
-## Reels 3D (el formato estrella; a Sergio le encanta)
+## Reels 3D (a Sergio le encantan, pero como un look más: máx. 1 de cada 3 reels, ver "Variedad de edición")
 Motor propio en `toolkit/escena3d/`: Three.js renderizado fotograma a fotograma en Chrome headless → movimiento 100 % fluido. Plantilla: `reels/2026-11-17_1330_ladron_inflacion/` (habitación low-poly, personaje de bloques con expresiones, día/noche con sol entrando por la ventana, objetos que salen volando, contador tipo "simulación", subtítulos palabra a palabra con recuadro de selección azul).
 1. Guion + voz Javier → `transcribe` → `toolkit/tiempos.py` (`estimar(frases, duración)`) → `timings.json` con tiempos por palabra.
 2. `escena.html`: define `window.DURACION`, `window.renderAt(t)` y `window.listo`; todo lo animado depende solo de `t` y de los tiempos de la voz.
