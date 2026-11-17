@@ -1,0 +1,29 @@
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#111}canvas{display:block}</style></head>
+<body><canvas id="c" width="1080" height="1500"></canvas>
+<script src="listo2d.js"></script>
+<script>
+const c = document.getElementById('c').getContext('2d');
+function t(s,x,y,size,col,w=700,f='Inter'){ c.font=`${w} ${size}px ${f}`; c.fillStyle=col; c.textAlign='center'; c.textBaseline='middle'; c.fillText(s,x,y); }
+const P = [
+  ['vector', 'TIPOGRAFÍA · INTERFAZ · R4', ['#0B1328','#0E2E2B'], {expr:'feliz', pose:'saludo'}],
+  ['plano', 'R1 MONIGOTES', ['#123b22','#0b2616'], {expr:'normal', pose:'celebra'}],
+  ['ilustrado', 'R3 ILUSTRACIÓN', ['#6b5440','#3e3026'], {expr:'idea', pose:'senala'}],
+  ['boceto', 'DIBUJADO A MANO', ['#fbf7ee','#efe7d6'], {expr:'guino', pose:'pulgar'}],
+  ['neon', 'TERMINAL DE BOLSA', ['#05080d','#071a12'], {expr:'sorpresa', pose:'piensa'}],
+  ['pixel', 'R6 PIXEL ART', ['#3b2a6b','#24184a'], {expr:'normal', pose:'saludo'}],
+];
+window.DURACION = 1;
+window.renderAt = function(tt){
+  c.fillStyle = '#0B1328'; c.fillRect(0,0,1080,1500);
+  t('LISTO · un modelado por tipo de edición', 540, 70, 46, '#4ADE80', 800);
+  P.forEach(([est, lab, bg, o], i) => {
+    const x0 = (i % 3) * 360, y0 = 140 + Math.floor(i / 3) * 680;
+    const g = c.createLinearGradient(0, y0, 0, y0 + 660); g.addColorStop(0, bg[0]); g.addColorStop(1, bg[1]);
+    c.fillStyle = g; c.beginPath(); c.roundRect(x0 + 10, y0, 340, 660, 26); c.fill();
+    if (est === 'pixel') Listo2D.pixel(c, Object.assign({x: x0 + 180, y: y0 + 590, s: 1.1, px: 7, t: 0.4}, o));
+    else Listo2D.dibujar(c, Object.assign({x: x0 + 180, y: y0 + 580, s: 1.1, t: 0.4, estilo: est}, o));
+    t(lab, x0 + 180, y0 + 625, 24, est === 'boceto' ? '#1F2937' : '#fff', 800);
+  });
+};
+Promise.all([document.fonts.load('800 40px Inter')]).then(()=>{ window.renderAt(0); window.listo = true; });
+</script></body></html>

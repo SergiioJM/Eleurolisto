@@ -94,6 +94,20 @@ Diseña SIEMPRE una portada aparte con `node toolkit/portada.mjs portada.json` y
 ## Mascota LISTO — sale en TODOS los vídeos (Sergio, 17-nov: "crea un personaje que sea nuestra seña de identidad, la marca de la página, y que siempre salga en los vídeos; te doy libertad")
 Listo es la bombilla de la foto de perfil convertida en personaje (ficha en `content/marca.md`, hojas en `content/marca/`). Código listo para usar: `toolkit/mascota/listo2d.js` (canvas 2D, también versión pixel art) y `toolkit/mascota/listo3d.js` (Three.js para escena3d). Expresiones: normal, feliz, idea, sorpresa, preocupado, guiño, habla. Poses: reposo, saludo, señala (dcha./izq.), pulgar, celebra, piensa.
 - **En cada reel, como mínimo**: (1) aparece en los primeros 2 s (presenta el tema o reacciona al gancho; puede ser el gancho mismo); (2) reacciona en el momento clave (se enciende con la buena idea, se preocupa con la comisión o la estafa, celebra el ahorro); (3) cierra el vídeo con su firma (guiño + pulgar arriba) junto al CTA. Con la voz, abre la boca con `expr: 'habla'` mientras habla el narrador si está en primer plano.
+- **Un modelado por tipo de edición (Sergio, 17-nov: "la versión 3D la adaptarás al tipo de edición que estemos usando; un modelado por tipo de vídeo, y si creas un nuevo tipo de edición, adaptarlo")**. Listo se dibuja SIEMPRE con el modelado de su look (hoja comparativa: `content/marca/listo_estilos.png`):
+  | Look | Modelado de Listo |
+  |---|---|
+  | Tipografía cinética v2, interfaz/pantalla, R4 móviles, collage | `Listo2D.dibujar(…, { estilo: 'vector' })` |
+  | R1 monigotes 2D | `Listo2D.dibujar(…, { estilo: 'plano' })` (blanco liso, ojos de punto, como los monigotes) |
+  | R3 ilustración en plano de corte | `Listo2D.dibujar(…, { estilo: 'ilustrado' })` (colores cálidos apagados, contorno marrón, textura) |
+  | Dibujado a mano / libreta | `Listo2D.dibujar(…, { estilo: 'boceto' })` (lápiz que tiembla a 8 fps, rotulador verde) |
+  | Terminal de bolsa / datos | `Listo2D.dibujar(…, { estilo: 'neon' })` (solo contornos de neón) |
+  | R6 pixel art | `Listo2D.pixel(…)` |
+  | R2 "Tienes X años" (3D tierno) y 3D de objetos | `crearListo({ estilo: 'toon' })` |
+  | R5 3D plastilina | `crearListo({ estilo: 'plastilina' })` (mate y opaco, € en relieve) |
+  | R7 / 3D de bloques low-poly | `crearListo({ estilo: 'lowpoly' })` (facetas planas, € y ojos de bloques) |
+  | Personas reales (stock) | `Listo2D` 'vector' superpuesto como presentador (pegatina con contorno) |
+  **Look nuevo** (inventado o copiado de un viral): antes de montar el reel, crea su modelado de Listo como un estilo nuevo en `listo2d.js` o `listo3d.js` (misma identidad, estética de ese look), añádelo a esta tabla y a `toolkit/mascota/hoja_estilos_*.html`, y regenera `content/marca/listo_estilos.png`.
 - **Según el look**: en los looks con personajes (R1 monigotes, R2 "Tienes X años", R5 plastilina, R7 low-poly, R3 ilustración) puede ser el protagonista o el guía al lado de las personas, adaptado a ese estilo (en R6 usa `Listo2D.pixel`; en 3D, `crearListo`). En los looks sin personajes (tipografía cinética, terminal de bolsa, interfaz, móviles) hace de presentador en una esquina (abajo a la izquierda, sobre el @, escala ~0,45) señalando las cifras, y entra a plano completo al principio y al final.
 - **Reglas**: siempre dentro de la zona segura (y 250–1450), sin taparle con subtítulos; su brillo es estable (nunca parpadea: regla "sin cambios de luz"); nunca se cambia su diseño (silueta de bombilla, € verde neón, ojos grandes, casquillo plateado, zapatillas verdes); no es una persona real ni imita a nadie; no tiene voz propia (narra la voz del reel).
 - **Portadas**: siempre que se pueda, Listo en la portada con la expresión del gancho (sorpresa, preocupado, idea): refuerza la marca en la cuadrícula del perfil.

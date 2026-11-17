@@ -1,0 +1,34 @@
+<!doctype html><html><head><meta charset="utf-8">
+<script type="importmap">{"imports":{"three":"../escena3d/node_modules/three/build/three.module.js"}}</script>
+<style>html,body{margin:0;background:#000;overflow:hidden}canvas{position:absolute;inset:0}
+.l{position:absolute;top:640px;width:360px;text-align:center;font:800 24px 'Inter';color:#fff}</style></head>
+<body><div class="l" style="left:0">R2 TOON 3D</div><div class="l" style="left:360px">R5 PLASTILINA</div><div class="l" style="left:720px">R7 LOW-POLY</div>
+<script type="module">
+import * as THREE from "three";
+import { crearListo } from "./listo3d.js";
+const W = 1080, H = 700;
+const r = new THREE.WebGLRenderer({ antialias: true }); r.setPixelRatio(1); r.setSize(W, H); r.setScissorTest(true);
+r.shadowMap.enabled = true; r.toneMapping = THREE.NeutralToneMapping; document.body.prepend(r.domElement);
+function escena(bg, suelo, pared, estilo, flat) {
+  const esc = new THREE.Scene(); esc.background = new THREE.Color(bg);
+  const s = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), new THREE.MeshStandardMaterial({ color: suelo, roughness: 0.9, flatShading: flat })); s.rotation.x = -Math.PI / 2; s.receiveShadow = true; esc.add(s);
+  const p = new THREE.Mesh(new THREE.PlaneGeometry(20, 10), new THREE.MeshStandardMaterial({ color: pared, roughness: 0.9 })); p.position.set(0, 5, -3); esc.add(p);
+  esc.add(new THREE.HemisphereLight(0xdfe8ff, 0x302820, estilo === 'plastilina' ? 1.4 : 0.9));
+  const k = new THREE.DirectionalLight(0xffffff, estilo === 'plastilina' ? 1.2 : 1.6); k.position.set(2, 6, 5); k.castShadow = true; esc.add(k);
+  const L = crearListo({ estilo }); esc.add(L.root); L.root.traverse(o => { if (o.isMesh) o.castShadow = true; });
+  return { esc, L };
+}
+const E = [escena(0x0b1a3a, 0x1a1410, 0x16306b, 'toon', false), escena(0x4a2f2a, 0x8a6a64, 0x5a3a33, 'plastilina', false), escena(0x7a6a48, 0x8a5a3a, 0xb9a774, 'lowpoly', true)];
+const cam = new THREE.PerspectiveCamera(30, 360 / 700, 0.05, 80);
+window.DURACION = 1;
+window.renderAt = (t) => {
+  const ex = [['feliz', 'saludo'], ['idea', 'celebra'], ['habla', 'senalaIzq']];
+  E.forEach(({ esc, L }, i) => {
+    L.actualizar(0.5, { expr: ex[i][0], pose: ex[i][1] }); L.root.rotation.y = -0.2;
+    cam.position.set(0.3, 2.0, 10.5); cam.lookAt(0, 1.55, 0);
+    r.setViewport(i * 360, 0, 360, 700); r.setScissor(i * 360 + 4, 0, 352, 700); r.render(esc, cam);
+  });
+};
+await document.fonts.load('800 24px Inter');
+window.renderAt(0); window.listo = true;
+</script></body></html>
