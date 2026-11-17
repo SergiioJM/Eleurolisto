@@ -435,7 +435,7 @@ function capa(t) {
   else if (t < T.total) { expr = 'preocupado'; pose = 'brazosCruzados'; }
   else if (t < T.cta) { expr = 'habla'; pose = 'senala'; }
   else { expr = 'guino'; pose = 'pulgar'; }
-  Listo2D.dibujar(X, { x: lx, y: ly, s: ls, t, expr, pose, mira: t < T.reveal ? [-0.6, 0.2] : [0.3, -0.2] });
+  Listo2D.dibujar(X, { x: lx, y: ly, s: ls, t, expr, pose, estilo: 'ilustrado', mira: t < T.reveal ? [-0.6, 0.2] : [0.3, -0.2] });
 }
 
 window.renderAt = (t) => {
@@ -447,7 +447,7 @@ window.renderAt = (t) => {
   // viñeta fija (estática)
   const v = X.createRadialGradient(540, 900, 500, 540, 900, 1250); v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(0,0,0,.45)');
   X.fillStyle = v; X.fillRect(0, 0, 1080, 1920);
-  if (window.PORTADA) { Listo2D.dibujar(X, { x: 830, y: 1000, s: 0.95, t: 2, expr: 'sorpresa', pose: 'senalaIzq', mira: [-0.7, -0.3] }); return; }
+  if (window.PORTADA) { Listo2D.dibujar(X, { x: 830, y: 1000, s: 0.95, t: 2, expr: 'sorpresa', pose: 'senalaIzq', estilo: 'ilustrado', mira: [-0.7, -0.3] }); return; }
   capa(t);
 };
 document.fonts.load('800 70px Poppins').then(() => document.fonts.load('800 70px Inter')).then(() => { window.listo = true; });
