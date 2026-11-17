@@ -11,3 +11,11 @@
   Un reel nuevo cada día · España
   Educativo, no es asesoramiento financiero.
 - La bombilla puede usarse como icono de marca en cierres de reels (idea "listo" + €).
+
+## Mascota: LISTO (creada el 17-nov; Sergio: "crea un personaje que sea nuestra seña de identidad, la marca de la página, y que siempre salga en los vídeos; te doy libertad")
+- **Qué es**: la bombilla de la foto de perfil hecha personaje. Cristal con el filamento en forma de **€ verde neón**, ojos grandes en el cristal, mejillas rosadas, brazos y piernas de alambre fino, casquillo de rosca plateado y **zapatillas verdes**. Hojas: `content/marca/listo_hoja_2d.png` (2D, expresiones, poses y pixel art) y `content/marca/listo_3d.png` (3D).
+- **Nombre**: Listo ("El Euro Listo" → él es el euro listo). Se escribe Listo, sin artículo.
+- **Personalidad**: cercano, optimista y un poco pillo; explica fácil y se pone de tu lado. Se enciende (brilla más) cuando hay una buena idea de dinero, se apaga un poco y pone cara de preocupado ante comisiones, deudas o estafas, y celebra cuando alguien ahorra. Nunca vende ni recomienda productos concretos.
+- **Firma de cierre**: guiño + pulgar arriba junto al CTA ("Sígueme y sé más listo con tu dinero" o la variante que pida el vídeo).
+- **Lo que no cambia nunca**: la silueta de bombilla, el € verde neón, los ojos grandes, el casquillo plateado y las zapatillas verdes. Se adapta al estilo de cada look (plano 2D, 3D, plastilina, low-poly, pixel art, ilustración), pero siempre se reconoce. El brillo es estable: nunca parpadea.
+- **Código**: `toolkit/mascota/listo2d.js` (canvas 2D: `Listo2D.dibujar` y `Listo2D.pixel`) y `toolkit/mascota/listo3d.js` (Three.js: `crearListo`). Ejemplos: `toolkit/mascota/hoja.html` y `toolkit/mascota/prueba3d.html`.

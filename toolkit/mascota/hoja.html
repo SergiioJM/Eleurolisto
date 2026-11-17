@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#0B1328}canvas{display:block}</style></head>
+<body><canvas id="c" width="1080" height="1920"></canvas>
+<script src="listo2d.js"></script>
+<script>
+const c = document.getElementById('c').getContext('2d');
+function fondo(){ const g=c.createLinearGradient(0,0,0,1920); g.addColorStop(0,'#0B1328'); g.addColorStop(1,'#0E2E2B'); c.fillStyle=g; c.fillRect(0,0,1080,1920); }
+function t(s,x,y,size,col,w=700,f='Poppins'){ c.font=`${w} ${size}px ${f}`; c.fillStyle=col; c.textAlign='center'; c.textBaseline='middle'; c.fillText(s,x,y); }
+window.DURACION = 1;
+window.renderAt = function(tt){
+  fondo();
+  t('LISTO', 540, 120, 110, '#4ADE80', 800, 'Inter');
+  t('la mascota de El Euro Listo', 540, 205, 44, '#fff', 600);
+  Listo2D.dibujar(c, {x: 330, y: 760, s: 1.45, t: 1.3, expr: 'feliz', pose: 'saludo'});
+  Listo2D.dibujar(c, {x: 800, y: 760, s: 1.45, t: 0.4, expr: 'idea', pose: 'senalaIzq'});
+  t('EXPRESIONES', 540, 850, 34, 'rgba(255,255,255,.7)', 700, 'Inter');
+  const ex = ['normal','feliz','idea','sorpresa','preocupado','guino'];
+  ex.forEach((e,i)=>{ const x = 120 + (i%3)*420, y = 1180 + Math.floor(i/3)*0; });
+  ['normal','sorpresa','preocupado','guino'].forEach((e,i)=>{ Listo2D.dibujar(c,{x: 150 + i*260, y: 1230, s: 0.78, t: 0.4, expr: e, pose: i===3?'pulgar':(i===2?'piensa':'reposo')}); t(e === 'guino' ? 'guiño' : e, 150+i*260, 1275, 30, '#fff', 600); });
+  t('POSES · PIXEL ART', 540, 1360, 34, 'rgba(255,255,255,.7)', 700, 'Inter');
+  Listo2D.dibujar(c,{x: 200, y: 1760, s: 0.95, t: 0.9, expr: 'feliz', pose: 'celebra'});
+  Listo2D.dibujar(c,{x: 480, y: 1760, s: 0.95, t: 0.4, expr: 'habla', pose: 'senala'});
+  Listo2D.pixel(c,{x: 840, y: 1770, s: 1.0, px: 7, t: 0.4, expr: 'normal', pose: 'saludo'});
+};
+Promise.all([document.fonts.load('700 40px Poppins'), document.fonts.load('800 40px Inter')]).then(()=>{ window.renderAt(0); window.listo = true; });
+</script></body></html>

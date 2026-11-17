@@ -1,0 +1,35 @@
+<!doctype html><html><head><meta charset="utf-8">
+<script type="importmap">{"imports":{"three":"../escena3d/node_modules/three/build/three.module.js"}}</script>
+<style>html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#000}canvas{position:absolute;inset:0}
+#t{position:absolute;left:0;right:0;top:250px;text-align:center;font:800 120px 'Inter';color:#ffc547;text-shadow:0 0 30px rgba(255,197,71,.6),0 8px 20px rgba(0,0,0,.6)}</style></head>
+<body><div id="t">TIENES 25 AÑOS</div>
+<script type="module">
+import * as THREE from "three";
+import { crearListo } from "./listo3d.js";
+const W = 1080, H = 1920;
+const r = new THREE.WebGLRenderer({ antialias: true }); r.setPixelRatio(1); r.setSize(W, H);
+r.shadowMap.enabled = true; r.toneMapping = THREE.NeutralToneMapping; document.body.prepend(r.domElement);
+const esc = new THREE.Scene(); esc.background = new THREE.Color(0x0b1a3a);
+const cam = new THREE.PerspectiveCamera(38, W / H, 0.05, 80);
+const sm = (c, o = {}) => new THREE.MeshStandardMaterial({ color: c, roughness: 0.8, ...o });
+const suelo = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), sm(0x1a1410)); suelo.rotation.x = -Math.PI / 2; suelo.receiveShadow = true; esc.add(suelo);
+const pared = new THREE.Mesh(new THREE.PlaneGeometry(20, 10), sm(0x16306b)); pared.position.set(0, 5, -3); esc.add(pared);
+const marco = new THREE.Mesh(new THREE.BoxGeometry(1.8, 2.2, 0.08), sm(0xdfe6f2)); marco.position.set(1.7, 3.1, -2.95); esc.add(marco);
+const cuad = new THREE.Mesh(new THREE.BoxGeometry(1.5, 1.9, 0.1), sm(0x0f2a5a)); cuad.position.set(1.7, 3.1, -2.92); esc.add(cuad);
+const poster = new THREE.Mesh(new THREE.BoxGeometry(1.4, 2.0, 0.05), sm(0x0f5132)); poster.position.set(-1.9, 3.2, -2.95); esc.add(poster);
+esc.add(new THREE.HemisphereLight(0x9fb8ff, 0x1a1410, 0.9));
+const key = new THREE.DirectionalLight(0xffffff, 1.6); key.position.set(2, 6, 5); key.castShadow = true; esc.add(key);
+const L = crearListo({ escala: 1 }); esc.add(L.root);
+L.root.traverse(o => { if (o.isMesh) o.castShadow = true; });
+const POSES = ['saludo', 'senala', 'celebra', 'piensa'];
+window.DURACION = 4;
+window.renderAt = (t) => {
+  const i = Math.floor(t) % 4;
+  const ex = ['feliz', 'habla', 'idea', 'sorpresa'][i];
+  L.actualizar(t, { expr: ex, pose: POSES[i], mira: [0.2, 0] });
+  L.root.rotation.y = -0.25 + Math.sin(t) * 0.08;
+  cam.position.set(0.5, 2.0, 9.5); cam.lookAt(0, 1.5, 0); r.render(esc, cam);
+};
+await document.fonts.load('800 100px Inter');
+window.renderAt(0); window.listo = true;
+</script></body></html>
