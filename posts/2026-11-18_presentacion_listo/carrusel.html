@@ -1,0 +1,102 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<script src="../../toolkit/mascota/listo2d.js"></script>
+<style>html,body{margin:0;overflow:hidden;background:#0b1328}canvas{position:absolute;left:0;top:0}</style></head>
+<body><canvas id="c"></canvas>
+<script>
+// Carrusel de presentación de @eleurolisto con LISTO. renderAt(i) dibuja la diapositiva i (0..5).
+// Se renderiza a 1080x1350 (Instagram) y a 1080x1920 (fotos de TikTok): el diseño vive en un bloque de
+// 1080x1350 centrado en vertical y el fondo se extiende.
+const W = window.innerWidth, H = window.innerHeight;
+const cv = document.getElementById('c'); cv.width = W; cv.height = H; const X = cv.getContext('2d');
+const OY = (H - 1350) / 2; // desplazamiento vertical del bloque de diseño
+const AMB = '#FFC547', VER = '#4ADE80', ROJO = '#ff4d3d', AZUL = '#3B82F6', TINTA = '#0e1424';
+function rr(x, y, w, h, r, fill, stroke, lw) { X.beginPath(); X.roundRect(x, y, w, h, r); if (fill) { X.fillStyle = fill; X.fill(); } if (stroke) { X.strokeStyle = stroke; X.lineWidth = lw || 4; X.stroke(); } }
+function txt(s, x, y, size, col = '#fff', peso = 800, align = 'left', fam = 'Poppins') { X.font = `${peso} ${size}px ${fam}`; X.fillStyle = col; X.textAlign = align; X.textBaseline = 'alphabetic'; X.fillText(s, x, y); }
+// texto con partes resaltadas: "Hola [[Listo]]" -> Listo en ámbar
+function rico(s, x, y, size, peso = 800, align = 'left', base = '#fff', resalte = AMB) {
+  X.font = `${peso} ${size}px Poppins`; const partes = s.split(/(\[\[.*?\]\])/).filter(Boolean);
+  const ws = partes.map((p) => X.measureText(p.replace(/\[\[|\]\]/g, '')).width), tot = ws.reduce((a, b) => a + b, 0);
+  let cx = align === 'center' ? x - tot / 2 : x; X.textAlign = 'left'; X.textBaseline = 'alphabetic';
+  partes.forEach((p, i) => { const hi = p.startsWith('[['); X.fillStyle = hi ? resalte : base; X.fillText(p.replace(/\[\[|\]\]/g, ''), cx, y); cx += ws[i]; });
+}
+function fondo(i) {
+  const g = X.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#0f1b36'); g.addColorStop(1, '#0a1020'); X.fillStyle = g; X.fillRect(0, 0, W, H);
+  const h1 = X.createRadialGradient(W * 0.85, H * 0.15, 20, W * 0.85, H * 0.15, 800); h1.addColorStop(0, 'rgba(34,197,94,.22)'); h1.addColorStop(1, 'rgba(34,197,94,0)'); X.fillStyle = h1; X.fillRect(0, 0, W, H);
+  const h2 = X.createRadialGradient(W * 0.1, H * 0.95, 20, W * 0.1, H * 0.95, 700); h2.addColorStop(0, 'rgba(59,130,246,.22)'); h2.addColorStop(1, 'rgba(59,130,246,0)'); X.fillStyle = h2; X.fillRect(0, 0, W, H);
+  X.globalAlpha = 0.06; X.strokeStyle = '#fff'; X.lineWidth = 1; for (let x = 0; x < W; x += 60) { X.beginPath(); X.moveTo(x, 0); X.lineTo(x, H); X.stroke(); } for (let y = 0; y < H; y += 60) { X.beginPath(); X.moveTo(0, y); X.lineTo(W, y); X.stroke(); } X.globalAlpha = 1;
+  // pie: marca + paginación con puntos
+  txt('@eleurolisto', 84, OY + 1290, 30, 'rgba(255,255,255,.8)', 700);
+  for (let k = 0; k < 6; k++) { X.fillStyle = k === i ? AMB : 'rgba(255,255,255,.3)'; X.beginPath(); X.roundRect(W - 84 - (6 - k) * 34 + (k === i ? -16 : 0), OY + 1278, k === i ? 40 : 18, 14, 7); X.fill(); }
+}
+function kicker(s, y, col = ROJO) { X.font = '700 30px Poppins'; const w = X.measureText(s).width + 56; rr(84, OY + y, w, 60, 30, col); txt(s, 84 + 28, OY + y + 41, 30, '#fff', 700); }
+function desliza(y) { rr(84, OY + y, 300, 74, 37, 'rgba(255,255,255,.1)', 'rgba(255,255,255,.35)', 3); txt('Desliza  →', 84 + 150, OY + y + 50, 34, '#fff', 700, 'center'); }
+function icono(tipo, x, y, col) { // iconos planos dibujados
+  X.save(); X.translate(x, y); rr(-46, -46, 92, 92, 26, col); X.strokeStyle = TINTA; X.fillStyle = TINTA; X.lineWidth = 7; X.lineCap = 'round'; X.lineJoin = 'round';
+  if (tipo === 'hucha') { X.beginPath(); X.arc(0, 0, 28, 0, 7); X.stroke(); X.font = '800 36px Poppins'; X.textAlign = 'center'; X.textBaseline = 'middle'; X.fillText('€', 0, 2); }
+  if (tipo === 'grafica') { X.beginPath(); X.moveTo(-26, 22); X.lineTo(-8, 2); X.lineTo(6, 12); X.lineTo(26, -18); X.stroke(); X.beginPath(); X.moveTo(12, -18); X.lineTo(26, -18); X.lineTo(26, -4); X.stroke(); }
+  if (tipo === 'doc') { X.strokeRect(-20, -27, 40, 54); X.beginPath(); X.moveTo(-10, -12); X.lineTo(10, -12); X.moveTo(-10, 0); X.lineTo(10, 0); X.moveTo(-10, 12); X.lineTo(4, 12); X.stroke(); }
+  if (tipo === 'nomina') { X.strokeRect(-28, -18, 56, 38); X.beginPath(); X.arc(0, 1, 9, 0, 7); X.stroke(); }
+  if (tipo === 'escudo') { X.beginPath(); X.moveTo(0, -28); X.lineTo(24, -18); X.lineTo(22, 6); X.quadraticCurveTo(14, 22, 0, 30); X.quadraticCurveTo(-14, 22, -22, 6); X.lineTo(-24, -18); X.closePath(); X.stroke(); X.beginPath(); X.moveTo(-9, 1); X.lineTo(-2, 9); X.lineTo(11, -7); X.stroke(); }
+  if (tipo === 'noticia') { X.strokeRect(-26, -22, 52, 44); X.fillRect(-18, -14, 16, 14); X.beginPath(); X.moveTo(6, -12); X.lineTo(18, -12); X.moveTo(6, -2); X.lineTo(18, -2); X.moveTo(-18, 10); X.lineTo(18, 10); X.stroke(); }
+  X.restore();
+}
+function check(x, y, col = VER) { X.save(); X.translate(x, y); X.fillStyle = col; X.beginPath(); X.arc(0, 0, 30, 0, 7); X.fill(); X.strokeStyle = TINTA; X.lineWidth = 8; X.lineCap = 'round'; X.lineJoin = 'round'; X.beginPath(); X.moveTo(-12, 1); X.lineTo(-3, 11); X.lineTo(14, -9); X.stroke(); X.restore(); }
+
+const SLIDES = [
+  () => { // 1 · portada: gancho
+    kicker('HOLA, SOY LISTO', 96);
+    rico('¿Te sobra [[mes]]', 84, OY + 330, 104, 900); rico('al final del', 84, OY + 450, 104, 900); rico('[[sueldo]]?', 84, OY + 570, 104, 900);
+    txt('Vengo a ayudarte con eso.', 84, OY + 670, 44, 'rgba(255,255,255,.85)', 600);
+    desliza(740);
+    Listo2D.dibujar(X, { x: 800, y: OY + 1220, s: 1.55, t: 0.3, expr: 'feliz', pose: 'saludo', mira: [-0.4, -0.2] });
+  },
+  () => { // 2 · quién es Listo
+    kicker('¿QUIÉN SOY?', 96, AZUL);
+    rico('La bombilla de', 84, OY + 290, 80, 900); rico('[[El Euro Listo]]', 84, OY + 385, 80, 900);
+    const filas = [['Me enciendo', 'con las buenas ideas de dinero', 'idea', 'reposo'], ['Me apago', 'con las comisiones y las estafas', 'preocupado', 'brazosCruzados'], ['Y lo celebro', 'cada euro que ahorras', 'feliz', 'celebra']];
+    filas.forEach(([a, b, e, p], k) => {
+      const y = OY + 480 + k * 250; rr(84, y, 912, 220, 30, 'rgba(255,255,255,.06)', 'rgba(255,255,255,.12)', 2);
+      Listo2D.dibujar(X, { x: 200, y: y + 205, s: 0.58, t: 0.3 + k, expr: e, pose: p, glow: e === 'preocupado' ? 0.5 : 1.1 });
+      txt(a, 330, y + 98, 56, k === 1 ? '#ff8a7a' : AMB, 900); txt(b, 330, y + 158, 38, '#fff', 600);
+    });
+  },
+  () => { // 3 · qué vas a encontrar
+    kicker('LO QUE VAS A VER AQUÍ', 96, '#16a34a');
+    rico('Tu dinero, en [[30 segundos]]', 84, OY + 290, 72, 900);
+    const it = [['hucha', 'Ahorro', 'sin dramas', VER], ['grafica', 'Invertir', 'explicado fácil', AMB], ['doc', 'Hacienda', 'y la renta', '#93c5fd'], ['nomina', 'Tu nómina', 'bruto, neto, IRPF', '#fda4af'], ['escudo', 'Estafas', 'que no te pillen', '#fcd34d'], ['noticia', 'Noticias', 'que tocan tu bolsillo', '#c4b5fd']];
+    it.forEach(([ic, a, b, col], k) => {
+      const cx = 84 + (k % 2) * 466, y = OY + 360 + Math.floor(k / 2) * 250;
+      rr(cx, y, 446, 222, 30, 'rgba(255,255,255,.06)', 'rgba(255,255,255,.12)', 2);
+      icono(ic, cx + 82, y + 82, col); txt(a, cx + 150, y + 92, 46, '#fff', 800); txt(b, cx + 36, y + 182, 34, 'rgba(255,255,255,.75)', 600);
+    });
+    rr(84, OY + 1125, 912, 96, 48, AMB); txt('2 reels al día · 13:30 y 20:30', 540, OY + 1188, 42, TINTA, 800, 'center');
+  },
+  () => { // 4 · cómo lo hago (promesas)
+    kicker('MIS 3 REGLAS', 96, ROJO);
+    rico('Nada de [[chapas]].', 84, OY + 290, 84, 900);
+    const r = [['Corto y al grano', 'Si cabe en 30 segundos, no te robo un minuto.'], ['Datos con fuente', 'INE, Banco de España, Hacienda, BOE…'], ['Cero humo', 'No te vendo cursos ni te digo en qué invertir.']];
+    r.forEach(([a, b], k) => { const y = OY + 400 + k * 215; check(130, y + 60); txt(a, 190, y + 76, 54, '#fff', 800); txt(b, 190, y + 136, 36, 'rgba(255,255,255,.75)', 600); });
+    Listo2D.dibujar(X, { x: 905, y: OY + 1250, s: 0.68, t: 0.4, expr: 'normal', pose: 'pulgar', mira: [-0.5, -0.2] });
+  },
+  () => { // 5 · interacción: votación en comentarios
+    kicker('TU TURNO', 96, '#a855f7');
+    rico('¿Qué te explico', 84, OY + 290, 84, 900); rico('[[primero]]?', 84, OY + 390, 84, 900);
+    const op = [['A', 'Llegar a fin de mes'], ['B', 'Empezar a invertir'], ['C', 'Hacienda y la renta'], ['D', 'Salir de deudas']];
+    op.forEach(([l, s], k) => { const y = OY + 450 + k * 150; rr(84, y, 700, 124, 30, 'rgba(255,255,255,.08)', 'rgba(255,255,255,.18)', 2); rr(104, y + 20, 84, 84, 22, AMB); txt(l, 146, y + 80, 52, TINTA, 900, 'center'); txt(s, 220, y + 80, 44, '#fff', 700); });
+    rr(84, OY + 1060, 912, 140, 34, 'rgba(255,197,71,.14)', AMB, 3);
+    txt('Comenta la letra 👇'.replace('👇', ''), 120, OY + 1118, 44, AMB, 800); txt('Lo más votado será el próximo vídeo.', 120, OY + 1172, 36, '#fff', 600);
+    Listo2D.dibujar(X, { x: 900, y: OY + 1040, s: 0.82, t: 0.5, expr: 'normal', pose: 'piensa', mira: [-0.6, 0.1] });
+  },
+  () => { // 6 · cierre con la firma de Listo
+    Listo2D.dibujar(X, { x: 540, y: OY + 760, s: 1.6, t: 0.4, expr: 'guino', pose: 'pulgar', glow: 1.2 });
+    rico('Sígueme y sé más', 540, OY + 880, 72, 900, 'center'); rico('[[listo]] con tu dinero', 540, OY + 965, 72, 900, 'center');
+    rr(140, OY + 1020, 800, 92, 46, '#ffffff'); txt('Guarda este post', 540, OY + 1081, 40, TINTA, 800, 'center');
+    txt('y mándaselo a quien le sobra mes', 540, OY + 1170, 38, 'rgba(255,255,255,.85)', 600, 'center');
+    txt('Contenido educativo, no es asesoramiento financiero.', 540, OY + 1230, 26, 'rgba(255,255,255,.55)', 500, 'center');
+  },
+];
+window.DURACION = 6;
+window.renderAt = (t) => { const i = Math.round(t); X.setTransform(1, 0, 0, 1, 0, 0); fondo(i); SLIDES[i](); };
+Promise.all([document.fonts.load('900 80px Poppins'), document.fonts.load('600 40px Poppins'), document.fonts.load('800 40px Poppins')]).then(() => { window.listo = true; });
+</script></body></html>

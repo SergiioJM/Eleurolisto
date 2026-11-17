@@ -1,0 +1,29 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<script src="../../../toolkit/mascota/listo2d.js"></script>
+<style>html,body{margin:0;width:1080px;height:1080px;overflow:hidden;background:#0b1328}canvas{position:absolute;inset:0}</style></head>
+<body><canvas id="c" width="1080" height="1080"></canvas>
+<script>
+// Foto de perfil de @eleurolisto con LISTO (estilo 'vector', el de marca). renderAt(v): v = variante (0, 1, 2).
+// Pensada para el recorte circular: la cara y el € de Listo llenan el círculo central y se leen a 110 px.
+const X = document.getElementById('c').getContext('2d');
+const V = [
+  { expr: 'guino', pose: 'pulgar', fondo: ['#0f2a3a', '#0b1328'], mira: [0.2, -0.1] },
+  { expr: 'feliz', pose: 'saludo', fondo: ['#12324a', '#0b1328'], mira: [0, 0] },
+  { expr: 'idea', pose: 'reposo', fondo: ['#0f2a3a', '#08101f'], mira: [0, -0.3] },
+];
+window.DURACION = 3;
+window.renderAt = (t) => {
+  const v = V[Math.round(t)] || V[0];
+  // fondo: azul noche con halo verde detrás de la bombilla (como la foto de perfil original)
+  const g = X.createRadialGradient(540, 470, 40, 540, 540, 760); g.addColorStop(0, v.fondo[0]); g.addColorStop(1, v.fondo[1]);
+  X.fillStyle = g; X.fillRect(0, 0, 1080, 1080);
+  const h = X.createRadialGradient(540, 440, 30, 540, 440, 520); h.addColorStop(0, 'rgba(34,197,94,.38)'); h.addColorStop(1, 'rgba(34,197,94,0)');
+  X.fillStyle = h; X.fillRect(0, 0, 1080, 1080);
+  // anillo verde sutil (encaja con el círculo del perfil)
+  X.strokeStyle = 'rgba(74,222,128,.25)'; X.lineWidth = 10; X.beginPath(); X.arc(540, 540, 500, 0, 7); X.stroke();
+  // Listo grande: la bombilla ocupa el centro del círculo; los pies quedan justo dentro
+  Listo2D.dibujar(X, { x: 540, y: 1045, s: 2.85, t: 0.4, expr: v.expr, pose: v.pose, mira: v.mira, glow: 1.15, estilo: 'vector' });
+};
+document.fonts.ready.then(() => { window.listo = true; });
+</script></body></html>
