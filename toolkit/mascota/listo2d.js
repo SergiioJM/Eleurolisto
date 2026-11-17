@@ -135,7 +135,7 @@
   }
   const POSES = {
     reposo: [[-104, -20], [104, -20]], saludo: [[-104, -20], [150, -205]], senala: [[-104, -20], [205, -95]],
-    senalaIzq: [[-205, -95], [104, -20]], pulgar: [[-104, -20], [140, -60]], celebra: [[-150, -215], [150, -215]],
+    senalaIzq: [[-205, -95], [104, -20]], pulgar: [[-104, -20], [150, -120]], celebra: [[-150, -215], [150, -215]],
     piensa: [[-104, -20], [32, -70]], brazosCruzados: [[55, -20], [-55, -14]],
     manosCadera: [[-74, -12], [74, -12]], brazosAbiertos: [[-215, -75], [215, -75]], moneda: [[-104, -20], [165, -165]],
   };
@@ -156,20 +156,11 @@
     trazar(c, () => { c.beginPath(); c.moveTo(ax, ay); c.quadraticCurveTo(mx, my, hx, hy); c.stroke(); });
     c.fillStyle = ST.mano; c.strokeStyle = ST.manoBorde || ST.mano; c.lineWidth = 3;
     const r = ST.alambreW > 10 ? 17 : 15;
-    if (pose === 'pulgar' && lado === 1) {
-      // PULGAR ARRIBA (corregido el 18-nov: el dedo único en el centro parecía un dedo corazón).
-      // Puño horizontal con los nudillos marcados y el pulgar saliendo por el LADO, inclinado hacia fuera.
-      const k = r / 15;
-      c.save(); c.translate(hx, hy); c.scale(k, k);
-      const borde = ST.manoBorde || 'rgba(15,20,35,0.55)';
-      c.strokeStyle = borde; c.lineWidth = 3;
-      c.save(); c.translate(-12, -14); c.rotate(-0.38); // pulgar en el lado izquierdo del puño, hacia arriba y hacia fuera
-      c.beginPath(); c.roundRect(-6.5, -26, 13, 30, 6.5); c.fill(); c.stroke(); c.restore();
-      c.beginPath(); c.roundRect(-17, -14, 36, 30, 10); c.fill(); c.stroke(); // puño
-      c.lineWidth = 2.4; c.lineCap = 'round'; // dedos doblados (líneas de los nudillos)
-      for (const y of [-5, 3, 10]) { c.beginPath(); c.moveTo(-8, y); c.lineTo(12, y); c.stroke(); }
-      c.restore();
-    } else { c.beginPath(); c.arc(hx, hy, r, 0, 7); c.fill(); if (ST.manoBorde) c.stroke(); }
+    // MANOS SIEMPRE REDONDAS, SIN DEDOS (Sergio, 18-nov: "evita los dedos en el vídeo, solo con las manos en forma de
+    // círculo queda bien"). La pose 'pulgar' es ahora la mano redonda en alto junto a la cara (firma) y 'senala' es el
+    // brazo estirado: nunca se dibuja un dedo (ni pulgar ni índice).
+    const rr = pose === 'pulgar' && lado === 1 ? r * 1.15 : r;
+    c.beginPath(); c.arc(hx, hy, rr, 0, 7); c.fill(); if (ST.manoBorde) c.stroke();
     if (pose === 'moneda' && lado === 1) { // enseña una moneda de 1 € grande en la mano
       c.save(); c.translate(hx + 6, hy - 46); c.shadowBlur = 0;
       c.fillStyle = '#B45309'; c.beginPath(); c.arc(0, 5, 44, 0, 7); c.fill();
@@ -178,9 +169,6 @@
       if (ST.manoBorde || ST.borde) { c.strokeStyle = ST.manoBorde || ST.borde; c.lineWidth = 3; c.beginPath(); c.arc(0, 0, 44, 0, 7); c.stroke(); }
       c.fillStyle = '#92400E'; c.font = '800 46px Poppins, sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('€', 0, 3);
       c.restore();
-    }
-    if ((pose === 'senala' && lado === 1) || (pose === 'senalaIzq' && lado === -1)) {
-      c.beginPath(); c.roundRect(hx + (lado === 1 ? 6 : -30), hy - 5, 24, 10, 5); c.fill(); if (ST.manoBorde) c.stroke();
     }
     c.shadowBlur = 0;
   }
