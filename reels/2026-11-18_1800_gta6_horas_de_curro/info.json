@@ -16,6 +16,11 @@
   "sfx": "biblioteca video-shotcraft (lib:): air-woosh-quick, hit-fast-exciting, ui-message-pop, whoosh-fast, bass-hit-short, ui-confirm-tone, clock-tick-single ×8 (cada hora), impact-zoom-quick, swoosh-quick, ui-option-select, sparkle-touch, ui-success-soft, chime-crystal",
   "brillo": "52–70; salto máximo 4,0 entre fotogramas (0 saltos > 8)",
   "portada": "portada/portada.jpg: kicker ESPECIAL GTA 6, 'GTA 6 = 8,5 horas de curro', sub 'con el salario mínimo'; fondo del atardecer con el descapotable y Listo sorprendido",
-  "estado": "pendiente de aprobación (enviado 18-nov ~00:15)",
-  "duracion_s": 21.5
+  "estado": "APROBADO por Sergio el 18-nov ~00:20 (✅ Con portada); se publica el 18-nov a las 18:00 (aviso send_later trig_01ERjP7uBMNDTnUw4iEwiqiM)",
+  "duracion_s": 21.5,
+  "video_final_portada": "https://cdn.creativeclaw.co/u/626ff63d/videos/4794b904-3974-4e40-a011-9b415fd17849.mp4",
+  "video_final": "https://cdn.creativeclaw.co/u/626ff63d/videos/f460dd1d-35ac-404d-8c24-841ca1beccfb.mp4",
+  "vidiq_uploadId_con_portada": "d95c39c0-992c-4271-beb9-8a443f4f433d",
+  "vidiq_uploadId_sin_portada": "d2934342-8cb8-4d76-8669-af27094d02f5",
+  "creditos": "Creative Claw: 8 (voz) + 1 (tiempos) + 4 (dos uniones)"
 }
