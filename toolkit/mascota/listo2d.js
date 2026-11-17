@@ -153,8 +153,20 @@
     trazar(c, () => { c.beginPath(); c.moveTo(ax, ay); c.quadraticCurveTo(mx, my, hx, hy); c.stroke(); });
     c.fillStyle = ST.mano; c.strokeStyle = ST.manoBorde || ST.mano; c.lineWidth = 3;
     const r = ST.alambreW > 10 ? 17 : 15;
-    c.beginPath(); c.arc(hx, hy, r, 0, 7); c.fill(); if (ST.manoBorde) c.stroke();
-    if (pose === 'pulgar' && lado === 1) { c.beginPath(); c.roundRect(hx - 5, hy - 34, 11, 24, 6); c.fill(); if (ST.manoBorde) c.stroke(); }
+    if (pose === 'pulgar' && lado === 1) {
+      // PULGAR ARRIBA (corregido el 18-nov: el dedo único en el centro parecía un dedo corazón).
+      // Puño horizontal con los nudillos marcados y el pulgar saliendo por el LADO, inclinado hacia fuera.
+      const k = r / 15;
+      c.save(); c.translate(hx, hy); c.scale(k, k);
+      const borde = ST.manoBorde || 'rgba(15,20,35,0.55)';
+      c.strokeStyle = borde; c.lineWidth = 3;
+      c.save(); c.translate(-12, -14); c.rotate(-0.38); // pulgar en el lado izquierdo del puño, hacia arriba y hacia fuera
+      c.beginPath(); c.roundRect(-6.5, -26, 13, 30, 6.5); c.fill(); c.stroke(); c.restore();
+      c.beginPath(); c.roundRect(-17, -14, 36, 30, 10); c.fill(); c.stroke(); // puño
+      c.lineWidth = 2.4; c.lineCap = 'round'; // dedos doblados (líneas de los nudillos)
+      for (const y of [-5, 3, 10]) { c.beginPath(); c.moveTo(-8, y); c.lineTo(12, y); c.stroke(); }
+      c.restore();
+    } else { c.beginPath(); c.arc(hx, hy, r, 0, 7); c.fill(); if (ST.manoBorde) c.stroke(); }
     if ((pose === 'senala' && lado === 1) || (pose === 'senalaIzq' && lado === -1)) {
       c.beginPath(); c.roundRect(hx + (lado === 1 ? 6 : -30), hy - 5, 24, 10, 5); c.fill(); if (ST.manoBorde) c.stroke();
     }
