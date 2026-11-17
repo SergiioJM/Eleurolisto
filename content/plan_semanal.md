@@ -1,0 +1,19 @@
+# Plan de temas — del viernes 20 al jueves 26-nov-2026
+
+Hecho el 18-nov tras el giro que pidió Sergio: **inversión (bolsa, cripto…) todos los días y temas profundos y polémicos sin miedo** (ver PLAYBOOK, "Giro a inversión"). La tarea nocturna lo usa como guía y puede cambiarlo si sale un viral o una noticia mejor. **Todas las cifras se verifican el mismo día** (las de abajo son contexto del 15–18-nov).
+
+Contexto de mercado (18-nov): bitcoin cerca de 64.800 $ el 15-nov tras liquidaciones de más de 2.000 millones $ en 24 h, siete sesiones seguidas de salidas de los ETF de bitcoin de EE. UU. (≈ 1.910 millones $) y el índice de miedo y codicia en 10 (miedo extremo) — [CryptoTicker, 15-nov](https://cryptoticker.io/es/precio-bitcoin-minimo-nocturno-cierre-semanal-15-noviembre-2026/). DAC8: los exchanges informan a Hacienda de las operaciones con cripto — [Taxdown](https://taxdown.es/criptomonedas-declaracion-renta/dac8-que-es-como-funciona), [proyecto de orden de Hacienda](https://www.hacienda.gob.es/sgt/normativadoctrina/proyectos/09032026-main-proyecto-om-dac8.pdf). Guía de la CNMV para finfluencers (25-may-2026) — [Cuatrecasas](https://www.cuatrecasas.com/es/spain/propiedad-intelectual/art/cnmv-publica-guia-finfluencers).
+
+| Día | 13:30 | 20:30 |
+|---|---|---|
+| Vie 20 | **CRIPTO · Apalancamiento: así se liquidan 2.000 millones en un día** (qué es una liquidación, por qué x10 se esfuma con un −10 %; riesgo muy alto) | **POLÉMICA · Fondos indexados vs gestión activa**: qué % de fondos activos no bate a su índice a 10–15 años (SPIVA Europa, último informe) y el peso de las comisiones; "¿y los gestores estrella?" → pregunta al final |
+| Sáb 21 | **DINERO Y LEY · Hacienda ya ve tus criptos (DAC8)**: qué datos envían los exchanges, cómo tributan las ganancias (base del ahorro) y el modelo 721 | **POLÉMICA · ¿Bitcoin: burbuja u oro digital?** Argumentos de los dos lados con datos (volatilidad, caídas históricas del 70–80 %, ETF, oferta limitada); "¿tú de qué lado estás?" |
+| Dom 22 | **BOLSA · "La bolsa es un casino": mito o verdad** (probabilidad histórica de perder según los años invertidos en un índice mundial; fuente MSCI/estudios) | **VIVIENDA + INVERSIÓN · ¿Comprar casa o alquilar e invertir la diferencia?** Ejemplo con supuestos claros; el matiz que nadie cuenta (apalancamiento de la hipoteca, gastos, liquidez) |
+| Lun 23 | **CRIPTO · Stablecoins explicadas**: qué son, por qué no siempre valen 1 $ (casos de pérdida de paridad) y qué cambia con MiCA | **POLÉMICA · Plan de pensiones privado: ¿ventaja fiscal o timo?** Límite de aportación, comisiones, rescate y tributación (AEAT) |
+| Mar 24 | **ECONOMÍA · Black Friday: 3 trampas de precio** (look nuevo: collage de tiques) | **BOLSA · ¿Burbuja de la IA?** Concentración del S&P 500 en pocas empresas, comparación con la burbuja puntocom (datos y fuentes); sin recomendar valores |
+| Mié 25 | **INVERSIÓN · Interés compuesto con datos reales** (MSCI World a 20–30 años, histórico, no garantizado) | **POLÉMICA · FIRE y la regla del 4 %: ¿jubilarse a los 40 es posible en España?** |
+| Jue 26 | **CRIPTO · ETF de bitcoin vs comprar bitcoin directamente**: diferencias de custodia, comisiones y fiscalidad en España (sin nombrar productos) | **ORO vs BITCOIN vs BOLSA** en las últimas crisis (datos) |
+
+Experimento de la semana: **los reels "polémica" acaban con una pregunta de dos opciones** ("¿burbuja o futuro? Comenta 1 o 2") y se compara con los demás en comentarios y compartidos.
+Votación del post fijado (A fin de mes / B invertir / C Hacienda / D deudas): mira los comentarios cada noche; la opción ganadora entra en el siguiente hueco libre.
+Voces: Creative Claw tiene 10 créditos (Javier necesita ≥ 12) y ElevenLabs gratis está desactivado → voces locales `v1`/`k_santa` salvo que Sergio recargue o contrate ElevenLabs Starter.
