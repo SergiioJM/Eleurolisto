@@ -1,0 +1,433 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>html,body{margin:0;background:#0B1328;overflow:hidden}canvas{display:block}</style></head>
+<body><canvas id="c" width="1080" height="1920"></canvas>
+<script>
+// Look: TIPOGRAFÍA CINÉTICA (motion graphics planos, sin personajes). Subida de sueldo, misma voz de Javier.
+// Todo depende solo de t y de los tiempos de la voz (window.TIM) -> render determinista.
+const cv = document.getElementById('c'), X = cv.getContext('2d');
+const W = 1080, H = 1920;
+const C = {navy:'#0B1328', ink:'#0E1220', green:'#22C55E', dgreen:'#0F7A36', amber:'#F59E0B', lamber:'#FFC547',
+  red:'#EF4444', dred:'#9F1D1D', blue:'#3B82F6', cream:'#FFF7E6', white:'#FFFFFF', grey:'#CBD2E1'};
+const TIM = window.TIM, S = TIM.segments;
+const pal = (i, f) => { const w = S[i].words.find(w => w.w.toLowerCase().includes(f)); return w ? w.start : S[i].start; };
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const sm = k => k * k * (3 - 2 * k);
+const eOut = k => 1 - Math.pow(1 - k, 3);
+const eIn = k => k * k * k;
+const eBack = k => { const c1 = 1.9, c3 = c1 + 1; return 1 + c3 * Math.pow(k - 1, 3) + c1 * Math.pow(k - 1, 2); };
+const prog = (t, a, d) => clamp((t - a) / d);
+
+// ---- tiempos de la voz ----
+const T = {
+  sub: pal(0, 'subida'), sueldo: pal(0, 'sueldo'),
+  dos: pal(1, 'dos'), n150: pal(1, '150'), mes1: pal(1, 'mes'),
+  ella: pal(2, 'ella'), gasta: pal(2, 'gasta'), del: pal(2, 'delivery'), mov: pal(2, 'móvil'), otra: pal(2, 'otra'), sus: pal(2, 'suscrip'),
+  el: S[3].start, aparta: pal(3, 'aparta'), mitad: pal(3, 'mitad'), n75: pal(3, '75'), mismo: pal(3, 'mismo'), cobra: pal(3, 'cobra'),
+  otraM: pal(4, 'otra'), disf: pal(4, 'disfruta'), sin: pal(4, 'sin'), culpa: pal(4, 'culpa'),
+  pasan: S[5].start, n5: pal(5, '5'), anos: pal(5, 'años'),
+  ella2: S[6].start, sigue: pal(6, 'sigue'), justa: pal(6, 'justa'), fin: pal(6, 'fin'),
+  el2: S[7].start, tiene: pal(7, 'tiene'), n4500: pal(7, '4.500'),
+  cuando: S[8].start, suban: pal(8, 'suban'), ahorra: pal(8, 'ahorra'), menos: pal(8, 'menos'), mitad2: pal(8, 'mitad'),
+  comp: S[9].start, quien: pal(9, 'quien'), cobrar: pal(9, 'cobrar'), mas: pal(9, 'más'),
+};
+const DUR = TIM.total;
+// cortes de plano
+const K = { s1: T.dos - 0.42, s2: T.ella - 0.12, s3: T.el - 0.2, s4: T.otraM - 0.2, s5: T.pasan - 0.15, s6: T.ella2 - 0.1,
+  s7: T.el2 - 0.12, s8: T.cuando - 0.12, s9: T.comp - 0.15, loop: DUR - 0.3 };
+const months = t => 60 * sm(prog(t, T.pasan - 0.05, T.n4500 - T.pasan + 0.05));
+
+// ---- utilidades de dibujo ----
+function rr(x, y, w, h, r, fill, stroke, lw) {
+  X.beginPath(); X.roundRect(x, y, w, h, r);
+  if (fill) { X.fillStyle = fill; X.fill(); }
+  if (stroke) { X.lineWidth = lw || 4; X.strokeStyle = stroke; X.stroke(); }
+}
+function txt(s, x, y, size, color, o = {}) {
+  X.save();
+  X.font = `${o.w || 700} ${size}px ${o.f || 'Poppins'}`;
+  X.textAlign = o.a || 'center'; X.textBaseline = 'middle';
+  X.translate(x, y); if (o.rot) X.rotate(o.rot); if (o.s && o.s !== 1) X.scale(o.s, o.s);
+  X.globalAlpha = o.alpha == null ? 1 : o.alpha;
+  if (o.sh) { X.shadowColor = 'rgba(0,0,0,.35)'; X.shadowBlur = 24; X.shadowOffsetY = 10; }
+  if (o.ls) X.letterSpacing = o.ls + 'px';
+  if (o.stroke) { X.lineJoin = 'round'; X.lineWidth = o.stroke; X.strokeStyle = o.sc || C.ink; X.strokeText(s, 0, 0); }
+  X.fillStyle = color; X.fillText(s, 0, 0);
+  X.restore();
+}
+// golpe de palabra (estilo sello): escala 1.25 -> 0.97 -> 1, inclinación alterna
+function stomp(t, t0) {
+  const k = t - t0; if (k < 0) return null;
+  let s = k < 0.1 ? 1.25 + (0.97 - 1.25) * eOut(k / 0.1) : k < 0.2 ? 0.97 + 0.03 * eOut((k - 0.1) / 0.1) : 1;
+  return { s, alpha: clamp(k / 0.04) };
+}
+function sword(s, x, y, size, color, t, t0, rot = 0, o = {}) {
+  const st = stomp(t, t0); if (!st) return;
+  txt(s, x, y, size, color, Object.assign({ s: st.s, alpha: st.alpha, rot }, o));
+}
+// fondo que parpadea entre dos colores durante 0,2 s tras cada golpe (cel-flash)
+function flash(t, base, alt, times, len = 0.2) {
+  for (const ts of times) { const k = t - ts; if (k >= 0 && k < len && Math.floor(k * 15) % 2 === 0) return alt; }
+  return base;
+}
+function bg(col) { X.fillStyle = col; X.fillRect(0, 0, W, H); }
+function grain(t, a = 0.05) { // trama de puntos sutil para que el plano no sea plano
+  X.save(); X.globalAlpha = a; X.fillStyle = '#000';
+  for (let y = 0; y < H; y += 36) for (let x = (y / 36) % 2 ? 18 : 0; x < W; x += 36) { X.beginPath(); X.arc(x, y, 3, 0, 7); X.fill(); }
+  X.restore();
+}
+function rnd(i) { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); }
+function confetti(t, t0, ox, oy, n = 60, cols = [C.lamber, C.white, C.green, C.blue]) {
+  const k = t - t0; if (k < 0 || k > 2.2) return;
+  for (let i = 0; i < n; i++) {
+    const a = -Math.PI / 2 + (rnd(i) - 0.5) * 2.4, v = 900 + rnd(i + 9) * 1100;
+    const x = ox + Math.cos(a) * v * k, y = oy + Math.sin(a) * v * k + 1500 * k * k;
+    X.save(); X.translate(x, y); X.rotate(k * 8 * (rnd(i + 3) - 0.5)); X.globalAlpha = clamp(1.6 - k);
+    X.fillStyle = cols[i % cols.length]; X.fillRect(-9, -5, 18, 10); X.restore();
+  }
+}
+// cifra tipo odómetro: cada dígito gira y se clava de izquierda a derecha
+function odometer(str, cx, cy, size, color, t, t0, o = {}) {
+  X.save(); X.font = `${o.w || 800} ${size}px Inter`; X.textBaseline = 'middle'; X.textAlign = 'left';
+  const cw = X.measureText('0').width, lh = size * 1.05;
+  const widths = [...str].map(ch => /\d/.test(ch) ? cw : X.measureText(ch).width);
+  const total = widths.reduce((a, b) => a + b, 0);
+  let x = cx - total / 2, di = 0;
+  for (let i = 0; i < str.length; i++) {
+    const ch = str[i];
+    if (/\d/.test(ch)) {
+      const k = prog(t, t0 + di * 0.11, 0.42);
+      const pos = +ch + 20 * (1 - eBack(k));
+      X.save(); X.beginPath(); X.rect(x - 4, cy - lh / 2, cw + 8, lh); X.clip();
+      for (let d = Math.floor(pos) - 1; d <= Math.floor(pos) + 2; d++) {
+        const yy = cy + (d - pos) * lh, dig = ((d % 10) + 10) % 10;
+        X.fillStyle = color; X.globalAlpha = k < 1 ? 0.95 : 1; X.textAlign = 'center'; X.fillText(String(dig), x + cw / 2, yy);
+      }
+      X.restore(); di++;
+    } else { X.fillStyle = color; X.textAlign = 'left'; X.fillText(ch, x, cy); }
+    x += widths[i];
+  }
+  X.restore();
+  return t >= t0 + (di - 1) * 0.11 + 0.42; // ¿clavado?
+}
+function fmt(n) { return Math.round(n).toLocaleString('es-ES').replace(/ /g, ' ') + ' €'; }
+function fmtE(n) { const s = String(Math.round(n)); return (s.length > 3 ? s.slice(0, -3) + '.' + s.slice(-3) : s) + ' €'; }
+
+// ---- iconos planos ----
+function nomina(cx, cy, s, rot) {
+  X.save(); X.translate(cx, cy); X.rotate(rot); X.scale(s, s);
+  rr(-300, -200, 600, 400, 34, C.white); rr(-300, -200, 600, 86, [34, 34, 0, 0], C.ink);
+  txt('NÓMINA', -250, -157, 44, C.white, { a: 'left', ls: 4 });
+  for (let i = 0; i < 4; i++) { rr(-250, -80 + i * 58, 300 - (i % 2) * 90, 22, 11, '#E4E8F0'); rr(130, -80 + i * 58, 120, 22, 11, '#E4E8F0'); }
+  X.restore();
+}
+function sello(s, cx, cy, size, col, t, t0, rot = -0.1) {
+  const st = stomp(t, t0); if (!st) return;
+  X.save(); X.translate(cx, cy); X.rotate(rot); X.scale(st.s, st.s); X.globalAlpha = st.alpha;
+  X.font = `800 ${size}px Inter`; const w = X.measureText(s).width + size * 0.9, h = size * 1.45;
+  X.shadowColor = 'rgba(0,0,0,.3)'; X.shadowBlur = 20; X.shadowOffsetY = 8;
+  rr(-w / 2, -h / 2, w, h, h / 2, col); X.shadowColor = 'transparent';
+  rr(-w / 2 + 8, -h / 2 + 8, w - 16, h - 16, h / 2 - 8, null, 'rgba(255,255,255,.55)', 4);
+  X.fillStyle = C.white; X.textAlign = 'center'; X.textBaseline = 'middle'; X.fillText(s, 0, 4);
+  X.restore();
+}
+function silueta(cx, cy, r, col) {
+  X.fillStyle = col; X.beginPath(); X.arc(cx, cy - r * 0.35, r * 0.42, 0, 7); X.fill();
+  X.beginPath(); X.ellipse(cx, cy + r * 0.62, r * 0.78, r * 0.55, 0, Math.PI, 0); X.fill();
+}
+function iconBolsa(cx, cy, s, col) {
+  X.save(); X.translate(cx, cy); X.scale(s, s);
+  X.lineWidth = 14; X.strokeStyle = col; X.beginPath(); X.arc(0, -70, 42, Math.PI, 0); X.stroke();
+  rr(-90, -70, 180, 170, 22, col); rr(-90, -70, 180, 40, [22, 22, 0, 0], 'rgba(0,0,0,.18)');
+  X.restore();
+}
+function iconMovil(cx, cy, s, col) {
+  X.save(); X.translate(cx, cy); X.scale(s, s);
+  rr(-62, -115, 124, 230, 26, col); rr(-50, -95, 100, 175, 12, C.ink); rr(-18, 92, 36, 8, 4, C.ink);
+  X.fillStyle = C.lamber; X.beginPath(); X.arc(0, -10, 26, 0, 7); X.fill();
+  X.restore();
+}
+function iconSus(cx, cy, s, col) {
+  X.save(); X.translate(cx, cy); X.scale(s, s);
+  rr(-105, -75, 210, 150, 22, col);
+  X.fillStyle = C.ink; X.beginPath(); X.moveTo(-26, -38); X.lineTo(38, 0); X.lineTo(-26, 38); X.closePath(); X.fill();
+  X.lineWidth = 12; X.strokeStyle = col; X.beginPath(); X.arc(0, 0, 118, -2.6, -0.6); X.stroke();
+  X.fillStyle = col; X.beginPath(); X.moveTo(98, -82); X.lineTo(118, -38); X.lineTo(70, -48); X.closePath(); X.fill();
+  X.restore();
+}
+function caja(cx, cy, s, col, label) { // caja fuerte de ahorro
+  X.save(); X.translate(cx, cy); X.scale(s, s);
+  rr(-170, -150, 340, 300, 30, col); rr(-150, -130, 300, 260, 22, null, 'rgba(255,255,255,.35)', 6);
+  X.lineWidth = 12; X.strokeStyle = C.white; X.beginPath(); X.arc(70, 0, 42, 0, 7); X.stroke();
+  for (let i = 0; i < 4; i++) { X.save(); X.translate(70, 0); X.rotate(i * Math.PI / 2); rr(-5, -60, 10, 22, 4, C.white); X.restore(); }
+  rr(-160, 150, 50, 24, 8, col); rr(110, 150, 50, 24, 8, col);
+  if (label) txt(label, -55, 0, 44, C.white, { w: 800, f: 'Inter', rot: -Math.PI / 2 });
+  X.restore();
+}
+function calendario(cx, cy, s, flip) { // flip 0..1 giro de tarjeta
+  X.save(); X.translate(cx, cy); X.scale(s * Math.max(0.02, Math.abs(Math.cos(flip * Math.PI))), s);
+  const back = flip > 0.5;
+  rr(-150, -160, 300, 320, 30, C.white); rr(-150, -160, 300, 90, [30, 30, 0, 0], back ? C.dgreen : C.red);
+  txt(back ? 'COBRO' : 'DÍA', 0, -115, 46, C.white, { ls: 3 });
+  txt(back ? '1' : '?', 0, 40, 170, C.ink, { w: 800, f: 'Inter' });
+  X.restore();
+}
+function gauge(cx, cy, r, val) { // indicador "fin de mes" casi vacío
+  X.lineWidth = 34; X.lineCap = 'round';
+  X.strokeStyle = 'rgba(255,255,255,.25)'; X.beginPath(); X.arc(cx, cy, r, Math.PI, 0); X.stroke();
+  X.strokeStyle = C.lamber; X.beginPath(); X.arc(cx, cy, r, Math.PI, Math.PI + Math.PI * val); X.stroke();
+  const a = Math.PI + Math.PI * val;
+  X.lineWidth = 12; X.strokeStyle = C.white; X.beginPath(); X.moveTo(cx, cy); X.lineTo(cx + Math.cos(a) * (r - 30), cy + Math.sin(a) * (r - 30)); X.stroke();
+  X.fillStyle = C.white; X.beginPath(); X.arc(cx, cy, 20, 0, 7); X.fill(); X.lineCap = 'butt';
+}
+function avion(cx, cy, s, col) {
+  X.save(); X.translate(cx, cy); X.scale(s, s); X.rotate(-0.35);
+  X.fillStyle = col; X.beginPath(); X.moveTo(-120, 0); X.lineTo(130, -90); X.lineTo(40, 110); X.lineTo(5, 30); X.closePath(); X.fill();
+  X.fillStyle = 'rgba(0,0,0,.18)'; X.beginPath(); X.moveTo(5, 30); X.lineTo(130, -90); X.lineTo(20, 70); X.closePath(); X.fill();
+  X.restore();
+}
+function chip(s, cx, cy, size, bgc, fg, alpha = 1) {
+  X.save(); X.globalAlpha = alpha; X.font = `700 ${size}px Poppins`;
+  const w = X.measureText(s).width + size * 1.1, h = size * 1.7;
+  rr(cx - w / 2, cy - h / 2, w, h, h / 2, bgc); X.restore();
+  txt(s, cx, cy + 2, size, fg, { alpha });
+}
+function marca(dark) { txt('@eleurolisto', 70, 1440, 34, dark ? 'rgba(14,18,32,.75)' : 'rgba(255,255,255,.8)', { a: 'left', w: 600 }); }
+function kicker(s, dark) {
+  X.save(); X.font = '700 30px Inter'; X.letterSpacing = '4px'; const w = X.measureText(s).width + 44; X.restore();
+  rr(70, 182, w, 56, 28, dark ? 'rgba(14,18,32,.88)' : 'rgba(255,255,255,.18)');
+  txt(s, 70 + w / 2, 212, 30, C.white, { f: 'Inter', w: 700, ls: 4 });
+}
+
+// ---- planos ----
+function plano0(t) { // gancho: nómina + sello +150 €
+  bg(flash(t, C.amber, C.ink, [T.sub, T.sueldo])); grain(t);
+  kicker('DOS CAMINOS · MISMA SUBIDA', true);
+  const fl = Math.sin(t * 2.2) * 0.012;
+  nomina(540, 900, 1 + 0.03 * Math.min(t, 1.2), -0.07 + fl);
+  sello('+150 €/mes', 640, 1040, 72, C.dgreen, t, 0.08, -0.12);
+  sword('SUBIDA', 540, 420, 190, C.ink, t, T.sub, -0.044);
+  sword('DE SUELDO', 540, 590, 150, C.white, t, T.sueldo, 0.044, { stroke: 14 });
+  marca(true);
+}
+function plano1(t) { // a los dos les suben 150 €
+  bg(C.navy); grain(t, 0.08);
+  sword('A LOS DOS', 540, 330, 120, C.white, t, T.dos - 0.05);
+  const cards = [[C.red, 'ELLA', 650, 0], [C.dgreen, 'ÉL', 1030, 0.12]];
+  for (const [col, nom, y, d] of cards) {
+    const k = eBack(prog(t, K.s1 + 0.12 + d, 0.35)); if (k <= 0) continue;
+    X.save(); X.translate((1 - k) * (d ? 1100 : -1100), 0);
+    rr(80, y - 160, 920, 320, 44, col); silueta(250, y + 10, 170, 'rgba(255,255,255,.9)');
+    txt(nom, 420, y - 60, 92, C.white, { a: 'left' });
+    X.restore();
+    if (t >= T.n150) odometer('+150 €', 690, y + 60, 104, C.lamber, t, T.n150 + d * 0.5);
+  }
+  if (t >= T.mes1) chip('cada mes', 540, 1290, 44, C.lamber, C.ink, clamp((t - T.mes1) / 0.15));
+  marca();
+}
+function plano2(t) { // ella se lo gasta: la subida se vacía en 3 golpes
+  const golpes = [T.del, T.mov, T.otra];
+  bg(flash(t, C.red, C.dred, [T.gasta, ...golpes])); grain(t, 0.06);
+  kicker('ELLA', true);
+  sword('SE LO', 540, 345, 120, C.white, t, T.ella);
+  sword('GASTA', 540, 480, 170, C.lamber, t, T.gasta, -0.04, { stroke: 12 });
+  // barra de la subida que se vacía
+  const n = golpes.filter(g => t >= g + 0.12).length;
+  const prevN = golpes.filter(g => t >= g).length;
+  let rest = 150 - 50 * n;
+  if (prevN > n) rest = 150 - 50 * n - 50 * eOut(prog(t, golpes[prevN - 1], 0.12));
+  rr(110, 610, 860, 110, 55, 'rgba(0,0,0,.25)');
+  rr(118, 618, Math.max(0, 844 * rest / 150), 94, 47, C.white);
+  txt(fmt(rest), 540, 667, 62, rest > 60 ? C.ink : C.white, { f: 'Inter', w: 800 });
+  // iconos que golpean
+  const icons = [[iconBolsa, 'DELIVERY', 230], [iconMovil, 'MÓVIL', 540], [iconSus, 'SUSCRIPCIÓN', 850]];
+  icons.forEach(([fn, lab, x], i) => {
+    const st = stomp(t, golpes[i] - 0.05); if (!st) return;
+    X.save(); X.globalAlpha = st.alpha; X.translate(x, 960); X.rotate((i - 1) * 0.06); X.scale(st.s, st.s);
+    rr(-150, -170, 300, 380, 36, C.white); fn(0, -20, 0.95, C.red);
+    txt(lab, 0, 160, lab.length > 8 ? 34 : 42, C.ink); X.restore();
+    sello('−50 €', x + 60, 760, 40, C.ink, t, golpes[i] + 0.06, 0.12);
+  });
+  if (t >= T.sus + 0.3) sello('0 € AHORRADO', 540, 1290, 64, C.ink, t, T.sus + 0.3, -0.06);
+  marca();
+}
+function plano3(t) { // él aparta la mitad (75 €) el día que cobra
+  bg(flash(t, C.green, C.dgreen, [T.el, T.mitad, T.n75, T.cobra])); grain(t, 0.06);
+  kicker('ÉL', true);
+  sword('APARTA', 540, 340, 140, C.ink, t, T.aparta - 0.05, -0.035);
+  sword('LA MITAD', 540, 480, 140, C.white, t, T.mitad, 0.035, { stroke: 12 });
+  // billete de 150 € que se parte en dos
+  const sp = eOut(prog(t, T.mitad + 0.1, 0.35));
+  const halves = [[-1, C.white], [1, C.white]];
+  for (const [dir, col] of halves) {
+    const g = dir < 0 ? eIn(prog(t, T.n75 - 0.1, 0.3)) : 0; // la mitad de la izquierda entra en la caja
+    if (g >= 1) continue;
+    const x0 = 540 + dir * (150 + 70 * sp) + (dir < 0 ? -110 * sp : 0), y0 = 780;
+    X.save(); X.translate(x0 + (300 - x0) * g, y0 + (1150 - y0) * g);
+    X.rotate(dir * 0.08 * sp); X.scale(1 - 0.85 * g, 1 - 0.85 * g);
+    rr(-150, -95, 300, 190, dir < 0 ? [26, 0, 0, 26] : [0, 26, 26, 0], col);
+    X.lineWidth = 6; X.setLineDash([16, 12]); X.strokeStyle = 'rgba(14,18,32,.35)';
+    X.beginPath(); X.moveTo(dir < 0 ? 150 : -150, -95); X.lineTo(dir < 0 ? 150 : -150, 95); X.stroke(); X.setLineDash([]);
+    txt(sp > 0.5 ? '75 €' : (dir < 0 ? '150' : ' €'), dir < 0 ? (sp > 0.5 ? 0 : 90) : (sp > 0.5 ? 0 : -110), 4, 74, C.dgreen, { f: 'Inter', w: 800 });
+    X.restore();
+  }
+  // caja de ahorro + odómetro 75 €
+  const kc = eBack(prog(t, T.n75 - 0.25, 0.3));
+  if (kc > 0) {
+    caja(300, 1170, 0.75 * kc, C.ink, 'AHORRO');
+    if (t >= T.n75) odometer('75 €', 300, 1355, 84, C.ink, t, T.n75);
+  }
+  // calendario que gira: el día que cobra
+  if (t >= T.mismo - 0.15) {
+    const k = prog(t, T.mismo - 0.15, 0.2);
+    calendario(790, 1150, 0.95 * eBack(k), clamp((t - T.dia - 0.05) / 0.35 || 0));
+  }
+  sello('AUTOMÁTICO', 790, 1360, 46, C.ink, t, T.cobra + 0.05, 0.08);
+  marca(true);
+}
+T.dia = pal(3, 'día');
+function plano4(t) { // la otra mitad la disfruta sin culpa
+  bg(C.cream); grain(t, 0.04);
+  kicker('LA OTRA MITAD', true);
+  sword('LA', 540, 400, 110, C.ink, t, T.otraM);
+  sword('DISFRUTA', 540, 540, 160, C.dgreen, t, T.disf, -0.03);
+  // subrayado de rotulador en "SIN CULPA"
+  sword('SIN CULPA', 540, 760, 150, C.ink, t, T.sin, 0.03);
+  const u = eOut(prog(t, T.culpa + 0.05, 0.35));
+  if (u > 0) { X.save(); X.strokeStyle = C.amber; X.lineWidth = 26; X.lineCap = 'round'; X.globalAlpha = 0.85;
+    X.beginPath(); X.moveTo(200, 850); X.quadraticCurveTo(540, 880, 200 + 680 * u, 838); X.stroke(); X.restore(); }
+  // 75 € que rebota a la derecha y suelta confeti
+  const kb = prog(t, T.otraM, 0.6);
+  X.save(); X.translate(540, 1130 - 160 * Math.abs(Math.sin(kb * Math.PI * 2)) * (1 - kb)); X.rotate(0.05);
+  rr(-200, -110, 400, 220, 30, C.green); txt('75 €', 0, 6, 110, C.white, { f: 'Inter', w: 800 }); X.restore();
+  chip('para disfrutar', 540, 1320, 44, C.ink, C.white, clamp((t - T.disf) / 0.2));
+  confetti(t, T.culpa, 540, 1130, 70);
+  marca(true);
+}
+function plano5(t) { // pasan 5 años: cifras que vuelan
+  bg(flash(t, C.ink, C.blue, [T.n5, T.anos])); grain(t, 0.1);
+  const m = Math.floor(months(t));
+  txt('PASAN', 540, 420, 110, C.white, { alpha: clamp((t - T.pasan) / 0.08) });
+  odometer('5', 540, 720, 440, C.lamber, t, T.n5 - 0.12);
+  sword('AÑOS', 540, 1000, 170, C.white, t, T.anos, -0.05);
+  chip(`MES ${String(m).padStart(2, '0')} / 60`, 540, 1190, 48, 'rgba(255,255,255,.14)', C.white);
+  // barra de tiempo
+  rr(140, 1300, 800, 26, 13, 'rgba(255,255,255,.15)'); rr(140, 1300, 800 * months(t) / 60, 26, 13, C.lamber);
+  marca();
+}
+function plano6(t) { // pantalla partida: ella justa / él ahorrando
+  // arriba
+  X.save(); X.beginPath(); X.rect(0, 0, W, 960); X.clip();
+  bg(flash(t, C.red, C.dred, [T.justa, T.fin])); grain(t, 0.06);
+  txt('ELLA', 80, 300, 54, C.white, { a: 'left', f: 'Inter', w: 800, ls: 4 });
+  txt('AHORRO', 1000, 290, 30, 'rgba(255,255,255,.8)', { a: 'right', f: 'Inter', ls: 4 });
+  txt('0 €', 1000, 360, 110, C.white, { a: 'right', f: 'Inter', w: 800 });
+  gauge(330, 760, 190, 0.08 + 0.04 * Math.sin(t * 9));
+  txt('FIN DE MES', 330, 815, 34, C.white, { f: 'Inter', w: 800, ls: 3 });
+  sword('SIGUE', 760, 600, 92, C.white, t, T.sigue, -0.04);
+  sword('JUSTA', 760, 730, 120, C.lamber, t, T.justa, 0.04, { stroke: 10 });
+  X.restore();
+  // abajo
+  X.save(); X.beginPath(); X.rect(0, 960, W, 960); X.clip();
+  bg(C.green); grain(t, 0.06);
+  txt('ÉL', 80, 1050, 54, C.ink, { a: 'left', f: 'Inter', w: 800, ls: 4 });
+  txt('AHORRO', 1000, 1040, 30, 'rgba(14,18,32,.75)', { a: 'right', f: 'Inter', ls: 4 });
+  const v = 75 * Math.floor(months(t));
+  txt(fmtE(v), 1000, 1115, 110, C.ink, { a: 'right', f: 'Inter', w: 800 });
+  // columnas de meses que se llenan
+  const m = months(t);
+  for (let i = 0; i < 20; i++) {
+    const h = 210 * clamp(m / 60 * 20 - i);
+    rr(110 + i * 43, 1420 - h, 30, h, 8, i % 2 ? C.white : C.dgreen);
+  }
+  X.restore();
+  X.fillStyle = C.ink; X.fillRect(0, 954, W, 12);
+  chip(`MES ${String(Math.floor(m)).padStart(2, '0')}`, 540, 960, 40, C.ink, C.white);
+}
+function plano7(t) { // 4.500 €: odómetro gigante + confeti
+  const lock = T.n4500 + 0.11 * 3 + 0.42;
+  bg(flash(t, C.green, C.ink, [lock])); grain(t, 0.06);
+  kicker('ÉL, 5 AÑOS DESPUÉS', true);
+  sword('TIENE', 540, 470, 130, C.ink, t, T.tiene - 0.05);
+  odometer('4.500 €', 540, 760, 230, C.white, t, T.n4500 - 0.08);
+  if (t >= lock) { const p = 1 + 0.04 * Math.max(0, 1 - (t - lock) / 0.25); X.save(); X.restore(); }
+  chip('75 € × 60 meses', 540, 990, 52, C.ink, C.white, clamp((t - lock + 0.1) / 0.2));
+  txt('sin intereses, solo apartando', 540, 1110, 40, 'rgba(14,18,32,.75)', { f: 'Inter', w: 600, alpha: clamp((t - lock) / 0.3) });
+  confetti(t, lock, 540, 760, 90);
+  marca(true);
+}
+function plano8(t) { // la regla: cada palabra golpea y sustituye a la anterior
+  const beats = [[T.cuando, 'CUANDO', C.white], [T.suban, 'TE SUBAN', C.white], [T.ahorra, 'AHORRA', C.lamber], [T.menos - 0.1, 'AL MENOS', C.white]];
+  bg(flash(t, C.navy, C.blue, [...beats.map(b => b[0]), T.mitad2])); grain(t, 0.08);
+  kicker('LA REGLA', false);
+  if (t < T.mitad2) {
+    let cur = beats[0]; for (const b of beats) if (t >= b[0]) cur = b;
+    const idx = beats.indexOf(cur);
+    sword(cur[1], 540, 760, cur[1].length > 7 ? 150 : 180, cur[2], t, cur[0], idx % 2 ? 0.045 : -0.045, { stroke: cur[2] === C.lamber ? 0 : 0 });
+    if (cur[1] === 'TE SUBAN') chip('el sueldo', 540, 960, 46, 'rgba(255,255,255,.14)', C.white);
+  } else {
+    // medio donut: la mitad de la subida al ahorro
+    const k = eOut(prog(t, T.mitad2, 0.4));
+    X.lineWidth = 90; X.strokeStyle = 'rgba(255,255,255,.18)'; X.beginPath(); X.arc(540, 820, 230, 0, 7); X.stroke();
+    X.strokeStyle = C.green; X.beginPath(); X.arc(540, 820, 230, -Math.PI / 2, -Math.PI / 2 + Math.PI * k); X.stroke();
+    txt('½', 540, 830, 230, C.white, { f: 'Inter', w: 800, s: 0.8 + 0.2 * eBack(k) });
+    sword('LA MITAD', 540, 480, 160, C.lamber, t, T.mitad2, -0.03);
+    chip('de cada subida, al ahorro', 540, 1180, 46, C.white, C.ink, clamp((t - T.mitad2 - 0.15) / 0.2));
+  }
+  marca();
+}
+function plano9(t) { // CTA compartir
+  bg(C.amber); grain(t);
+  const k = prog(t, T.comp - 0.1, 0.7);
+  avion(540 + 420 * (1 - eOut(k)) * -1 + 0, 470 - 120 * Math.sin(k * Math.PI), 1.1, C.white);
+  sword('COMPÁRTELO', 540, 720, 140, C.ink, t, T.comp);
+  sword('con quien acaba de', 540, 870, 62, C.ink, t, T.quien, 0, { w: 600 });
+  sword('COBRAR MÁS', 540, 990, 130, C.white, t, T.cobrar, -0.03, { stroke: 12 });
+  chip('Guárdalo para tu próxima subida', 540, 1210, 40, C.ink, C.white, clamp((t - T.mas) / 0.2));
+  marca(true);
+}
+const planos = [[0, plano0], [K.s1, plano1], [K.s2, plano2], [K.s3, plano3], [K.s4, plano4], [K.s5, plano5], [K.s6, plano6], [K.s7, plano7], [K.s8, plano8], [K.s9, plano9], [K.loop, t => plano0(t - K.loop)]];
+
+// ---- transiciones ----
+function blockWipe(t, t0, col) { // bloque de color que crece a saltos desde el centro (sin suavizado)
+  const steps = [[0, 280, 40], [0.07, 820, 130], [0.13, 1340, 960], [0.19, 2200, 2200]];
+  let cur = null; for (const s of steps) if (t - t0 >= s[0]) cur = s;
+  if (!cur || t - t0 > 0.26) return;
+  X.fillStyle = col; X.fillRect(540 - cur[1] / 2, 960 - cur[2] / 2, cur[1], cur[2]);
+}
+function diagWipe(t, t0, col) {
+  const ps = [[0, 900], [0.07, 2000], [0.13, 3400]];
+  let cur = null; for (const s of ps) if (t - t0 >= s[0]) cur = s;
+  if (!cur || t - t0 > 0.2) return;
+  X.fillStyle = col; X.beginPath(); X.moveTo(0, H); X.lineTo(0, H - cur[1]); X.lineTo(cur[1], H); X.closePath(); X.fill();
+}
+function crash(t, t0, cx, cy, d = 0.18) { // devuelve true si hay que aplicar zoom
+  const k = prog(t, t0, d); if (t < t0 || t >= t0 + d) return false;
+  const z = 1 + 1.7 * eIn(k);
+  X.translate(cx, cy); X.scale(z, z); X.translate(-cx, -cy); return true;
+}
+
+window.DURACION = DUR;
+window.renderAt = function (t) {
+  X.setTransform(1, 0, 0, 1, 0, 0);
+  let i = 0; for (let j = 0; j < planos.length; j++) if (t >= planos[j][0]) i = j;
+  X.save();
+  // crash zooms al final de ciertos planos
+  if (i === 1) crash(t, K.s2 - 0.18, 540, 650);
+  if (i === 6) crash(t, K.s7 - 0.18, 540, 1200);
+  if (i === 7) crash(t, K.s8 - 0.16, 540, 760);
+  // sacudida al golpe de algunas cifras
+  const shakes = [0.08, T.n150, T.n4500 + 0.75, T.mitad2];
+  for (const s of shakes) { const k = t - s; if (k >= 0 && k < 0.2) X.translate(14 * Math.exp(-k / 0.06) * Math.sin(k * 90), 0); }
+  planos[i][1](t);
+  X.restore();
+  blockWipe(t, K.s1 - 0.2, C.navy);
+  diagWipe(t, K.s3 - 0.18, C.green);
+  blockWipe(t, K.s4 - 0.2, C.cream);
+  blockWipe(t, K.s9 - 0.2, C.amber);
+  // flash blanco del corte a "pasan 5 años"
+  if (t >= K.s5 && t < K.s5 + 0.06) { X.fillStyle = '#fff'; X.fillRect(0, 0, W, H); }
+};
+Promise.all([document.fonts.load('700 100px Poppins'), document.fonts.load('600 100px Poppins'), document.fonts.load('800 100px Inter'),
+  document.fonts.load('700 100px Inter'), document.fonts.load('600 100px Inter')]).then(() => { window.renderAt(0); window.listo = true; });
+</script></body></html>
