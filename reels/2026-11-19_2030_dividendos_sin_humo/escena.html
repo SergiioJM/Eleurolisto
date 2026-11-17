@@ -1,0 +1,454 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<script src="../../toolkit/mascota/listo2d.js"></script>
+<style>
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#0b0f1c}
+canvas{position:absolute;inset:0}
+</style></head>
+<body><canvas id="c" width="1080" height="1920"></canvas>
+<script>
+// R3 · Ilustración plana en PLANO DE CORTE: la empresa y tu casa vistas en sección, unidas por una tubería de cristal
+// por la que viaja el dividendo. Todo depende solo de t (determinista) y de timings.json (voz ElevenLabs, Mateo).
+const C = document.getElementById('c'), X = C.getContext('2d');
+const TIM = window.TIM, S = TIM.segments;
+const DUR = (window.DURACION = TIM.total);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, k) => a + (b - a) * k;
+const prog = (t, a, d) => clamp((t - a) / d);
+const eio = (k) => k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+const eout = (k) => 1 - Math.pow(1 - k, 3);
+const eback = (k, s = 1.7) => { k = clamp(k); return 1 + (s + 1) * Math.pow(k - 1, 3) + s * Math.pow(k - 1, 2); };
+const st = (i) => S[i].start;
+const pal = (i, f) => (S[i].words.find((w) => w.w.toLowerCase().includes(f)) || S[i].words[0]).start;
+const eur = (v, d = 2) => v.toFixed(d).replace('.', ',') + ' €';
+
+// ---------- tiempos clave (de la voz) ----------
+const T = {
+  gancho: 0.0, reveal: st(1) - 0.1, empresa: st(2) - 0.15, accion: pal(2, 'accionistas'),
+  sale: st(3) - 0.1, dia: st(4), bajar: pal(4, 'bajar'), valia: st(5), veinte: pal(5, 'veinte'), uno: pal(5, 'uno'),
+  diecinueve: pal(5, 'diecinueve'), mismo: st(6), mismo2: pal(6, 'mismo'), hacienda: st(7), h19: pal(7, 'diecinueve'),
+  garant: st(8), garantW: pal(8, 'garantizado'), total: st(9), totalW: pal(9, 'rentabilidad'), cta: st(10),
+};
+
+// ---------- paleta ----------
+const P = {
+  cielo1: '#0f1a33', cielo2: '#1b2d55', tierra: '#3a2a20', tierra2: '#2b1f18', pared: '#c8a57c', pared2: '#b48f66',
+  suelo: '#6b4a33', techo: '#2a2f3d', oro: '#F59E0B', oro2: '#B45309', oroL: '#FCD34D', verde: '#22C55E', rojo: '#EF4444',
+  azul: '#3B82F6', blanco: '#F8FAFC', tinta: '#141a26',
+};
+
+// ---------- texturas (una vez) ----------
+function textura(base, manchas, n, seed) {
+  const o = document.createElement('canvas'); o.width = o.height = 256; const c = o.getContext('2d');
+  c.fillStyle = base; c.fillRect(0, 0, 256, 256);
+  let s = seed; const r = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  for (let i = 0; i < n; i++) {
+    const x = r() * 256, y = r() * 256, rad = 6 + r() * 26;
+    c.fillStyle = manchas[i % manchas.length];
+    c.beginPath();
+    for (let k = 0; k < 9; k++) { const a = k / 9 * 6.283, rr = rad * (0.6 + r() * 0.5); c.lineTo(x + Math.cos(a) * rr, y + Math.sin(a) * rr); }
+    c.closePath(); c.fill();
+    for (const [dx, dy] of [[256, 0], [-256, 0], [0, 256], [0, -256]]) { c.save(); c.translate(dx, dy); c.fill(); c.restore(); }
+  }
+  return X.createPattern(o, 'repeat');
+}
+const TX = {
+  pared: textura(P.pared, ['rgba(120,80,40,.05)', 'rgba(255,240,210,.05)', 'rgba(90,60,30,.04)'], 40, 7),
+  pared2: textura('#a9b6c9', ['rgba(60,70,90,.05)', 'rgba(255,255,255,.05)'], 40, 11),
+  casa: textura('#d9b48c', ['rgba(130,90,50,.05)', 'rgba(255,240,220,.06)'], 40, 5),
+  tierra: textura('#2c2019', ['rgba(15,10,6,.18)', 'rgba(70,50,36,.14)', 'rgba(50,34,24,.16)'], 70, 3),
+  sotano: textura('#8f8a80', ['rgba(40,40,40,.06)', 'rgba(255,255,255,.05)'], 40, 9),
+};
+
+// ---------- cámara (centro en el mundo + zoom) ----------
+const K = [
+  [0.0, 1768, 1290, 1.42], [T.reveal, 1758, 1285, 1.46], [T.reveal + 0.95, 1100, 1180, 0.52], [T.empresa - 0.05, 1100, 1180, 0.53],
+  [T.empresa + 0.75, 640, 660, 1.0], [T.sale - 0.25, 650, 700, 1.0], [T.sale + 0.5, 660, 1240, 1.0], [T.dia - 0.1, 660, 1250, 1.0],
+  [T.dia + 0.55, 960, 1130, 1.3], [T.valia - 0.05, 960, 1135, 1.3], [T.valia + 0.75, 1240, 1250, 0.86], [T.mismo - 0.05, 1240, 1260, 0.86],
+  [T.mismo + 0.4, 1150, 1250, 0.76], [T.hacienda - 0.05, 1150, 1250, 0.76], [T.hacienda + 0.7, 1250, 1720, 1.1], [T.garant - 0.15, 1250, 1725, 1.1],
+  [T.garant + 0.45, 930, 1440, 1.3], [T.total - 0.1, 930, 1440, 1.3], [T.total + 0.85, 1100, 1180, 0.53], [DUR, 1100, 1160, 0.6],
+];
+function camara(t) {
+  let i = 0; while (i < K.length - 2 && t > K[i + 1][0]) i++;
+  const [t0, x0, y0, z0] = K[i], [t1, x1, y1, z1] = K[i + 1];
+  const k = eio(prog(t, t0, Math.max(0.001, t1 - t0)));
+  const z = Math.exp(lerp(Math.log(z0), Math.log(z1), k));
+  return { x: lerp(x0, x1, k) + Math.sin(t * 0.7) * 5, y: lerp(y0, y1, k) + Math.cos(t * 0.55) * 4, z: z * (1 + 0.006 * Math.sin(t * 0.9)) };
+}
+
+// ---------- geometría del mundo ----------
+const SUELO = 1580; // nivel de la calle
+const EMP = { x0: 90, x1: 1190, p1: 330, p1b: 940, p2: 960 };      // empresa: planta 1 (oficina) 330-940, planta 2 (caja) 960-1580
+const CASA = { x0: 1310, x1: 2110, y0: 990 };                        // casa: 990-1580
+const HAC = { x0: 1040, x1: 1470, y0: 1640, y1: 1975 };              // sótano de Hacienda bajo la calle
+const TANK = { x0: 230, x1: 690, y0: 1050, y1: 1540 };
+const PANT = { x0: 770, x1: 1150, y0: 1020, y1: 1300 };              // pantalla del precio de la acción
+// recorrido de la tubería de cristal (vértices)
+const PIPE = [[700, 1505], [1250, 1505], [1345, 1505], [1345, 1235], [1640, 1235], [1640, 1300]];
+const RAMA = [[1250, 1505], [1250, 1700]]; // rama hacia Hacienda
+const VALV = [950, 1505];
+function largo(pts) { let L = 0; for (let i = 1; i < pts.length; i++) L += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]); return L; }
+function punto(pts, s) {
+  for (let i = 1; i < pts.length; i++) {
+    const L = Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
+    if (s <= L) return [lerp(pts[i - 1][0], pts[i][0], s / L), lerp(pts[i - 1][1], pts[i][1], s / L)];
+    s -= L;
+  }
+  return pts[pts.length - 1];
+}
+const LP = largo(PIPE), LR = largo(RAMA), S_T = 550; // S_T = distancia hasta la T (x=1250)
+
+// ---------- primitivas ----------
+function rr(x, y, w, h, r, fill, stroke, lw) { X.beginPath(); X.roundRect(x, y, w, h, r); if (fill) { X.fillStyle = fill; X.fill(); } if (stroke) { X.strokeStyle = stroke; X.lineWidth = lw || 4; X.stroke(); } }
+function texto(s, x, y, size, color, peso = 800, align = 'center', fam = 'Poppins') { X.font = `${peso} ${size}px ${fam}`; X.textAlign = align; X.textBaseline = 'middle'; X.fillStyle = color; X.fillText(s, x, y); }
+function moneda(x, y, r, ang = 0, alfa = 1) {
+  X.save(); X.globalAlpha *= alfa; X.translate(x, y); X.scale(Math.max(0.25, Math.abs(Math.cos(ang))), 1);
+  X.fillStyle = P.oro2; X.beginPath(); X.arc(0, r * 0.12, r, 0, 7); X.fill();
+  X.fillStyle = P.oro; X.beginPath(); X.arc(0, 0, r, 0, 7); X.fill();
+  X.strokeStyle = P.oroL; X.lineWidth = r * 0.12; X.beginPath(); X.arc(0, 0, r * 0.74, 0, 7); X.stroke();
+  X.fillStyle = P.oro2; X.font = `800 ${r * 1.05}px Poppins`; X.textAlign = 'center'; X.textBaseline = 'middle'; X.fillText('€', 0, r * 0.06);
+  X.restore();
+}
+function lampara(x, y, rad, k = 1) { // luz cálida fija (sin parpadeo)
+  const g = X.createRadialGradient(x, y + 40, 10, x, y + 40, rad);
+  g.addColorStop(0, `rgba(255,214,150,${0.42 * k})`); g.addColorStop(1, 'rgba(255,214,150,0)');
+  X.fillStyle = g; X.beginPath(); X.arc(x, y + 40, rad, 0, 7); X.fill();
+  X.strokeStyle = '#2b2b2b'; X.lineWidth = 4; X.beginPath(); X.moveTo(x, y - 60); X.lineTo(x, y); X.stroke();
+  X.fillStyle = '#e35d3b'; X.beginPath(); X.moveTo(x - 46, y + 22); X.lineTo(x + 46, y + 22); X.lineTo(x + 24, y); X.lineTo(x - 24, y); X.fill();
+  X.fillStyle = '#fff3c4'; X.beginPath(); X.arc(x, y + 26, 11, 0, 7); X.fill();
+}
+// persona plana (estilo ilustración): pies en (x,y)
+function persona(x, y, s, o) {
+  const { camisa = '#e9a23b', pantalon = '#2f3f66', piel = '#e8b48f', pelo = '#3b2a20', t = 0, pose = 'pie', mira = 1, gorra = null } = o;
+  X.save(); X.translate(x, y); X.scale(s * mira, s);
+  const resp = Math.sin(t * 2.2) * 2;
+  if (pose === 'sentado') {
+    rr(-30, -92, 64, 26, 12, pantalon); rr(26, -92, 22, 82, 10, pantalon); rr(20, -16, 42, 16, 7, '#222');
+    rr(-34, -190 + resp, 70, 108, 26, camisa);
+    X.strokeStyle = piel; X.lineWidth = 16; X.lineCap = 'round'; X.beginPath(); X.moveTo(-20, -165 + resp); X.lineTo(-52, -120); X.lineTo(-40, -96); X.stroke();
+  } else {
+    const paso = pose === 'trabaja' ? 0 : 0;
+    rr(-28, -100, 24, 100 + paso, 10, pantalon); rr(4, -100, 24, 100, 10, pantalon);
+    rr(-34, -12, 32, 14, 7, '#222'); rr(2, -12, 32, 14, 7, '#222');
+    rr(-38, -214 + resp, 76, 124, 28, camisa);
+    X.strokeStyle = piel; X.lineWidth = 16; X.lineCap = 'round';
+    const br = pose === 'trabaja' ? Math.sin(t * 6) * 18 : 0;
+    X.beginPath(); X.moveTo(-30, -190 + resp); X.lineTo(-46, -130 + br); X.stroke();
+    X.beginPath(); X.moveTo(30, -190 + resp); X.lineTo(58, -140 - br); X.stroke();
+  }
+  const hy = (pose === 'sentado' ? -222 : -246) + resp;
+  X.fillStyle = piel; X.beginPath(); X.arc(0, hy, 34, 0, 7); X.fill();
+  X.fillStyle = pelo; X.beginPath(); X.arc(0, hy - 8, 35, Math.PI * 1.02, Math.PI * 1.98); X.fill();
+  if (gorra) { X.fillStyle = gorra; X.beginPath(); X.arc(0, hy - 12, 36, Math.PI, 0); X.fill(); rr(0, hy - 18, 52, 12, 6, gorra); }
+  X.fillStyle = '#1b1b1b'; X.beginPath(); X.arc(14, hy + 2, 4.5, 0, 7); X.fill();
+  X.restore();
+}
+function cartel(s, x, y, w, h, fondo, color, size) { rr(x - w / 2 + 6, y - h / 2 + 8, w, h, 16, 'rgba(0,0,0,.35)'); rr(x - w / 2, y - h / 2, w, h, 16, fondo, '#1d1d1d', 5); texto(s, x, y + 2, size, color); }
+
+// ---------- el mundo ----------
+function nivelCaja(t) { // nivel del tanque (0..1): entran beneficios, sale el dividendo
+  return 0.72 + 0.12 * eio(prog(t, T.empresa + 0.9, 2.6)) - 0.24 * eio(prog(t, T.sale + 0.3, 2.0));
+}
+function flujo(t) { return t < T.garantW + 0.15; } // la válvula se cierra con "garantizado"
+function dibujaMundo(t) {
+  // cielo y tierra
+  X.fillStyle = P.cielo1; X.fillRect(-2000, -3000, 6400, 3220);
+  const gc = X.createLinearGradient(0, -400, 0, 260); gc.addColorStop(0, P.cielo1); gc.addColorStop(1, P.cielo2);
+  X.fillStyle = gc; X.fillRect(-2000, -400, 6400, 660);
+  X.fillStyle = 'rgba(255,255,255,.55)';
+  for (let i = 0; i < 40; i++) { const sx = (i * 397) % 2600 - 200, sy = -300 + (i * 211) % 480; X.fillRect(sx, sy, 4, 4); }
+  X.fillStyle = TX.tierra; X.fillRect(-2000, 250, 6400, 4000);
+  // calle (superficie) entre edificios
+  X.fillStyle = '#4b5563'; X.fillRect(-2000, SUELO, 6400, 26); X.fillStyle = '#9ca3af'; X.fillRect(-2000, SUELO, 6400, 6);
+  // ---- EMPRESA (sección) ----
+  X.fillStyle = '#2a2420'; X.fillRect(EMP.x0 - 30, EMP.p1 - 60, EMP.x1 - EMP.x0 + 60, SUELO - EMP.p1 + 60);
+  X.fillStyle = P.techo; X.fillRect(EMP.x0 - 50, EMP.p1 - 70, EMP.x1 - EMP.x0 + 100, 40);
+  cartel('LA EMPRESA', 640, EMP.p1 - 150, 520, 110, '#1e293b', P.oroL, 64);
+  // planta 1: oficina / fábrica de beneficios
+  X.fillStyle = TX.pared; X.fillRect(EMP.x0, EMP.p1, EMP.x1 - EMP.x0, EMP.p1b - EMP.p1);
+  X.fillStyle = P.suelo; X.fillRect(EMP.x0, EMP.p1b - 26, EMP.x1 - EMP.x0, 26);
+  // forjado
+  X.fillStyle = '#3b3530'; X.fillRect(EMP.x0, EMP.p1b, EMP.x1 - EMP.x0, EMP.p2 - EMP.p1b);
+  // gráfico de beneficios en la pared
+  rr(700, 400, 400, 250, 14, '#f4efe6', '#4b3b2b', 6); texto('BENEFICIOS', 900, 440, 34, '#4b3b2b');
+  X.strokeStyle = P.verde; X.lineWidth = 9; X.lineJoin = 'round'; X.beginPath();
+  const kb = eout(prog(t, T.empresa + 0.4, 1.4));
+  for (let i = 0; i <= 6; i++) { const xx = 735 + i * 55, yy = 615 - (i * 22 + Math.sin(i * 1.7) * 14) * (0.35 + 0.65 * kb); i ? X.lineTo(xx, yy) : X.moveTo(xx, yy); }
+  X.stroke();
+  // máquina de monedas
+  rr(150, 560, 210, 260, 18, '#6b7280', '#1f2937', 6); rr(175, 590, 160, 70, 10, '#111827'); texto('€ €', 255, 626, 40, P.oroL);
+  rr(195, 700, 120, 60, 10, '#9ca3af'); const pr = Math.abs(Math.sin(t * 3.2)) * 26; rr(215, 690 + pr, 80, 26, 6, '#374151');
+  // cinta transportadora
+  rr(330, 800, 660, 34, 16, '#1f2937'); for (let i = 0; i < 12; i++) { const xx = 340 + ((i * 56 + t * 90) % 660); X.fillStyle = '#4b5563'; X.fillRect(xx, 806, 6, 22); }
+  // monedas en la cinta: unas caen por la trampilla (dividendo) y otras siguen a la caja de REINVERTIR
+  for (let k = 0; k < 9; k++) {
+    const ph = ((t * 0.55 + k / 9) % 1); const xx = 360 + ph * 620;
+    const alDiv = k % 3 === 0; // una de cada tres: parte que se reparte
+    if (alDiv && xx > 620) { const dy = (xx - 620) * 2.2; if (620 + 0 + dy < 1060 - 780) moneda(622, 782 + dy, 20, t * 3 + k); continue; }
+    moneda(xx, 782, 20, t * 2 + k);
+  }
+  // trampilla y tolva hacia la caja
+  rr(596, 830, 52, 240, 8, 'rgba(200,230,255,.25)', 'rgba(220,240,255,.7)', 4);
+  cartel('REINVERTIR', 1040, 760, 230, 64, '#334155', '#e2e8f0', 30);
+  rr(960, 800, 160, 120, 10, '#8b5a2b', '#3b2412', 5); for (let i = 0; i < 5; i++) moneda(990 + i * 26, 800 - 8 - (i % 2) * 10, 16, 0.2);
+  lampara(420, EMP.p1 + 10, 360); lampara(900, EMP.p1 + 10, 360);
+  // trabajadores
+  persona(430, EMP.p1b - 26, 0.85, { t, pose: 'trabaja', camisa: '#3b82f6', pelo: '#1f2937' });
+  persona(540, EMP.p1b - 26, 0.8, { t: t + 1.3, pose: 'trabaja', camisa: '#e9a23b', pelo: '#7c2d12', mira: -1 });
+  // planta 2: la caja
+  X.fillStyle = TX.pared2; X.fillRect(EMP.x0, EMP.p2, EMP.x1 - EMP.x0, SUELO - EMP.p2);
+  X.fillStyle = '#4b5563'; X.fillRect(EMP.x0, SUELO - 22, EMP.x1 - EMP.x0, 22);
+  lampara(460, EMP.p2 + 6, 420, 0.9); lampara(960, EMP.p2 + 6, 300, 0.8);
+  // tanque de cristal con monedas (caja de la empresa)
+  const niv = nivelCaja(t), ty = lerp(TANK.y1, TANK.y0 + 30, niv);
+  rr(TANK.x0, TANK.y0, TANK.x1 - TANK.x0, TANK.y1 - TANK.y0, 26, 'rgba(210,235,255,.18)');
+  X.save(); X.beginPath(); X.roundRect(TANK.x0, TANK.y0, TANK.x1 - TANK.x0, TANK.y1 - TANK.y0, 26); X.clip();
+  X.fillStyle = '#d97706'; X.fillRect(TANK.x0, ty, TANK.x1 - TANK.x0, TANK.y1 - ty);
+  for (let r = 0; r < 26; r++) for (let c = 0; c < 9; c++) {
+    const yy = ty + 12 + r * 22, xx = TANK.x0 + 26 + c * 52 + (r % 2) * 26; if (yy > TANK.y1 + 10) break;
+    X.fillStyle = (r + c) % 3 ? P.oro : P.oroL; X.beginPath(); X.ellipse(xx, yy, 24, 9, 0, 0, 7); X.fill();
+  }
+  X.restore();
+  X.strokeStyle = 'rgba(235,248,255,.85)'; X.lineWidth = 7; X.beginPath(); X.roundRect(TANK.x0, TANK.y0, TANK.x1 - TANK.x0, TANK.y1 - TANK.y0, 26); X.stroke();
+  X.strokeStyle = 'rgba(255,255,255,.5)'; X.lineWidth = 10; X.beginPath(); X.moveTo(TANK.x0 + 30, TANK.y0 + 40); X.lineTo(TANK.x0 + 30, TANK.y0 + 220); X.stroke();
+  cartel('CAJA DE LA EMPRESA', 460, TANK.y0 - 2, 400, 62, '#1e293b', '#e2e8f0', 30);
+  // pantalla del precio de la acción
+  dibujaPantalla(t);
+  // ---- CASA (sección) ----
+  X.fillStyle = '#2a2420'; X.fillRect(CASA.x0 - 30, CASA.y0 - 30, CASA.x1 - CASA.x0 + 60, SUELO - CASA.y0 + 30);
+  X.fillStyle = '#7f1d1d'; X.beginPath(); X.moveTo(CASA.x0 - 70, CASA.y0); X.lineTo((CASA.x0 + CASA.x1) / 2, CASA.y0 - 210); X.lineTo(CASA.x1 + 70, CASA.y0); X.fill();
+  cartel('TU CASA', (CASA.x0 + CASA.x1) / 2, CASA.y0 - 70, 300, 84, '#1e293b', P.oroL, 50);
+  X.fillStyle = TX.casa; X.fillRect(CASA.x0, CASA.y0, CASA.x1 - CASA.x0, SUELO - CASA.y0);
+  X.fillStyle = '#8a5a3b'; X.fillRect(CASA.x0, SUELO - 24, CASA.x1 - CASA.x0, 24);
+  lampara(1760, CASA.y0 + 6, 430);
+  // ventana con noche
+  rr(1420, 1060, 150, 150, 10, '#1b2d55', '#5b3a24', 10); X.fillStyle = '#fff'; X.fillRect(1500, 1100, 5, 5); X.fillRect(1450, 1150, 4, 4);
+  // calendario que pasa de mes
+  const mes = Math.floor(clamp((t - 0.25) / 0.55, 0, 3));
+  rr(1880, 1080, 160, 170, 12, '#fff', '#334155', 5); rr(1880, 1080, 160, 46, 12, P.rojo);
+  const meses = ['ENE', 'FEB', 'MAR', 'ABR'];
+  texto(meses[mes], 1960, 1104, 28, '#fff'); texto('1', 1960, 1190, 72, '#141a26');
+  // sofá y "tú" sin trabajar
+  rr(1800, 1440, 290, 120, 30, '#2563eb'); rr(1790, 1380, 50, 180, 24, '#1d4ed8'); rr(2050, 1380, 50, 180, 24, '#1d4ed8');
+  persona(1930, 1470, 0.82, { t, pose: 'sentado', camisa: P.verde, pelo: '#4a2f1c', mira: -1 });
+  // hucha (tarro) "TU HUCHA"
+  const hk = 0.35 + 0.35 * eout(prog(t, 0, 2.6)) + 0.08 * eout(prog(t, T.uno, 0.6));
+  rr(1560, 1360, 160, 200, 30, 'rgba(210,240,255,.22)');
+  X.save(); X.beginPath(); X.roundRect(1560, 1360, 160, 200, 30); X.clip();
+  const hy = lerp(1560, 1380, hk); X.fillStyle = '#d97706'; X.fillRect(1560, hy, 160, 200);
+  for (let r = 0; r < 9; r++) for (let c = 0; c < 4; c++) { const yy = hy + 10 + r * 20, xx = 1580 + c * 40 + (r % 2) * 20; X.fillStyle = (r + c) % 3 ? P.oro : P.oroL; X.beginPath(); X.ellipse(xx, yy, 19, 7, 0, 0, 7); X.fill(); }
+  X.restore(); X.strokeStyle = 'rgba(235,248,255,.9)'; X.lineWidth = 6; X.beginPath(); X.roundRect(1560, 1360, 160, 200, 30); X.stroke();
+  cartel('TU HUCHA', 1640, 1600 - 10, 200, 50, '#14532d', '#dcfce7', 26);
+  // ---- HACIENDA (sótano bajo la calle) ----
+  X.fillStyle = '#211812'; X.fillRect(HAC.x0 - 24, HAC.y0 - 24, HAC.x1 - HAC.x0 + 48, HAC.y1 - HAC.y0 + 48);
+  X.fillStyle = TX.sotano; X.fillRect(HAC.x0, HAC.y0, HAC.x1 - HAC.x0, HAC.y1 - HAC.y0);
+  X.fillStyle = '#4b5563'; X.fillRect(HAC.x0, HAC.y1 - 20, HAC.x1 - HAC.x0, 20);
+  lampara(1250, HAC.y0 + 4, 300, 0.85);
+  cartel('HACIENDA', 1150, 1700, 190, 54, '#7f1d1d', '#fee2e2', 30);
+  rr(1080, 1790, 90, 165, 8, '#64748b', '#1f2937', 4); for (let i = 0; i < 3; i++) rr(1092, 1802 + i * 50, 66, 38, 5, '#94a3b8');
+  // cubo de Hacienda
+  rr(1205, 1860, 92, 98, 14, '#475569', '#1f2937', 5);
+  const kh = 0.2 + 0.5 * eout(prog(t, T.hacienda + 0.4, 2.4)); X.fillStyle = P.oro; X.fillRect(1211, 1952 - 80 * kh, 80, 80 * kh);
+  persona(1345, HAC.y1 - 20, 0.72, { t, camisa: '#64748b', pelo: '#111', gorra: '#1e3a8a', mira: -1 });
+  // ---- tubería de cristal + monedas ----
+  dibujaTuberia(t);
+}
+function tubo(pts, w) {
+  X.lineCap = 'round'; X.lineJoin = 'round';
+  X.strokeStyle = 'rgba(30,41,59,.55)'; X.lineWidth = w + 10; X.beginPath(); pts.forEach(([x, y], i) => i ? X.lineTo(x, y) : X.moveTo(x, y)); X.stroke();
+  X.strokeStyle = 'rgba(210,235,255,.30)'; X.lineWidth = w; X.stroke();
+}
+function dibujaTuberia(t) {
+  tubo(PIPE, 46); tubo(RAMA, 34);
+  // monedas viajando: salen cada 0.32 s; una de cada cinco baja por la rama de Hacienda
+  const v = 300, cierre = T.garantW + 0.15;
+  for (let k = 0; k < 140; k++) {
+    const ts = -14 + k * 0.32; if (ts > t) break; if (ts > cierre) break;
+    const d = (t - ts) * v; const aHac = k % 5 === 0;
+    if (aHac) {
+      if (d < S_T) { const [x, y] = punto(PIPE, d); moneda(x, y, 15, d * 0.02); }
+      else if (d < S_T + LR) { const [x, y] = punto(RAMA, d - S_T); moneda(x, y, 15, d * 0.02); }
+      else if (d < S_T + LR + 160) { moneda(1250, 1700 + (d - S_T - LR) * 1.0, 15, d * 0.03); }
+    } else if (d < LP) { const [x, y] = punto(PIPE, d); moneda(x, y, 15, d * 0.02); }
+    else if (d < LP + 240) { moneda(1640, 1300 + (d - LP), 16, d * 0.03); }
+  }
+  // brillo del cristal
+  X.strokeStyle = 'rgba(255,255,255,.35)'; X.lineWidth = 5; X.beginPath(); PIPE.forEach(([x, y], i) => i ? X.lineTo(x, y - 14) : X.moveTo(x, y - 14)); X.stroke();
+  // T y boca de salida
+  rr(1228, 1480, 44, 50, 8, '#64748b', '#1f2937', 4); rr(1618, 1288, 44, 30, 6, '#64748b', '#1f2937', 4);
+  // válvula (volante que gira y cierra el grifo)
+  const kv = eio(prog(t, T.garantW - 0.35, 0.6));
+  X.save(); X.translate(VALV[0], VALV[1] - 70); X.rotate(kv * Math.PI * 1.5);
+  X.strokeStyle = P.rojo; X.lineWidth = 12; X.beginPath(); X.arc(0, 0, 44, 0, 7); X.stroke();
+  for (let i = 0; i < 4; i++) { X.rotate(Math.PI / 2); X.beginPath(); X.moveTo(0, 0); X.lineTo(44, 0); X.stroke(); }
+  X.restore(); rr(VALV[0] - 10, VALV[1] - 40, 20, 30, 4, '#7f1d1d'); rr(VALV[0] - 26, VALV[1] - 30, 52, 60, 10, '#991b1b', '#450a0a', 4);
+}
+function dibujaPantalla(t) {
+  const { x0, x1, y0, y1 } = PANT;
+  rr(x0 - 10, y0 - 10, x1 - x0 + 20, y1 - y0 + 20, 20, '#1f2937'); rr(x0, y0, x1 - x0, y1 - y0, 14, '#0b1220');
+  texto('PRECIO DE LA ACCIÓN', (x0 + x1) / 2, y0 + 34, 26, '#94a3b8', 700);
+  const kd = eio(prog(t, T.bajar - 0.05, 0.5));
+  const precio = 20 - kd;
+  const punch = 1 + 0.18 * Math.exp(-Math.max(0, t - T.bajar) * 5) * (t > T.bajar ? 1 : 0);
+  X.save(); X.translate((x0 + x1) / 2, y0 + 100); X.scale(punch, punch); texto(eur(precio), 0, 0, 72, kd > 0.02 ? '#f87171' : '#4ade80', 800, 'center', 'Inter'); X.restore();
+  // gráfico: línea plana con salto a la baja el día del dividendo
+  X.strokeStyle = '#4ade80'; X.lineWidth = 6; X.lineJoin = 'round'; X.beginPath();
+  const n = 14; for (let i = 0; i <= n; i++) {
+    const xx = x0 + 24 + i * (x1 - x0 - 48) / n; let yy = y1 - 70 + Math.sin(i * 1.3) * 8;
+    if (i > 10) yy += 46 * kd;
+    if (i === 11 && kd > 0) { X.lineTo(xx - 1, y1 - 70 + Math.sin(10 * 1.3) * 8); X.strokeStyle = '#4ade80'; }
+    i ? X.lineTo(xx, yy) : X.moveTo(xx, yy);
+  }
+  X.stroke();
+  if (kd > 0.05) { X.globalAlpha = kd; rr(x1 - 130, y0 + 150, 110, 50, 12, P.rojo); texto('−1 €', x1 - 75, y0 + 176, 32, '#fff'); X.globalAlpha = 1; }
+}
+
+// ---------- capa de pantalla: subtítulos, tarjetas, Listo, CTA ----------
+const CLAVE = ['sueldo', 'extra', 'dividendos', 'beneficios', 'accionistas', 'empresa:', 'bajar', 'mismo.', 'veinte', 'uno,', 'diecinueve.', 'hacienda', 'diecinueve', 'ciento.', 'garantizado.', 'rentabilidad', 'total.', 'dividendo.'];
+// trozos de subtítulo (máx. 3 palabras / 20 caracteres)
+const TROZOS = [];
+S.forEach((s) => { let cur = []; s.words.forEach((w) => { const len = cur.map((x) => x.w).join(' ').length + w.w.length; if (cur.length >= 3 || (cur.length && len > 19)) { TROZOS.push(cur); cur = []; } cur.push(w); }); if (cur.length) TROZOS.push(cur); });
+function subtitulos(t) {
+  let tr = null; for (const c of TROZOS) { if (t >= c[0].start - 0.08) tr = c; }
+  if (!tr || t > tr[tr.length - 1].end + 0.6) return;
+  const k = eout(prog(t, tr[0].start - 0.08, 0.16));
+  // banda oscura de lado a lado (como el original), fija
+  X.fillStyle = 'rgba(12,16,30,.78)'; X.fillRect(0, 262, 1080, 140);
+  X.font = '800 76px Poppins'; X.textBaseline = 'middle';
+  const sp = 22, ws = tr.map((w) => X.measureText(w.w).width); const total = ws.reduce((a, b) => a + b, 0) + sp * (tr.length - 1);
+  let x = 540 - total / 2;
+  tr.forEach((w, i) => {
+    const on = t >= w.start - 0.03, clave = CLAVE.includes(w.w.toLowerCase());
+    X.fillStyle = on ? (clave ? '#FFC547' : '#ffffff') : 'rgba(200,210,230,.45)';
+    X.textAlign = 'left'; X.save(); X.translate(0, (1 - k) * 18); X.fillText(w.w, x, 334); X.restore();
+    if (on && clave) { X.fillStyle = '#FFC547'; X.fillRect(x, 378, ws[i] * eout(prog(t, w.start, 0.2)), 7); }
+    x += ws[i] + sp;
+  });
+}
+function tarjeta(x, y, w, h, k, fondo = '#ffffff') { // entra con rebote vertical, sin cambiar el brillo general
+  X.save(); X.globalAlpha *= clamp(k * 2); X.translate(x, y + (1 - eback(k)) * 60); X.scale(0.85 + 0.15 * eback(k), 0.85 + 0.15 * eback(k));
+  rr(-w / 2 + 6, -h / 2 + 10, w, h, 30, 'rgba(0,0,0,.35)'); rr(-w / 2, -h / 2, w, h, 30, fondo); return () => X.restore();
+}
+function sello(s, x, y, k, color, size = 78, rot = -8) {
+  if (k <= 0) return; X.save(); X.translate(x, y); X.rotate(rot * Math.PI / 180); const sc = lerp(2.0, 1, eout(k)); X.scale(sc, sc); X.globalAlpha *= clamp(k * 3);
+  X.font = `800 ${size}px Inter`; const w = X.measureText(s).width + 70;
+  rr(-w / 2, -size * 0.75, w, size * 1.5, 22, 'rgba(25,8,8,.82)', color, 10); texto(s, 0, 4, size, color, 800, 'center', 'Inter'); X.restore();
+}
+function capa(t) {
+  // kicker
+  const kk = eout(prog(t, 0, 0.3)); X.globalAlpha = kk; rr(540 - 230, 150, 460, 66, 33, '#ff4d3d'); texto('INVERSIÓN · DIVIDENDOS', 540, 184, 30, '#fff', 700); X.globalAlpha = 1;
+  subtitulos(t);
+  // gancho: chip "¿SUELDO EXTRA?" sobre la hucha
+  if (t < T.reveal + 0.3) {
+    const k = eback(prog(t, 0.1, 0.45), 2.2); const fade = 1 - prog(t, T.reveal, 0.3);
+    X.save(); X.globalAlpha = clamp(k * 2) * fade; X.translate(470, 660); X.scale(0.6 + 0.4 * k, 0.6 + 0.4 * k); X.rotate(-0.05);
+    rr(-250, -64, 500, 128, 64, '#22C55E'); texto('¿SUELDO EXTRA?', 0, 4, 58, '#05250f'); X.restore();
+  }
+  // reveal: etiqueta "PLANO DE CORTE"... mejor: flechas a cada edificio
+  if (t > T.reveal + 0.8 && t < T.empresa + 0.4) {
+    const k = eback(prog(t, T.reveal + 0.8, 0.4)); const f = 1 - prog(t, T.empresa + 0.1, 0.3);
+    X.save(); X.globalAlpha = clamp(k * 2) * f; X.translate(540, 1620); X.scale(0.8 + 0.2 * k, 0.8 + 0.2 * k);
+    rr(-330, -54, 660, 108, 54, '#ffffff'); texto('El dividendo viaja por aquí', 0, 2, 42, '#141a26', 700); X.restore();
+  }
+  // "una parte" (reparto)
+  if (t > T.accion - 0.4 && t < T.sale + 0.3) {
+    const k = eback(prog(t, T.accion - 0.4, 0.4)); const f = 1 - prog(t, T.sale, 0.3);
+    X.save(); X.globalAlpha = clamp(k * 2) * f; X.translate(540, 520); X.scale(0.8 + 0.2 * k, 0.8 + 0.2 * k);
+    rr(-360, -60, 720, 120, 60, '#ffffff'); texto('Una parte del beneficio → a ti', 0, 2, 44, '#141a26', 700); X.restore();
+  }
+  // sale de la empresa: flecha y etiqueta sobre el tanque
+  if (t > T.sale + 0.4 && t < T.dia + 0.3) {
+    const k = eback(prog(t, T.sale + 0.4, 0.4)); const f = 1 - prog(t, T.dia, 0.3);
+    X.save(); X.globalAlpha = clamp(k * 2) * f; X.translate(540, 520); X.scale(0.8 + 0.2 * k, 0.8 + 0.2 * k);
+    rr(-330, -60, 660, 120, 60, '#ffffff'); texto('La caja se vacía un poco', 0, 2, 44, '#141a26', 700); X.restore();
+  }
+  // comparación 20 € → 19 € y +1 €
+  if (t > T.valia - 0.1 && t < T.hacienda + 0.2) {
+    const f = 1 - prog(t, T.hacienda - 0.15, 0.35);
+    const kA = prog(t, T.veinte - 0.15, 0.45), kB = prog(t, T.uno - 0.15, 0.45), kC = prog(t, T.mismo - 0.1, 0.4), kE = prog(t, T.mismo2 - 0.12, 0.35);
+    const yRow = 600;
+    X.save(); X.globalAlpha = f;
+    let r = tarjeta(lerp(300, 250, eio(kC)), yRow, 330, 230, kA);
+    texto('TU ACCIÓN', 0, -70, 30, '#64748b', 700);
+    const k19 = eio(prog(t, T.diecinueve - 0.1, 0.5)); const val = 20 - k19;
+    texto(val.toFixed(0) + ' €', 0, 20, 104, k19 > 0.05 ? '#dc2626' : '#141a26', 800, 'center', 'Inter'); r();
+    r = tarjeta(lerp(780, 640, eio(kC)), yRow, 300, 230, kB, '#dcfce7');
+    texto('TE PAGAN', 0, -70, 30, '#15803d', 700); texto(kC > 0 ? '1 €' : '+1 €', 0, 20, 104, '#15803d', 800, 'center', 'Inter'); r();
+    if (kC > 0) { X.save(); X.globalAlpha = clamp(kC * 2) * f; texto('+', 445, yRow + 6, 90, '#ffffff', 800); X.restore(); }
+    if (kE > 0) {
+      const sc = 1 + 0.25 * Math.exp(-Math.max(0, t - T.mismo2) * 6);
+      r = tarjeta(540, yRow + 300, 620, 230, kE, '#FFC547'); X.scale(sc, sc); texto('= 20 €', 0, -10, 110, '#141a26', 800, 'center', 'Inter'); texto('tienes lo mismo', 0, 74, 36, '#3b2a05', 700); r();
+    }
+    X.restore();
+  }
+  // Hacienda: 1,00 € → 0,81 €
+  if (t > T.hacienda + 0.3 && t < T.garant + 0.2) {
+    const f = 1 - prog(t, T.garant - 0.1, 0.3);
+    const k = prog(t, T.hacienda + 0.3, 0.45), k2 = eio(prog(t, T.h19 - 0.1, 0.6));
+    X.save(); X.globalAlpha = f;
+    const r = tarjeta(540, 600, 640, 230, k);
+    texto('POR CADA 1 € DE DIVIDENDO', 0, -66, 30, '#64748b', 700);
+    texto(eur(1 - 0.19 * k2), -60, 22, 104, k2 > 0.05 ? '#15803d' : '#141a26', 800, 'center', 'Inter');
+    if (k2 > 0) { X.globalAlpha = clamp(k2 * 2) * f; rr(150, -18, 150, 76, 20, P.rojo); texto('−19 %', 225, 22, 40, '#fff', 800, 'center', 'Inter'); }
+    r(); X.restore();
+    X.save(); X.globalAlpha = 0.95 * f * clamp(k * 2); rr(540 - 330, 768, 660, 60, 30, 'rgba(12,16,30,.8)'); texto('retención del IRPF (base del ahorro)', 540, 799, 30, '#f1f5f9', 600); X.restore();
+  }
+  // no garantizado
+  if (t > T.garantW - 0.2 && t < T.total + 0.3) {
+    const f = 1 - prog(t, T.total, 0.3);
+    X.save(); X.globalAlpha = f; sello('NO GARANTIZADO', 540, 640, prog(t, T.garantW - 0.1, 0.25), '#ff4d3d', 74); X.restore();
+    X.save(); X.globalAlpha = f * prog(t, T.garantW + 0.2, 0.3); rr(540 - 360, 742, 720, 70, 35, 'rgba(12,16,30,.82)'); texto('la empresa puede recortarlo o quitarlo', 540, 778, 34, '#f8fafc', 700); X.restore();
+  }
+  // rentabilidad total
+  if (t > T.total + 0.2 && t < T.cta + 0.4) {
+    const f = 1 - prog(t, T.cta - 0.1, 0.4);
+    const k = prog(t, T.total + 0.2, 0.45);
+    X.save(); X.globalAlpha = f;
+    const r = tarjeta(540, 700, 840, 470, k);
+    texto('RENTABILIDAD TOTAL', 0, -170, 50, '#141a26', 800);
+    const filas = [['Dividendos cobrados', '#16a34a', T.total + 0.6], ['± lo que sube o baja la acción', '#2563eb', T.total + 1.0], ['− impuestos y comisiones', '#dc2626', T.total + 1.4]];
+    filas.forEach(([s, col, t0], i) => { const kk = eout(prog(t, t0, 0.35)); X.save(); X.globalAlpha = clamp(kk * 2) * f; X.translate((1 - kk) * 60, 0); rr(-370, -92 + i * 98, 22, 64, 8, col); texto(s, -326, -60 + i * 98, 40, '#1f2937', 700, 'left'); X.restore(); });
+    r(); X.restore();
+  }
+  // CTA final
+  if (t > T.cta - 0.05) {
+    const k1 = eback(prog(t, T.cta, 0.45)), k2 = eback(prog(t, T.cta + 0.25, 0.45));
+    X.save(); X.globalAlpha = clamp(k1 * 2); X.translate(540, 650 + (1 - k1) * 60); X.scale(0.7 + 0.3 * k1, 0.7 + 0.3 * k1);
+    rr(-430, -62, 860, 124, 62, '#FFC547'); texto('Mándaselo a quien solo mira el dividendo', 0, 2, 38, '#14181f', 800); X.restore();
+    X.save(); X.globalAlpha = clamp(k2 * 2); X.translate(540, 810 + (1 - k2) * 60); X.scale(0.7 + 0.3 * k2, 0.7 + 0.3 * k2);
+    rr(-200, -56, 400, 112, 56, '#ffffff'); texto('Guárdalo', 0, 2, 44, '#14181f', 800); X.restore();
+    X.save(); X.globalAlpha = prog(t, T.cta + 0.5, 0.4) * 0.9; texto('Contenido educativo, no es asesoramiento financiero', 540, 1500, 28, '#e2e8f0', 600); X.restore();
+  }
+  // marca
+  X.save(); X.globalAlpha = t > T.cta + 0.4 ? 0 : 0.8; texto('@eleurolisto', 540, 1500, 32, '#ffffff', 700); X.restore();
+  // Listo: en grande al principio (señala la hucha), presentador en la esquina en el medio, y firma al final
+  let lx, ly, ls, expr, pose;
+  const kIn = eout(prog(t, 0, 0.35));
+  const aEsq = eio(prog(t, T.reveal + 0.1, 0.7)), aFin = eio(prog(t, T.cta - 0.1, 0.6));
+  lx = lerp(lerp(860, 140, aEsq), 540, aFin); ly = lerp(lerp(1450, 1450, aEsq), 1440, aFin); ls = lerp(lerp(0.78, 0.46, aEsq), 0.95, aFin);
+  ly += (1 - kIn) * 300;
+  if (t < T.reveal) { expr = t < 0.9 ? 'sorpresa' : 'habla'; pose = 'senalaIzq'; }
+  else if (t < T.empresa) { expr = 'feliz'; pose = 'saludo'; }
+  else if (t < T.sale) { expr = 'habla'; pose = 'senala'; }
+  else if (t < T.mismo) { expr = t > T.bajar - 0.1 ? 'sorpresa' : 'preocupado'; pose = 'piensa'; }
+  else if (t < T.hacienda) { expr = 'idea'; pose = 'celebra'; }
+  else if (t < T.total) { expr = 'preocupado'; pose = 'brazosCruzados'; }
+  else if (t < T.cta) { expr = 'habla'; pose = 'senala'; }
+  else { expr = 'guino'; pose = 'pulgar'; }
+  Listo2D.dibujar(X, { x: lx, y: ly, s: ls, t, expr, pose, mira: t < T.reveal ? [-0.6, 0.2] : [0.3, -0.2] });
+}
+
+window.renderAt = (t) => {
+  X.setTransform(1, 0, 0, 1, 0, 0); X.fillStyle = '#0b0f1c'; X.fillRect(0, 0, 1080, 1920);
+  const cam = camara(t);
+  X.setTransform(cam.z, 0, 0, cam.z, 540 - cam.x * cam.z, 960 - cam.y * cam.z);
+  dibujaMundo(t);
+  X.setTransform(1, 0, 0, 1, 0, 0);
+  // viñeta fija (estática)
+  const v = X.createRadialGradient(540, 900, 500, 540, 900, 1250); v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(0,0,0,.45)');
+  X.fillStyle = v; X.fillRect(0, 0, 1080, 1920);
+  if (window.PORTADA) { Listo2D.dibujar(X, { x: 830, y: 1000, s: 0.95, t: 2, expr: 'sorpresa', pose: 'senalaIzq', mira: [-0.7, -0.3] }); return; }
+  capa(t);
+};
+document.fonts.load('800 70px Poppins').then(() => document.fonts.load('800 70px Inter')).then(() => { window.listo = true; });
+</script></body></html>

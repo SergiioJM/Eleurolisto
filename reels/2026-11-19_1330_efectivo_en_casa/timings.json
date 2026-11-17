@@ -1,0 +1,384 @@
+{
+ "total": 21.068,
+ "voz": "k_santa",
+ "segments": [
+  {
+   "i": 0,
+   "start": 0.35,
+   "dur": 2.817,
+   "text": "¿Cuánto dinero en efectivo puedes guardar en casa?",
+   "words": [
+    {
+     "w": "¿Cuánto",
+     "start": 0.35,
+     "end": 0.758
+    },
+    {
+     "w": "dinero",
+     "start": 0.758,
+     "end": 1.11
+    },
+    {
+     "w": "en",
+     "start": 1.11,
+     "end": 1.307
+    },
+    {
+     "w": "efectivo",
+     "start": 1.307,
+     "end": 1.875
+    },
+    {
+     "w": "puedes",
+     "start": 1.875,
+     "end": 2.222
+    },
+    {
+     "w": "guardar",
+     "start": 2.222,
+     "end": 2.666
+    },
+    {
+     "w": "en",
+     "start": 2.666,
+     "end": 2.848
+    },
+    {
+     "w": "casa?",
+     "start": 2.848,
+     "end": 3.167
+    }
+   ]
+  },
+  {
+   "i": 1,
+   "start": 3.427,
+   "dur": 2.428,
+   "text": "Todo el que quieras: no hay ningún límite legal.",
+   "words": [
+    {
+     "w": "Todo",
+     "start": 3.427,
+     "end": 3.659
+    },
+    {
+     "w": "el",
+     "start": 3.659,
+     "end": 3.806
+    },
+    {
+     "w": "que",
+     "start": 3.806,
+     "end": 3.944
+    },
+    {
+     "w": "quieras:",
+     "start": 3.944,
+     "end": 4.297
+    },
+    {
+     "w": "no",
+     "start": 4.297,
+     "end": 4.53
+    },
+    {
+     "w": "hay",
+     "start": 4.53,
+     "end": 4.707
+    },
+    {
+     "w": "ningún",
+     "start": 4.707,
+     "end": 5.112
+    },
+    {
+     "w": "límite",
+     "start": 5.112,
+     "end": 5.525
+    },
+    {
+     "w": "legal.",
+     "start": 5.525,
+     "end": 5.855
+    }
+   ]
+  },
+  {
+   "i": 2,
+   "start": 6.115,
+   "dur": 2.545,
+   "text": "Eso sí, tienes que poder demostrar de dónde sale.",
+   "words": [
+    {
+     "w": "Eso",
+     "start": 6.115,
+     "end": 6.374
+    },
+    {
+     "w": "sí,",
+     "start": 6.374,
+     "end": 6.618
+    },
+    {
+     "w": "tienes",
+     "start": 6.618,
+     "end": 6.987
+    },
+    {
+     "w": "que",
+     "start": 6.987,
+     "end": 7.107
+    },
+    {
+     "w": "poder",
+     "start": 7.107,
+     "end": 7.366
+    },
+    {
+     "w": "demostrar",
+     "start": 7.366,
+     "end": 7.892
+    },
+    {
+     "w": "de",
+     "start": 7.892,
+     "end": 8.049
+    },
+    {
+     "w": "dónde",
+     "start": 8.049,
+     "end": 8.355
+    },
+    {
+     "w": "sale.",
+     "start": 8.355,
+     "end": 8.659
+    }
+   ]
+  },
+  {
+   "i": 3,
+   "start": 8.919,
+   "dur": 4.415,
+   "text": "Si pagas a una empresa o a un autónomo, siempre menos de mil euros en efectivo.",
+   "words": [
+    {
+     "w": "Si",
+     "start": 8.919,
+     "end": 9.151
+    },
+    {
+     "w": "pagas",
+     "start": 9.151,
+     "end": 9.45
+    },
+    {
+     "w": "a",
+     "start": 9.45,
+     "end": 9.573
+    },
+    {
+     "w": "una",
+     "start": 9.573,
+     "end": 9.829
+    },
+    {
+     "w": "empresa",
+     "start": 9.829,
+     "end": 10.294
+    },
+    {
+     "w": "o",
+     "start": 10.294,
+     "end": 10.402
+    },
+    {
+     "w": "a",
+     "start": 10.402,
+     "end": 10.515
+    },
+    {
+     "w": "un",
+     "start": 10.515,
+     "end": 10.674
+    },
+    {
+     "w": "autónomo,",
+     "start": 10.674,
+     "end": 11.109
+    },
+    {
+     "w": "siempre",
+     "start": 11.109,
+     "end": 11.535
+    },
+    {
+     "w": "menos",
+     "start": 11.535,
+     "end": 11.916
+    },
+    {
+     "w": "de",
+     "start": 11.916,
+     "end": 12.077
+    },
+    {
+     "w": "mil",
+     "start": 12.077,
+     "end": 12.338
+    },
+    {
+     "w": "euros",
+     "start": 12.338,
+     "end": 12.654
+    },
+    {
+     "w": "en",
+     "start": 12.654,
+     "end": 12.83
+    },
+    {
+     "w": "efectivo.",
+     "start": 12.83,
+     "end": 13.335
+    }
+   ]
+  },
+  {
+   "i": 4,
+   "start": 13.595,
+   "dur": 4.193,
+   "text": "Y si ingresas o sacas más de tres mil, tu banco se lo comunica a Hacienda.",
+   "words": [
+    {
+     "w": "Y",
+     "start": 13.595,
+     "end": 13.688
+    },
+    {
+     "w": "si",
+     "start": 13.688,
+     "end": 13.908
+    },
+    {
+     "w": "ingresas",
+     "start": 13.908,
+     "end": 14.402
+    },
+    {
+     "w": "o",
+     "start": 14.402,
+     "end": 14.511
+    },
+    {
+     "w": "sacas",
+     "start": 14.511,
+     "end": 14.884
+    },
+    {
+     "w": "más",
+     "start": 14.884,
+     "end": 15.158
+    },
+    {
+     "w": "de",
+     "start": 15.158,
+     "end": 15.31
+    },
+    {
+     "w": "tres",
+     "start": 15.31,
+     "end": 15.589
+    },
+    {
+     "w": "mil,",
+     "start": 15.589,
+     "end": 15.873
+    },
+    {
+     "w": "tu",
+     "start": 15.873,
+     "end": 15.982
+    },
+    {
+     "w": "banco",
+     "start": 15.982,
+     "end": 16.321
+    },
+    {
+     "w": "se",
+     "start": 16.321,
+     "end": 16.521
+    },
+    {
+     "w": "lo",
+     "start": 16.521,
+     "end": 16.664
+    },
+    {
+     "w": "comunica",
+     "start": 16.664,
+     "end": 17.149
+    },
+    {
+     "w": "a",
+     "start": 17.149,
+     "end": 17.306
+    },
+    {
+     "w": "Hacienda.",
+     "start": 17.306,
+     "end": 17.788
+    }
+   ]
+  },
+  {
+   "i": 5,
+   "start": 18.048,
+   "dur": 2.12,
+   "text": "Guárdalo y sé más listo con tu dinero.",
+   "words": [
+    {
+     "w": "Guárdalo",
+     "start": 18.048,
+     "end": 18.472
+    },
+    {
+     "w": "y",
+     "start": 18.472,
+     "end": 18.578
+    },
+    {
+     "w": "sé",
+     "start": 18.578,
+     "end": 18.796
+    },
+    {
+     "w": "más",
+     "start": 18.796,
+     "end": 19.093
+    },
+    {
+     "w": "listo",
+     "start": 19.093,
+     "end": 19.467
+    },
+    {
+     "w": "con",
+     "start": 19.467,
+     "end": 19.71
+    },
+    {
+     "w": "tu",
+     "start": 19.71,
+     "end": 19.842
+    },
+    {
+     "w": "dinero.",
+     "start": 19.842,
+     "end": 20.168
+    }
+   ]
+  }
+ ]
+}

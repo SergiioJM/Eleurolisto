@@ -1,7 +1,7 @@
 """Música de fondo original sintetizada (instrumental, sin derechos de terceros).
 
 Uso: python3 music.py SALIDA.wav DURACION_S [bpm] [estilo]
-estilo: 'upbeat' (por defecto) o 'chill'
+estilo: 'upbeat' (por defecto), 'chill' o 'chip' (chiptune de 8 bits, para el look pixel art R6)
 """
 import sys
 import numpy as np
@@ -54,7 +54,100 @@ def env_adsr(n, a, d, s, r):
     return e
 
 
+def pulse(f, t, duty=0.25):
+    return np.where(((f * t) % 1.0) < duty, 1.0, -1.0)
+
+
+def render_chip(duration, bpm=128, seed=1):
+    """Chiptune original (estilo consola de 8 bits): arpegio de onda de pulso, bajo triangular y percusión de ruido."""
+    rng = np.random.default_rng(seed)
+    beat = 60 / bpm
+    bar = 4 * beat
+    n = int(duration * SR)
+    lead, bass, drums, harm = np.zeros(n), np.zeros(n), np.zeros(n), np.zeros(n)
+    progs = [
+        ([[57, 60, 64], [53, 57, 60], [48, 52, 55], [55, 59, 62]], [45, 41, 48, 43]),
+        ([[48, 52, 55], [55, 59, 62], [57, 60, 64], [53, 57, 60]], [48, 43, 45, 41]),
+        ([[53, 57, 60], [55, 59, 62], [52, 55, 59], [57, 60, 64]], [41, 43, 40, 45]),
+    ]
+    base_prog, base_roots = progs[seed % len(progs)]
+    tr = [0, 2, -3, 5, -1][seed % 5]
+    prog = [[x + tr for x in ch] for ch in base_prog]
+    roots = [r + tr for r in base_roots]
+    # melodía corta que se repite cada 2 compases (índices de acorde + octava)
+    mel = [(2, 1), (1, 1), (0, 1), (1, 1), (2, 1), (0, 2), (2, 1), (1, 1)]
+    nbars = int(np.ceil(duration / bar)) + 1
+    for b in range(nbars):
+        i0 = int(b * bar * SR)
+        if i0 >= n:
+            break
+        chord, root = prog[b % 4], roots[b % 4]
+        # arpegio en semicorcheas (pulso 12,5 %), suave
+        for k in range(16):
+            s = i0 + int(k * beat / 4 * SR)
+            ln = int(beat / 4 * SR * 0.85)
+            if s + ln > n:
+                break
+            tt = np.arange(ln) / SR
+            f = midi(chord[k % 3] + 12 * (1 + (k // 3) % 2))
+            harm[s:s + ln] += pulse(f, tt, 0.125) * np.exp(-tt * 14) * 0.10
+        # melodía en corcheas (pulso 25 %) desde el compás 1
+        if b >= 1:
+            for k in range(8):
+                idx, octv = mel[(k + 8 * (b % 2)) % 8] if b % 2 == 0 else mel[(7 - k) % 8]
+                if k in (3, 7) and b % 2:
+                    continue
+                s = i0 + int(k * beat / 2 * SR)
+                ln = int(beat / 2 * SR * 0.8)
+                if s + ln > n:
+                    break
+                tt = np.arange(ln) / SR
+                f = midi(chord[idx] + 12 * octv)
+                vib = 1 + 0.004 * np.sin(2 * np.pi * 6 * tt) * (tt > 0.08)
+                lead[s:s + ln] += pulse(f * vib, tt, 0.25) * env_adsr(ln, 0.004, 0.06, 0.55, 0.03) * 0.16
+        # bajo triangular en corcheas con salto de octava
+        for k in range(8):
+            s = i0 + int(k * beat / 2 * SR)
+            ln = int(beat / 2 * SR * 0.9)
+            if s + ln > n:
+                break
+            tt = np.arange(ln) / SR
+            f = midi(root - 12 + (12 if k % 2 else 0))
+            bass[s:s + ln] += tri(f, tt) * env_adsr(ln, 0.003, 0.05, 0.7, 0.02) * 0.32
+        # percusión de ruido (estilo 8 bits)
+        for k in range(8):
+            s = i0 + int(k * beat / 2 * SR)
+            if s >= n or b < 1:
+                continue
+            if k in (0, 4):  # bombo: barrido de tono corto
+                ln = min(int(0.12 * SR), n - s)
+                tt = np.arange(ln) / SR
+                f = 60 + 160 * np.exp(-tt * 40)
+                drums[s:s + ln] += np.sign(np.sin(2 * np.pi * np.cumsum(f) / SR)) * np.exp(-tt * 30) * 0.30
+            elif k in (2, 6):  # caja de ruido
+                ln = min(int(0.10 * SR), n - s)
+                tt = np.arange(ln) / SR
+                drums[s:s + ln] += np.sign(rng.standard_normal(ln)) * np.exp(-tt * 35) * 0.14
+            else:  # charles
+                ln = min(int(0.03 * SR), n - s)
+                tt = np.arange(ln) / SR
+                nz = rng.standard_normal(ln)
+                drums[s:s + ln] += (nz - lp(nz, 5000)) * np.exp(-tt * 90) * 0.10
+    out = lead + harm + bass + drums
+    out = lp(out, 7000)
+    fi, fo = int(0.3 * SR), int(1.5 * SR)
+    out[:fi] *= np.linspace(0, 1, fi)
+    out[-fo:] *= np.linspace(1, 0, fo)
+    out = np.tanh(out * 1.1)
+    out /= np.max(np.abs(out)) + 1e-9
+    d = int(0.010 * SR)
+    right = np.concatenate([np.zeros(d), out[:-d]]) * 0.5 + out * 0.5
+    return np.stack([out, right], axis=1) * 0.8
+
+
 def render(duration, bpm=100, style="upbeat", seed=1):
+    if style == "chip":
+        return render_chip(duration, bpm, seed)
     rng = np.random.default_rng(seed)
     beat = 60 / bpm
     bar = 4 * beat

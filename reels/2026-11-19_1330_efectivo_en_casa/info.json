@@ -1,0 +1,30 @@
+{
+  "fecha": "2026-11-19",
+  "hora": "13:30",
+  "titulo": "¿Cuánto efectivo puedes guardar en casa? (curiosidades legales del dinero)",
+  "pilar": "Dinero y ley",
+  "look": "R6 pixel art con diálogo de RPG",
+  "formato": "Pixel art propio (canvas 216x384 escalado x5 sin suavizado, renderizado con toolkit/escena3d/motor.mjs): side-scroller CASA (colchón con billetes, caja fuerte, lluvia de billetes y sello LEGAL) → PAPELES (nómina y factura con check) → TIENDA (placas EMPRESA/AUTÓNOMO, 999 € ✓ y 1.000 € ✗) → BANCO (cajero, +3.000 €, sobre) → HACIENDA (persiana y ojo) → menú '¿GUARDAR PARTIDA?'. Titular en Press Start 2P (tildes dibujadas a mano), HUD de RPG (ZONA y ORO), caja de diálogo con retrato de Listo y texto letra a letra, CRT leve fijo",
+  "voz": "local k_santa (Hombre 4, Kokoro em_santa), length_scale 0.87, 21,1 s",
+  "etiqueta_ia": true,
+  "guion": [
+    "¿Cuánto dinero en efectivo puedes guardar en casa?",
+    "Todo el que quieras: no hay ningún límite legal.",
+    "Eso sí, tienes que poder demostrar de dónde sale.",
+    "Si pagas a una empresa o a un autónomo, siempre menos de mil euros en efectivo.",
+    "Y si ingresas o sacas más de tres mil, tu banco se lo comunica a Hacienda.",
+    "Guárdalo y sé más listo con tu dinero."
+  ],
+  "datos": "Sin límite legal para guardar efectivo en casa, pero hay que poder acreditar su procedencia; no se pueden pagar en efectivo operaciones de 1.000 € o más cuando una parte es empresario o profesional (Ley 7/2012 art. 7, modificada por la Ley 11/2021; multa del 25 %); los bancos informan a Hacienda de operaciones en efectivo de más de 3.000 € (modelo 171). Fuentes: INEAF (2026) https://www.ineaf.es/tribuna/control-efectivo-hacienda/ · INEAF (límite 1.000 €, 'igual o superior') https://www.ineaf.es/tribuna/limite-1000e/ · Hola.com (12-feb-2026) https://www.hola.com/al-dia/20260212883556/hacienda-vigila-pagos-en-efectivo-limite-de-1000-euros-fraccionamiento-multas/",
+  "nota_precision": "La ley prohíbe pagar en efectivo importes IGUALES O SUPERIORES a 1.000 € (1.000 € justos ya no se pueden): por eso el guion dice 'siempre menos de mil euros' (en vez de 'como mucho mil') y el caption 'pagar 1.000 € o más' (en vez de 'más de 1.000 €').",
+  "caption": "Efectivo en casa: ¿cuánto puedes guardar? 💶 Todo el que quieras, pero tienes que poder justificar de dónde sale. Ojo: pagar 1.000 € o más en efectivo a una empresa o autónomo está prohibido, y tu banco informa a Hacienda de ingresos o retiradas de más de 3.000 € (modelo 171). Mándaselo a quien guarda dinero bajo el colchón 👇 #efectivo #hacienda #agenciatributaria #finanzaspersonales #eleurolisto",
+  "listo_papel": "Protagonista del side-scroller en pixel art (Listo2D.pixel) y retrato en la caja de diálogo (boca 'habla' mientras suena la voz): saluda sorprendido en el fotograma 0, señala la caja fuerte, celebra con 'sin límite', piensa con bocadillo '?', se enciende con el check (idea), se preocupa con el 1.000 € rechazado y con el ojo de Hacienda, cierra con guiño + pulgar en el menú '¿GUARDAR PARTIDA?'. En la portada, Listo pixel sorprendido delante del montón de billetes",
+  "musica": "chiptune original sintetizada (nuevo estilo 'chip' de toolkit/music.py: arpegio de pulso, melodía de onda cuadrada, bajo triangular, percusión de ruido), 128 bpm, seed 4, baja (music_gain 0.30 / ducking 0.09)",
+  "sfx": "biblioteca video-shotcraft (lib:): text/typewriter-hit-soft por palabra (muy bajo), ui/ui-message-pop, paper/paper-slide, paper/paper-move-quick, mech/gear-lock-metallic, mech/door-open-futuristic, data/power-up-electronic, impact/hit-weak, transition/swoosh-quick, ui/ui-popup-dry, paper/paper-staple, ui/ui-success-soft, transition/whoosh-fast, ui/ui-confirm-tone, impact/bass-hit-short (golpes en 'mil euros' y 'tres mil'), mech/machine-activate-short, ui/ui-notify-tech, paper/paper-wind-blow, mech/mech-tech-movement, ui/ui-select-click, ui/ui-option-select, ui/chime-crystal; sfx_gain 0.2",
+  "fuentes_tipograficas": "Press Start 2P y Pixelify Sans (OFL, licencias en fonts/)",
+  "brillo": "brillo medio por fotograma (54x96 gris): 37,6–55,1; salto máximo 4,7 entre fotogramas seguidos (0 saltos > 8)",
+  "audio": "voz local + música + efectos, loudnorm −14 LUFS (medido −14,5), AAC 48 kHz",
+  "portada": "portada/portada.jpg (fondo: plano cerrado x7 del reel con Listo sorprendido; kicker 'DINERO Y LEY', '¿Cuánto EFECTIVO en casa?', sub 'y cuándo se entera Hacienda'); video_portada.mp4 = mismo vídeo con la portada en el primer fotograma",
+  "duracion_s": 21.3,
+  "estado": "pendiente de aprobación"
+}
