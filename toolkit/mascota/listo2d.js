@@ -395,13 +395,17 @@
   }
 
   function pixel(c, o = {}) {
-    const { x = 540, y = 1400, s = 1, px = 6 } = o;
-    const W = Math.ceil(420 * s / px), H = Math.ceil(420 * s / px);
+    // Las animaciones también valen en pixel art: el desplazamiento se aplica fuera del lienzo pequeño (no se recorta).
+    if (o.anim) { const a = anim(o.anim, o.animT == null ? (o.t || 0) : o.animT); o = Object.assign({}, o, a.trans, a.pose && !o.fijarPose ? { pose: a.pose } : {}, a.expr && !o.fijarExpr ? { expr: a.expr } : {}, { anim: null }); }
+    const { x = 540, y = 1400, s = 1, px = 6, dx = 0, dy = 0 } = o;
+    const W = Math.ceil(560 * s / px), H = Math.ceil(520 * s / px);
     const off = document.createElement('canvas'); off.width = W; off.height = H;
     const oc = off.getContext('2d'); oc.imageSmoothingEnabled = false;
-    dibujar(oc, Object.assign({}, o, { x: W / 2, y: H - 2, s: s / px, glow: 0.35, sinHalo: true, opaco: true, estilo: 'vector', pegatina: null }));
+    dibujar(oc, Object.assign({}, o, { x: W / 2, y: H - 2 - Math.ceil(60 * s / px), s: s / px, glow: 0.35, sinHalo: true, opaco: true, estilo: 'vector', pegatina: null, dx: 0, dy: 0 }));
     const im = oc.getImageData(0, 0, W, H); for (let i = 3; i < im.data.length; i += 4) im.data[i] = im.data[i] > 90 ? 255 : 0; oc.putImageData(im, 0, 0);
-    c.save(); c.imageSmoothingEnabled = false; c.drawImage(off, x - W * px / 2, y - H * px, W * px, H * px); c.restore();
+    const ox = Math.round(dx * s / px) * px, oy = Math.round(dy * s / px) * px; // se mueve en saltos de píxel
+    c.save(); c.imageSmoothingEnabled = false; c.drawImage(off, x - W * px / 2 + ox, y - (H - Math.ceil(60 * s / px)) * px + oy, W * px, H * px); c.restore();
   }
+
   window.Listo2D = { dibujar, pixel, anim, POSES, ESTILOS: Object.keys(ESTILOS).concat(['pixel']), MODOS, ACCESORIOS, ANIMACIONES: ['entrada', 'salto', 'giro', 'baile', 'temblor', 'cohete', 'desinfla', 'rebote', 'asoma'] };
 })();

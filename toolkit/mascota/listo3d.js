@@ -6,6 +6,7 @@
 //           'plastilina' (R5: todo mate y opaco tipo plastilina, € en relieve en el frente, ojos negros ovalados)
 //           'lowpoly'    (R7 simulación low-poly: facetas planas, € y ojos de bloques, como persona() de lib3d)
 //   expr: 'normal' | 'feliz' | 'idea' | 'sorpresa' | 'preocupado' | 'habla' | 'guino'
+//   anim: 'entrada'|'salto'|'giro'|'baile'|'temblor'|'cohete'|'desinfla'|'rebote'|'asoma' (+ animT = s desde que empieza): mismas animaciones que en 2D
 //   acc: ['gafas','monoculo','chistera','corona','cadena','pajarita','billetes','gorroRoto','parche','bufandaRota','bolsillos','mosca'], modo: 'vacilon'|'rico'|'millonario'|'arruinado', accK: { gafas: 0..1 }
 //   pose: 'reposo' | 'saludo' | 'senala' | 'senalaIzq' | 'pulgar' | 'celebra' | 'piensa' | 'abrazo' | 'brazosCruzados' | 'telefono' (mira el móvil con una gráfica)
 // Mide ~3,1 unidades (pies → punta). El brillo es estable: glow cambia despacio, nunca parpadea.
@@ -20,6 +21,26 @@ function texturaHalo() {
   g.addColorStop(0, "rgba(74,222,128,0.9)"); g.addColorStop(0.35, "rgba(34,197,94,0.35)"); g.addColorStop(1, "rgba(34,197,94,0)");
   x.fillStyle = g; x.fillRect(0, 0, 128, 128);
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
+}
+
+// Animaciones (las mismas que en listo2d.js): devuelven dx, dy (en px de Listo a escala 1 ≈ 320 px de alto), sqx, sqy, rot,
+// giroY (vuelta real en 3D) y, si toca, pose y expresión.
+const easeA = (k) => 1 - Math.pow(1 - Math.max(0, Math.min(1, k)), 3);
+export function animListo(nombre, u) {
+  const T = { dx: 0, dy: 0, sqx: 1, sqy: 1, rot: 0, giroY: 0 }; let pose = null, expr = null;
+  const sq = (k) => { T.sqy = 1 - k; T.sqx = 1 + k * 0.8; };
+  if (nombre === "entrada") { if (u < 0.32) { const k = u / 0.32; T.dy = -900 * (1 - k * k); sq(-0.18 * k); pose = "celebra"; expr = "sorpresa"; }
+    else if (u < 0.62) { const k = (u - 0.32) / 0.3; sq(0.28 * Math.sin(k * Math.PI) * (1 - k * 0.5)); T.dy = -40 * Math.max(0, Math.sin((k - 0.45) * Math.PI)); pose = "abrazo"; expr = "feliz"; }
+    else { pose = "saludo"; expr = "feliz"; } }
+  else if (nombre === "salto") { const p = u % 1.0; if (p < 0.15) sq(0.18 * Math.sin(p / 0.15 * Math.PI / 2)); else if (p < 0.6) { const k = (p - 0.15) / 0.45; T.dy = -260 * Math.sin(k * Math.PI); sq(-0.14 * Math.sin(k * Math.PI)); pose = "celebra"; } else if (p < 0.75) sq(0.2 * Math.sin((p - 0.6) / 0.15 * Math.PI)); expr = "feliz"; }
+  else if (nombre === "giro") { const k = easeA(Math.min(1, u / 0.7)); T.giroY = k * Math.PI * 2; T.dy = -90 * Math.sin(k * Math.PI); pose = "abrazo"; expr = "feliz"; }
+  else if (nombre === "baile") { T.rot = Math.sin(u * 7) * 0.13; T.dx = Math.sin(u * 3.5) * 40; T.dy = -Math.abs(Math.sin(u * 7)) * 30; sq(0.06 * Math.cos(u * 14)); pose = Math.floor(u * 3.5) % 2 ? "celebra" : "saludo"; expr = "guino"; }
+  else if (nombre === "temblor") { T.dx = Math.sin(u * 55) * 5; T.rot = Math.sin(u * 47) * 0.02; sq(0.04); pose = "brazosCruzados"; expr = "preocupado"; }
+  else if (nombre === "cohete") { if (u < 0.25) sq(0.22 * Math.sin(u / 0.25 * Math.PI / 2)); else { const k = u - 0.25; T.dy = -1400 * k * k - 200 * k; sq(-0.25); } pose = "celebra"; expr = "sorpresa"; }
+  else if (nombre === "desinfla") { const k = easeA(u / 0.8); sq(0.18 * k); T.rot = -0.12 * k; T.dy = 10 * k; pose = "reposo"; expr = "preocupado"; }
+  else if (nombre === "rebote") { const p = (u * 2.2) % 1; T.dy = -60 * Math.sin(p * Math.PI); sq(p > 0.88 || p < 0.06 ? 0.08 : -0.03); }
+  else if (nombre === "asoma") { const k = easeA(u / 0.5); T.dx = (1 - k) * -420; T.rot = (1 - k) * -0.5; pose = "saludo"; expr = "guino"; }
+  return { trans: T, pose, expr };
 }
 
 export function crearListo({ estilo = "toon", escala = 1, luz = true } = {}) {
@@ -167,13 +188,20 @@ export function crearListo({ estilo = "toon", escala = 1, luz = true } = {}) {
     const h = new THREE.Mesh(LP ? new THREE.BoxGeometry(0.19, 0.19, 0.19) : new THREE.SphereGeometry(CL ? 0.13 : 0.11, 16, 12), M.mano); cuerpo.add(h);
     return { m, h };
   });
-  function actualizar(t, { expr = "normal", pose = "reposo", glow, mira = [0, 0], acc = [], modo = null, accK = {} } = {}) {
+  function actualizar(t, opts = {}) {
+    let { expr = "normal", pose = "reposo", glow, mira = [0, 0], acc = [], modo = null, accK = {}, anim = null, animT = null } = opts;
+    let TR = { dx: 0, dy: 0, sqx: 1, sqy: 1, rot: 0, giroY: 0 };
+    if (anim) { const a = animListo(anim, animT == null ? t : animT); TR = a.trans; if (a.pose && !opts.fijarPose) pose = a.pose; if (a.expr && !opts.fijarExpr) expr = a.expr; }
     const ACC = new Set([...(modo ? MODOS[modo] || [] : []), ...acc]);
     for (const n in A) { A[n].visible = ACC.has(n); const k = accK[n] == null ? 1 : Math.max(0, Math.min(1, accK[n])); A[n].userData.k = k; }
     if (A.mosca.visible) { A.mosca.position.set(1.15 + Math.sin(t * 6.3) * 0.3, 2.35 + Math.sin(t * 9.7) * 0.18, 0.4); A.mosca.children.forEach((c) => { if (c.name === "ala") c.scale.y = 0.3 + 0.7 * Math.abs(Math.sin(t * 38)); }); }
     for (const n of ["gafas", "chistera", "corona", "gorroRoto"]) if (A[n].visible) A[n].position.y = (n === "gafas" ? 0 : n === "chistera" ? 1.97 : n === "corona" ? 1.9 : 1.62) + (1 - A[n].userData.k) * 0.8;
     const gl = glow == null ? (expr === "idea" ? 1.35 : expr === "preocupado" ? 0.6 : 1) : glow;
-    cuerpo.position.y = 1.05 + Math.sin(t * 2.4) * 0.03;
+    // animación: px de Listo 2D → unidades 3D (≈ 3,1 u / 320 px); squash con el pivote en los pies
+    const KP = 3.1 / 320;
+    cuerpo.scale.set(TR.sqx, TR.sqy, TR.sqx);
+    cuerpo.position.set(TR.dx * KP, 1.1 * TR.sqy - 0.05 + Math.sin(t * 2.4) * 0.03 - TR.dy * KP, 0);
+    cuerpo.rotation.set(0, TR.giroY, -TR.rot);
     if (!CL) { M.vidrio.emissiveIntensity = (LP ? 0.15 : 0.06) * gl; halo.material.opacity = clamp(0.55 * gl, 0, 1); M.neon.color.setHex(gl > 1.1 ? 0xb9ffd2 : 0x5dff98); }
     else M.neon.color.setHex(gl > 1.1 ? 0x22c55e : 0x16a34a);
     if (luzP) luzP.intensity = 2.2 * gl;
@@ -209,5 +237,5 @@ export function crearListo({ estilo = "toon", escala = 1, luz = true } = {}) {
     });
   }
   actualizar(0);
-  return { root, cuerpo, actualizar, POSES, estilo, MODOS, accesorios: Object.keys(A) };
+  return { root, cuerpo, actualizar, POSES, estilo, MODOS, accesorios: Object.keys(A), ANIMACIONES: ["entrada", "salto", "giro", "baile", "temblor", "cohete", "desinfla", "rebote", "asoma"] };
 }
