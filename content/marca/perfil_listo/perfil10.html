@@ -1,0 +1,108 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<script type="importmap">{"imports":{"three":"../../../toolkit/escena3d/node_modules/three/build/three.module.js"}}</script>
+<script src="../../../toolkit/mascota/listo2d.js"></script>
+<style>html,body{margin:0;width:1080px;height:1080px;overflow:hidden;background:#000}canvas{position:absolute;inset:0}</style></head>
+<body><canvas id="c" width="1080" height="1080"></canvas>
+<script type="module">
+// 10 fotos de perfil de LISTO: 10 estilos de edición distintos y 10 poses distintas. renderAt(i), i = 0..9.
+// AJUSTE AL CÍRCULO (Sergio, 18-nov): Listo se dibuja primero en un lienzo aparte, se mide su silueta (píxeles opacos)
+// y se escala y centra para que TODO Listo quede dentro de un círculo de radio R_MAX (el recorte de la foto de perfil
+// es el círculo inscrito de 540 px de radio). window.INFO[i] guarda el radio real que ocupa.
+import * as THREE from "three";
+import { crearListo } from "../../../toolkit/mascota/listo3d.js";
+const R_MAX = 455;
+const X = document.getElementById('c').getContext('2d');
+const SP = document.createElement('canvas'); SP.width = SP.height = 1400; const S = SP.getContext('2d');
+const V = [
+  { est: 'vector', pose: 'saludo', expr: 'feliz', nombre: 'Clásico · saluda' },
+  { est: 'plano', pose: 'celebra', expr: 'feliz', nombre: 'Monigote plano · celebra' },
+  { est: 'ilustrado', pose: 'piensa', expr: 'idea', nombre: 'Ilustrado · tiene una idea' },
+  { est: 'boceto', pose: 'manosCadera', expr: 'guino', nombre: 'Dibujado a mano · en jarras' },
+  { est: 'neon', pose: 'senala', expr: 'sorpresa', nombre: 'Neón · señala' },
+  { est: 'tropical', pose: 'pulgar', expr: 'guino', nombre: 'Atardecer tropical · pulgar arriba' },
+  { est: 'pixel', pose: 'moneda', expr: 'feliz', nombre: 'Pixel art · enseña la moneda' },
+  { est: 'toon', pose: 'abrazo', expr: 'feliz', nombre: '3D tierno · brazos abiertos' },
+  { est: 'plastilina', pose: 'brazosCruzados', expr: 'guino', nombre: '3D plastilina · brazos cruzados' },
+  { est: 'lowpoly', pose: 'telefono', expr: 'sorpresa', nombre: '3D low-poly · mira el móvil' },
+];
+window.INFO = [];
+
+// ---------- 3D (render transparente) ----------
+const R3 = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true }); R3.setPixelRatio(1); R3.setSize(1400, 1400);
+R3.setClearColor(0x000000, 0); R3.shadowMap.enabled = true; R3.toneMapping = THREE.NeutralToneMapping;
+const E3 = {};
+function escena3d(estilo) {
+  if (E3[estilo]) return E3[estilo];
+  const esc = new THREE.Scene();
+  esc.add(new THREE.HemisphereLight(0xe6eeff, 0x2a2420, estilo === 'plastilina' ? 1.5 : 1.0));
+  const k = new THREE.DirectionalLight(0xffffff, estilo === 'plastilina' ? 1.25 : 1.7); k.position.set(2.5, 6, 5); esc.add(k);
+  const rim = new THREE.DirectionalLight(0x7dffb0, 0.9); rim.position.set(-3, 3, -4); esc.add(rim);
+  const L = crearListo({ estilo }); esc.add(L.root);
+  return (E3[estilo] = { esc, L });
+}
+const CAM = new THREE.PerspectiveCamera(30, 1, 0.05, 80);
+function sprite3d(v, t) {
+  const { esc, L } = escena3d(v.est);
+  L.actualizar(t, { expr: v.expr, pose: v.pose }); L.root.rotation.y = v.pose === 'telefono' ? -0.35 : -0.15;
+  CAM.position.set(0.25, 1.7, 10.5); CAM.lookAt(0, 1.6, 0); R3.render(esc, CAM);
+  S.clearRect(0, 0, 1400, 1400); S.drawImage(R3.domElement, 0, 0);
+}
+function sprite2d(v, t) {
+  S.clearRect(0, 0, 1400, 1400);
+  if (v.est === 'pixel') { S.imageSmoothingEnabled = false; Listo2D.pixel(S, { x: 700, y: 1130, s: 2.0, px: 7, t, expr: v.expr, pose: v.pose }); S.imageSmoothingEnabled = true; }
+  else Listo2D.dibujar(S, { x: 700, y: 1130, s: 2.0, t, expr: v.expr, pose: v.pose, estilo: v.est, sinHalo: true, mira: [0.15, -0.1] });
+}
+// mide la silueta (alfa > 110) y devuelve centro y radio del círculo que la contiene
+function medir() {
+  const d = S.getImageData(0, 0, 1400, 1400).data; let x0 = 1e9, y0 = 1e9, x1 = -1, y1 = -1; const pts = [];
+  for (let y = 0; y < 1400; y += 3) for (let x = 0; x < 1400; x += 3) if (d[(y * 1400 + x) * 4 + 3] > 110) { pts.push([x, y]); if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+  // centro: el del rectángulo, afinado para minimizar el radio máximo (búsqueda local)
+  let cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
+  const radio = (cx, cy) => { let m = 0; for (const [x, y] of pts) { const r = (x - cx) ** 2 + (y - cy) ** 2; if (r > m) m = r; } return Math.sqrt(m); };
+  let r = radio(cx, cy), paso = 40;
+  while (paso > 1) { let mejor = false; for (const [dx, dy] of [[paso, 0], [-paso, 0], [0, paso], [0, -paso]]) { const rr = radio(cx + dx, cy + dy); if (rr < r) { r = rr; cx += dx; cy += dy; mejor = true; } } if (!mejor) paso /= 2; }
+  return { cx, cy, r, toca: x0 <= 3 || y0 <= 3 || x1 >= 1396 || y1 >= 1396 };
+}
+
+// ---------- fondos ----------
+function radial(c0, c1, cx = 540, cy = 520, r = 760) { const g = X.createRadialGradient(cx, cy, 30, cx, cy, r); g.addColorStop(0, c0); g.addColorStop(1, c1); X.fillStyle = g; X.fillRect(0, 0, 1080, 1080); }
+function halo(col, a = 0.35, cy = 470, rad = 480) { const h = X.createRadialGradient(540, cy, 20, 540, cy, rad); h.addColorStop(0, `rgba(${col},${a})`); h.addColorStop(1, `rgba(${col},0)`); X.fillStyle = h; X.fillRect(0, 0, 1080, 1080); }
+function rnd(seed) { let s = seed; return () => (s = (s * 16807) % 2147483647) / 2147483647; }
+const FONDOS = {
+  vector: () => { radial('#12324a', '#0b1328'); halo('34,197,94', 0.4); X.strokeStyle = 'rgba(74,222,128,.22)'; X.lineWidth = 8; X.beginPath(); X.arc(540, 540, 505, 0, 7); X.stroke(); },
+  plano: () => { X.fillStyle = '#2f6fe0'; X.fillRect(0, 0, 1080, 1080); X.fillStyle = '#3d7ff0'; X.beginPath(); X.arc(540, 520, 400, 0, 7); X.fill(); X.fillStyle = '#245cc4'; X.beginPath(); X.ellipse(540, 900, 380, 70, 0, 0, 7); X.fill(); },
+  ilustrado: () => { X.fillStyle = '#b48f66'; X.fillRect(0, 0, 1080, 1080); const r = rnd(7); for (let i = 0; i < 90; i++) { X.fillStyle = i % 2 ? 'rgba(120,80,40,.10)' : 'rgba(255,240,210,.10)'; X.beginPath(); X.ellipse(r() * 1080, r() * 1080, 20 + r() * 50, 14 + r() * 30, r() * 3, 0, 7); X.fill(); }
+    const g = X.createRadialGradient(540, 180, 20, 540, 300, 700); g.addColorStop(0, 'rgba(255,214,150,.55)'); g.addColorStop(1, 'rgba(40,20,10,.45)'); X.fillStyle = g; X.fillRect(0, 0, 1080, 1080);
+    X.fillStyle = '#6b4a33'; X.fillRect(0, 900, 1080, 180); },
+  boceto: () => { X.fillStyle = '#fbf7ee'; X.fillRect(0, 0, 1080, 1080); X.strokeStyle = 'rgba(59,130,246,.22)'; X.lineWidth = 3; for (let y = 80; y < 1080; y += 64) { X.beginPath(); X.moveTo(0, y); X.lineTo(1080, y); X.stroke(); }
+    X.strokeStyle = 'rgba(239,68,68,.35)'; X.beginPath(); X.moveTo(150, 0); X.lineTo(150, 1080); X.stroke();
+    X.strokeStyle = 'rgba(34,197,94,.5)'; X.lineWidth = 14; X.lineCap = 'round'; X.beginPath(); X.ellipse(540, 545, 488, 492, 0.05, 0.25, 6.05); X.stroke(); },
+  neon: () => { X.fillStyle = '#04070c'; X.fillRect(0, 0, 1080, 1080); halo('34,197,94', 0.2); X.globalAlpha = 0.12; X.strokeStyle = '#22c55e'; X.lineWidth = 2; for (let k = 0; k <= 1080; k += 60) { X.beginPath(); X.moveTo(k, 0); X.lineTo(k, 1080); X.stroke(); X.beginPath(); X.moveTo(0, k); X.lineTo(1080, k); X.stroke(); } X.globalAlpha = 1;
+    X.save(); X.shadowColor = '#4ade80'; X.shadowBlur = 30; X.strokeStyle = '#4ade80'; X.lineWidth = 7; X.beginPath(); X.arc(540, 540, 505, 0, 7); X.stroke(); X.restore(); },
+  tropical: () => { const g = X.createLinearGradient(0, 0, 0, 1080); g.addColorStop(0, '#2a0b4a'); g.addColorStop(0.55, '#c4307a'); g.addColorStop(0.85, '#ff7a4d'); g.addColorStop(1, '#ffb45e'); X.fillStyle = g; X.fillRect(0, 0, 1080, 1080);
+    const sg = X.createLinearGradient(0, 640, 0, 1080); sg.addColorStop(0, '#fff4b8'); sg.addColorStop(1, '#ff6a5a'); X.fillStyle = sg; X.beginPath(); X.arc(540, 930, 330, 0, 7); X.fill();
+    X.fillStyle = '#2a0d3a'; for (const [x, h, sx] of [[60, 640, -1], [1020, 580, 1]]) { X.save(); X.translate(x, 1080); X.lineWidth = 26; X.strokeStyle = '#2a0d3a'; X.beginPath(); X.moveTo(0, 0); X.quadraticCurveTo(sx * 30, -h * 0.5, sx * 60, -h); X.stroke(); X.translate(sx * 60, -h); for (let k = 0; k < 7; k++) { X.save(); X.rotate(-Math.PI / 2 + (k - 3) * 0.52); X.beginPath(); X.moveTo(0, -8); X.quadraticCurveTo(100, -36, 200, 14); X.quadraticCurveTo(100, 6, 0, 8); X.fill(); X.restore(); } X.restore(); } },
+  pixel: () => { X.fillStyle = '#2b1d5c'; X.fillRect(0, 0, 1080, 1080); X.fillStyle = '#3a2873'; for (let y = 0; y < 1080; y += 60) for (let x = (y / 60) % 2 ? -60 : 0; x < 1080; x += 120) X.fillRect(x + 4, y + 4, 112, 52);
+    X.fillStyle = '#1d1440'; X.fillRect(0, 930, 1080, 150); X.fillStyle = 'rgba(0,0,0,.16)'; for (let y = 0; y < 1080; y += 6) X.fillRect(0, y, 1080, 2); halo('74,222,128', 0.22); },
+  toon: () => { radial('#1f4a80', '#0a1328', 540, 470, 700); X.fillStyle = 'rgba(10,20,40,.55)'; X.beginPath(); X.ellipse(540, 900, 420, 80, 0, 0, 7); X.fill(); halo('125,255,176', 0.18, 430, 420); },
+  plastilina: () => { radial('#f6c39b', '#c06a50', 540, 450, 760); X.fillStyle = 'rgba(150,70,50,.35)'; X.beginPath(); X.ellipse(540, 905, 360, 70, 0, 0, 7); X.fill(); },
+  lowpoly: () => { const r = rnd(11); const n = 9, w = 1080 / n; for (let i = 0; i <= n; i++) for (let j = 0; j <= n; j++) { for (const tri of [[[0, 0], [1, 0], [0, 1]], [[1, 0], [1, 1], [0, 1]]]) { const yv = (j + 0.5) / n; const base = [40 + 60 * yv, 140 + 40 * yv, 150 - 30 * yv]; const f = 0.85 + r() * 0.3;
+      X.fillStyle = `rgb(${base[0] * f | 0},${base[1] * f | 0},${base[2] * f | 0})`; X.beginPath(); tri.forEach(([a, b], q) => { const px = (i + a) * w, py = (j + b) * w; q ? X.lineTo(px, py) : X.moveTo(px, py); }); X.closePath(); X.fill(); } }
+    X.fillStyle = 'rgba(20,40,40,.35)'; X.beginPath(); X.ellipse(540, 905, 360, 70, 0, 0, 7); X.fill(); },
+};
+
+window.DURACION = 10;
+window.renderAt = (tt) => {
+  const i = Math.round(tt), v = V[i], t = 0.45;
+  if (['toon', 'plastilina', 'lowpoly'].includes(v.est)) sprite3d(v, t); else sprite2d(v, t);
+  const m = medir(), k = R_MAX / m.r;
+  X.setTransform(1, 0, 0, 1, 0, 0); X.imageSmoothingEnabled = v.est !== 'pixel'; if (window.MASCARA) { X.fillStyle = '#000'; X.fillRect(0, 0, 1080, 1080); } else FONDOS[v.est]();
+  // halo verde suave detrás de Listo (fondo, puede salir del círculo)
+  X.save(); X.translate(540, 540); X.scale(k, k); X.translate(-m.cx, -m.cy); X.drawImage(SP, 0, 0); X.restore();
+  X.imageSmoothingEnabled = true;
+  window.INFO[i] = { nombre: v.nombre, radio_ocupado: Math.round(m.r * k), escala: +k.toFixed(3), toca_borde_del_lienzo: m.toca };
+};
+await document.fonts.load('800 46px Poppins');
+window.renderAt(0); window.listo = true;
+</script></body></html>

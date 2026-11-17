@@ -6,7 +6,7 @@
 //           'plastilina' (R5: todo mate y opaco tipo plastilina, € en relieve en el frente, ojos negros ovalados)
 //           'lowpoly'    (R7 simulación low-poly: facetas planas, € y ojos de bloques, como persona() de lib3d)
 //   expr: 'normal' | 'feliz' | 'idea' | 'sorpresa' | 'preocupado' | 'habla' | 'guino'
-//   pose: 'reposo' | 'saludo' | 'senala' | 'senalaIzq' | 'pulgar' | 'celebra' | 'piensa'
+//   pose: 'reposo' | 'saludo' | 'senala' | 'senalaIzq' | 'pulgar' | 'celebra' | 'piensa' | 'abrazo' | 'brazosCruzados' | 'telefono' (mira el móvil con una gráfica)
 // Mide ~3,1 unidades (pies → punta). El brillo es estable: glow cambia despacio, nunca parpadea.
 // Para un look NUEVO: añade aquí (o en listo2d.js) un estilo que siga la estética de ese look sin cambiar la identidad.
 import * as THREE from "three";
@@ -114,7 +114,14 @@ export function crearListo({ estilo = "toon", escala = 1, luz = true } = {}) {
     reposo: [[-1.1, 0.25, 0.2], [1.1, 0.25, 0.2]], saludo: [[-1.1, 0.25, 0.2], [1.45, 2.05, 0.3]],
     senala: [[-1.1, 0.25, 0.2], [2.0, 1.15, 0.5]], senalaIzq: [[-2.0, 1.15, 0.5], [1.1, 0.25, 0.2]],
     pulgar: [[-1.1, 0.25, 0.2], [1.3, 0.9, 0.6]], celebra: [[-1.5, 2.2, 0.2], [1.5, 2.2, 0.2]], piensa: [[-1.1, 0.25, 0.2], [0.35, 1.05, 1.0]],
+    abrazo: [[-2.0, 1.05, 0.35], [2.0, 1.05, 0.35]], brazosCruzados: [[0.5, 0.45, 1.2], [-0.5, 0.52, 1.25]], telefono: [[-1.1, 0.25, 0.2], [0.95, 1.12, 1.15]],
   };
+  // teléfono (pose 'telefono': Listo hablando por el móvil)
+  const movil = new THREE.Group(); cuerpo.add(movil); movil.visible = false;
+  { const caja = new THREE.Mesh(new THREE.BoxGeometry(0.38, 0.68, 0.07), std(0x111827)); movil.add(caja);
+    const pant = new THREE.Mesh(new THREE.PlaneGeometry(0.32, 0.6), new THREE.MeshBasicMaterial({ color: 0x4ade80 })); pant.position.z = 0.037; movil.add(pant);
+    const barra = (w, y) => { const b = new THREE.Mesh(new THREE.PlaneGeometry(w, 0.06), new THREE.MeshBasicMaterial({ color: 0x14532d })); b.position.set(-0.1 + w / 2, y, 0.039); movil.add(b); };
+    barra(0.12, -0.15); barra(0.2, -0.02); barra(0.26, 0.12); } // gráfica de barras que sube en la pantalla
   const brazos = [-1, 1].map(() => {
     const m = new THREE.Mesh(new THREE.BufferGeometry(), M.alambre); cuerpo.add(m);
     const h = new THREE.Mesh(LP ? new THREE.BoxGeometry(0.19, 0.19, 0.19) : new THREE.SphereGeometry(CL ? 0.13 : 0.11, 16, 12), M.mano); cuerpo.add(h);
@@ -143,13 +150,14 @@ export function crearListo({ estilo = "toon", escala = 1, luz = true } = {}) {
     sonrisa.scale.setScalar(expr === "feliz" || expr === "idea" ? 1.35 : 1);
     if (expr === "habla") bocaO.scale.set(1, 0.5 + 1.1 * Math.abs(Math.sin(t * 13)), LP ? 1 : 0.4); else bocaO.scale.set(1, LP ? 1 : 1.3, LP ? 1 : 0.4);
     const P = POSES[pose] || POSES.reposo;
+    movil.visible = pose === "telefono"; if (movil.visible) { movil.position.set(0.95, 1.45, 1.15); movil.rotation.set(-0.15, -0.35, 0.12); }
     brazos.forEach((b, i) => {
       const sx = i === 0 ? -1 : 1;
       const a = new THREE.Vector3(sx * 0.9, 0.95, 0), h = new THREE.Vector3(...P[i]);
       if (pose === "saludo" && sx === 1) { h.x += Math.sin(t * 9) * 0.22; h.y += Math.cos(t * 9) * 0.05; }
       if (pose === "celebra") h.y += Math.sin(t * 7 + i) * 0.08;
       if (pose === "reposo") h.y += Math.sin(t * 2.2 + i) * 0.03;
-      const mid = a.clone().add(h).multiplyScalar(0.5).add(new THREE.Vector3(sx * 0.18, -0.2, 0.1));
+      const mid = a.clone().add(h).multiplyScalar(0.5).add(new THREE.Vector3(sx * (pose === "brazosCruzados" ? 0.35 : 0.18), -0.2, pose === "brazosCruzados" ? 0.75 : 0.1));
       b.m.geometry.dispose();
       b.m.geometry = new THREE.TubeGeometry(new THREE.QuadraticBezierCurve3(a, mid, h), LP ? 3 : 16, LP ? 0.05 : CL ? 0.05 : 0.035, LP ? 4 : 8);
       b.h.position.copy(h);

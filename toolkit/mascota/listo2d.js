@@ -5,6 +5,7 @@
 //   t      = tiempo en s (parpadeo, balanceo y "temblor" del dibujo a mano, deterministas).
 //   expr   = 'normal' | 'feliz' | 'idea' | 'sorpresa' | 'preocupado' | 'guino' | 'habla'
 //   pose   = 'reposo' | 'saludo' | 'senala' | 'senalaIzq' | 'pulgar' | 'celebra' | 'piensa' | 'brazosCruzados'
+//            | 'manosCadera' (en jarras) | 'brazosAbiertos' | 'moneda' (enseña una moneda de 1 €)
 //   estilo = 'vector'   (por defecto: tipografía cinética, interfaz, móviles R4, collage)
 //            'plano'    (R1 monigotes: blanco liso, ojos de punto, extremidades gruesas)
 //            'ilustrado'(R3 ilustración en plano de corte: colores cálidos apagados, contorno marrón, textura)
@@ -136,6 +137,7 @@
     reposo: [[-104, -20], [104, -20]], saludo: [[-104, -20], [150, -205]], senala: [[-104, -20], [205, -95]],
     senalaIzq: [[-205, -95], [104, -20]], pulgar: [[-104, -20], [140, -60]], celebra: [[-150, -215], [150, -215]],
     piensa: [[-104, -20], [32, -70]], brazosCruzados: [[55, -20], [-55, -14]],
+    manosCadera: [[-74, -12], [74, -12]], brazosAbiertos: [[-215, -75], [215, -75]], moneda: [[-104, -20], [165, -165]],
   };
   function brazo(c, sx, hombro, mano, t, pose, lado) {
     let [hx, hy] = mano;
@@ -143,7 +145,8 @@
     if (pose === 'celebra') hy += Math.sin(t * 7 + lado) * 8;
     if (pose === 'reposo') hy += Math.sin(t * 2.2 + lado) * 3;
     const [ax, ay] = hombro;
-    const mx = (ax + hx) / 2 + sx * 18, my = (ay + hy) / 2 + 22;
+    const jarras = pose === 'manosCadera';
+    const mx = (ax + hx) / 2 + sx * (jarras ? 78 : 18), my = (ay + hy) / 2 + (jarras ? -4 : 22);
     neonGlow(c, true);
     if (ST.alambreW > 10 && ST.borde) { // contorno suave para que el brazo blanco se lea sobre fondos claros
       c.strokeStyle = ST.borde; c.lineWidth = ST.alambreW + 3; c.lineCap = 'round';
@@ -167,6 +170,15 @@
       for (const y of [-5, 3, 10]) { c.beginPath(); c.moveTo(-8, y); c.lineTo(12, y); c.stroke(); }
       c.restore();
     } else { c.beginPath(); c.arc(hx, hy, r, 0, 7); c.fill(); if (ST.manoBorde) c.stroke(); }
+    if (pose === 'moneda' && lado === 1) { // enseña una moneda de 1 € grande en la mano
+      c.save(); c.translate(hx + 6, hy - 46); c.shadowBlur = 0;
+      c.fillStyle = '#B45309'; c.beginPath(); c.arc(0, 5, 44, 0, 7); c.fill();
+      c.fillStyle = '#F59E0B'; c.beginPath(); c.arc(0, 0, 44, 0, 7); c.fill();
+      c.strokeStyle = '#FCD34D'; c.lineWidth = 5; c.beginPath(); c.arc(0, 0, 33, 0, 7); c.stroke();
+      if (ST.manoBorde || ST.borde) { c.strokeStyle = ST.manoBorde || ST.borde; c.lineWidth = 3; c.beginPath(); c.arc(0, 0, 44, 0, 7); c.stroke(); }
+      c.fillStyle = '#92400E'; c.font = '800 46px Poppins, sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('€', 0, 3);
+      c.restore();
+    }
     if ((pose === 'senala' && lado === 1) || (pose === 'senalaIzq' && lado === -1)) {
       c.beginPath(); c.roundRect(hx + (lado === 1 ? 6 : -30), hy - 5, 24, 10, 5); c.fill(); if (ST.manoBorde) c.stroke();
     }
