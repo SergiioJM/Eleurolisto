@@ -6,6 +6,7 @@
 //           'plastilina' (R5: todo mate y opaco tipo plastilina, € en relieve en el frente, ojos negros ovalados)
 //           'lowpoly'    (R7 simulación low-poly: facetas planas, € y ojos de bloques, como persona() de lib3d)
 //   expr: 'normal' | 'feliz' | 'idea' | 'sorpresa' | 'preocupado' | 'habla' | 'guino'
+//   acc: ['gafas','monoculo','chistera','corona','cadena','pajarita','billetes','gorroRoto','parche','bufandaRota','bolsillos','mosca'], modo: 'vacilon'|'rico'|'millonario'|'arruinado', accK: { gafas: 0..1 }
 //   pose: 'reposo' | 'saludo' | 'senala' | 'senalaIzq' | 'pulgar' | 'celebra' | 'piensa' | 'abrazo' | 'brazosCruzados' | 'telefono' (mira el móvil con una gráfica)
 // Mide ~3,1 unidades (pies → punta). El brillo es estable: glow cambia despacio, nunca parpadea.
 // Para un look NUEVO: añade aquí (o en listo2d.js) un estilo que siga la estética de ese look sin cambiar la identidad.
@@ -109,6 +110,45 @@ export function crearListo({ estilo = "toon", escala = 1, luz = true } = {}) {
     if (!LP) z.rotation.x = Math.PI / 2; z.position.set(sx * 0.18, -1.0, 0.08); cuerpo.add(z);
     const s = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.04, 0.44), M.suela); s.position.set(sx * 0.18, -1.1, 0.08); cuerpo.add(s);
   }
+  // --- ACCESORIOS (Sergio, 18-nov): gafas, lujo o ropa de ruina, encima del diseño (el €, el casquillo y las zapatillas se ven) ---
+  const MODOS = { vacilon: ["gafas", "cadena"], rico: ["chistera", "monoculo", "pajarita"], millonario: ["corona", "gafas", "cadena", "billetes"], arruinado: ["gorroRoto", "parche", "bufandaRota", "bolsillos", "mosca"] };
+  const oro = std(0xf5b700, { metalness: CL ? 0 : 0.7, roughness: CL ? 0.9 : 0.3 }), negroM = std(0x0b0f17, { roughness: 0.25, metalness: 0.2 });
+  const A = {};
+  const mk = (n) => { const g = new THREE.Group(); g.visible = false; cuerpo.add(g); A[n] = g; return g; };
+  { const g = mk("gafas"); // gafas de sol
+    for (const sx of [-1, 1]) { const l = new THREE.Mesh(LP ? new THREE.BoxGeometry(0.42, 0.3, 0.06) : new THREE.CapsuleGeometry(0.15, 0.17, 6, 16), negroM); if (!LP) { l.rotation.z = Math.PI / 2; l.scale.set(1.0, 1, 0.3); }
+      l.position.set(sx * 0.34, 1.49, 1.04); l.rotation.y = sx * 0.36; g.add(l);
+      const pat = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, 0.55, 6), negroM); pat.rotation.z = Math.PI / 2; pat.rotation.y = sx * 1.1; pat.position.set(sx * 0.68, 1.52, 0.62); g.add(pat);
+      const br = new THREE.Mesh(new THREE.PlaneGeometry(0.05, 0.14), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.8 })); br.position.set(sx * 0.34 - 0.09, 1.53, 1.1); br.rotation.set(0, sx * 0.36, 0.6); g.add(br); }
+    const puente = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 0.2, 6), negroM); puente.rotation.z = Math.PI / 2; puente.position.set(0, 1.53, 1.1); g.add(puente); }
+  { const g = mk("monoculo"); const r = new THREE.Mesh(new THREE.TorusGeometry(0.19, 0.022, 8, 28), oro); r.position.set(0.33, 1.47, 1.02); r.rotation.y = 0.36; g.add(r);
+    const c = new THREE.Mesh(new THREE.TubeGeometry(new THREE.QuadraticBezierCurve3(new THREE.Vector3(0.5, 1.4, 0.98), new THREE.Vector3(0.7, 1.0, 0.95), new THREE.Vector3(0.55, 0.6, 0.85)), 12, 0.01, 5), oro); g.add(c); }
+  { const g = mk("chistera"); g.position.set(0, 1.97, 0); g.rotation.z = -0.12;
+    const ala = new THREE.Mesh(new THREE.CylinderGeometry(0.72, 0.72, 0.05, LP ? 8 : 40), negroM); g.add(ala);
+    const copa = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.44, 0.75, LP ? 8 : 40), negroM); copa.position.y = 0.4; g.add(copa);
+    const cinta = new THREE.Mesh(new THREE.CylinderGeometry(0.445, 0.445, 0.14, LP ? 8 : 40), std(0xb91c1c)); cinta.position.y = 0.12; g.add(cinta); }
+  { const g = mk("corona"); g.position.set(0, 1.9, 0); g.rotation.z = 0.06;
+    const base = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 0.2, LP ? 8 : 40, 1, true), oro); base.position.y = 0.1; base.material.side = THREE.DoubleSide; g.add(base);
+    for (let i = 0; i < 7; i++) { const a = i / 7 * Math.PI * 2; const p = new THREE.Mesh(new THREE.ConeGeometry(0.09, 0.32, LP ? 4 : 10), oro); p.position.set(Math.cos(a) * 0.48, 0.34, Math.sin(a) * 0.48); g.add(p);
+      const gem = new THREE.Mesh(new THREE.SphereGeometry(0.045, 10, 8), std([0xef4444, 0x22c55e, 0x3b82f6][i % 3])); gem.position.set(Math.cos(a) * 0.51, 0.1, Math.sin(a) * 0.51); g.add(gem); } }
+  { const g = mk("cadena"); const t = new THREE.Mesh(new THREE.TorusGeometry(0.44, 0.035, 8, 40), oro); t.position.set(0, -0.12, 0.08); t.rotation.x = 1.15; g.add(t);
+    const d = new THREE.Mesh(new THREE.OctahedronGeometry(0.11), std(0xbff3ff, { metalness: 0.3, roughness: 0.05 })); d.position.set(0, -0.36, 0.5); g.add(d); }
+  { const g = mk("pajarita"); g.position.set(0, 0.04, 0.4);
+    for (const sx of [-1, 1]) { const c = new THREE.Mesh(new THREE.ConeGeometry(0.13, 0.26, LP ? 4 : 12), std(0xdc2626)); c.rotation.z = sx * Math.PI / 2; c.position.x = sx * 0.13; g.add(c); }
+    const n = new THREE.Mesh(new THREE.SphereGeometry(0.06, 10, 8), std(0x991b1b)); g.add(n); }
+  { const g = mk("billetes"); for (let i = 0; i < 4; i++) { const b = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.42, 0.01), std(i % 2 ? 0x22c55e : 0x16a34a)); b.position.set(0, 0.2, -0.02 * i); b.rotation.z = -0.6 + i * 0.32; b.geometry.translate(0, 0.0, 0); g.add(b); } }
+  { const g = mk("gorroRoto"); g.position.set(0, 1.62, 0);
+    const d = new THREE.Mesh(new THREE.SphereGeometry(0.82, LP ? 8 : 32, LP ? 5 : 16, 0, Math.PI * 2, 0, Math.PI / 2), std(0x7a6a58, { roughness: 1 })); d.scale.set(1, 0.72, 1); g.add(d);
+    const banda = new THREE.Mesh(new THREE.TorusGeometry(0.8, 0.08, 8, 40), std(0x5f5142, { roughness: 1 })); banda.rotation.x = Math.PI / 2; g.add(banda);
+    const pom = new THREE.Mesh(new THREE.IcosahedronGeometry(0.16, 0), std(0xcbbfa8, { roughness: 1, flatShading: true })); pom.position.y = 0.62; g.add(pom);
+    for (const [x, y, z] of [[-0.35, 0.35, 0.62], [0.42, 0.25, 0.6]]) { const h = new THREE.Mesh(new THREE.CircleGeometry(0.07, 10), std(0x2a2118)); h.position.set(x, y, z); h.lookAt(x * 3, y * 3, z * 3); g.add(h); } }
+  { const g = mk("parche"); const pa = new THREE.Mesh(new THREE.PlaneGeometry(0.28, 0.24), std(0xd6b98c, { side: THREE.DoubleSide })); pa.position.set(-0.62, 1.05, 0.74); pa.lookAt(-1.5, 1.2, 1.8); g.add(pa);
+    const ti = new THREE.Mesh(new THREE.PlaneGeometry(0.34, 0.1), std(0xf2c9a0, { side: THREE.DoubleSide })); ti.position.set(0.58, 1.12, 0.8); ti.lookAt(1.4, 1.3, 2); ti.rotateZ(-0.5); g.add(ti); }
+  { const g = mk("bufandaRota"); const t = new THREE.Mesh(new THREE.TorusGeometry(0.4, 0.09, 8, 32), std(0x9f2d2d, { roughness: 1 })); t.position.y = 0.05; t.rotation.x = Math.PI / 2; g.add(t);
+    const cola = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.5, 0.05), std(0x8c2626, { roughness: 1 })); cola.position.set(0.28, -0.2, 0.38); cola.rotation.z = 0.25; g.add(cola); }
+  { const g = mk("bolsillos"); for (const sx of [-1, 1]) { const b = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.24, 0.04), std(0xf8fafc)); b.position.set(sx * 0.42, -0.28, 0.12); b.rotation.z = sx * 0.4; g.add(b); } }
+  { const g = mk("mosca"); const cu = new THREE.Mesh(new THREE.SphereGeometry(0.06, 10, 8), std(0x111111)); g.add(cu);
+    for (const sx of [-1, 1]) { const ala = new THREE.Mesh(new THREE.CircleGeometry(0.06, 10), new THREE.MeshBasicMaterial({ color: 0xdcebff, transparent: true, opacity: 0.8, side: THREE.DoubleSide })); ala.position.set(sx * 0.05, 0.05, 0); ala.name = "ala"; g.add(ala); } }
   // --- brazos (se regeneran cada fotograma) ---
   const POSES = {
     reposo: [[-1.1, 0.25, 0.2], [1.1, 0.25, 0.2]], saludo: [[-1.1, 0.25, 0.2], [1.45, 2.05, 0.3]],
@@ -127,7 +167,11 @@ export function crearListo({ estilo = "toon", escala = 1, luz = true } = {}) {
     const h = new THREE.Mesh(LP ? new THREE.BoxGeometry(0.19, 0.19, 0.19) : new THREE.SphereGeometry(CL ? 0.13 : 0.11, 16, 12), M.mano); cuerpo.add(h);
     return { m, h };
   });
-  function actualizar(t, { expr = "normal", pose = "reposo", glow, mira = [0, 0] } = {}) {
+  function actualizar(t, { expr = "normal", pose = "reposo", glow, mira = [0, 0], acc = [], modo = null, accK = {} } = {}) {
+    const ACC = new Set([...(modo ? MODOS[modo] || [] : []), ...acc]);
+    for (const n in A) { A[n].visible = ACC.has(n); const k = accK[n] == null ? 1 : Math.max(0, Math.min(1, accK[n])); A[n].userData.k = k; }
+    if (A.mosca.visible) { A.mosca.position.set(1.15 + Math.sin(t * 6.3) * 0.3, 2.35 + Math.sin(t * 9.7) * 0.18, 0.4); A.mosca.children.forEach((c) => { if (c.name === "ala") c.scale.y = 0.3 + 0.7 * Math.abs(Math.sin(t * 38)); }); }
+    for (const n of ["gafas", "chistera", "corona", "gorroRoto"]) if (A[n].visible) A[n].position.y = (n === "gafas" ? 0 : n === "chistera" ? 1.97 : n === "corona" ? 1.9 : 1.62) + (1 - A[n].userData.k) * 0.8;
     const gl = glow == null ? (expr === "idea" ? 1.35 : expr === "preocupado" ? 0.6 : 1) : glow;
     cuerpo.position.y = 1.05 + Math.sin(t * 2.4) * 0.03;
     if (!CL) { M.vidrio.emissiveIntensity = (LP ? 0.15 : 0.06) * gl; halo.material.opacity = clamp(0.55 * gl, 0, 1); M.neon.color.setHex(gl > 1.1 ? 0xb9ffd2 : 0x5dff98); }
@@ -161,8 +205,9 @@ export function crearListo({ estilo = "toon", escala = 1, luz = true } = {}) {
       b.m.geometry.dispose();
       b.m.geometry = new THREE.TubeGeometry(new THREE.QuadraticBezierCurve3(a, mid, h), LP ? 3 : 16, LP ? 0.05 : CL ? 0.05 : 0.035, LP ? 4 : 8);
       b.h.position.copy(h);
+      if (sx === 1 && A.billetes.visible) A.billetes.position.copy(h);
     });
   }
   actualizar(0);
-  return { root, cuerpo, actualizar, POSES, estilo };
+  return { root, cuerpo, actualizar, POSES, estilo, MODOS, accesorios: Object.keys(A) };
 }
