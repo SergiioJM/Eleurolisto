@@ -12,6 +12,10 @@
 //            'boceto'   (dibujado a mano / libreta: trazo de lápiz que tiembla a 8 fps, rotulador verde)
 //            'neon'     (terminal de bolsa / datos: solo contornos de neón verde)
 //            'tropical' (R8 neón tropical / mundo abierto al atardecer: contorno grueso de cómic, reflejo rosa)
+//   estilo += 'comic' (contorno grueso + trama), 'papel' (recortable con sombra), 'plano_tecnico' (líneas de plano), 'vaporwave'
+//   pegatina = { color: '#fff', grosor: 10 } añade contorno de pegatina a CUALQUIER estilo (ideal sobre vídeo real)
+//   anim   = 'entrada'|'salto'|'giro'|'baile'|'temblor'|'cohete'|'desinfla'|'rebote'|'asoma' con animT = s desde que empieza
+//   dx, dy, sqx, sqy, rot = transformación manual (squash & stretch)
 //   acc    = ['gafas','monoculo','chistera','corona','cadena','pajarita','billetes','gorroRoto','parche','bufandaRota','bolsillos','mosca']
 //   modo   = 'vacilon' | 'rico' | 'millonario' | 'arruinado' (atajos de acc). accK = { gafas: 0..1 } anima la entrada.
 //   Listo2D.pixel(ctx, {…, px}) = versión pixel art (R6). En 3D: toolkit/mascota/listo3d.js (toon, plastilina, lowpoly).
@@ -43,6 +47,20 @@
       soportes: '#4ADE80', ojo: 'rgba(0,0,0,0)', ojoBorde: '#4ADE80', pupila: '#4ADE80', boca: '#4ADE80', lengua: '#4ADE80', mejilla: null, reflejo: null,
       alambre: '#4ADE80', alambreW: 5, mano: 'rgba(0,0,0,0)', manoBorde: '#4ADE80', rosca1: 'rgba(0,0,0,0)', rosca2: 'rgba(0,0,0,0)', punta: 'rgba(0,0,0,0)',
       zapa: 'rgba(0,0,0,0)', zapaBorde: '#4ADE80', suela: 'rgba(0,0,0,0)', soloLinea: true },
+    // NUEVOS (laboratorio de estilos, 18-nov: "no tengas miedo a improvisar estilos nuevos")
+    comic: { halo: null, vidrio: '#8be3b2', sombra: '#5fcf92', borde: '#111111', bordeW: 9, brilloInt: false, euro: '#0f7a3c', euroCore: '#d9ffe9', euroW: 12, euroGlow: 0,
+      soportes: '#111111', ojoBorde: '#111111', pupila: '#111111', boca: '#111111', mejilla: 'rgba(239,68,68,0.55)', reflejo: 'rgba(255,255,255,0.95)',
+      alambre: '#111111', alambreW: 7, mano: '#ffffff', manoBorde: '#111111', rosca1: '#e5e7eb', rosca2: '#9ca3af', punta: '#111111', zapa: '#22C55E', zapaBorde: '#111111', trama: true },
+    papel: { halo: null, vidrio: '#cdeedb', sombra: '#b3e2c6', borde: null, bordeW: 0, brilloInt: false, euro: '#1f9d55', euroCore: null, euroW: 13, euroGlow: 0,
+      soportes: '#7c8a80', ojoBorde: '#2b2b2b', pupila: '#2b2b2b', boca: '#2b2b2b', mejilla: 'rgba(230,110,110,0.45)', reflejo: 'rgba(255,255,255,0.7)',
+      alambre: '#efe6d6', alambreW: 9, mano: '#f6efe2', manoBorde: null, rosca1: '#d8d2c8', rosca2: '#b5ab9c', punta: '#5a5148', zapa: '#2fae5f', textura: true, sombraPapel: true },
+    plano_tecnico: { halo: '125,211,252', vidrio: 'rgba(0,0,0,0)', borde: '#e0f2fe', bordeW: 4, brilloInt: false, euro: '#e0f2fe', euroCore: null, euroW: 7, euroGlow: 0,
+      soportes: '#e0f2fe', ojo: 'rgba(0,0,0,0)', ojoBorde: '#e0f2fe', pupila: '#e0f2fe', boca: '#e0f2fe', lengua: '#e0f2fe', mejilla: null, reflejo: null,
+      alambre: '#e0f2fe', alambreW: 4, mano: 'rgba(0,0,0,0)', manoBorde: '#e0f2fe', rosca1: 'rgba(0,0,0,0)', rosca2: 'rgba(0,0,0,0)', punta: 'rgba(0,0,0,0)',
+      zapa: 'rgba(0,0,0,0)', zapaBorde: '#e0f2fe', suela: 'rgba(0,0,0,0)', soloLinea: true, sinNeon: true, cotas: true },
+    vaporwave: { halo: '255,113,206', vidrio: 'rgba(255,170,230,0.28)', sombra: null, borde: '#fdf4ff', bordeW: 6, brilloInt: true, euro: '#5ef2ff', euroCore: '#f0feff', euroGlow: 1.2,
+      soportes: 'rgba(240,254,255,.8)', mejilla: 'rgba(255,113,206,0.5)', reflejo: 'rgba(255,255,255,0.85)', alambre: '#fdf4ff', mano: '#fdf4ff', manoBorde: '#a855f7',
+      rosca1: '#e9d5ff', rosca2: '#a78bfa', zapa: '#22C55E', zapaBorde: '#7e22ce' },
     // R8 neón tropical / mundo abierto (ambientación de atardecer en una ciudad costera, estilo arte de videojuego):
     // contorno grueso casi negro tipo cómic, cristal con reflejo rosa del atardecer y luz de borde cálida.
     tropical: { halo: '255,120,190', vidrio: 'rgba(255,196,224,0.24)', sombra: null, borde: '#160a22', bordeW: 8, brilloInt: true, euro: '#4ADE80', euroCore: '#ECFFF3', euroGlow: 1.1,
@@ -135,7 +153,7 @@
     c.save(); c.translate(jit(1), jit(2)); fn(1); c.restore();
     c.save(); c.globalAlpha *= 0.55; c.translate(jit(3), jit(4)); fn(2); c.restore();
   }
-  function neonGlow(c, on) { if (ST.soloLinea && on) { c.shadowColor = 'rgba(74,222,128,0.9)'; c.shadowBlur = 16; } else c.shadowBlur = 0; }
+  function neonGlow(c, on) { if (ST.soloLinea && !ST.sinNeon && on) { c.shadowColor = 'rgba(74,222,128,0.9)'; c.shadowBlur = 16; } else c.shadowBlur = 0; }
 
   function bulbPath(c) {
     c.beginPath();
@@ -259,14 +277,15 @@
     c.restore();
   }
 
-  function dibujar(c, o = {}) {
+  function dibujarBase(c, o = {}) {
     const { x = 540, y = 1400, s = 1, t = 0, expr = 'normal', pose = 'reposo', mira = [0, 0], flip = false, alpha = 1, sinPiernas = false, sinHalo = false, opaco = false } = o;
     ST = Object.assign({}, BASE, ESTILOS[o.estilo || 'vector'] || {}); TT = t;
     ACC = new Set([...(o.modo ? MODOS[o.modo] || [] : []), ...(o.acc || [])]); ACCK = o.accK || {};
     if (opaco) { ST.vidrio = '#163A31'; ST.brilloInt = false; }
     const glow = o.glow == null ? (expr === 'idea' ? 1.3 : expr === 'preocupado' ? 0.6 : 1) : o.glow;
     const bob = Math.sin(t * 2.4) * 4;
-    c.save(); c.globalAlpha = alpha; c.translate(x, y); c.scale(s * (flip ? -1 : 1), s);
+    const { dx = 0, dy = 0, sqx = 1, sqy = 1, rot = 0 } = o;
+    c.save(); c.globalAlpha = alpha; c.translate(x + dx * s, y + dy * s); if (rot) c.rotate(rot); c.scale(s * (flip ? -1 : 1) * sqx, s * sqy);
     if (ST.halo && !sinHalo) {
       const g = c.createRadialGradient(0, -210, 10, 0, -210, 230);
       g.addColorStop(0, `rgba(${ST.halo},${0.32 * glow})`); g.addColorStop(1, `rgba(${ST.halo},0)`);
@@ -307,9 +326,14 @@
       c.fillStyle = gi; c.fillRect(-120, -200, 240, 260);
     }
     if (ST.textura) textura(c);
+    if (ST.trama) { c.save(); c.fillStyle = 'rgba(17,17,17,0.16)'; for (let yy = -190; yy < 50; yy += 12) for (let xx = -100 + ((yy / 12) % 2) * 6; xx < 100; xx += 12) { const r = 1.2 + 2.2 * Math.max(0, (xx + yy * 0.3) / 140); c.beginPath(); c.arc(xx, yy, r, 0, 7); c.fill(); } c.restore(); }
     euro(c, glow);
     c.restore();
     if (ST.borde) { c.lineWidth = ST.bordeW; c.strokeStyle = ST.borde; neonGlow(c, true); trazar(c, () => { bulbPath(c); c.stroke(); }); c.shadowBlur = 0; }
+    if (ST.cotas) { c.save(); c.strokeStyle = 'rgba(224,242,254,.65)'; c.fillStyle = 'rgba(224,242,254,.85)'; c.lineWidth = 2; c.setLineDash([8, 6]);
+      c.beginPath(); c.moveTo(-130, -190); c.lineTo(130, -190); c.moveTo(-130, 40); c.lineTo(130, 40); c.moveTo(0, -230); c.lineTo(0, 60); c.stroke(); c.setLineDash([]);
+      c.beginPath(); c.moveTo(140, -190); c.lineTo(140, 40); c.moveTo(132, -190); c.lineTo(148, -190); c.moveTo(132, 40); c.lineTo(148, 40); c.stroke();
+      c.font = '600 18px DejaVu Sans Mono, monospace'; c.textAlign = 'left'; c.fillText('h=1€', 150, -70); c.restore(); }
     if (ST.reflejo) { c.strokeStyle = ST.reflejo; c.lineWidth = 8; c.lineCap = 'round'; c.beginPath(); c.arc(0, -96, 72, Math.PI * 1.12, Math.PI * 1.38); c.stroke(); }
     ojos(c, expr, t, mira);
     boca(c, expr, t);
@@ -324,14 +348,60 @@
     c.restore();
   }
   // Versión pixel art (R6): dibuja a baja resolución y escala sin suavizado.
+  // Envoltorio: añade contorno de PEGATINA (o.pegatina) y la sombra del estilo 'papel', y aplica animaciones (o.anim).
+  const _off = [document.createElement('canvas'), document.createElement('canvas')];
+  function dibujar(c, o = {}) {
+    if (o.anim) { const a = anim(o.anim, o.animT == null ? (o.t || 0) : o.animT); o = Object.assign({}, o, a.trans, a.pose && !o.fijarPose ? { pose: a.pose } : {}, a.expr && !o.fijarExpr ? { expr: a.expr } : {}); }
+    const est = Object.assign({}, BASE, ESTILOS[o.estilo || 'vector'] || {});
+    const peg = o.pegatina, papel = est.sombraPapel;
+    if (!peg && !papel) return dibujarBase(c, o);
+    const s = o.s || 1, W = Math.ceil(760 * s), H = Math.ceil(820 * s), fx = W / 2, fy = H - 110 * s;
+    const [A, B] = _off; A.width = B.width = W; A.height = B.height = H;
+    const a = A.getContext('2d'), b = B.getContext('2d');
+    const odx = (o.dx || 0) * s, ody = (o.dy || 0) * s; // el desplazamiento se aplica fuera del lienzo auxiliar (no recorta saltos)
+    dibujarBase(a, Object.assign({}, o, { x: fx, y: fy, alpha: 1, sinHalo: true, dx: 0, dy: 0 }));
+    if (est.halo && !o.sinHalo) dibujarHalo(c, Object.assign({}, o, { x: o.x + odx, y: o.y + ody }), est);
+    const tinte = (col, g) => { b.clearRect(0, 0, W, H); const n = 16; for (let i = 0; i < n; i++) { const ang = i / n * 6.283; b.drawImage(A, Math.cos(ang) * g, Math.sin(ang) * g); } b.globalCompositeOperation = 'source-in'; b.fillStyle = col; b.fillRect(0, 0, W, H); b.globalCompositeOperation = 'source-over'; };
+    c.save(); c.globalAlpha = o.alpha == null ? 1 : o.alpha;
+    if (papel || peg) { tinte('rgba(0,0,0,0.35)', peg ? (peg.grosor || 10) * s * 0.6 : 2 * s); c.drawImage(B, o.x - fx + odx + 9 * s, o.y - fy + ody + 11 * s); }
+    if (peg) { tinte(peg.color || '#ffffff', (peg.grosor || 10) * s); c.drawImage(B, o.x - fx + odx, o.y - fy + ody); }
+    c.drawImage(A, o.x - fx + odx, o.y - fy + ody); c.restore();
+  }
+  function dibujarHalo(c, o, est) { const s = o.s || 1, g = c.createRadialGradient(o.x, o.y - 336 * s, 10, o.x, o.y - 336 * s, 230 * s); g.addColorStop(0, `rgba(${est.halo},0.3)`); g.addColorStop(1, `rgba(${est.halo},0)`); c.fillStyle = g; c.beginPath(); c.arc(o.x, o.y - 336 * s, 230 * s, 0, 7); c.fill(); }
+
+  // ANIMACIONES de Listo (dinamismo con movimiento, nunca con luz): devuelven desplazamiento (en px a escala 1),
+  // squash & stretch (sqx, sqy), giro (rot) y, si toca, pose y expresión. u = segundos desde que empieza la animación.
+  const ease = (k) => 1 - Math.pow(1 - Math.max(0, Math.min(1, k)), 3);
+  function anim(nombre, u) {
+    const T = { dx: 0, dy: 0, sqx: 1, sqy: 1, rot: 0 }; let pose = null, expr = null;
+    const sq = (k) => { T.sqy = 1 - k; T.sqx = 1 + k * 0.8; }; // aplastar (k>0) o estirar (k<0)
+    if (nombre === 'entrada') { // cae del cielo y rebota al aterrizar
+      if (u < 0.32) { const k = u / 0.32; T.dy = -900 * (1 - k * k); sq(-0.18 * k); pose = 'celebra'; expr = 'sorpresa'; }
+      else if (u < 0.62) { const k = (u - 0.32) / 0.3; sq(0.28 * Math.sin(k * Math.PI) * (1 - k * 0.5)); T.dy = -40 * Math.max(0, Math.sin((k - 0.45) * Math.PI)); pose = 'brazosAbiertos'; expr = 'feliz'; }
+      else { pose = 'saludo'; expr = 'feliz'; } }
+    else if (nombre === 'salto') { const p = u % 1.0; // salto con anticipación (en bucle de 1 s)
+      if (p < 0.15) sq(0.18 * Math.sin(p / 0.15 * Math.PI / 2));
+      else if (p < 0.6) { const k = (p - 0.15) / 0.45; T.dy = -260 * Math.sin(k * Math.PI); sq(-0.14 * Math.sin(k * Math.PI)); pose = 'celebra'; }
+      else if (p < 0.75) sq(0.2 * Math.sin((p - 0.6) / 0.15 * Math.PI)); expr = 'feliz'; }
+    else if (nombre === 'giro') { const k = ease(Math.min(1, u / 0.7)); T.sqx = Math.cos(k * Math.PI * 2); if (Math.abs(T.sqx) < 0.08) T.sqx = 0.08 * Math.sign(T.sqx || 1); T.dy = -90 * Math.sin(k * Math.PI); pose = 'brazosAbiertos'; expr = 'feliz'; }
+    else if (nombre === 'baile') { T.rot = Math.sin(u * 7) * 0.13; T.dx = Math.sin(u * 3.5) * 40; T.dy = -Math.abs(Math.sin(u * 7)) * 30; sq(0.06 * Math.cos(u * 14)); pose = Math.floor(u * 3.5) % 2 ? 'celebra' : 'manosCadera'; expr = 'guino'; }
+    else if (nombre === 'temblor') { T.dx = Math.sin(u * 55) * 5; T.rot = Math.sin(u * 47) * 0.02; sq(0.04); pose = 'brazosCruzados'; expr = 'preocupado'; }
+    else if (nombre === 'cohete') { // despega hacia arriba (la bolsa sube)
+      if (u < 0.25) sq(0.22 * Math.sin(u / 0.25 * Math.PI / 2)); else { const k = u - 0.25; T.dy = -1400 * k * k - 200 * k; sq(-0.25); } pose = 'celebra'; expr = 'sorpresa'; }
+    else if (nombre === 'desinfla') { const k = ease(u / 0.8); sq(0.18 * k); T.rot = -0.12 * k; T.dy = 10 * k; pose = 'reposo'; expr = 'preocupado'; }
+    else if (nombre === 'rebote') { const p = (u * 2.2) % 1; T.dy = -60 * Math.sin(p * Math.PI); sq(p > 0.88 || p < 0.06 ? 0.08 : -0.03); }
+    else if (nombre === 'asoma') { const k = ease(u / 0.5); T.dx = (1 - k) * -420; T.rot = (1 - k) * -0.5; pose = 'saludo'; expr = 'guino'; }
+    return { trans: T, pose, expr };
+  }
+
   function pixel(c, o = {}) {
     const { x = 540, y = 1400, s = 1, px = 6 } = o;
     const W = Math.ceil(420 * s / px), H = Math.ceil(420 * s / px);
     const off = document.createElement('canvas'); off.width = W; off.height = H;
     const oc = off.getContext('2d'); oc.imageSmoothingEnabled = false;
-    dibujar(oc, Object.assign({}, o, { x: W / 2, y: H - 2, s: s / px, glow: 0.35, sinHalo: true, opaco: true, estilo: 'vector' }));
+    dibujar(oc, Object.assign({}, o, { x: W / 2, y: H - 2, s: s / px, glow: 0.35, sinHalo: true, opaco: true, estilo: 'vector', pegatina: null }));
     const im = oc.getImageData(0, 0, W, H); for (let i = 3; i < im.data.length; i += 4) im.data[i] = im.data[i] > 90 ? 255 : 0; oc.putImageData(im, 0, 0);
     c.save(); c.imageSmoothingEnabled = false; c.drawImage(off, x - W * px / 2, y - H * px, W * px, H * px); c.restore();
   }
-  window.Listo2D = { dibujar, pixel, POSES, ESTILOS: Object.keys(ESTILOS).concat(['pixel']), MODOS, ACCESORIOS };
+  window.Listo2D = { dibujar, pixel, anim, POSES, ESTILOS: Object.keys(ESTILOS).concat(['pixel']), MODOS, ACCESORIOS, ANIMACIONES: ['entrada', 'salto', 'giro', 'baile', 'temblor', 'cohete', 'desinfla', 'rebote', 'asoma'] };
 })();

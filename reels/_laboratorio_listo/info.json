@@ -1,0 +1,7 @@
+{
+  "tipo": "demo interna (no se publica): laboratorio de estilos y animaciones de Listo",
+  "pedido": "Sergio, 18-nov: 'muchos estilos de animación y muchos estilos de Listo con sus animaciones, dinámicas; improvisa estilos nuevos'",
+  "escenas": ["R9 Cómic: entrada + giro", "R10 Papel recortado: baile + gafas y cadena que caen", "R11 Plano técnico: rebote + cohete", "R12 Vaporwave + pegatina: salto en modo millonario"],
+  "musica": "chip 124 bpm (sin voz)",
+  "brillo": "salto máximo 6,4 entre fotogramas (transiciones de 1,2 s)"
+}

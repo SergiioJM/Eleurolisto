@@ -1,0 +1,47 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<script src="../../toolkit/mascota/listo2d.js"></script>
+<style>html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#0b1328}canvas{position:absolute;inset:0}</style></head>
+<body><canvas id="c" width="1080" height="1920"></canvas>
+<script>
+// LABORATORIO DE LISTO (demo interna, 18-nov): 4 estilos nuevos de Listo con sus animaciones, cambiando con empujes laterales.
+const X = document.getElementById('c').getContext('2d');
+const DUR = (window.DURACION = 14.4);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x)), prog = (t, a, d) => clamp((t - a) / d), eio = (k) => k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+const eback = (k, s = 1.8) => { k = clamp(k); return 1 + (s + 1) * Math.pow(k - 1, 3) + s * Math.pow(k - 1, 2); };
+function txt(s, x, y, size, col, peso = 800, fam = 'Poppins', align = 'center') { X.font = `${peso} ${size}px ${fam}`; X.fillStyle = col; X.textAlign = align; X.textBaseline = 'middle'; X.fillText(s, x, y); }
+const ESC = [
+  { t0: 0.0, nombre: 'CÓMIC', anims: 'entrada · giro', fondo: (t) => { X.fillStyle = '#ffd43b'; X.fillRect(0, 0, 1080, 1920); X.fillStyle = 'rgba(239,68,68,.22)'; for (let y = 0; y < 1920; y += 26) for (let x = (y / 26 % 2) * 13; x < 1080; x += 26) { X.beginPath(); X.arc(x, y, 6, 0, 7); X.fill(); }
+      X.save(); X.translate(540, 900); X.fillStyle = '#ffffff'; X.strokeStyle = '#111'; X.lineWidth = 10; X.beginPath(); for (let i = 0; i < 24; i++) { const a = i / 24 * 6.283, r = i % 2 ? 300 : 420; X.lineTo(Math.cos(a) * r, Math.sin(a) * r); } X.closePath(); X.fill(); X.stroke(); X.restore(); },
+    listo: (t) => ({ estilo: 'comic', anim: t < 1.2 ? 'entrada' : 'giro', animT: t < 1.2 ? t : t - 1.2 }),
+    extra: (t) => { const k = eback(prog(t, 0.45, 0.3), 2.5); if (k > 0) { X.save(); X.translate(820, 560); X.rotate(0.18); X.scale(k, k); X.font = 'italic 900 110px Inter'; X.lineWidth = 16; X.strokeStyle = '#111'; X.textAlign = 'center'; X.strokeText('¡ZAS!', 0, 0); X.fillStyle = '#ef4444'; X.fillText('¡ZAS!', 0, 0); X.restore(); } } },
+  { t0: 3.6, nombre: 'PAPEL RECORTADO', anims: 'baile + gafas que caen', fondo: (t) => { X.fillStyle = '#c9a77c'; X.fillRect(0, 0, 1080, 1920); X.fillStyle = 'rgba(120,85,50,.12)'; for (let i = 0; i < 300; i++) { const x = (i * 97) % 1080, y = (i * 211) % 1920; X.fillRect(x, y, 3, 3); }
+      const cols = ['#ef4444', '#3b82f6', '#22c55e', '#f59e0b', '#a855f7']; for (let i = 0; i < 26; i++) { const x = (i * 173 + t * 40 * (i % 3 + 1)) % 1080, y = (i * 331 + t * 140 * (1 + i % 2)) % 1920; X.save(); X.translate(x, y); X.rotate(t * (i % 2 ? 2 : -2) + i); X.fillStyle = cols[i % 5]; X.fillRect(-14, -8, 28, 16); X.restore(); } },
+    listo: (t) => ({ estilo: 'papel', anim: 'baile', animT: t, acc: t > 1.3 ? ['gafas', 'cadena'] : [], accK: { gafas: prog(t, 1.3, 0.35), cadena: prog(t, 1.6, 0.3) }, fijarExpr: false }),
+    extra: () => {} },
+  { t0: 7.2, nombre: 'PLANO TÉCNICO', anims: 'rebote · cohete', fondo: (t) => { X.fillStyle = '#0b3d91'; X.fillRect(0, 0, 1080, 1920); X.strokeStyle = 'rgba(224,242,254,.14)'; X.lineWidth = 2; for (let k = 0; k <= 1920; k += 40) { X.beginPath(); X.moveTo(0, k); X.lineTo(1080, k); X.stroke(); } for (let k = 0; k <= 1080; k += 40) { X.beginPath(); X.moveTo(k, 0); X.lineTo(k, 1920); X.stroke(); }
+      X.strokeStyle = 'rgba(224,242,254,.5)'; X.setLineDash([14, 10]); X.lineWidth = 3; X.beginPath(); X.moveTo(540, 1380); X.lineTo(540, 300); X.stroke(); X.setLineDash([]); txt('TRAYECTORIA: ↑ +500 %', 560, 520, 30, '#e0f2fe', 600, 'DejaVu Sans Mono', 'left'); },
+    listo: (t) => ({ estilo: 'plano_tecnico', anim: t < 1.6 ? 'rebote' : 'cohete', animT: t < 1.6 ? t : t - 1.6 }),
+    extra: (t) => { if (t > 1.85) { X.strokeStyle = 'rgba(224,242,254,.7)'; X.lineWidth = 4; for (let i = 0; i < 6; i++) { const x = 470 + i * 28, l = 120 + (i % 3) * 60; X.beginPath(); X.moveTo(x, 1400); X.lineTo(x, 1400 + l); X.stroke(); } } } },
+  { t0: 10.8, nombre: 'VAPORWAVE + PEGATINA', anims: 'salto · modo millonario', fondo: (t) => { const g = X.createLinearGradient(0, 0, 0, 1920); g.addColorStop(0, '#2b0a4f'); g.addColorStop(0.5, '#ff71ce'); g.addColorStop(0.62, '#01cdfe'); g.addColorStop(1, '#1a0636'); X.fillStyle = g; X.fillRect(0, 0, 1080, 1920);
+      X.fillStyle = '#fffb96'; X.beginPath(); X.arc(540, 860, 260, Math.PI, 0); X.fill(); X.strokeStyle = 'rgba(255,113,206,.8)'; X.lineWidth = 3; for (let i = 0; i < 14; i++) { const y = 1180 + Math.pow(i / 14, 2) * 740 + ((t * 60) % 40); X.beginPath(); X.moveTo(0, y); X.lineTo(1080, y); X.stroke(); } for (let i = -10; i <= 10; i++) { X.beginPath(); X.moveTo(540 + i * 30, 1180); X.lineTo(540 + i * 180, 1920); X.stroke(); } },
+    listo: (t) => ({ estilo: 'vaporwave', anim: t < 3.0 ? 'salto' : null, animT: t, modo: 'millonario', pegatina: { color: '#ffffff', grosor: 11 }, expr: t < 3.0 ? 'feliz' : 'guino', pose: t < 3.0 ? 'celebra' : 'pulgar' }),
+    extra: () => {} },
+];
+window.renderAt = (t) => {
+  let i = ESC.length - 1; while (i > 0 && t < ESC[i].t0) i--;
+  const e = ESC[i], u = t - e.t0;
+  const kIn = i === 0 ? 1 : eio(prog(u, 0, 1.2));
+  // empuje lateral: la escena anterior sale por la izquierda mientras entra la nueva (sin flashes)
+  const pinta = (E, uu, off) => { X.save(); X.translate(off, 0); E.fondo(uu); const L = E.listo(uu); Listo2D.dibujar(X, Object.assign({ x: 540, y: 1440, s: 2.0, t: uu }, L)); E.extra(uu); X.restore(); };
+  X.setTransform(1, 0, 0, 1, 0, 0);
+  if (kIn < 1) pinta(ESC[i - 1], t - ESC[i - 1].t0, -1080 * kIn);
+  pinta(e, u, 1080 * (1 - kIn));
+  // rótulos fijos
+  X.fillStyle = 'rgba(10,12,24,.82)'; X.beginPath(); X.roundRect(200, 150, 680, 70, 35); X.fill(); txt('LABORATORIO DE LISTO', 540, 186, 34, '#ffffff', 800);
+  const kt = eback(prog(u, 0.15, 0.4)); X.save(); X.translate(540, 300); X.scale(kt, kt); X.fillStyle = '#FFC547'; X.beginPath(); X.roundRect(-330, -56, 660, 112, 30); X.fill(); txt(e.nombre, 0, -4, 54, '#14181f', 900); X.restore();
+  txt(e.anims, 540, 400, 36, '#ffffff', 700); X.lineWidth = 6; X.strokeStyle = 'rgba(0,0,0,.35)';
+  txt('@eleurolisto', 540, 1520, 32, 'rgba(255,255,255,.9)', 700);
+};
+Promise.all([document.fonts.load('900 54px Poppins'), document.fonts.load('italic 900 110px Inter')]).then(() => { window.listo = true; });
+</script></body></html>
