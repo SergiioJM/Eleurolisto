@@ -14,5 +14,17 @@
   "video_final_portada": "https://cdn.creativeclaw.co/u/626ff63d/videos/f360289f-f5de-441b-bc5e-0aac0930f503.mp4",
   "vidiq_uploadId_sin_portada": "5332a1ef-6b21-4406-aa10-ca887d32d850",
   "vidiq_uploadId_con_portada": "b3493599-9372-4f47-940e-9dbd89f24a95",
-  "portada": "portada/portada.jpg"
+  "portada": "portada/portada.jpg",
+  "version_kinetic": {
+    "look": "tipografía cinética (motion graphics planos, sin personajes): palabras que golpean con fondo que parpadea, barridos de bloque de color, crash zooms, odómetros, pantalla partida, confeti; música upbeat 118 bpm baja",
+    "motivo": "Sergio (17-nov ~20:15): 'quiero más creatividad en la edición, son la misma edición de bits en 3D, necesito dinamismo' → eligió 'Rehacer el de las 20:30'",
+    "escena": "escena_kinetic.html + sonido_kinetic.py",
+    "portada": "portada_kinetic/portada.jpg",
+    "video_final": "https://cdn.creativeclaw.co/u/626ff63d/videos/7b9cac43-ff4e-4a72-b340-79f578bcc75f.mp4",
+    "video_final_portada": "https://cdn.creativeclaw.co/u/626ff63d/videos/5885218b-fdc2-4131-8977-995b0d0e6a07.mp4",
+    "vidiq_uploadId_sin_portada": "bc3fb8d9-4a97-405c-aaf2-d5c419d29dbd",
+    "vidiq_uploadId_con_portada": "f5265925-c502-4d77-af39-a8120cbab84a",
+    "sincronia": "verificada con Scribe sobre el vídeo final: palabras a ±0,1 s de timings.json",
+    "estado": "enviada a Sergio el 17-nov ~20:45 en 'Noticias del 17-nov tarde'; respondió sin elegir opción → sigue programada la versión 3D ya aprobada salvo que apruebe esta antes del 18-nov 20:27"
+  }
 }
