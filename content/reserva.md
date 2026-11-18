@@ -20,3 +20,6 @@
 - Los dos reels del jueves, de pilares distintos al ahorro básico. Propuesta (la tarea nocturna del martes decide con la búsqueda viral de esa noche):
   - **13:30 · Renta fija vs renta variable** (corto, voz local `k_santa` —toca alternar—, A vs B con dos personajes: "prestas" vs "eres dueño").
   - **20:30 · Dividendos sin humo** (Javier): recrea el gancho viral "¿Y si te pagaran un sueldo extra cada mes?" y lo explica de verdad: qué es un dividendo, por qué la cotización baja ese día, que no está garantizado y que tributa en la base del ahorro (verificar tipos en la AEAT). Sin nombrar empresas concretas como recomendación. Caption con "Contenido educativo, no es asesoramiento financiero."
+
+## Aparcado el 18-nov (de plan_semanal.md)
+- **CRIPTO · Apalancamiento: así se liquidan miles de millones en un día** (qué es una liquidación, por qué con x10 una caída del 10 % se lo lleva todo; riesgo muy alto). Refrescar las cifras de liquidaciones del día (CoinGlass/prensa) antes de usarlo. Encaja con el look R7 low-poly "¿Y si…?" o con un R13 "globo de alerta".

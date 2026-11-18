@@ -6,7 +6,7 @@ Contexto de mercado (18-nov): bitcoin cerca de 64.800 $ el 15-nov tras liquidaci
 
 | Día | 13:30 | 20:30 |
 |---|---|---|
-| Vie 20 | **CRIPTO · Apalancamiento: así se liquidan 2.000 millones en un día** (qué es una liquidación, por qué x10 se esfuma con un −10 %; riesgo muy alto) | **POLÉMICA · Fondos indexados vs gestión activa**: qué % de fondos activos no bate a su índice a 10–15 años (SPIVA Europa, último informe) y el peso de las comisiones; "¿y los gestores estrella?" → pregunta al final |
+| Vie 20 | ~~CRIPTO · Apalancamiento~~ → **HECHO (18-nov noche): ESTAFAS · "¿Te piden pagar para sacar tu dinero?"** (cambiado para que los dos reels del día sean de pilares distintos y por el viral de estafas; el apalancamiento pasa a reserva) | **HECHO (18-nov noche): POLÉMICA · Fondos indexados vs gestión activa** (SPIVA mitad de 2026: 97,6 % a 10 años; R5 plastilina; ElevenLabs Carmen) |
 | Sáb 21 | **DINERO Y LEY · Hacienda ya ve tus criptos (DAC8)**: qué datos envían los exchanges, cómo tributan las ganancias (base del ahorro) y el modelo 721 | **POLÉMICA · ¿Bitcoin: burbuja u oro digital?** Argumentos de los dos lados con datos (volatilidad, caídas históricas del 70–80 %, ETF, oferta limitada); "¿tú de qué lado estás?" |
 | Dom 22 | **BOLSA · "La bolsa es un casino": mito o verdad** (probabilidad histórica de perder según los años invertidos en un índice mundial; fuente MSCI/estudios) | **VIVIENDA + INVERSIÓN · ¿Comprar casa o alquilar e invertir la diferencia?** Ejemplo con supuestos claros; el matiz que nadie cuenta (apalancamiento de la hipoteca, gastos, liquidez) |
 | Lun 23 | **CRIPTO · Stablecoins explicadas**: qué son, por qué no siempre valen 1 $ (casos de pérdida de paridad) y qué cambia con MiCA | **POLÉMICA · Plan de pensiones privado: ¿ventaja fiscal o timo?** Límite de aportación, comisiones, rescate y tributación (AEAT) |
@@ -16,4 +16,5 @@ Contexto de mercado (18-nov): bitcoin cerca de 64.800 $ el 15-nov tras liquidaci
 
 Experimento de la semana: **los reels "polémica" acaban con una pregunta de dos opciones** ("¿burbuja o futuro? Comenta 1 o 2") y se compara con los demás en comentarios y compartidos.
 Votación del post fijado (A fin de mes / B invertir / C Hacienda / D deudas): mira los comentarios cada noche; la opción ganadora entra en el siguiente hueco libre.
-Voces: Creative Claw tiene 10 créditos (Javier necesita ≥ 12) y ElevenLabs gratis está desactivado → voces locales `v1`/`k_santa` salvo que Sergio recargue o contrate ElevenLabs Starter.
+Voces: Creative Claw tiene 10 créditos (Javier necesita ≥ 12; tras unir la voz del viernes quedarán ~6). **ElevenLabs gratis vuelve a funcionar (18-nov noche, 1.504/10.000 caracteres)** → a las 20:30 ElevenLabs hasta que Sergio recargue Creative Claw; al de las 13:30, voces locales `v1`/`k_santa`.
+Ojo: varios días del plan tienen los dos reels de inversión; la regla del PLAYBOOK es 1 de inversión + 1 de otro pilar al día → la tarea nocturna cambia uno de los dos cuando choque (prioridad: estafas, dinero y ley, vivienda, nómina).

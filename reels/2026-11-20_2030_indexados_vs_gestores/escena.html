@@ -1,0 +1,414 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<script type="importmap">{"imports":{"three":"../../toolkit/escena3d/node_modules/three/build/three.module.js","lib3d":"../../toolkit/escena3d/lib3d.js","listo3d":"../../toolkit/mascota/listo3d.js"}}</script>
+<style>
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#1d120e;font-family:Poppins,sans-serif}
+canvas{position:absolute;inset:0}
+.ov{position:absolute;pointer-events:none}
+#barra{left:64px;right:64px;top:118px;height:10px;display:flex;gap:12px}
+#barra i{flex:1;background:rgba(255,236,220,.22);border-radius:6px;overflow:hidden;position:relative}
+#barra i b{position:absolute;left:0;top:0;bottom:0;background:#fff3e6;border-radius:6px}
+#kick{left:0;right:0;top:160px;text-align:center}
+#kick span{display:inline-block;font:700 30px Poppins;letter-spacing:4px;color:#ffe2c4;background:rgba(120,50,30,.55);border:3px solid rgba(255,190,140,.55);padding:8px 26px 6px;border-radius:40px}
+#subs{left:50px;right:50px;top:262px;height:200px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;text-align:center;font:700 78px/1.15 Poppins;color:#fff;letter-spacing:-1px;
+  text-shadow:0 4px 16px rgba(0,0,0,.55)}
+#subs .w{display:inline-block;padding:2px 14px 0;margin:0 2px;border-radius:22px;position:relative}
+#subs .w.fut{opacity:.0}
+#subs .w.on{background:#ffd34d;color:#2a1708;text-shadow:none;box-shadow:0 8px 20px rgba(0,0,0,.35)}
+#subs .w.cl{color:#ffd34d}
+#subs .w.cl.on{color:#2a1708}
+.pill{transform:translate(-50%,-50%);white-space:nowrap;font:700 40px Poppins;padding:10px 30px 6px;border-radius:50px;box-shadow:0 10px 26px rgba(0,0,0,.4)}
+.pill.r{background:#d9573f;color:#fff}.pill.y{background:#f5c542;color:#2a1708}
+.val{transform:translate(-50%,-50%);white-space:nowrap;font:800 58px Poppins;color:#fff;text-shadow:0 4px 14px rgba(0,0,0,.6)}
+.tagp{transform:translate(-50%,-50%) rotate(-6deg);white-space:nowrap;font:800 44px Poppins;padding:8px 24px 4px;border-radius:16px;background:#fff;color:#c2410c;box-shadow:0 10px 24px rgba(0,0,0,.4)}
+.q{transform:translate(-50%,-50%);font:800 110px Poppins;color:#ffd34d;text-shadow:0 6px 18px rgba(0,0,0,.6)}
+#hcard{left:64px;top:1130px;text-align:left;transform-origin:0 50%}
+#hcard b{display:inline-block;font:800 170px/1 Poppins;letter-spacing:-6px;color:#2a1708;background:#f5c542;padding:24px 56px 6px;border-radius:60px;box-shadow:0 18px 0 rgba(0,0,0,.25),0 30px 60px rgba(0,0,0,.45)}
+#hcard div{margin-top:22px;font:700 40px/1.2 Poppins;color:#fff;text-shadow:0 3px 12px rgba(0,0,0,.7)}
+#hcard small{display:inline-block;margin-top:14px;font:600 28px Poppins;color:#ffe2c4;background:rgba(30,15,10,.6);padding:6px 20px;border-radius:30px}
+#vivos{left:64px;top:1160px;text-align:left;transform-origin:0 50%}
+#vivos b{display:inline-block;font:800 120px/1 Poppins;color:#fff;background:#d9573f;padding:20px 46px 6px;border-radius:44px;box-shadow:0 14px 0 rgba(0,0,0,.25),0 24px 50px rgba(0,0,0,.45)}
+#vivos div{margin-top:22px;font:700 42px Poppins;color:#fff;text-shadow:0 3px 12px rgba(0,0,0,.7)}
+#anyo{left:0;right:0;top:1412px;text-align:center}
+#anyo b{display:inline-block;font:700 44px Poppins;color:#ffe2c4;background:rgba(30,15,10,.7);padding:10px 32px 6px;border-radius:40px}
+#gan{transform:translate(-50%,-50%);white-space:nowrap;font:800 62px Poppins;color:#2a1708;background:#7ee08a;padding:10px 32px 4px;border-radius:40px;box-shadow:0 10px 26px rgba(0,0,0,.4)}
+#hipo{left:0;right:0;top:1500px;text-align:center;font:600 28px Poppins;color:rgba(255,226,196,.85)}
+#vota{left:0;top:0}
+#vota div{position:absolute;white-space:nowrap;font:800 50px Poppins;padding:14px 34px 8px;border-radius:30px;box-shadow:0 12px 30px rgba(0,0,0,.45)}
+#fuente{left:0;right:0;top:1490px;text-align:center;font:600 24px Poppins;color:rgba(255,226,196,.7)}
+#marca{left:0;right:0;top:1528px;text-align:center;font:600 28px Poppins;color:rgba(255,255,255,.5)}
+</style></head>
+<body>
+<div id="barra" class="ov"></div>
+<div id="kick" class="ov"><span>⚔ POLÉMICA · FONDOS</span></div>
+<div id="subs" class="ov"></div>
+<div id="hcard" class="ov"><b>97,6 %</b><div>de los fondos de bolsa española<br>NO batió a su índice en 10 años</div></div>
+<div id="vivos" class="ov"><b>51 de 100</b><div>siguen vivos tras 10 años</div></div>
+<div id="pg" class="ov pill r">GESTIÓN ACTIVA</div>
+<div id="pi" class="ov pill y">FONDO INDEXADO</div>
+<div id="tg" class="ov tagp">−1,5 % al año</div>
+<div id="ti" class="ov tagp" style="color:#15803d">−0,2 % al año</div>
+<div id="vg" class="ov val">10.000 €</div>
+<div id="vi" class="ov val">10.000 €</div>
+<div id="anyo" class="ov"><b>AÑO 0</b></div>
+<div id="gan" class="ov">+22.128 €</div>
+<div id="hipo" class="ov">Ejemplo hipotético (7 % anual antes de comisiones). No garantizado.</div>
+<div id="q0" class="ov q">?</div><div id="q1" class="ov q">?</div><div id="q2" class="ov q">?</div>
+<div id="vota" class="ov"><div style="background:#d9573f;color:#fff">1 · GESTOR</div><div style="background:#f5c542;color:#2a1708">2 · ÍNDICE</div></div>
+<div id="fuente" class="ov">Fuente: SPIVA Europe Mid-Year 2026 (S&amp;P Dow Jones Indices), datos a 30-jun-2026</div>
+<div id="marca" class="ov">@eleurolisto</div>
+<script type="module">
+// Look R5 · 3D TIPO PLASTILINA, COMPARATIVA CON CORONA (referencia 05 de Sergio, con personajes NUESTROS):
+// plataforma redonda con aros, foco cálido FIJO, barra de progreso por segmentos, píldoras de etiqueta,
+// el ganador recibe una corona. Personajes: "Gestor" (cápsula coral con corbata y maletín) y "Índice" (cesta mostaza
+// llena de bolitas = cientos de empresas), 100 figuritas de "fondos", Listo en modelado 'plastilina'.
+// Subtítulos: trozos cortos con la palabra activa en píldora amarilla (no el recuadro azul del 3D de bloques).
+// Todo depende solo de t y de timings.json (voz de ElevenLabs · Carmen) -> render determinista. Sin cambios de luz.
+import * as THREE from "three";
+import * as L from "lib3d";
+import { crearListo } from "listo3d";
+const { clamp, lerp, prog, easeOut, easeInOut, easeBack, easeIn, smooth } = L;
+const hash = (i) => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+const TIM = window.TIM, S = TIM.segments, DUR = TIM.total;
+const limpia = (w) => w.toLowerCase().replace(/[¿?¡!.,:;…]/g, "");
+const pal = (i, f, n = 0) => { const ws = S[i].words.filter((w) => limpia(w.w) === f); const w = ws[n] || ws[0]; if (!w) console.warn("falta", f); return w ? w.start : S[i].start; };
+const T = {
+  noventa: pal(0, "noventa"), cien: pal(0, "cien"), fondos: pal(0, "fondos"), batieron: pal(0, "batieron"), indice: pal(0, "índice"), anos: pal(0, "años"),
+  y1: S[1].start, mitad: pal(1, "mitad"), viva: pal(1, "viva"), cerraron: pal(1, "cerraron"), fusionaron: pal(1, "fusionaron"),
+  el: S[2].start, gestor: pal(2, "gestor"), uno: pal(2, "uno"), medio: pal(2, "medio"), indexado: pal(2, "indexado"), cero: pal(2, "cero"), dos: pal(2, "dos"),
+  con: S[3].start, diez: pal(3, "diez"), treinta: pal(3, "treinta"), siete: pal(3, "siete"), hipo: pal(3, "hipotético"), cincuenta: pal(3, "cincuenta"),
+  frente: pal(3, "frente"), setenta: pal(3, "setenta"), mil2: pal(3, "mil", 2),
+  algunos: S[4].start, ganan: pal(4, "ganan"), saber: pal(4, "saber"), cual: pal(4, "cuál"), antes: pal(4, "antes"), imposible: pal(4, "imposible"),
+  tu: S[5].start, vas: pal(5, "vas"), comenta: pal(5, "comenta"), gestor2: pal(5, "gestor"), indice2: pal(5, "índice"),
+};
+const $ = (id) => document.getElementById(id);
+
+// ---------- render ----------
+const W = 1080, H = 1920;
+const r = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+r.setSize(W, H); r.setPixelRatio(1);
+r.outputColorSpace = THREE.SRGBColorSpace;
+r.toneMapping = THREE.NeutralToneMapping; r.toneMappingExposure = 1.0;
+r.shadowMap.enabled = true; r.shadowMap.type = THREE.PCFSoftShadowMap;
+document.body.prepend(r.domElement);
+const esc = new THREE.Scene();
+{ // fondo fijo: degradado cálido oscuro
+  const c = document.createElement("canvas"); c.width = 4; c.height = 256; const x = c.getContext("2d");
+  const g = x.createLinearGradient(0, 0, 0, 256); g.addColorStop(0, "#160d0a"); g.addColorStop(0.55, "#3a2219"); g.addColorStop(1, "#4a2c24");
+  x.fillStyle = g; x.fillRect(0, 0, 4, 256); const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; esc.background = tx;
+}
+const cam = new THREE.PerspectiveCamera(38, W / H, 0.1, 200);
+esc.add(new THREE.HemisphereLight(0xffe6d0, 0x5a3a30, 1.25));
+const sol = new THREE.DirectionalLight(0xfff1e0, 2.1); sol.position.set(-4, 11, 7); sol.castShadow = true;
+sol.shadow.mapSize.set(1024, 1024); Object.assign(sol.shadow.camera, { left: -7, right: 7, top: 7, bottom: -7, near: 1, far: 30 }); sol.shadow.radius = 4;
+esc.add(sol);
+const relleno = new THREE.DirectionalLight(0xffc89a, 0.55); relleno.position.set(6, 4, -3); esc.add(relleno);
+const plas = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.93, metalness: 0, ...o });
+const mesh = (geo, m, pos = [0, 0, 0], sombra = true) => { const k = new THREE.Mesh(geo, m); k.position.set(...pos); k.castShadow = sombra; k.receiveShadow = true; return k; };
+
+// suelo, plataforma y aros
+const suelo = mesh(new THREE.CircleGeometry(40, 64), plas(0x6b4038), [0, 0, 0], false); suelo.rotation.x = -Math.PI / 2; esc.add(suelo);
+const plat = mesh(new THREE.CylinderGeometry(4.6, 4.75, 0.3, 72), plas(0xa9776d), [0, 0.15, 0], false); esc.add(plat);
+for (const [rr, y] of [[3.3, 0.31], [4.45, 0.31]]) { const a = mesh(new THREE.TorusGeometry(rr, 0.045, 10, 120), plas(0x7a4c3e), [0, y, 0], false); a.rotation.x = Math.PI / 2; esc.add(a); }
+// haz de foco FIJO (transparente, sin parpadeo)
+{
+  const g = new THREE.ConeGeometry(3.4, 14, 48, 1, true); g.translate(0, -7, 0);
+  const m = new THREE.MeshBasicMaterial({ color: 0xffd9a8, transparent: true, opacity: 0.055, depthWrite: false, side: THREE.DoubleSide });
+  const cono = new THREE.Mesh(g, m); cono.position.set(0.6, 14.2, -1.2); cono.rotation.z = -0.05; esc.add(cono);
+}
+// destellos (estrellitas de 4 puntas)
+const texEstrella = (() => { const c = document.createElement("canvas"); c.width = c.height = 64; const x = c.getContext("2d"); x.fillStyle = "#ffe7a8";
+  x.beginPath(); for (let i = 0; i < 8; i++) { const a = i * Math.PI / 4, rr = i % 2 ? 6 : 30; x.lineTo(32 + Math.cos(a) * rr, 32 + Math.sin(a) * rr); } x.fill();
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; })();
+const estrellas = [];
+for (let i = 0; i < 14; i++) { const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: texEstrella, transparent: true, depthWrite: false, opacity: 0.9 }));
+  s.userData = { x: (hash(i) - 0.5) * 9, y: 3 + hash(i + 9) * 6, z: -3 - hash(i + 3) * 3, f: 0.6 + hash(i + 5) * 0.8 }; esc.add(s); estrellas.push(s); }
+
+// ---------- 100 figuritas de "fondos" ----------
+const N = 100, SP = 0.44;
+const gF = new THREE.CapsuleGeometry(0.15, 0.16, 6, 14); gF.translate(0, 0.31, 0);
+const gO = new THREE.CapsuleGeometry(0.025, 0.035, 4, 8);
+const figs = new THREE.InstancedMesh(gF, plas(0xffffff), N); figs.castShadow = true; figs.receiveShadow = true;
+const ojos = new THREE.InstancedMesh(gO, plas(0x16110e, { roughness: 0.3 }), N * 2);
+esc.add(figs, ojos);
+const GAN = [33, 76];                                                  // los 2 que sí batieron al índice
+const desaparece = [...Array(N).keys()].filter((i) => !GAN.includes(i)).sort((a, b) => hash(a + 40) - hash(b + 40)).slice(0, 49); // 49 cierran/fusionan
+const cCoral = new THREE.Color(0xe8805f), cGris = new THREE.Color(0x8d8580), cOro = new THREE.Color(0xf5c542), tmpC = new THREE.Color();
+const dm = new THREE.Object3D();
+function figuritas(t) {
+  const fuera = prog(t, T.el - 0.6, 0.6);                              // se van al empezar la comparativa
+  figs.visible = ojos.visible = fuera < 1;
+  for (let i = 0; i < N; i++) {
+    const cx = (i % 10 - 4.5) * SP, cz = (Math.floor(i / 10) - 4.5) * SP - 0.2;
+    const gana = GAN.includes(i);
+    const tf = T.batieron - 0.1 + ((i % 10) + Math.floor(i / 10)) * 0.028;   // ola de caída
+    const kf = gana ? 0 : easeIn(prog(t, tf, 0.32));
+    const di = desaparece.indexOf(i), kd = di < 0 ? 0 : easeIn(prog(t, T.cerraron - 0.55 + (di % 25) * 0.05 + (di >= 25 ? 0.7 : 0), 0.3));
+    const kin = easeBack(prog(t, -0.2 + hash(i) * 0.25, 0.4));
+    const salto = gana && t > T.batieron + 0.4 ? Math.abs(Math.sin((t - T.batieron) * 7 + i)) * 0.12 : 0;
+    const respira = Math.sin(t * 2.6 + i * 0.7) * 0.02;
+    const sc = kin * (1 - kd) * (1 - easeIn(fuera)) * (gana ? 1.12 : 1);
+    dm.position.set(cx, 0.3 + salto - kd * 0.25, cz);
+    dm.rotation.set(-kf * Math.PI / 2 * 0.92, 0, hash(i + 2) * 0.4 * kf);
+    dm.scale.set(sc * (1 + respira), sc * (1 - respira), sc * (1 + respira));
+    dm.updateMatrix(); figs.setMatrixAt(i, dm.matrix);
+    tmpC.copy(cCoral).lerp(cGris, kf); if (gana) tmpC.copy(cCoral).lerp(cOro, smooth(prog(t, T.batieron + 0.3, 0.5)));
+    figs.setColorAt(i, tmpC);
+    for (let e = 0; e < 2; e++) {
+      const o = new THREE.Object3D(); o.position.set((e ? 0.055 : -0.055), 0.36, 0.14); o.scale.set(1, 1, 0.5);
+      const m = new THREE.Matrix4().multiplyMatrices(dm.matrix, (o.updateMatrix(), o.matrix));
+      ojos.setMatrixAt(i * 2 + e, m);
+    }
+  }
+  figs.instanceMatrix.needsUpdate = true; figs.instanceColor.needsUpdate = true; ojos.instanceMatrix.needsUpdate = true;
+}
+
+// ---------- personajes ----------
+function crearGestor() {
+  const g = new THREE.Group(), cuerpo = new THREE.Group(); g.add(cuerpo);
+  const coral = plas(0xe0745a), negro = plas(0x16110e, { roughness: 0.3 }), azul = plas(0x23366b), marron = plas(0x6b3f24), blanco = plas(0xfff7ee);
+  cuerpo.add(mesh(new THREE.CapsuleGeometry(0.52, 0.62, 10, 28), coral, [0, 0.98, 0]));
+  for (const sx of [-1, 1]) {
+    const o = mesh(new THREE.CapsuleGeometry(0.065, 0.11, 6, 12), negro, [sx * 0.18, 1.2, 0.48]); o.scale.z = 0.5; cuerpo.add(o);
+    const ce = mesh(new THREE.BoxGeometry(0.2, 0.05, 0.06), negro, [sx * 0.18, 1.39, 0.46]); ce.rotation.z = sx * -0.28; cuerpo.add(ce);
+    cuerpo.add(mesh(new THREE.SphereGeometry(0.13, 14, 10), coral, [sx * 0.2, 0.09, 0.08]));                 // pies
+    const brazo = mesh(new THREE.CapsuleGeometry(0.08, 0.32, 6, 10), coral, [sx * 0.6, 0.85, 0.05]); brazo.rotation.z = sx * 0.35; cuerpo.add(brazo);
+  }
+  cuerpo.add(mesh(new THREE.TorusGeometry(0.07, 0.022, 6, 16, Math.PI), negro, [0, 1.04, 0.5])).rotation.z = Math.PI;
+  const cuello = mesh(new THREE.CylinderGeometry(0.2, 0.26, 0.08, 18), blanco, [0, 0.84, 0.36]); cuello.rotation.x = 0.5; cuerpo.add(cuello);
+  cuerpo.add(mesh(new THREE.SphereGeometry(0.06, 10, 8), azul, [0, 0.84, 0.52]));
+  const corbata = mesh(new THREE.ConeGeometry(0.09, 0.42, 4), azul, [0, 0.6, 0.53]); corbata.rotation.set(0.12, Math.PI / 4, Math.PI); cuerpo.add(corbata);
+  const maletin = new THREE.Group(); maletin.position.set(0.78, 0.5, 0.15);
+  maletin.add(mesh(new THREE.BoxGeometry(0.46, 0.34, 0.14), marron)); maletin.add(mesh(new THREE.TorusGeometry(0.08, 0.02, 6, 14, Math.PI), negro, [0, 0.18, 0]));
+  cuerpo.add(maletin);
+  return { root: g, cuerpo };
+}
+function crearIndice() {
+  const g = new THREE.Group(), cuerpo = new THREE.Group(); g.add(cuerpo);
+  const mostaza = plas(0xeab13d), banda = plas(0xc98d25), negro = plas(0x16110e, { roughness: 0.3 });
+  cuerpo.add(mesh(new THREE.CylinderGeometry(0.66, 0.52, 1.0, 36), mostaza, [0, 0.75, 0]));
+  for (const y of [0.4, 0.62, 0.84, 1.06]) { const b = mesh(new THREE.TorusGeometry(0.56 + (y - 0.25) * 0.14, 0.035, 8, 48), banda, [0, y, 0]); b.rotation.x = Math.PI / 2; cuerpo.add(b); }
+  const borde = mesh(new THREE.TorusGeometry(0.66, 0.07, 10, 48), banda, [0, 1.25, 0]); borde.rotation.x = Math.PI / 2; cuerpo.add(borde);
+  const cols = [0x22c55e, 0x3b82f6, 0xef4444, 0xf59e0b, 0x8b5cf6, 0x14b8a6, 0xec4899, 0xf8fafc];
+  for (let i = 0; i < 46; i++) {                                                  // cientos de empresas dentro de la cesta
+    const a = hash(i + 100) * Math.PI * 2, rr = Math.sqrt(hash(i + 200)) * 0.55, h = 1.3 + (0.55 - rr) * 0.45 + hash(i + 300) * 0.08;
+    cuerpo.add(mesh(new THREE.SphereGeometry(0.1 + hash(i) * 0.03, 12, 10), plas(cols[i % cols.length]), [Math.cos(a) * rr, h, Math.sin(a) * rr]));
+  }
+  for (const sx of [-1, 1]) {
+    const o = mesh(new THREE.CapsuleGeometry(0.065, 0.11, 6, 12), negro, [sx * 0.19, 0.86, 0.6]); o.scale.z = 0.5; cuerpo.add(o);
+    cuerpo.add(mesh(new THREE.SphereGeometry(0.13, 14, 10), mostaza, [sx * 0.22, 0.09, 0.08]));
+    cuerpo.add(mesh(new THREE.SphereGeometry(0.07, 10, 8), plas(0xf28b74), [sx * 0.36, 0.7, 0.55]));          // mofletes
+  }
+  const boca = mesh(new THREE.TorusGeometry(0.09, 0.025, 6, 16, Math.PI), negro, [0, 0.68, 0.6]); boca.rotation.z = Math.PI; cuerpo.add(boca);
+  return { root: g, cuerpo };
+}
+function crearCorona() {
+  const g = new THREE.Group(), oro = plas(0xf2b705, { roughness: 0.7 }), gema = plas(0xe0457b, { roughness: 0.4 });
+  const base = mesh(new THREE.TorusGeometry(0.36, 0.08, 10, 40), oro); base.rotation.x = Math.PI / 2; g.add(base);
+  for (let i = 0; i < 6; i++) { const a = i / 6 * Math.PI * 2; const p = mesh(new THREE.ConeGeometry(0.09, 0.34, 10), oro, [Math.cos(a) * 0.36, 0.2, Math.sin(a) * 0.36]); g.add(p);
+    g.add(mesh(new THREE.SphereGeometry(0.045, 10, 8), gema, [Math.cos(a) * 0.4, 0.02, Math.sin(a) * 0.4])); }
+  return g;
+}
+const GES = crearGestor(), IND = crearIndice(), COR = crearCorona();
+const clones = [crearGestor(), crearGestor()];
+esc.add(GES.root, IND.root, COR, ...clones.map((c) => c.root));
+// pilas de monedas (10.000 € = 4 monedas; 1 moneda = 2.500 €)
+const gM = new THREE.CylinderGeometry(0.42, 0.42, 0.09, 32);
+const pilaG = new THREE.InstancedMesh(gM, plas(0xe9b949, { roughness: 0.75 }), 32), pilaI = new THREE.InstancedMesh(gM, plas(0xe9b949, { roughness: 0.75 }), 32);
+pilaG.castShadow = pilaI.castShadow = true; esc.add(pilaG, pilaI);
+const MON_H = 0.09, EUR_MON = 3000;
+function pila(im, x, n, t, seed) {
+  for (let k = 0; k < 32; k++) {
+    const vis = clamp(n - k);                                              // la moneda k aparece cuando n pasa de k
+    dm.position.set(x + (hash(k + seed) - 0.5) * 0.05, 0.3 + MON_H * (k + 0.5) + (1 - easeOut(vis)) * 0.5, (hash(k + seed + 7) - 0.5) * 0.05);
+    dm.rotation.set(0, hash(k) * 3, 0); dm.scale.setScalar(vis > 0 ? 1 : 0.0001); dm.updateMatrix(); im.setMatrixAt(k, dm.matrix);
+  }
+  im.instanceMatrix.needsUpdate = true;
+}
+// Listo
+const LIS = crearListo({ estilo: "plastilina", escala: 0.62 }); esc.add(LIS.root);
+LIS.root.traverse((o) => { if (o.isMesh) { o.castShadow = true; } });
+
+// ---------- cámara ----------
+const camK = L.camaraSuave([
+  { t: 0, p: [0, 8.9, 8.3], m: [0, 0.2, 0.2], fov: 40 },
+  { t: 6.4, p: [0, 7.9, 7.6], m: [0, 0.3, 0.3], fov: 40 },
+  { t: T.fusionaron + 0.3, p: [0, 7.2, 8.4], m: [0, 0.4, 0.2], fov: 40 },
+  { t: T.el + 0.5, p: [0, 4.2, 10.5], m: [0, 1.0, 0], fov: 38 },
+  { t: T.con, p: [0, 4.0, 10.1], m: [0, 1.05, 0], fov: 38 },
+  { t: T.cincuenta, p: [0, 3.0, 16.6], m: [0, 2.2, 0], fov: 38 },
+  { t: T.mil2 + 0.4, p: [0.35, 3.1, 16.0], m: [0.15, 2.3, 0], fov: 38 },
+  { t: T.algunos + 0.6, p: [0, 4.2, 10.5], m: [0, 1.0, 0], fov: 38 },
+  { t: T.tu - 0.2, p: [0, 4.2, 10.5], m: [0, 1.0, 0], fov: 38 },
+  { t: DUR, p: [0, 4.0, 9.8], m: [0, 1.05, 0], fov: 38 },
+], 0.45);
+
+// ---------- barra de progreso y subtítulos ----------
+const barra = $("barra"); barra.innerHTML = S.map(() => "<i><b></b></i>").join("");
+const CL = ["noventa", "ocho", "cien", "batieron", "mitad", "viva", "cerraron", "fusionaron", "uno", "medio", "cero", "dos", "hipotético", "cincuenta", "setenta", "imposible", "gestor", "índice", "ganan"];
+const trozos = [];
+S.forEach((s) => { let cur = []; s.words.forEach((w, j) => { cur.push(w); const fin = /[.?:;,]$/.test(w.w) || cur.length >= 3 || j === s.words.length - 1; if (fin) { trozos.push(cur); cur = []; } }); });
+trozos.forEach((c, i) => { c.a = i === 0 ? -1 : c[0].start - 0.06; c.b = i < trozos.length - 1 ? trozos[i + 1][0].start - 0.06 : DUR; });
+let ultimo = -1;
+function subs(t) {
+  const i = trozos.findIndex((c) => t >= c.a && t < c.b), el = $("subs");
+  if (i !== ultimo) { el.innerHTML = i < 0 ? "" : trozos[i].map((w) => `<span class="w${CL.includes(limpia(w.w)) ? " cl" : ""}">${w.w}</span>`).join(""); ultimo = i; }
+  if (i < 0) return;
+  const c = trozos[i], k = easeOut(prog(t, c.a, 0.16));
+  el.style.transform = `translateY(${(1 - k) * 22}px) scale(${0.95 + 0.05 * k})`;
+  [...el.children].forEach((sp, j) => {
+    const w = c[j], dicha = t >= w.start - 0.05 || i === 0 && t < 0.25 && j === 0, act = dicha && (t < w.end + 0.05 || j === c.length - 1);
+    sp.className = "w" + (CL.includes(limpia(w.w)) ? " cl" : "") + (dicha ? "" : " fut") + (act ? " on" : "");
+    sp.style.transform = act ? `scale(${1 + 0.08 * Math.sin(clamp((t - w.start) / 0.2) * Math.PI)})` : "";
+  });
+  const segs = barra.children;
+  S.forEach((s, j) => { segs[j].firstChild.style.width = (100 * clamp((t - s.start) / Math.max(s.dur, 0.1))) + "%"; });
+}
+// proyección de puntos 3D a pantalla (para las píldoras)
+const v = new THREE.Vector3();
+const aPantalla = (x, y, z) => { v.set(x, y, z).project(cam); return [(v.x + 1) / 2 * W, (1 - v.y) / 2 * H]; };
+const coloca = (el, x, y, z, op = 1, sc = 1, extra = "") => { const [px, py] = aPantalla(x, y, z); el.style.left = px + "px"; el.style.top = py + "px"; el.style.opacity = op; el.style.transform = `translate(-50%,-50%) ${extra} scale(${sc})`; el.style.display = op > 0.001 ? "block" : "none"; };
+const fmt = (v) => Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " €";
+
+// ---------- escena por tiempo ----------
+function renderAt(t) {
+  const c = camK(t); cam.position.set(...c.p); cam.lookAt(...c.m); cam.fov = c.fov; cam.updateProjectionMatrix(); cam.updateMatrixWorld(true);
+  figuritas(t);
+  // estrellitas: giran y cambian de tamaño despacio (no de brillo)
+  estrellas.forEach((s, i) => { const u = s.userData; s.position.set(u.x + Math.sin(t * 0.3 + i) * 0.2, u.y + Math.sin(t * 0.5 + i) * 0.15, u.z); s.scale.setScalar(0.18 + 0.1 * Math.sin(t * u.f * 2 + i)); s.material.rotation = t * 0.4 + i; });
+
+  // --- comparativa ---
+  const entra = easeBack(prog(t, T.el - 0.35, 0.55)), sale = 0;
+  const xg = -1.05, xi = 1.05;
+  // años y pilas
+  const kA = smooth(prog(t, T.treinta - 0.1, T.cincuenta - T.treinta - 0.1)), anyo = 30 * kA;
+  const vG = 10000 * Math.pow(1.055, anyo), vI = 10000 * Math.pow(1.068, anyo);
+  const monVis = prog(t, T.diez - 0.2, 0.5);
+  const fase4 = smooth(prog(t, T.algunos - 0.1, 0.6)), fase5 = smooth(prog(t, T.tu - 0.3, 0.6));
+  const baja = fase4 * (1 - fase5);                                        // en la fase 4 se bajan de las pilas
+  const nG = monVis * (vG / EUR_MON) * (1 - fase4), nI = monVis * (vI / EUR_MON) * (1 - fase4);
+  pila(pilaG, xg, nG, t, 1); pila(pilaI, xi, nI, t, 50);
+  const hG = MON_H * Math.max(nG, 0), hI = MON_H * Math.max(nI, 0);
+  // gestor
+  const sq = (k) => [1 + 0.12 * k, 1 - 0.12 * k];
+  const bot = Math.sin(t * 3.1) * 0.03;
+  let gx = xg, gz = 0;
+  // fase 4: juego de los vasos (3 gestores iguales)
+  const slots = [-1.3, 0, 1.3];
+  const perm = (u) => { // 3 intercambios entre T.antes-0.3 y T.imposible+0.4
+    const sw = [[0, 2], [1, 2], [0, 1]]; let ord = [0, 1, 2]; const k = clamp(u) * 3; const n = Math.floor(k), f = easeInOut(k - n);
+    for (let j = 0; j < Math.min(n, 3); j++) { const [a, b] = sw[j]; [ord[a], ord[b]] = [ord[b], ord[a]]; }
+    return { ord, sw: n < 3 ? sw[n] : null, f };
+  };
+  const pu = perm(prog(t, T.antes - 0.35, T.imposible + 0.5 - T.antes));
+  const posSlot = (who) => { // posición x, z de cada gestor (0 = principal, 1-2 = clones) durante el juego
+    const idx = pu.ord.indexOf(who); let x = slots[idx], z = 0;
+    if (pu.sw && pu.sw.includes(idx)) { const other = pu.sw[0] === idx ? pu.sw[1] : pu.sw[0]; x = lerp(slots[idx], slots[other], pu.f); z = Math.sin(pu.f * Math.PI) * (idx < other ? 0.8 : -0.8); }
+    return [x, z];
+  };
+  const enJuego = fase4 > 0.01 && fase5 < 0.99;
+  if (enJuego) { const [x, z] = posSlot(0); gx = lerp(lerp(xg, x, fase4), xg, fase5); gz = (z - 0.8 * fase4) * (1 - fase5); }
+  const gy = 0.3 + hG * (1 - fase4);
+  GES.root.position.set(gx, gy, gz); GES.root.scale.setScalar(entra);
+  const [sx1, sy1] = sq(Math.sin(t * 6) * 0.15 * (t > T.uno - 0.1 && t < T.medio + 0.5 ? 1 : 0));
+  GES.cuerpo.scale.set(sx1, sy1 + bot, sx1);
+  GES.cuerpo.rotation.z = Math.sin(t * 1.7) * 0.04;
+  // clones del juego
+  clones.forEach((cl, j) => {
+    const ap = easeBack(prog(t, T.algunos + 0.15 + j * 0.15, 0.45)) * (1 - easeIn(prog(t, T.tu - 0.3, 0.45)));
+    const [x, z] = posSlot(j + 1); cl.root.position.set(x, 0.3, z - 0.8); cl.root.scale.setScalar(Math.max(ap, 0.0001)); cl.root.visible = ap > 0.01;
+    cl.cuerpo.rotation.z = Math.sin(t * 1.9 + j) * 0.05;
+  });
+  // índice
+  const salIdx = smooth(prog(t, T.algunos - 0.2, 0.6)) * (1 - smooth(prog(t, T.tu - 0.3, 0.6)));
+  IND.root.position.set(lerp(xi, 4.2, salIdx), 0.3 + hI, lerp(0, -2.5, salIdx)); IND.root.scale.setScalar(entra);
+  const feliz = t > T.mil2 ? Math.abs(Math.sin((t - T.mil2) * 6)) * 0.08 * (1 - prog(t, T.mil2 + 1.5, 0.5)) : 0;
+  IND.cuerpo.position.y = feliz; IND.cuerpo.rotation.z = Math.sin(t * 1.5 + 1) * 0.04;
+  GES.root.visible = IND.root.visible = entra > 0.001;
+  pilaG.visible = pilaI.visible = monVis > 0;
+  // corona: cae sobre el índice en "setenta y dos mil"
+  const kc = prog(t, T.setenta - 0.1, 0.55), cy = 0.3 + hI + 1.55;
+  COR.visible = kc > 0;
+  COR.position.set(IND.root.position.x, lerp(cy + 3.5, cy, easeIn(kc)) + (kc >= 1 ? Math.max(0, Math.sin((t - T.setenta - 0.45) * 12) * 0.12 * (1 - prog(t, T.setenta + 0.45, 0.6))) : 0), IND.root.position.z);
+  COR.rotation.set(0.15, t * 0.8, 0.12 * (1 - kc));
+
+  // Listo
+  let lo = { expr: "normal", pose: "reposo", mira: [0, 0.2] };
+  const kL = smooth(prog(t, T.el - 0.5, 0.7)), kJ = smooth(prog(t, T.algunos - 0.2, 0.6)) * (1 - smooth(prog(t, T.tu - 0.4, 0.6))), kF = smooth(prog(t, T.tu - 0.4, 0.6));
+  let lp = [lerp(1.25, 0, kL), 0.3, lerp(lerp(lerp(2.35, 1.6, kL), 2.2, kJ), 1.8, kF)];
+  let lsc = lerp(lerp(0.5, 0.4, kL), 0.45, kF);
+  LIS.root.visible = t >= 0.22;
+  if (t < T.el - 0.4) {
+    if (t < 1.4) { lo.anim = "entrada"; lo.animT = t - 0.22; }
+    else if (t < T.batieron) { lo.pose = "senala"; lo.expr = "sorpresa"; lo.mira = [0.2, 0.6]; }
+    else if (t < T.y1) { lo.pose = "brazosCruzados"; lo.expr = "preocupado"; }
+    else { lo.anim = "temblor"; lo.animT = t - T.y1; }
+  } else if (t < T.con) {
+    lo.pose = t < T.cero - 0.1 ? "piensa" : "senala"; lo.expr = t < T.cero - 0.1 ? "normal" : "idea";
+  } else if (t < T.algunos) {
+    lo.pose = "reposo"; lo.expr = "sorpresa";
+    if (t > T.mil2 - 0.1 && t < T.mil2 + 1.3) { lo.anim = "salto"; lo.animT = t - T.mil2 + 0.1; }
+    else if (t > T.mil2) { lo.pose = "celebra"; lo.expr = "feliz"; }
+  } else if (t < T.tu - 0.2) {
+    lo.pose = t < T.saber ? "senalaIzq" : "piensa"; lo.expr = t < T.saber ? "normal" : "preocupado";
+    if (t > T.antes) { lo.pose = "brazosCruzados"; }
+  } else {
+    lo.pose = t < T.comenta ? "saludo" : "pulgar"; lo.expr = t < T.comenta ? "feliz" : "guino";
+    if (t > T.comenta - 0.1 && t < T.comenta + 0.7) { lo.anim = "giro"; lo.animT = t - T.comenta + 0.1; }
+  }
+  LIS.root.position.set(...lp); LIS.root.scale.setScalar(lsc);
+  LIS.actualizar(t, lo);
+
+  // ---------- capas HTML ----------
+  const kH = t < T.batieron + 0.2 ? 1 : 1 - prog(t, T.y1 - 0.3, 0.3);
+  const kHin = easeBack(prog(t, T.noventa - 0.25, 0.35));
+  $("hcard").style.opacity = t < T.y1 ? kH : 0;
+  $("hcard").style.transform = `translateY(${(1 - kHin) * 40}px) scale(${0.85 + 0.15 * kHin})`;
+  $("hcard").style.display = t < T.y1 ? "block" : "none";
+  const kV = easeBack(prog(t, T.cerraron - 0.4, 0.35)), oV = prog(t, T.el - 0.5, 0.3);
+  $("vivos").style.display = kV > 0 && oV < 1 ? "block" : "none"; $("vivos").style.opacity = 1 - oV; $("vivos").style.transform = `scale(${0.8 + 0.2 * kV})`;
+  // píldoras sobre los personajes
+  const kp = easeBack(prog(t, T.gestor - 0.2, 0.35)), kpi = easeBack(prog(t, T.indexado - 0.25, 0.35));
+  const pOut = 1 - prog(t, T.algunos - 0.2, 0.3);
+  const pIn5 = prog(t, T.tu, 0.3);
+  const pgOn = t < T.diez - 0.2 ? 1 : 1 - prog(t, T.diez - 0.2, 0.3);
+  coloca($("pg"), gx, 2.6, gz, t < T.algunos ? pOut * pgOn * (kp > 0 ? 1 : 0) : 0, Math.max(kp, 0.01));
+  coloca($("pi"), IND.root.position.x, 2.6, IND.root.position.z, t < T.algunos ? pOut * pgOn * (kpi > 0 ? 1 : 0) : 0, Math.max(kpi, 0.01));
+  const ktg = easeBack(prog(t, T.uno - 0.12, 0.3)), kti = easeBack(prog(t, T.cero - 0.12, 0.3)), tOut = 1 - prog(t, T.con - 0.2, 0.3);
+  coloca($("tg"), gx, 2.12, gz, ktg > 0 ? tOut : 0, Math.max(ktg, 0.01), "rotate(-5deg)");
+  coloca($("ti"), IND.root.position.x, 2.12, 0, kti > 0 ? tOut : 0, Math.max(kti, 0.01), "rotate(4deg)");
+  const kv = prog(t, T.diez - 0.1, 0.3), vOut = 1 - prog(t, T.algunos - 0.25, 0.3);
+  const destacaG = t > T.cincuenta - 0.1 ? 1 + 0.1 * Math.sin(clamp((t - T.cincuenta + 0.1) / 0.3) * Math.PI) : 1;
+  const destacaI = t > T.setenta - 0.1 ? 1 + 0.14 * Math.sin(clamp((t - T.setenta + 0.1) / 0.3) * Math.PI) : 1;
+  $("vg").textContent = fmt(vG); $("vi").textContent = fmt(vI);
+  coloca($("vg"), gx, 0.3 + hG + 2.25, 0, kv * vOut, destacaG); $("vg").style.top = "548px";
+  coloca($("vi"), xi, 0.3 + hI + 2.3, 0, kv * vOut, destacaI); $("vi").style.top = "548px";
+  $("vi").style.color = t > T.setenta - 0.1 ? "#ffd34d" : "#fff";
+  const ka = prog(t, T.treinta - 0.3, 0.3), aOut = 1 - prog(t, T.algunos - 0.25, 0.3);
+  $("anyo").style.opacity = ka * aOut; $("anyo").style.display = ka * aOut > 0 ? "block" : "none";
+  $("anyo").firstChild.textContent = `AÑO ${Math.round(anyo)} · 7 % hipotético`;
+  const kg = easeBack(prog(t, T.mil2 + 0.1, 0.35));
+  $("gan").style.left = "540px"; $("gan").style.top = "1452px"; $("gan").style.opacity = kg > 0 ? aOut : 0;
+  $("gan").style.transform = `translate(-50%,-50%) scale(${Math.max(kg, 0.01)})`; $("gan").style.display = kg > 0 && aOut > 0 ? "block" : "none";
+  if (kg > 0) $("anyo").style.opacity = 0;
+  $("hipo").style.opacity = prog(t, T.diez, 0.3) * aOut;
+  // signos de interrogación del juego
+  ["q0", "q1", "q2"].forEach((id, j) => {
+    const kq = easeBack(prog(t, T.saber - 0.1 + j * 0.1, 0.3)) * (1 - prog(t, T.tu - 0.4, 0.3));
+    const x = slots[j];
+    coloca($(id), x, 2.45 + Math.sin(t * 4 + j) * 0.06, -0.8, kq > 0 ? 1 : 0, Math.max(kq, 0.01));
+  });
+  const kvt = easeBack(prog(t, T.tu + 0.2, 0.4));
+  [...$("vota").children].forEach((d, j) => { const tt = j ? T.indice2 : T.gestor2; const [px, py] = aPantalla(j ? xi : xg, 2.6, 0);
+    d.style.left = px + "px"; d.style.top = py + "px"; d.style.opacity = kvt > 0 ? 1 : 0;
+    d.style.transform = `translate(-50%,-50%) scale(${Math.max(kvt, 0.01) * (1 + 0.12 * Math.sin(clamp((t - tt + 0.05) / 0.3) * Math.PI))})`; });
+  $("fuente").style.opacity = t < T.el ? 1 : prog(t, T.tu, 0.4);
+  $("kick").style.transform = `translateY(${(1 - easeOut(prog(t, 0, 0.4))) * -30}px)`;
+  subs(t);
+  r.render(esc, cam);
+}
+window.DURACION = DUR;
+window.renderAt = renderAt;
+document.fonts.ready.then(() => { renderAt(0); window.listo = true; });
+</script>
+</body></html>
