@@ -16,5 +16,10 @@
   "sfx": "biblioteca video-shotcraft (lib:): air-woosh-quick, whoosh-fast, hit-weak, bass-hit-short + paper-staple (sellos), swoosh-quick, ui-popup-dry, ui-message-pop (chat), clock-tick-single (saldo que sube), impact-zoom-quick (+312 %), ui-success-soft, switch-tap (RETIRAR), ui-notify-tech, sweep-fast-small (giro de la píldora), ui-tone-quick (tono de llamada), marker-pen-line (tachón), ui-confirm-tone, swoosh-slow, chime-crystal",
   "portada": "portada/portada.jpg (fondo: fotograma t=2,8 con el sello ESTAFA sobre el aviso de retirada y Listo preocupado; kicker ESTAFAS DE INVERSIÓN, '¿Pagar para SACAR tu dinero?')",
   "duracion_s": 21.5,
-  "estado": "PENDIENTE de aprobación (enviado 18-nov noche)"
+  "estado": "PENDIENTE de aprobación (enviado 18-nov noche)",
+  "brillo": "brillo medio por fotograma (54x96 gris): 29–51; salto máximo 5,8 (0 saltos > 8)",
+  "loudness": "−13,9 LUFS",
+  "vidiq_uploadId_sin_portada": "208f10c6-247a-4c8f-bb11-4900e93eec34",
+  "vidiq_uploadId_con_portada": "fae4e238-054a-4d6b-a093-aea57d3225eb",
+  "creditos": "0 (voz local, motor propio)"
 }

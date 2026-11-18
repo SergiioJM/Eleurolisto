@@ -17,5 +17,10 @@
   "portada": "portada/portada.jpg (fondo: fotograma t=33,2 con el gestor serio, la cesta con corona y Listo guiñando; kicker POLÉMICA · FONDOS, '¿Gestor o ÍNDICE?', etiqueta '98 de cada 100 no le ganan')",
   "duracion_s": 35.0,
   "estado": "PENDIENTE de aprobación (enviado 18-nov noche)",
-  "voz_url": "ElevenLabs flow zhZrgw9tegvEEi1BN5kF, nodo 07hEVjD7NJsCenEB1oFi, generación Oce7WR3zIcdl5qJjHGTl (URL firmada, caduca)"
+  "voz_url": "ElevenLabs flow zhZrgw9tegvEEi1BN5kF, nodo 07hEVjD7NJsCenEB1oFi, generación Oce7WR3zIcdl5qJjHGTl (URL firmada, caduca)",
+  "video_final_cc": "https://cdn.creativeclaw.co/u/626ff63d/videos/ec7f6d9e-81ef-49eb-92cc-d95207af1c2a.mp4",
+  "video_final_portada_cc": "https://cdn.creativeclaw.co/u/626ff63d/videos/8369dacc-a0f4-4b6e-8715-7f44d535642b.mp4",
+  "mezcla": "voz unida con add_audio_to_video de Creative Claw (mix, start_offset 0,25 s, 2 créditos × 2) y normalizada aquí a −14 LUFS → video.mp4 / video_portada.mp4",
+  "brillo": "brillo medio por fotograma (54x96 gris): 65–111; salto máximo 2,8 (0 saltos > 8)",
+  "creditos": "ElevenLabs 1.033 caracteres (462 la buena + 571 una toma de 41 s descartada); Creative Claw 4 (dos uniones de voz)"
 }
