@@ -1,0 +1,361 @@
+{
+ "total": 21.507,
+ "voz": "v1",
+ "segments": [
+  {
+   "i": 0,
+   "start": 0.35,
+   "dur": 2.498,
+   "text": "¿Te piden pagar para sacar tu dinero? Es una estafa.",
+   "words": [
+    {
+     "w": "¿Te",
+     "start": 0.35,
+     "end": 0.461
+    },
+    {
+     "w": "piden",
+     "start": 0.461,
+     "end": 0.786
+    },
+    {
+     "w": "pagar",
+     "start": 0.786,
+     "end": 1.069
+    },
+    {
+     "w": "para",
+     "start": 1.069,
+     "end": 1.274
+    },
+    {
+     "w": "sacar",
+     "start": 1.274,
+     "end": 1.614
+    },
+    {
+     "w": "tu",
+     "start": 1.614,
+     "end": 1.76
+    },
+    {
+     "w": "dinero?",
+     "start": 1.76,
+     "end": 2.043
+    },
+    {
+     "w": "Es",
+     "start": 2.043,
+     "end": 2.197
+    },
+    {
+     "w": "una",
+     "start": 2.197,
+     "end": 2.427
+    },
+    {
+     "w": "estafa.",
+     "start": 2.427,
+     "end": 2.848
+    }
+   ]
+  },
+  {
+   "i": 1,
+   "start": 3.148,
+   "dur": 5.765,
+   "text": "El guion: un anuncio con un famoso, un asesor con prisas y una app donde ganas un trescientos por cien.",
+   "words": [
+    {
+     "w": "El",
+     "start": 3.148,
+     "end": 3.312
+    },
+    {
+     "w": "guion:",
+     "start": 3.312,
+     "end": 3.625
+    },
+    {
+     "w": "un",
+     "start": 3.625,
+     "end": 3.791
+    },
+    {
+     "w": "anuncio",
+     "start": 3.791,
+     "end": 4.309
+    },
+    {
+     "w": "con",
+     "start": 4.309,
+     "end": 4.539
+    },
+    {
+     "w": "un",
+     "start": 4.539,
+     "end": 4.679
+    },
+    {
+     "w": "famoso,",
+     "start": 4.679,
+     "end": 5.038
+    },
+    {
+     "w": "un",
+     "start": 5.038,
+     "end": 5.207
+    },
+    {
+     "w": "asesor",
+     "start": 5.207,
+     "end": 5.667
+    },
+    {
+     "w": "con",
+     "start": 5.667,
+     "end": 5.895
+    },
+    {
+     "w": "prisas",
+     "start": 5.895,
+     "end": 6.331
+    },
+    {
+     "w": "y",
+     "start": 6.331,
+     "end": 6.45
+    },
+    {
+     "w": "una",
+     "start": 6.45,
+     "end": 6.702
+    },
+    {
+     "w": "app",
+     "start": 6.702,
+     "end": 6.922
+    },
+    {
+     "w": "donde",
+     "start": 6.922,
+     "end": 7.272
+    },
+    {
+     "w": "ganas",
+     "start": 7.272,
+     "end": 7.581
+    },
+    {
+     "w": "un",
+     "start": 7.581,
+     "end": 7.751
+    },
+    {
+     "w": "trescientos",
+     "start": 7.751,
+     "end": 8.389
+    },
+    {
+     "w": "por",
+     "start": 8.389,
+     "end": 8.573
+    },
+    {
+     "w": "cien.",
+     "start": 8.573,
+     "end": 8.913
+    }
+   ]
+  },
+  {
+   "i": 2,
+   "start": 9.213,
+   "dur": 3.454,
+   "text": "Pides retirarlo… y te piden impuestos o comisiones por adelantado.",
+   "words": [
+    {
+     "w": "Pides",
+     "start": 9.213,
+     "end": 9.521
+    },
+    {
+     "w": "retirarlo…",
+     "start": 9.521,
+     "end": 10.047
+    },
+    {
+     "w": "y",
+     "start": 10.047,
+     "end": 10.164
+    },
+    {
+     "w": "te",
+     "start": 10.164,
+     "end": 10.308
+    },
+    {
+     "w": "piden",
+     "start": 10.308,
+     "end": 10.616
+    },
+    {
+     "w": "impuestos",
+     "start": 10.616,
+     "end": 11.17
+    },
+    {
+     "w": "o",
+     "start": 11.17,
+     "end": 11.294
+    },
+    {
+     "w": "comisiones",
+     "start": 11.294,
+     "end": 11.886
+    },
+    {
+     "w": "por",
+     "start": 11.886,
+     "end": 12.084
+    },
+    {
+     "w": "adelantado.",
+     "start": 12.084,
+     "end": 12.667
+    }
+   ]
+  },
+  {
+   "i": 3,
+   "start": 12.967,
+   "dur": 5.176,
+   "text": "Y luego te llaman de la CNMV para recuperarlo: segunda estafa. La CNMV nunca te llama.",
+   "words": [
+    {
+     "w": "Y",
+     "start": 12.967,
+     "end": 13.086
+    },
+    {
+     "w": "luego",
+     "start": 13.086,
+     "end": 13.466
+    },
+    {
+     "w": "te",
+     "start": 13.466,
+     "end": 13.585
+    },
+    {
+     "w": "llaman",
+     "start": 13.585,
+     "end": 13.898
+    },
+    {
+     "w": "de",
+     "start": 13.898,
+     "end": 14.05
+    },
+    {
+     "w": "la",
+     "start": 14.05,
+     "end": 14.213
+    },
+    {
+     "w": "CNMV",
+     "start": 14.213,
+     "end": 14.824
+    },
+    {
+     "w": "para",
+     "start": 14.824,
+     "end": 15.082
+    },
+    {
+     "w": "recuperarlo:",
+     "start": 15.082,
+     "end": 15.676
+    },
+    {
+     "w": "segunda",
+     "start": 15.676,
+     "end": 16.183
+    },
+    {
+     "w": "estafa.",
+     "start": 16.183,
+     "end": 16.598
+    },
+    {
+     "w": "La",
+     "start": 16.598,
+     "end": 16.761
+    },
+    {
+     "w": "CNMV",
+     "start": 16.761,
+     "end": 17.343
+    },
+    {
+     "w": "nunca",
+     "start": 17.343,
+     "end": 17.718
+    },
+    {
+     "w": "te",
+     "start": 17.718,
+     "end": 17.85
+    },
+    {
+     "w": "llama.",
+     "start": 17.85,
+     "end": 18.143
+    }
+   ]
+  },
+  {
+   "i": 4,
+   "start": 18.443,
+   "dur": 2.164,
+   "text": "Mándaselo a quien está empezando a invertir.",
+   "words": [
+    {
+     "w": "Mándaselo",
+     "start": 18.443,
+     "end": 18.923
+    },
+    {
+     "w": "a",
+     "start": 18.923,
+     "end": 19.048
+    },
+    {
+     "w": "quien",
+     "start": 19.048,
+     "end": 19.296
+    },
+    {
+     "w": "está",
+     "start": 19.296,
+     "end": 19.586
+    },
+    {
+     "w": "empezando",
+     "start": 19.586,
+     "end": 20.052
+    },
+    {
+     "w": "a",
+     "start": 20.052,
+     "end": 20.186
+    },
+    {
+     "w": "invertir.",
+     "start": 20.186,
+     "end": 20.607
+    }
+   ]
+  }
+ ]
+}

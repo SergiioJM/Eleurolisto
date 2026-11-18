@@ -3,6 +3,23 @@
 Investigación semanal con vidIQ (`vidiq_instagram_tiktok_outlier_search`, 5 créditos). Aquí se guardan los patrones, no se copian vídeos:
 cada recreación usa guion, cifras, diseño y voz propios de El Euro Listo.
 
+## 18-nov-2026 · búsqueda nocturna (pilar: ESTAFAS de inversión y cripto; español, audiencia España, desde el 4-nov)
+
+| Cuenta | Vistas (x su mediana) | Gancho (0–3 s) | Formato / edición |
+|---|---|---|---|
+| @labayru.inversiones (IG) / @labayru.inversion (TikTok) | 1,4 M en cada red (565x / 1.366x) | POV de una mano con monedas: "Oye, disculpa…" (timo del cambio en la calle) | Sketch en primera persona: el timador intenta el truco y la "víctima" resulta ser asesor financiero y le da la vuelta. Diálogo real, sin música |
+| @goyim_fx (IG) | 893 K (1.181x) | Globo 3D con anillos rojos que laten: "EL DINERO DEL MUNDO, BAJO ATAQUE" | Sin cara, globo 3D + rótulos, música dramática de telediario, casos en cadena (problema → respuesta). Acaba vendiendo un curso de trading (no copiar eso) |
+| @iblameeyasu (IG, España) | 243 K (58x) | "Todo el mundo habla de Warren Buffett" + banderas España vs EE. UU. | Fondos activos españoles vs índices de EE. UU.: gráficos sobre la cara, cortes rápidos. **3.ª noche seguida en los outliers** |
+| @legal.clipsr593 (TikTok) | 137 K (13x) | "SE ENDEUDÓ 15.000 PARA INVERTIR EN…" (un esquema que quebró) | Entrevista/diálogo en oficina con rótulo grande |
+| @eldatofinanciero_ (IG, España) | 112 K (36x) | "3 empresas españolas te pagan 8 pagas extra" | Sigue (3.er día) |
+| @alpracjtips (IG) | 52 K (40x) | Pantalla partida: vídeo falso (deepfake) de un político prometiendo dinero + el creador reaccionando | Reacción + señales de alarma de la estafa cripto con famoso falso |
+
+### Lo que está funcionando hoy
+- **Estafas contadas como historia** (1,4 M en IG y en TikTok, 52 K, 137 K): el timo explicado paso a paso, con giro final. → Reel 13:30 del viernes 20 "¿Te piden pagar para sacar tu dinero?" (anuncio con famoso → asesor con prisas → app con +312 % → "impuestos" por adelantado → la falsa CNMV que llama para "recuperarlo"), con las señales de la guía de la CNMV.
+- **Gestión activa vs índice** (3.ª noche seguida): hay demanda → reel 20:30 del viernes con los datos del SPIVA de mitad de 2026.
+- **Edición que arrasa fuera del nicho**: globo 3D con anillos que laten + rótulos de telediario (893 K). Candidato a look nuevo **R13 "Mapa/globo de alerta"** (p. ej. "Dónde se cobran más comisiones", "Países con más estafas cripto"), sin música alarmista ni venta de cursos.
+- **POV en primera persona con giro** (1,4 M): no tenemos actores, pero se puede recrear con Listo en 3D en primera persona ("POV: alguien te pide cambio…").
+
 ## 17-nov-2026 · búsqueda nocturna (pilar: DINERO Y LEY / curiosidades legales; español, audiencia España, desde el 3-nov)
 
 | Cuenta | Vistas (x su mediana) | Gancho (0–3 s) | Formato / edición |

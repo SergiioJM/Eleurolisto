@@ -1,0 +1,305 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<script src="../../toolkit/mascota/listo2d.js"></script>
+<style>
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#0f1726}
+*{box-sizing:border-box}
+#bg{position:absolute;inset:0;background:radial-gradient(circle 560px at 540px 1010px,#1b2840 0,#1b2840 99.6%,transparent 100%),#0f1726}
+#ring{position:absolute;left:540px;top:1010px;width:1240px;height:1240px;margin:-620px 0 0 -620px;border-radius:50%;border:2px dashed rgba(120,150,200,.13)}
+#stage{position:absolute;inset:0;perspective:1800px;perspective-origin:540px 1000px}
+#fan{position:absolute;inset:0;transform-style:preserve-3d}
+.phone{position:absolute;left:0;top:0;width:320px;height:660px;margin:-330px 0 0 -160px;border-radius:54px;background:#06080d;padding:11px;
+  box-shadow:0 34px 60px rgba(0,0,0,.5),inset 0 0 0 2px #2a3242;transform-style:preserve-3d}
+.scr{position:relative;width:100%;height:100%;border-radius:44px;overflow:hidden;background:#131b2a;font-family:Inter,sans-serif;color:#eef2f8}
+.notch{position:absolute;left:50%;top:12px;width:96px;height:26px;margin-left:-48px;border-radius:14px;background:#06080d;z-index:5}
+.dim{position:absolute;inset:0;background:#05070c;pointer-events:none;z-index:9}
+.bar{position:absolute;left:0;right:0;top:0;height:64px}
+/* P1 anuncio */
+.ad-h{position:absolute;left:18px;right:18px;top:58px;display:flex;align-items:center;gap:12px}
+.av{width:58px;height:58px;border-radius:50%;background:linear-gradient(160deg,#ffd27a,#d98a2b);position:relative;overflow:hidden}
+.av:before{content:"";position:absolute;left:17px;top:9px;width:24px;height:24px;border-radius:50%;background:#2a1a10}
+.av:after{content:"";position:absolute;left:8px;top:34px;width:42px;height:34px;border-radius:50% 50% 0 0;background:#2a1a10}
+.gafas{position:absolute;left:15px;top:17px;width:28px;height:7px;border-radius:4px;background:#0a0a0a;z-index:2}
+.ad-n{font:700 22px Inter}.ad-n small{display:block;font:500 17px Inter;color:#9aa6bb}
+.ad-img{position:absolute;left:14px;right:14px;top:134px;height:300px;border-radius:22px;background:linear-gradient(160deg,#f7c548,#e0892a);padding:22px;color:#1a1206}
+.ad-img b{display:block;font:800 46px/1.02 Poppins;letter-spacing:-1px}
+.ad-img i{display:block;font:700 22px Inter;font-style:normal;margin-top:14px;background:rgba(255,255,255,.45);padding:6px 12px;border-radius:12px;width:max-content}
+.ad-img .coins{position:absolute;right:16px;bottom:14px;font:800 64px Poppins;opacity:.9}
+.ad-btn{position:absolute;left:14px;right:14px;top:452px;height:64px;border-radius:18px;background:#2f6bff;font:700 24px Inter;display:flex;align-items:center;justify-content:center}
+.ad-like{position:absolute;left:20px;top:534px;font:600 18px Inter;color:#9aa6bb}
+.tag{position:absolute;left:50%;top:300px;transform:translate(-50%,-50%) rotate(-8deg);font:800 34px Poppins;color:#fff;background:#ef4444;padding:8px 20px;border-radius:12px;white-space:nowrap;z-index:6}
+/* P2 chat */
+.ch-h{position:absolute;left:0;right:0;top:46px;height:84px;background:#1d2738;display:flex;align-items:center;gap:12px;padding:10px 18px 0}
+.ch-av{width:50px;height:50px;border-radius:50%;background:#3b4b66;display:flex;align-items:center;justify-content:center;font:700 22px Poppins}
+.ch-n{font:700 22px Inter}.ch-n small{display:block;font:500 16px Inter;color:#4ade80}
+.bub{position:absolute;left:16px;max-width:262px;padding:13px 16px;border-radius:20px 20px 20px 6px;background:#25324a;font:600 21px/1.28 Inter;transform-origin:0 100%}
+.bub.hot{background:#3a2430;border:2px solid #f87171}
+.bub .h{display:block;font:500 14px Inter;color:#8e9bb3;text-align:right;margin-top:4px}
+/* P3 app */
+.ap-h{position:absolute;left:22px;right:22px;top:62px;font:700 20px Inter;color:#9aa6bb;display:flex;justify-content:space-between}
+.ap-b{position:absolute;left:22px;top:104px;font:800 50px Poppins;letter-spacing:-1px}
+.ap-chip{position:absolute;left:22px;top:172px;font:800 24px Poppins;color:#06240f;background:#4ade80;padding:4px 14px;border-radius:12px}
+.ap-svg{position:absolute;left:0;top:226px;width:298px;height:250px}
+.ap-btn{position:absolute;left:22px;right:22px;top:500px;height:76px;border-radius:22px;background:#f5a33b;color:#1b1206;font:800 30px Poppins;display:flex;align-items:center;justify-content:center;letter-spacing:2px}
+.rip{position:absolute;left:50%;top:538px;width:120px;height:120px;margin:-60px 0 0 -60px;border-radius:50%;border:5px solid rgba(255,255,255,.85)}
+/* P4 retirada / llamada */
+.p4-h{position:absolute;left:22px;right:22px;top:62px;font:700 20px Inter;color:#9aa6bb}
+.spin{position:absolute;left:50%;top:250px;width:90px;height:90px;margin-left:-45px;border-radius:50%;border:9px solid #2b3850;border-top-color:#f5a33b}
+.p4-t{position:absolute;left:0;right:0;top:370px;text-align:center;font:700 24px Inter;color:#c8d1e0}
+.pop{position:absolute;left:14px;right:14px;top:150px;border-radius:26px;background:#fff;color:#1b1f29;padding:22px 20px;box-shadow:0 20px 40px rgba(0,0,0,.45)}
+.pop .w{width:62px;height:62px;border-radius:50%;background:#fee2e2;color:#dc2626;font:800 40px Poppins;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.pop b{display:block;font:800 31px/1.12 Poppins;letter-spacing:-.5px}
+.pop b em{font-style:normal;color:#dc2626}
+.pop p{margin:10px 0 0;font:600 20px/1.3 Inter;color:#4b5563}
+.pop .pb{margin-top:18px;height:62px;border-radius:16px;background:#dc2626;color:#fff;font:800 24px Poppins;display:flex;align-items:center;justify-content:center}
+.call{position:absolute;inset:0;background:linear-gradient(180deg,#1e3a5f,#0f1b2e);text-align:center}
+.call .k{margin-top:110px;font:600 20px Inter;color:#b6c4da}
+.call .n{margin-top:10px;font:800 34px/1.1 Poppins;color:#fff;padding:0 16px}
+.call .s{margin-top:8px;font:600 19px Inter;color:#9fb3cf}
+.call .ring{position:absolute;left:50%;top:330px;width:120px;height:120px;margin-left:-60px;border-radius:50%;background:#2b4a75;display:flex;align-items:center;justify-content:center;font:800 40px Poppins}
+.call .bt{position:absolute;bottom:56px;width:84px;height:84px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:800 34px Poppins}
+.cross{position:absolute;inset:0;z-index:8}
+/* textos grandes */
+#kick{position:absolute;left:0;right:0;top:178px;text-align:center}
+#kick span{display:inline-block;font:700 30px Poppins;letter-spacing:4px;color:#fca5a5;border:3px solid rgba(248,113,113,.7);padding:8px 24px 6px;border-radius:40px;background:rgba(127,29,29,.25)}
+#sub{position:absolute;left:50px;right:50px;top:262px;height:240px;display:flex;flex-wrap:wrap;align-content:center;align-items:center;justify-content:center;text-align:center;font:700 68px/1.12 Poppins;letter-spacing:-1px}
+#sub .w{display:inline-block;margin:0 9px;color:#8b95aa;position:relative}
+#sub .w.on{color:#f6efe2}
+#sub .w.kw.on{color:#ffc547}
+#sub .w.kw:after{content:"";position:absolute;left:-10px;right:-10px;top:4px;bottom:-2px;border:3px solid #ffc547;border-radius:12px;opacity:var(--b,0)}
+#pill{position:absolute;left:540px;top:1060px;transform-style:preserve-3d}
+#pill .f{position:absolute;left:0;top:0;transform:translate(-50%,-50%);white-space:nowrap;font:800 150px/1 Poppins;letter-spacing:-4px;padding:22px 58px 14px;border-radius:120px;box-shadow:0 18px 0 rgba(0,0,0,.28),0 30px 60px rgba(0,0,0,.4);backface-visibility:hidden}
+#pill .a{background:#f5a33b;color:#15191f}
+#pill .b{background:#ef4444;color:#fff;transform:translate(-50%,-50%) rotateX(180deg)}
+#lab{position:absolute;left:540px;top:1205px;transform:translate(-50%,-50%);white-space:nowrap;font:700 44px Poppins;color:#fff;background:#1f8fc2;padding:10px 32px;border-radius:60px;box-shadow:0 10px 24px rgba(0,0,0,.35)}
+.sello{position:absolute;left:540px;top:1010px;transform:translate(-50%,-50%);white-space:nowrap;font:800 130px/1 Poppins;letter-spacing:4px;color:#ef4444;border:12px solid #ef4444;border-radius:28px;padding:22px 40px 10px;background:rgba(40,8,8,.55)}
+#nunca{position:absolute;left:540px;top:1090px;transform:translate(-50%,-50%);text-align:center;white-space:nowrap}
+#nunca b{display:block;font:800 74px/1.02 Poppins;color:#06240f;background:#4ade80;padding:20px 40px 12px;border-radius:30px;box-shadow:0 16px 40px rgba(0,0,0,.45)}
+#nunca span{display:inline-block;margin-top:18px;font:700 36px Poppins;color:#fff;background:rgba(15,23,38,.85);padding:10px 28px;border-radius:40px}
+#cta{position:absolute;left:540px;top:1088px;transform:translate(-50%,-50%);display:flex;align-items:center;gap:18px;white-space:nowrap;font:700 46px Poppins;color:#14181f;background:#fff;padding:20px 42px;border-radius:70px;box-shadow:0 14px 36px rgba(0,0,0,.4)}
+#marca{position:absolute;left:0;right:0;top:1486px;text-align:center;font:600 30px Poppins;color:rgba(255,255,255,.55)}
+#cv{position:absolute;left:0;top:0}
+</style></head>
+<body>
+<div id="bg"></div><div id="ring"></div>
+<div id="stage"><div id="fan">
+  <div class="phone" id="p0"><div class="scr"><div class="notch"></div>
+    <div class="ad-h"><div class="av"><div class="gafas"></div></div><div class="ad-n">Famoso ✔<small>Patrocinado</small></div></div>
+    <div class="ad-img"><b>GANA 3.000 € A LA SEMANA</b><i>Sin experiencia</i><i>Solo con el móvil</i><span class="coins">€€€</span></div>
+    <div class="ad-btn">Más información</div><div class="ad-like">♥ 12.408 · 3.201 comentarios</div>
+    <div class="tag" id="tag0">ANUNCIO FALSO</div><div class="dim"></div></div></div>
+  <div class="phone" id="p1"><div class="scr"><div class="notch"></div>
+    <div class="ch-h"><div class="ch-av">A</div><div class="ch-n">Asesor VIP<small>● en línea</small></div></div>
+    <div class="bub" id="b0" style="top:160px">¡Hola! Soy tu asesor personal 😊<span class="h">10:41</span></div>
+    <div class="bub hot" id="b1" style="top:262px">⏰ Solo quedan 2 plazas HOY<span class="h">10:42</span></div>
+    <div class="bub hot" id="b2" style="top:364px">Empieza con 250 € y te lo multiplico 🚀<span class="h">10:42</span></div>
+    <div class="bub hot" id="b3" style="top:500px">¿Lo hacemos ya? 🔥<span class="h">10:43</span></div>
+    <div class="dim"></div></div></div>
+  <div class="phone" id="p2"><div class="scr"><div class="notch"></div>
+    <div class="ap-h"><span>Mi cartera</span><span>●●●</span></div>
+    <div class="ap-b" id="bal">250,00 €</div><div class="ap-chip" id="chip">+0,0 %</div>
+    <svg class="ap-svg" viewBox="0 0 298 250"><defs><linearGradient id="gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4ade80" stop-opacity=".35"/><stop offset="1" stop-color="#4ade80" stop-opacity="0"/></linearGradient></defs>
+      <path id="area" d="" fill="url(#gr)"/><path id="line" d="" fill="none" stroke="#4ade80" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="ap-btn">RETIRAR</div><div class="rip" id="rip"></div>
+    <div class="dim"></div></div></div>
+  <div class="phone" id="p3"><div class="scr"><div class="notch"></div>
+    <div class="p4-h">Retirada de fondos</div>
+    <div id="proc"><div class="spin" id="spin"></div><div class="p4-t">Procesando…</div></div>
+    <div class="pop" id="pop"><div class="w">!</div><b>Para retirar tus 1.030 € paga antes <em>400 €</em></b><p>“Impuestos y comisiones de retirada”</p><div class="pb">PAGAR 400 €</div></div>
+    <div class="call" id="call"><div class="k">Llamada entrante</div><div class="n">“CNMV · Recuperación de fondos”</div><div class="s">+44 7·· ··· ···</div>
+      <div class="ring" id="ringc">📞</div>
+      <div class="bt" style="left:40px;background:#ef4444">✕</div><div class="bt" style="right:40px;background:#22c55e">✓</div></div>
+    <svg class="cross" id="cross" viewBox="0 0 298 638"><path id="x1" d="M40 120 L258 520" stroke="#ef4444" stroke-width="22" stroke-linecap="round"/><path id="x2" d="M258 120 L40 520" stroke="#ef4444" stroke-width="22" stroke-linecap="round"/></svg>
+    <div class="dim"></div></div></div>
+</div></div>
+<div id="kick"><span>⚠ ESTAFAS DE INVERSIÓN</span></div>
+<div id="sub"></div>
+<div id="pill"><div class="f a">+312 %</div><div class="f b">−400 €</div></div>
+<div id="lab">👁 solo en su pantalla</div>
+<div class="sello" id="s1">ESTAFA</div>
+<div class="sello" id="s2" style="font-size:112px">2.ª ESTAFA</div>
+<div id="nunca"><b>LA CNMV NUNCA<br>TE LLAMA</b><span>Compruébalo en cnmv.es</span></div>
+<div id="cta"><svg width="46" height="46" viewBox="0 0 46 46"><path d="M3 21 43 3 30 43 21 26z" fill="#14181f"/></svg>Mándaselo a quien empieza a invertir</div>
+<div id="marca">@eleurolisto</div>
+<canvas id="cv" width="1080" height="1920"></canvas>
+<script>
+// Look R4 · MÓVILES EN ABANICO + CIFRA GIGANTE (referencia 04 de Sergio): fondo azul oscuro FIJO con un círculo detrás,
+// 4 móviles en abanico (anuncio, chat, app, retirada/llamada), píldora ámbar ENORME con la cifra y etiqueta debajo,
+// subtítulo arriba en karaoke (palabras grises que se encienden) con la palabra clave recuadrada en ámbar.
+// Listo en estilo 'vector' (presentador). Todo depende solo de t y de timings.json -> render determinista. Sin cambios de luz.
+const TIM = window.TIM, S = TIM.segments, DUR = TIM.total;
+const $ = (id) => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const sm = (k) => k * k * (3 - 2 * k);
+const eOut = (k) => 1 - Math.pow(1 - k, 3);
+const eBack = (k) => { const c1 = 1.9, c3 = c1 + 1; return 1 + c3 * Math.pow(k - 1, 3) + c1 * Math.pow(k - 1, 2); };
+const prog = (t, a, d) => clamp((t - a) / d);
+const lerp = (a, b, k) => a + (b - a) * k;
+const limpia = (w) => w.toLowerCase().replace(/[¿?¡!.,:;…“”]/g, '');
+const pal = (i, f, n = 0) => { const ws = S[i].words.filter((w) => limpia(w.w) === f); const w = ws[n] || ws[0]; if (!w) console.warn('falta palabra', f); return w ? w.start : S[i].start; };
+const T = {
+  pagar: pal(0, 'pagar'), estafa: pal(0, 'estafa'),
+  guion: S[1].start, anuncio: pal(1, 'anuncio'), famoso: pal(1, 'famoso'), asesor: pal(1, 'asesor'), prisas: pal(1, 'prisas'),
+  app: pal(1, 'app'), ganas: pal(1, 'ganas'), tres: pal(1, 'trescientos'), cien: pal(1, 'cien'),
+  pides: S[2].start, retir: pal(2, 'retirarlo'), impuestos: pal(2, 'impuestos'), adel: pal(2, 'adelantado'),
+  luego: S[3].start, llaman: pal(3, 'llaman'), cnmv: pal(3, 'cnmv'), segunda: pal(3, 'segunda'), la2: pal(3, 'la', 1), nunca: pal(3, 'nunca'),
+  cta: S[4].start,
+};
+// ---------- subtítulos (karaoke por trozos) ----------
+const KW = ['pagar', 'estafa', 'famoso', 'prisas', 'trescientos', 'cien', 'adelantado', 'impuestos', 'cnmv', 'segunda', 'nunca', 'invertir'];
+const chunks = [];
+S.forEach((s) => {
+  let cur = [];
+  s.words.forEach((w, j) => {
+    cur.push(w);
+    const func = ['un', 'una', 'con', 'la', 'de', 'para', 'por', 'a', 'y', 'te', 'tu', 'el', 'o', 'es', 'donde'].includes(limpia(w.w));
+    const fin = /[.?:…,;]$/.test(w.w) || (cur.length >= 4 && !func) || cur.length >= 6 || j === s.words.length - 1;
+    if (fin) { chunks.push(cur); cur = []; }
+  });
+});
+chunks.forEach((c, i) => { c.t0 = c[0].start - 0.12; c.t1 = i < chunks.length - 1 ? chunks[i + 1][0].start - 0.12 : DUR; });
+chunks[0].t0 = -1;
+const sub = $('sub'); let lastChunk = -1;
+function subs(t) {
+  const i = chunks.findIndex((c) => t >= c.t0 && t < c.t1);
+  if (i !== lastChunk) {
+    sub.innerHTML = i < 0 ? '' : chunks[i].map((w) => {
+      const kw = KW.some((k) => w.w.toLowerCase().includes(k));
+      return `<span class="w${kw ? ' kw' : ''}">${w.w.replace(/[“”]/g, '')}</span>`;
+    }).join(' ');
+    lastChunk = i;
+  }
+  if (i < 0) return;
+  const c = chunks[i], k = eOut(prog(t, c.t0, 0.22));
+  sub.style.transform = `translateY(${(1 - k) * 26}px)`; sub.style.opacity = i === 0 ? 1 : 0.25 + 0.75 * k;
+  [...sub.children].forEach((el, j) => {
+    const on = i === 0 || t >= c[j].start - 0.04; el.classList.toggle('on', on);   // el gancho se lee entero desde el fotograma 0
+    if (el.classList.contains('kw')) el.style.setProperty('--b', i === 0 ? 1 : clamp((t - c[j].start + 0.04) / 0.12));
+    const pop = on ? Math.sin(clamp((t - c[j].start) / 0.18) * Math.PI) * 0.06 : 0;
+    el.style.transform = `scale(${1 + pop})`;
+  });
+}
+// ---------- abanico de móviles ----------
+const BASE = [{ a: -22, x: -332, y: 58 }, { a: -7, x: -112, y: 10 }, { a: 7, x: 112, y: 10 }, { a: 22, x: 332, y: 58 }];
+const FOCO = [[-9, 3], [T.guion - 0.1, 0], [T.asesor - 0.25, 1], [T.app - 0.25, 2], [T.pides + 0.25, 3], [T.cta - 0.15, -1]];
+function focoW(t, i) { // peso de foco de cada móvil (transiciones suaves de 0,45 s)
+  let w = 0;
+  for (let j = 0; j < FOCO.length; j++) {
+    const [t0, idx] = FOCO[j], t1 = j < FOCO.length - 1 ? FOCO[j + 1][0] : 99;
+    if (idx !== i) continue;
+    w = Math.max(w, sm(prog(t, t0, 0.45)) * (1 - sm(prog(t, t1, 0.45))));
+  }
+  return w;
+}
+function fan(t) {
+  const abre = eOut(prog(t, 0, 0.9));                       // el abanico se abre desde el fotograma 0
+  const cierre = sm(prog(t, T.cta - 0.2, 0.7));               // al final sube y se recoge para el CTA
+  const cx = 540, cy = lerp(1010, 690, cierre), sc = lerp(1, 0.7, cierre);
+  const giro = Math.sin(t * 0.7) * 1.2;                       // vaivén muy suave (movimiento continuo)
+  for (let i = 0; i < 4; i++) {
+    const b = BASE[i], f = focoW(t, i);
+    const a = b.a * (0.35 + 0.65 * abre) * (1 - 0.85 * f) + giro * (1 - f);
+    const x = cx + (b.x * (0.25 + 0.75 * abre) * (1 - 0.8 * f)) * sc;
+    const y = cy + (b.y * (1 - f) - 40 * f) * sc;
+    const z = -Math.abs(i - 1.5) * 40 + 260 * f;
+    const s = sc * (1 + 0.2 * f);
+    const sh = i === 3 && t > T.llaman && t < T.nunca ? Math.sin(t * 38) * 4 * (1 - prog(t, T.nunca - 0.4, 0.4)) : 0; // vibra la llamada
+    $('p' + i).style.transform = `translate3d(${x + sh}px,${y}px,${z}px) rotateZ(${a}deg) rotateY(${-a * 0.6}deg) scale(${s})`;
+    const algunFoco = [0, 1, 2, 3].some((k) => focoW(t, k) > 0.01);
+    $('p' + i).querySelector('.dim').style.opacity = algunFoco ? (0.42 * (1 - f)) : 0;
+  }
+}
+// ---------- contenido de las pantallas ----------
+function linea(k) { // gráfica que sube (de 250 € a 1.030 €), con pequeños dientes
+  const pts = []; const n = 40;
+  for (let j = 0; j <= n * k; j++) { const u = j / n; const v = u ** 1.6 + Math.sin(u * 23) * 0.035 * (1 - u * 0.3); pts.push([10 + u * 278, 230 - v * 200]); }
+  if (pts.length < 2) return ['', ''];
+  const d = 'M' + pts.map((p) => p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' L');
+  return [d, d + ` L${pts[pts.length - 1][0].toFixed(1)} 250 L10 250 Z`];
+}
+const eur = (v) => v.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' €';
+function pantallas(t) {
+  // P1: etiqueta "ANUNCIO FALSO"
+  const kt = eBack(prog(t, T.famoso + 0.15, 0.35)); $('tag0').style.opacity = t > T.famoso + 0.15 ? 1 : 0;
+  $('tag0').style.transform = `translate(-50%,-50%) rotate(-8deg) scale(${t > T.famoso + 0.15 ? kt : 0})`;
+  // P2: mensajes con prisas
+  [[-9, 'b0'], [T.asesor + 0.05, 'b1'], [T.prisas - 0.05, 'b2'], [T.app - 0.35, 'b3']].forEach(([t0, id]) => {
+    const k = prog(t, t0, 0.3), el = $(id); el.style.opacity = k > 0 ? 1 : 0; el.style.transform = `scale(${k > 0 ? eBack(k) : 0})`;
+  });
+  // P3: saldo que sube y gráfica
+  const kc = sm(prog(t, T.ganas - 0.1, T.cien + 0.3 - T.ganas)), bal = 250 + (1030 - 250) * kc;
+  $('bal').textContent = eur(bal); $('chip').textContent = '+' + ((bal / 250 - 1) * 100).toFixed(1).replace('.', ',') + ' %';
+  const [d, area] = linea(0.08 + 0.92 * kc); $('line').setAttribute('d', d); $('area').setAttribute('d', area);
+  const kr = prog(t, T.retir + 0.05, 0.5); $('rip').style.opacity = kr > 0 && kr < 1 ? 1 - kr : 0; $('rip').style.transform = `scale(${0.4 + kr})`;
+  // P4: popup (gancho y retirada), procesando, llamada y tachón
+  const hook = t < T.guion + 0.3, kOut = prog(t, T.guion - 0.2, 0.5), pk = prog(t, T.impuestos - 0.45, 0.4);
+  const kFin = prog(t, T.luego - 0.05, 0.4);
+  const popOn = hook || (t > T.impuestos - 0.45 && t < T.luego + 0.4);
+  $('pop').style.opacity = !popOn ? 0 : hook ? 1 - sm(kOut) : 1 - sm(kFin);
+  $('pop').style.transform = `translateY(${hook ? kOut * kOut * 300 : (1 - eBack(pk)) * 420 + kFin * 200}px)`;
+  $('proc').style.opacity = t < T.impuestos - 0.3 ? sm(kOut) : 0;
+  $('spin').style.transform = `rotate(${t * 400}deg)`;
+  const kcall = prog(t, T.luego + 0.1, 0.35); $('call').style.opacity = kcall; $('call').style.transform = `translateY(${(1 - eOut(kcall)) * 80}px)`;
+  const ring = (Math.sin(t * 9) + 1) / 2; $('ringc').style.transform = `scale(${1 + 0.12 * ring * (t < T.nunca ? 1 : 0)})`;
+  const kx = prog(t, T.nunca - 0.15, 0.25), kx2 = prog(t, T.nunca + 0.05, 0.25);
+  $('x1').style.strokeDasharray = 460; $('x1').style.strokeDashoffset = 460 * (1 - kx);
+  $('x2').style.strokeDasharray = 460; $('x2').style.strokeDashoffset = 460 * (1 - kx2);
+  $('cross').style.opacity = kx > 0 ? 1 : 0;
+}
+// ---------- golpes: píldora gigante, sellos, tarjetas ----------
+function golpes(t) {
+  const k1 = prog(t, T.tres - 0.05, 0.3), out1 = prog(t, T.luego - 0.35, 0.3);
+  const vis = k1 > 0 && out1 < 1;
+  const flip = sm(prog(t, T.impuestos - 0.1, 0.45));
+  $('pill').style.opacity = vis ? 1 - out1 : 0;
+  $('pill').style.transform = `scale(${vis ? eBack(k1) * (1 - 0.3 * out1) : 0}) rotateX(${flip * 180}deg)`;
+  $('lab').style.opacity = vis ? (1 - out1) * prog(t, T.tres + 0.25, 0.2) : 0;
+  $('lab').innerHTML = flip < 0.5 ? '👁 solo en su pantalla' : '🧾 “impuestos” por adelantado';
+  $('lab').style.background = flip < 0.5 ? '#1f8fc2' : '#7f1d1d';
+  $('lab').style.transform = `translate(-50%,-50%) scale(${0.85 + 0.15 * eOut(prog(t, T.tres + 0.25, 0.3))})`;
+  const sello = (id, t0, t1) => {
+    const k = prog(t, t0, 0.22), o = prog(t, t1, 0.3); const el = $(id);
+    el.style.opacity = k > 0 ? 1 - o : 0; el.style.transform = `translate(-50%,-50%) rotate(-10deg) scale(${k > 0 ? lerp(2.1, 1, eOut(k)) : 0})`;
+  };
+  sello('s1', T.estafa - 0.05, T.guion - 0.25);
+  sello('s2', T.segunda - 0.05, T.la2 - 0.3);
+  const kn = prog(t, T.la2 + 0.05, 0.35), on = prog(t, T.cta - 0.05, 0.25);
+  $('nunca').style.opacity = kn > 0 ? 1 - on : 0; $('nunca').style.transform = `translate(-50%,-50%) scale(${kn > 0 ? eBack(kn) : 0})`;
+  const kc = prog(t, T.cta, 0.35);
+  $('cta').style.opacity = kc > 0 ? 1 : 0; $('cta').style.transform = `translate(-50%,-50%) translateY(${(1 - eOut(kc)) * 60}px) scale(${kc > 0 ? 0.9 + 0.1 * eBack(kc) : 0})`;
+  $('kick').style.transform = `translateY(${(1 - eOut(prog(t, 0, 0.4))) * -30}px)`;
+}
+// ---------- Listo (estilo vector) ----------
+const cv = $('cv'), X = cv.getContext('2d');
+function dibujaListo(t) {
+  X.clearRect(0, 0, 1080, 1920);
+  if (window.PORTADA) return;
+  const aEsq = sm(prog(t, T.guion - 0.15, 0.5)), aFin = sm(prog(t, T.cta - 0.15, 0.55));
+  let x = lerp(lerp(842, 150, aEsq), 540, aFin), y = 1452, s = lerp(lerp(0.92, 0.56, aEsq), 0.74, aFin);
+  let o = { x, y, s, t, estilo: 'vector', expr: 'normal', pose: 'reposo', mira: [0, 0] };
+  if (t < T.guion - 0.15) {
+    o.anim = 'entrada'; o.animT = t - 0.3; if (t < 0.3) return;
+    if (t > 1.0) { o.anim = null; o.expr = 'sorpresa'; o.pose = 'senalaIzq'; o.mira = [-0.7, -0.3]; }
+    if (t > T.estafa - 0.05) { o.expr = 'preocupado'; o.pose = 'brazosCruzados'; o.mira = [-0.5, -0.4]; }
+  } else if (t < T.cta - 0.15) {
+    o.mira = [0.7, -0.4];
+    if (t < T.asesor - 0.2) { o.pose = 'senala'; o.expr = 'normal'; }
+    else if (t < T.app - 0.2) { o.pose = 'piensa'; o.expr = 'normal'; }
+    else if (t < T.tres - 0.05) { o.pose = 'brazosCruzados'; o.expr = 'normal'; }
+    else if (t < T.pides) { o.pose = 'manosCadera'; o.expr = 'sorpresa'; o.anim = 'salto'; o.animT = (t - T.tres + 0.05) * 0.9; if (t - T.tres > 0.9) o.anim = null; }
+    else if (t < T.luego) { o.anim = 'temblor'; o.animT = t - T.pides; o.acc = ['gorroRoto']; o.accK = { gorroRoto: eOut(prog(t, T.adel - 0.2, 0.4)) }; }
+    else if (t < T.segunda) { o.pose = 'piensa'; o.expr = 'preocupado'; o.acc = ['gorroRoto']; o.accK = { gorroRoto: 1 }; }
+    else if (t < T.nunca - 0.2) { o.anim = 'desinfla'; o.animT = t - T.segunda; o.acc = ['gorroRoto']; o.accK = { gorroRoto: 1 }; }
+    else { o.pose = 'senala'; o.expr = 'idea'; o.acc = ['gorroRoto']; o.accK = { gorroRoto: 1 - eOut(prog(t, T.nunca, 0.5)) }; }
+  } else {
+    o.mira = [0, 0.1];
+    o.pose = t < T.cta + 0.7 ? 'saludo' : 'pulgar'; o.expr = t < T.cta + 0.7 ? 'feliz' : 'guino';
+    if (t > T.cta + 0.7 && t < T.cta + 1.1) { o.anim = 'salto'; o.animT = (t - T.cta - 0.7) * 1.2; o.fijarPose = true; o.fijarExpr = true; }
+  }
+  Listo2D.dibujar(X, o);
+}
+window.DURACION = DUR;
+window.renderAt = (t) => { fan(t); pantallas(t); golpes(t); subs(t); dibujaListo(t); };
+document.fonts.ready.then(() => { window.renderAt(0); window.listo = true; });
+</script>
+</body></html>

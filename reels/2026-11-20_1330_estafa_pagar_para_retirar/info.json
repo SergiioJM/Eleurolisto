@@ -1,0 +1,20 @@
+{
+  "fecha": "2026-11-20",
+  "hora": "13:30",
+  "titulo": "¿Te piden pagar para sacar tu dinero? Es una estafa",
+  "pilar": "Estafas y seguridad",
+  "look": "R4 móviles en abanico + cifra gigante (primera vez)",
+  "formato": "HTML/CSS 3D renderizado con toolkit/escena3d/motor.mjs: fondo azul oscuro FIJO con círculo detrás, 4 móviles en abanico (anuncio con 'famoso' inventado, chat de 'Asesor VIP' con prisas, app con saldo 250 € → 1.030 € y +312 %, pantalla de retirada con '“impuestos” 400 € por adelantado' y llamada falsa 'CNMV · Recuperación de fondos' tachada); el móvil del momento pasa al frente (foco 3D), píldora ámbar gigante '+312 %' que gira (card flip) a '−400 €' en rojo, sellos 'ESTAFA' y '2.ª ESTAFA', tarjeta verde 'LA CNMV NUNCA TE LLAMA'. Subtítulos karaoke arriba (palabras grises que se encienden, palabra clave recuadrada en ámbar; el gancho se lee entero desde el fotograma 0). Kicker '⚠ ESTAFAS DE INVERSIÓN'. Transiciones por movimiento (abanico que se abre, foco que cambia, vaivén).",
+  "voz": "local v1 (Hombre 1, Piper davefx) — 0 créditos",
+  "etiqueta_ia": true,
+  "guion": "¿Te piden pagar para sacar tu dinero? Es una estafa. El guion: un anuncio con un famoso, un asesor con prisas y una app donde ganas un trescientos por cien. Pides retirarlo… y te piden impuestos o comisiones por adelantado. Y luego te llaman de la CNMV para recuperarlo: segunda estafa. La CNMV nunca te llama. Mándaselo a quien está empezando a invertir.",
+  "datos": "Guía de la CNMV 'Estafas y fraudes': desconfiar de rentabilidades altas sin riesgo, prisas, propuestas no solicitadas y famosos; 'Nunca hagas un pago adelantado' (honorarios o impuestos); 'Desconfía también si te contactan en nombre de la CNMV con el fin de recuperar las pérdidas' (la CNMV nunca contacta a posibles afectados); comprobar en cnmv.es / 900 535 015 — https://www.cnmv.es/DocPortal/Publicaciones/Guias/Guia_Estafas_y_fraudes.pdf. Cifras de la app (250 € → 1.030 € = +312 %, 400 € de 'impuestos') son un ejemplo ilustrativo (1.030/250 − 1 = 3,12, recalculado).",
+  "origen": "viral del día (18-nov, búsqueda de estafas): timos contados como historia con giro (@labayru 1,4 M en IG y TikTok, deepfake cripto 52 K, 'se endeudó para invertir en…' 137 K)",
+  "caption": "Estafas de inversión: si te piden pagar para sacar TU dinero, es una estafa 🚩 El guion se repite: anuncio con un famoso, un \"asesor\" con prisas y una app donde ganas un 300 %… hasta que quieres retirarlo y te piden \"impuestos\" por adelantado. Y si luego te llaman \"de la CNMV\" para recuperarlo, es la segunda estafa: la CNMV nunca te llama. Compruébalo en cnmv.es o en el 900 535 015. Mándaselo a quien está empezando a invertir 👇\n#estafas #estafasonline #cnmv #finanzaspersonales #eleurolisto",
+  "listo_papel": "Modelado 'vector'. Cae del cielo (entrada) a los 0,3 s junto al móvil, sorpresa señalando el aviso; brazos cruzados y preocupado con el sello ESTAFA; presentador en la esquina (señala el anuncio, piensa con el chat, brazos cruzados, salta en jarras con el +312 %), tiembla con los 'impuestos' y le cae el gorro roto en 'adelantado' (accesorio que entra con accK), se desinfla con la 2.ª estafa, idea señalando 'la CNMV nunca te llama' (se le va el gorro) y firma final en el centro: saludo → guiño + mano redonda en alto con saltito, junto al CTA.",
+  "musica": "original sintetizada, style upbeat, 118 bpm, seed 11, baja (0.30 / ducking 0.09)",
+  "sfx": "biblioteca video-shotcraft (lib:): air-woosh-quick, whoosh-fast, hit-weak, bass-hit-short + paper-staple (sellos), swoosh-quick, ui-popup-dry, ui-message-pop (chat), clock-tick-single (saldo que sube), impact-zoom-quick (+312 %), ui-success-soft, switch-tap (RETIRAR), ui-notify-tech, sweep-fast-small (giro de la píldora), ui-tone-quick (tono de llamada), marker-pen-line (tachón), ui-confirm-tone, swoosh-slow, chime-crystal",
+  "portada": "portada/portada.jpg (fondo: fotograma t=2,8 con el sello ESTAFA sobre el aviso de retirada y Listo preocupado; kicker ESTAFAS DE INVERSIÓN, '¿Pagar para SACAR tu dinero?')",
+  "duracion_s": 21.5,
+  "estado": "PENDIENTE de aprobación (enviado 18-nov noche)"
+}
