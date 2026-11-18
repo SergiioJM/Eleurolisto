@@ -16,7 +16,7 @@
   "sfx": "biblioteca video-shotcraft (lib:): air-woosh-quick, hit-fast-exciting, ui-message-pop, whoosh-fast, bass-hit-short, ui-confirm-tone, clock-tick-single ×8 (cada hora), impact-zoom-quick, swoosh-quick, ui-option-select, sparkle-touch, ui-success-soft, chime-crystal",
   "brillo": "52–70; salto máximo 4,0 entre fotogramas (0 saltos > 8)",
   "portada": "portada/portada.jpg: kicker ESPECIAL GTA 6, 'GTA 6 = 8,5 horas de curro', sub 'con el salario mínimo'; fondo del atardecer con el descapotable y Listo sorprendido",
-  "estado": "APROBADO (✅ Con portada) · se publica la versión con el pulgar corregido (uploadId 1d52ef34-ef46-4c55-a861-94cd9e209ddf)",
+  "estado": "PUBLICADO 18-nov 18:00 en IG + TikTok (versión con portada y pulgar corregido)",
   "duracion_s": 21.5,
   "video_final_portada": "https://cdn.creativeclaw.co/u/626ff63d/videos/4794b904-3974-4e40-a011-9b415fd17849.mp4",
   "video_final": "https://cdn.creativeclaw.co/u/626ff63d/videos/f460dd1d-35ac-404d-8c24-841ca1beccfb.mp4",
@@ -28,5 +28,9 @@
     "vidiq_uploadId_con_portada": "1d52ef34-ef46-4c55-a861-94cd9e209ddf",
     "video_final_portada": "https://cdn.creativeclaw.co/u/626ff63d/videos/afc48c57-bcea-47e5-a28f-1c915a2c6f07.mp4",
     "nota": "Es la versión que se publica (aviso trig_01ERjP7uBMNDTnUw4iEwiqiM actualizado). Las versiones anteriores ya no se usan."
-  }
+  },
+  "instagram_url": "https://www.instagram.com/reel/Df4_TitEvGO/",
+  "instagram_mediaId": "18021807218953868",
+  "tiktok_url": "https://www.tiktok.com/@eleurolisto/video/7709557012484345121",
+  "tiktok_post_vidiq": "83c8c3c9-c3dc-4a5a-b9c3-f83227dbc5ba"
 }
