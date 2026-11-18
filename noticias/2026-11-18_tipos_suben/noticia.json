@@ -1,0 +1,10 @@
+{"fecha":"18 nov 2026","fuente":"Euríbor: Rankia y Merca2 (17-18 nov) · Nov. 2025: Banco de España · BCE: Reuters vía Rankia · Ejemplo: cálculo propio","etiqueta":"QUÉ SIGNIFICA PARA TI",
+ "slides":[
+  {"tipo":"portada","titular":"Los tipos van a <em>subir</em>. ¿Qué significa para ti?","bajada":"El euríbor lleva 6 subidas seguidas y el BCE prepara una subida en diciembre. Te lo contamos caso por caso."},
+  {"tipo":"cifra","cifra":"3,361 %","texto":"euríbor del martes 17: sexta subida seguida","nota":"Media de noviembre (provisional): 3,286 %. Hace un año, en noviembre de 2025: 2,217 %."},
+  {"tipo":"cifra","cifra":"+96 €","texto":"más al mes si tu hipoteca variable se revisa ahora","nota":"Ejemplo: 167.000 € a 25 años, euríbor + 0,75. De ~789&nbsp;€ a ~885&nbsp;€ al mes: unos 1.150&nbsp;€ más al año. Cálculo orientativo con la media provisional."},
+  {"tipo":"puntos","titulo":"Qué significa para ti si…","puntos":["…tienes hipoteca <em>variable</em>: sube en tu próxima revisión (cada 0,25 puntos ≈ 23&nbsp;€/mes en el ejemplo)","…tienes hipoteca <em>fija</em>: no te cambia nada","…tienes <em>ahorros</em>: depósitos y cuentas remuneradas tienden a pagar algo más"]},
+  {"tipo":"puntos","titulo":"Y también si…","puntos":["…vas a pedir un <em>préstamo</em>: suele salir algo más caro cuando suben los tipos","…viajas o compras en <em>dólares</em>: el euro está por debajo de 1,10&nbsp;$ y te cunde menos"]},
+  {"tipo":"puntos","titulo":"Lo que viene","puntos":["<em>9 de diciembre</em>: decide la Fed (EE.&nbsp;UU.). El mercado da casi por hecha una subida","<em>17 de diciembre</em>: decide el BCE. Se espera subir el tipo de depósito del 2,50 % al <em>2,75 %</em>"]},
+  {"tipo":"cierre","titulo":"Qué puedes hacer hoy","puntos":["Mira en tu app del banco <em>cuándo se revisa</em> tu hipoteca","Si es variable, aparta ya la diferencia: que la subida no te pille","Si tienes dinero parado, <em>compara</em> lo que te paga tu cuenta"],"cta":"Mándaselo a quien tenga hipoteca 🏠"}
+ ]}
