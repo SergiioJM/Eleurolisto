@@ -3,8 +3,8 @@
 //   node toolkit/noticias/carrusel.mjs noticias/AAAA-MM-DD_slug/noticia.json
 //
 // Salida junto al JSON: ig_1.jpg… (1080x1350, feed de Instagram) y tt_1.jpg… (1080x1920, fotos de TikTok).
-// Tipos de diapositiva: portada {etiqueta, titular, bajada}, cifra {cifra, texto, nota}, puntos {titulo, puntos[]},
-// cierre {titulo, puntos[], cta}. En los textos, <em>…</em> resalta en ámbar.
+// Tipos de diapositiva: portada {etiqueta, titular, bajada}, cifra {cifra, texto, nota, cifraTam?}, puntos {titulo, puntos[]},
+// cierre {titulo, puntos[], cta}, mito {mito, realidad, nota} (tarjeta roja tachada + tarjeta verde). En los textos, <em>…</em> resalta en ámbar.
 import fs from "node:fs";
 import path from "node:path";
 import { createRequire } from "node:module";
@@ -45,6 +45,16 @@ li b{flex:none;width:64px;height:64px;border-radius:18px;background:#4d8dff;colo
 .marca span{color:#ffc547}
 .fuente{font:500 28px/1.35 'Poppins';color:#aab5d6;text-align:right;max-width:62%}
 .flecha{font:700 30px 'Poppins';color:#ffc547}
+.mv{display:flex;flex-direction:column;gap:${H > 1500 ? 44 : 30}px}
+.mv .card{border-radius:34px;padding:${H > 1500 ? "40px 44px" : "30px 40px"};position:relative}
+.mv .mito{background:rgba(239,68,68,.12);border:3px solid rgba(239,68,68,.55)}
+.mv .real{background:rgba(34,197,94,.13);border:3px solid rgba(34,197,94,.6)}
+.mv .lab{display:inline-flex;align-items:center;gap:14px;font:800 32px 'Poppins';letter-spacing:3px;padding:8px 22px;border-radius:30px;margin-bottom:${H > 1500 ? 22 : 16}px}
+.mv .mito .lab{background:#ef4444;color:#fff}
+.mv .real .lab{background:#22c55e;color:#0b1022}
+.mv .mito p{font:600 ${H > 1500 ? 46 : 42}px/1.3 'Poppins';color:#f3c4c4;text-decoration:line-through;text-decoration-color:rgba(239,68,68,.85);text-decoration-thickness:4px}
+.mv .real p{font:600 ${H > 1500 ? 48 : 43}px/1.3 'Poppins'}
+.mv .real small{display:block;font:500 ${H > 1500 ? 32 : 30}px/1.4 'Poppins';color:#aab5d6;margin-top:16px}
 `;
 
 function cuerpo(s, i) {
@@ -52,7 +62,10 @@ function cuerpo(s, i) {
   const tag = `<div class="tag"><i></i>${s.etiqueta || spec.etiqueta || "ÚLTIMA HORA"}</div>`;
   let mid = "";
   if (s.tipo === "portada") mid = `<h1>${s.titular}</h1><div class="bajada">${s.bajada || ""}</div>`;
-  if (s.tipo === "cifra") mid = `<div class="cifra">${s.cifra}</div><div class="texto">${s.texto}</div>${s.nota ? `<div class="nota">${s.nota}</div>` : ""}`;
+  if (s.tipo === "cifra") mid = `<div class="cifra"${s.cifraTam ? ` style="font-size:${s.cifraTam}px"` : ""}>${s.cifra}</div><div class="texto">${s.texto}</div>${s.nota ? `<div class="nota">${s.nota}</div>` : ""}`;
+  if (s.tipo === "mito")
+    mid = `<div class="mv"><div class="card mito"><div class="lab">✕ MITO</div><p>${s.mito}</p></div>` +
+      `<div class="card real"><div class="lab">✓ REALIDAD</div><p>${s.realidad}</p>${s.nota ? `<small>${s.nota}</small>` : ""}</div></div>`;
   if (s.tipo === "puntos" || s.tipo === "cierre")
     mid = `<h2>${s.titulo}</h2><ul>${(s.puntos || []).map((p, k) => `<li><b>${k + 1}</b><span>${p}</span></li>`).join("")}</ul>` +
       (s.cta ? `<div class="cta">${s.cta}</div>` : "");
