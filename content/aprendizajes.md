@@ -23,11 +23,18 @@ Qué funciona según los datos de Instagram (vidiq_instagram_owner_insights, mod
 - **🔥 19-nov (noche): el especial GTA 6 se ha pegado en TikTok: 985 visualizaciones y 30 likes (3 %), 1 compartido, 0 comentarios**, unas 50 veces la media del resto en TikTok (casi todos entre 0 y 20; el segundo, dividendos, 157 en su primera hora). Claves: **tema del día que la gente busca (#gta6) + look nuevo llamativo (R8) + una cuenta fácil de compartir (precio → horas de tu vida) sin sermonear** ("si lo vale, disfrútalo sin culpa"). Fallo: el CTA "mándaselo a…" no saca comentarios → la parte 2 acaba con una pregunta de dos opciones. → Cuando haya un evento enorme de cultura pop (lanzamiento, final, estreno), reel especial ese mismo día o el anterior a las 18:00, y si pega, **parte 2 dentro de las 48 h** con el giro hacia inversión.
 
 ## Actualización 19-nov noche (11 reels con datos; seguidores en IG: 2)
-- **Dividendos sin humo (R3, ElevenLabs Mateo, 31 s): 2,1 % de skip y 52 % visto** en su primera hora (55 visualizaciones): el mejor gancho hasta ahora ("¿un sueldo extra sin trabajar?" = promesa que la gente quiere + giro). Muestra pequeña: revisarlo mañana.
+- **Dividendos sin humo (R3, ElevenLabs Mateo, 31 s)**: en la primera hora parecía el mejor gancho (2,1 % de skip con 55 vistas), pero a las 133 vistas está en **33,6 % de skip y 28 % visto**: buen gancho ("¿un sueldo extra sin trabajar?"), retención floja en 31 s. En TikTok, 157 vistas (el 2.º mejor).
 - **Efectivo en casa (R6 pixel, voz local k_santa, 21 s): 161 visualizaciones, 41 % visto y 45 % de skip.** Buen alcance (curiosidad legal) pero el primer segundo aún pierde a casi la mitad.
 - **Patrón que se repite: los reels con voz local tienen más skip** (Bizum 67 %, efectivo 45 %) que los de voz premium (dividendos 2 %, GTA 39 %, inflación 32 %). Puede ser el gancho o la voz: el sábado se compara otra vez (13:30 local k_santa vs 20:30 ElevenLabs Juanjo). Si se confirma, proponer a Sergio ElevenLabs también a las 13:30 cuando haya caracteres.
 - La subida de sueldo bajó a 45 % visto y 55 % de skip con más datos (la primera hora engaña). GTA 6 sigue siendo el de más alcance (285): la actualidad funciona.
 - Seguimos sin compartidos ni guardados: los reels del sábado cierran con pregunta de dos opciones ("comenta 1 o 2") y un "mándaselo a tu amigo cripto".
+
+## Análisis completo 19-nov (Sergio: "analiza todos nuestros vídeos… dale caña") — ver content/ranking.md
+- **Ranking TOTAL**: 1.º GTA 6 (68), 2.º inflación 3D (63), 3.º 50/30/20 3D (58) y Ana y Leo (58); últimos Bizum (40) y café (45). Los mejores abren con personaje/escena en conflicto + tema que la gente busca o teme; los peores, con interfaz o consejo genérico de ahorro.
+- **TikTok es donde está el crecimiento, pero reparte muy desigual**: GTA 6 985 vistas y 30 likes, dividendos 157; el resto 0–19 (50/30/20 y Bizum con 0). → revisar en la app si están "no aptos para Para ti"; reforzar actualidad + inversión, que es lo que TikTok sí mueve.
+- **Interacción casi nula**: 0 comentarios, 1 compartido y 1 guardado en 9 reels. **Seguidores**: 1.503 vistas en IG en 5 días → 13 visitas al perfil → 2 seguidores. Falta una razón para comentar y para seguir → pregunta 1/2 en todos, series con partes y botón SEGUIR con Listo al final.
+- **Comparativas**: voz premium 57 vs local 47; 3D 61 vs 2D 53; gancho en pregunta 59 vs afirmación 53; ahorro básico 53 vs resto 56; 13:30 50 vs 20:30 56 vs especial 68.
+- **Carruseles de noticias**: alcance de 3 cuentas en IG (solo seguidores) y 0–49 vistas en TikTok: no traen gente nueva.
 
 ## Por reel
 | Fecha | Hora | Reel | Formato | Voz | Visualizaciones | % visto | Skip rate | Compartidos | Guardados |
