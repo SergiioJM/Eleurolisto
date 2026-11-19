@@ -15,5 +15,12 @@
   "musica": "original sintetizada, style upbeat, 104 bpm, seed 5, baja (0.30 / ducking 0.09)",
   "sfx": "biblioteca video-shotcraft (lib:): air-woosh-quick, stardust-swish, hit-weak, swoosh-quick, switch-click-quick (gafas), ui-tone-quick (tono de llamada), whoosh-fast, wind-woosh-throw, ui-notify-tech (llamada de Hacienda), bass-hit-short, sweep-fast-small, ui-message-pop, hit-blow + paper-staple (sello), sparkle-touch, swoosh-slow (título que gira), ui-popup-dry, impact-zoom-quick (19–30 %), ui-success-soft, chime-crystal",
   "portada": "portada/portada.jpg (fondo: escena limpia t=9,9 con Listo preocupado al teléfono; kicker DINERO Y LEY · CRIPTO, '¿Hacienda ve tus CRIPTOS?', etiqueta '📞 HACIENDA llamando…')",
-  "creditos": "0 (voz local, motor propio, fuentes OFL en toolkit/fuentes)"
+  "creditos": "0 (voz local, motor propio, fuentes OFL en toolkit/fuentes)",
+  "vidiq_uploadId_con_portada": "3a166144-9d94-4ff2-89a8-df370ae7c4b8",
+  "vidiq_uploadId_sin_portada": "947cebe2-14c3-4bc2-8273-669e6d460b81",
+  "estado": "PENDIENTE DE APROBACIÓN (enviado 19-nov ~22:00 en \"Reels nocturnos del sábado 21\")",
+  "duracion_s": 21.3,
+  "brillo": "brillo medio por fotograma (54x96 gris): 28–43; salto máximo 5,0 (0 saltos > 8)",
+  "loudness": "−14,5 LUFS",
+  "gmail_thread": "1a1f5871155ee970"
 }

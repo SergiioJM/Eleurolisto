@@ -16,5 +16,12 @@
   "sfx": "biblioteca video-shotcraft (lib:): data-load-os, sweep-digital (zooms), clock-tick-single (precio que baja), hit-weak, bass-hit-futuristic (−50 %), transition-tech-slide (pestañas), ui-option-select, typewriter-hit-soft, impact-zoom-quick (−84 % y −77 %), air-woosh-deep, data-compute (21 millones), ui-confirm-bleep, ui-notify-tech (ETF), warp-slide (al oro), ui-popup-dry, hit-blow (−53 %), transition-tech, pop-electric (barras), bass-hit-short (riesgo), gravel-fall-hit (gorro roto), swoosh-slow, ui-message-pop, ui-success-soft, ui-select-modern (votos), chime-crystal",
   "portada": "portada/portada.jpg (fondo: gráfica de bitcoin con el máximo y el tramo rojo + Listo neón en grande sorprendido señalándola, renderizado con window.PORTADA; kicker POLÉMICA · BITCOIN, '¿Burbuja u ORO DIGITAL?', etiqueta '−50 %')",
   "creditos": "ElevenLabs 571 caracteres (1.504 → 2.075 de 10.000); 0 de Creative Claw (el audio ya se descarga en el entorno y se mezcla aquí); vidIQ 5 (búsqueda de virales)",
-  "elevenlabs_flow": "OeAziXiucirIWVChJt7b (voz nodo CeQmM4V9v1YuARODkaYD, generación LJEcByobu9E5hMJVsnlu; transcripción eIN8XN1o7GXJPcru71E4)"
+  "elevenlabs_flow": "OeAziXiucirIWVChJt7b (voz nodo CeQmM4V9v1YuARODkaYD, generación LJEcByobu9E5hMJVsnlu; transcripción eIN8XN1o7GXJPcru71E4)",
+  "vidiq_uploadId_con_portada": "fa8d5548-cc21-43bc-ae00-0ef1b9a0cc0a",
+  "vidiq_uploadId_sin_portada": "74a765ed-e0d1-42ed-86b8-e1042126ced2",
+  "estado": "PENDIENTE DE APROBACIÓN (enviado 19-nov ~22:00 en \"Reels nocturnos del sábado 21\")",
+  "duracion_s": 35.2,
+  "brillo": "brillo medio por fotograma (54x96 gris): 13–17; salto máximo 1,5 (0 saltos > 8)",
+  "loudness": "−14,7 LUFS",
+  "gmail_thread": "1a1f5871155ee970"
 }
