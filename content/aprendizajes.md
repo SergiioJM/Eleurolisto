@@ -20,6 +20,8 @@ Qué funciona según los datos de Instagram (vidiq_instagram_owner_insights, mod
 - Subida de sueldo (tipografía cinética, 22 s): 66 % visto y 11 % de skip en la primera hora (13 visualizaciones; muestra pequeña).
 - Seguimos con 0 compartidos y casi 0 guardados en todo: el viernes se prueba la **pregunta de dos opciones** (comenta "gestor" o "índice") y un CTA de compartir muy concreto ("a quien empieza a invertir").
 
+- **🔥 19-nov (noche): el especial GTA 6 se ha pegado en TikTok: 985 visualizaciones y 30 likes (3 %), 1 compartido, 0 comentarios**, unas 50 veces la media del resto en TikTok (casi todos entre 0 y 20; el segundo, dividendos, 157 en su primera hora). Claves: **tema del día que la gente busca (#gta6) + look nuevo llamativo (R8) + una cuenta fácil de compartir (precio → horas de tu vida) sin sermonear** ("si lo vale, disfrútalo sin culpa"). Fallo: el CTA "mándaselo a…" no saca comentarios → la parte 2 acaba con una pregunta de dos opciones. → Cuando haya un evento enorme de cultura pop (lanzamiento, final, estreno), reel especial ese mismo día o el anterior a las 18:00, y si pega, **parte 2 dentro de las 48 h** con el giro hacia inversión.
+
 ## Por reel
 | Fecha | Hora | Reel | Formato | Voz | Visualizaciones | % visto | Skip rate | Compartidos | Guardados |
 |---|---|---|---|---|---|---|---|---|---|

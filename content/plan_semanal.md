@@ -14,6 +14,8 @@ Contexto de mercado (18-nov): bitcoin cerca de 64.800 $ el 15-nov tras liquidaci
 | Mié 25 | **INVERSIÓN · Interés compuesto con datos reales** (MSCI World a 20–30 años, histórico, no garantizado) | **POLÉMICA · FIRE y la regla del 4 %: ¿jubilarse a los 40 es posible en España?** |
 | Jue 26 | **CRIPTO · ETF de bitcoin vs comprar bitcoin directamente**: diferencias de custodia, comisiones y fiscalidad en España (sin nombrar productos) | **ORO vs BITCOIN vs BOLSA** en las últimas crisis (datos) |
 
+**EXTRA Vie 20 a las 18:00 · ESPECIAL GTA 6 parte 2** (lo prepara la sesión principal el 19-nov por la noche, porque la parte 1 se ha pegado en TikTok): "¿Y si en vez de GTA 5 hubieras comprado acciones de Take-Two en 2013?" + "a toro pasado todos somos genios" (diversificación). **La tarea nocturna NO tiene que hacerlo ni ocupar esa franja.**
+
 Experimento de la semana: **los reels "polémica" acaban con una pregunta de dos opciones** ("¿burbuja o futuro? Comenta 1 o 2") y se compara con los demás en comentarios y compartidos.
 Votación del post fijado (A fin de mes / B invertir / C Hacienda / D deudas): mira los comentarios cada noche; la opción ganadora entra en el siguiente hueco libre.
 Voces: Creative Claw tiene 10 créditos (Javier necesita ≥ 12; tras unir la voz del viernes quedarán ~6). **ElevenLabs gratis vuelve a funcionar (18-nov noche, 1.504/10.000 caracteres)** → a las 20:30 ElevenLabs hasta que Sergio recargue Creative Claw; al de las 13:30, voces locales `v1`/`k_santa`.
