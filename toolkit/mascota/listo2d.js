@@ -14,7 +14,7 @@
 //            'tropical' (R8 neón tropical / mundo abierto al atardecer: contorno grueso de cómic, reflejo rosa)
 //   estilo += 'comic' (contorno grueso + trama), 'papel' (recortable con sombra), 'plano_tecnico' (líneas de plano), 'vaporwave'
 //   pegatina = { color: '#fff', grosor: 10 } añade contorno de pegatina a CUALQUIER estilo (ideal sobre vídeo real)
-//   anim   = 'entrada'|'salto'|'giro'|'baile'|'temblor'|'cohete'|'desinfla'|'rebote'|'asoma' con animT = s desde que empieza
+//   anim   = 'entrada'|'salto'|'giro'|'baile'|'temblor'|'cohete'|'desinfla'|'rebote'|'asoma'|'mirarAtras' con animT = s desde que empieza
 //   dx, dy, sqx, sqy, rot = transformación manual (squash & stretch)
 //   acc    = ['gafas','monoculo','chistera','corona','cadena','pajarita','billetes','gorroRoto','parche','bufandaRota','bolsillos','mosca']
 //   modo   = 'vacilon' | 'rico' | 'millonario' | 'arruinado' (atajos de acc). accK = { gafas: 0..1 } anima la entrada.
@@ -78,7 +78,7 @@
     millonario: ['corona', 'gafas', 'cadena', 'billetes'],
     arruinado: ['gorroRoto', 'parche', 'bufandaRota', 'bolsillos', 'mosca'],
   };
-  const ACCESORIOS = ['gafas', 'monoculo', 'chistera', 'corona', 'cadena', 'pajarita', 'billetes', 'gorroRoto', 'parche', 'bufandaRota', 'bolsillos', 'mosca'];
+  const ACCESORIOS = ['gafas', 'monoculo', 'chistera', 'corona', 'cadena', 'pajarita', 'billetes', 'mando', 'gorroRoto', 'parche', 'bufandaRota', 'bolsillos', 'mosca'];
   const kA = (n) => (ACCK[n] == null ? 1 : Math.max(0, Math.min(1, ACCK[n]))); // progreso de entrada (0..1) de cada accesorio
   const LINEA = () => ST.soloLinea;
   function relleno(c, col) { if (LINEA()) { c.strokeStyle = ST.borde; c.lineWidth = 3; c.stroke(); } else { c.fillStyle = col; c.fill(); } }
@@ -140,7 +140,19 @@
       c.translate(0, 108); c.rotate(Math.sin(t * 2.2) * 0.12); c.beginPath(); c.moveTo(0, -16); c.lineTo(15, 0); c.lineTo(0, 18); c.lineTo(-15, 0); c.closePath(); relleno(c, '#bff3ff'); contorno(c, '#0e7490', 2.5);
       if (!LINEA()) { c.strokeStyle = '#fff'; c.lineWidth = 2; c.beginPath(); c.moveTo(-5, -4); c.lineTo(0, -10); c.stroke(); } c.restore(); }
   }
-  function accMano(c, hx, hy, t) { // billetes en abanico detrás de la mano derecha
+  function accMano(c, hx, hy, t) { // billetes en abanico detrás de la mano derecha (y el mando de consola)
+    if (ACC.has('mando')) { // NUEVO 19-nov: mando de consola genérico (sin marca), la mano redonda lo sujeta por delante
+      const k = kA('mando'); c.save(); c.globalAlpha *= k; c.translate(hx - 6, hy + 22); c.rotate(-0.18 + Math.sin(t * 5) * 0.04); c.scale(0.5 + 0.5 * k, 0.5 + 0.5 * k);
+      c.beginPath(); c.moveTo(-64, -22); c.quadraticCurveTo(0, -36, 64, -22); c.quadraticCurveTo(92, -16, 96, 22); c.quadraticCurveTo(98, 50, 74, 50);
+      c.quadraticCurveTo(56, 50, 44, 26); c.lineTo(-44, 26); c.quadraticCurveTo(-56, 50, -74, 50); c.quadraticCurveTo(-98, 50, -96, 22); c.quadraticCurveTo(-92, -16, -64, -22); c.closePath();
+      relleno(c, '#2b2140'); contorno(c, '#0f0a1a', 4);
+      if (!LINEA()) {
+        c.fillStyle = '#cfd6e6'; c.fillRect(-66, -6, 30, 10); c.fillRect(-56, -16, 10, 30); // cruceta
+        [[50, -10, '#ff3d8b'], [66, 4, '#34e5ff'], [34, 4, '#FFC547'], [50, 18, '#4ADE80']].forEach(([bx, by, col]) => { c.fillStyle = col; c.beginPath(); c.arc(bx, by, 7, 0, 7); c.fill(); });
+        c.fillStyle = '#4b3d66'; c.beginPath(); c.arc(-16, 14, 9, 0, 7); c.fill(); c.beginPath(); c.arc(16, 14, 9, 0, 7); c.fill();
+      }
+      c.restore();
+    }
     if (!ACC.has('billetes')) return; const k = kA('billetes'); c.save(); c.globalAlpha *= k; c.translate(hx, hy);
     for (let i = 0; i < 4; i++) { c.save(); c.rotate(-0.7 + i * 0.32 + Math.sin(t * 3) * 0.03); c.beginPath(); c.roundRect(-14, -78, 30, 64, 4); relleno(c, i % 2 ? '#22c55e' : '#16a34a'); contorno(c, '#14532d', 2.5);
       if (!LINEA()) { c.fillStyle = '#dcfce7'; c.font = '800 20px Poppins, sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('€', 1, -46); } c.restore(); }
@@ -390,6 +402,10 @@
       if (u < 0.25) sq(0.22 * Math.sin(u / 0.25 * Math.PI / 2)); else { const k = u - 0.25; T.dy = -1400 * k * k - 200 * k; sq(-0.25); } pose = 'celebra'; expr = 'sorpresa'; }
     else if (nombre === 'desinfla') { const k = ease(u / 0.8); sq(0.18 * k); T.rot = -0.12 * k; T.dy = 10 * k; pose = 'reposo'; expr = 'preocupado'; }
     else if (nombre === 'rebote') { const p = (u * 2.2) % 1; T.dy = -60 * Math.sin(p * Math.PI); sq(p > 0.88 || p < 0.06 ? 0.08 : -0.03); }
+    else if (nombre === 'mirarAtras') { // NUEVO 19-nov: gira la cabeza hacia atrás ("a toro pasado") y vuelve
+      const ida = ease(u / 0.35), vuelta = ease((u - 1.3) / 0.4), k = ida * (1 - vuelta);
+      T.rot = -0.2 * k; T.dx = -30 * k; T.sqx = 1 - 0.1 * k; T.dy = -12 * Math.sin(Math.min(1, u / 0.35) * Math.PI);
+      pose = 'piensa'; expr = u < 1.3 ? 'sorpresa' : 'idea'; }
     else if (nombre === 'asoma') { const k = ease(u / 0.5); T.dx = (1 - k) * -420; T.rot = (1 - k) * -0.5; pose = 'saludo'; expr = 'guino'; }
     return { trans: T, pose, expr };
   }
@@ -407,5 +423,5 @@
     c.save(); c.imageSmoothingEnabled = false; c.drawImage(off, x - W * px / 2 + ox, y - (H - Math.ceil(60 * s / px)) * px + oy, W * px, H * px); c.restore();
   }
 
-  window.Listo2D = { dibujar, pixel, anim, POSES, ESTILOS: Object.keys(ESTILOS).concat(['pixel']), MODOS, ACCESORIOS, ANIMACIONES: ['entrada', 'salto', 'giro', 'baile', 'temblor', 'cohete', 'desinfla', 'rebote', 'asoma'] };
+  window.Listo2D = { dibujar, pixel, anim, POSES, ESTILOS: Object.keys(ESTILOS).concat(['pixel']), MODOS, ACCESORIOS, ANIMACIONES: ['entrada', 'salto', 'giro', 'baile', 'temblor', 'cohete', 'desinfla', 'rebote', 'asoma', 'mirarAtras'] };
 })();

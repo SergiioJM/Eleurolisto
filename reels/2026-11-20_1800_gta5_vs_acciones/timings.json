@@ -1,0 +1,411 @@
+{
+ "total": 28.92,
+ "voz": "ElevenLabs · Juanjo Viral (30jLfQdV8RTduXvosh02), eleven_v4",
+ "offset_voz": 0.2,
+ "segments": [
+  {
+   "i": 0,
+   "start": 0.2,
+   "dur": 7.88,
+   "text": "¿Y si en vez de comprar GTA cinco en dos mil trece hubieras metido sesenta euros en acciones de Take-Two, la empresa que lo publica?",
+   "words": [
+    {
+     "w": "¿Y",
+     "start": 0.2,
+     "end": 0.28
+    },
+    {
+     "w": "si",
+     "start": 0.36,
+     "end": 0.44
+    },
+    {
+     "w": "en",
+     "start": 0.52,
+     "end": 0.6
+    },
+    {
+     "w": "vez",
+     "start": 0.68,
+     "end": 0.76
+    },
+    {
+     "w": "de",
+     "start": 0.84,
+     "end": 0.92
+    },
+    {
+     "w": "comprar",
+     "start": 1.04,
+     "end": 1.32
+    },
+    {
+     "w": "GTA",
+     "start": 1.48,
+     "end": 1.8
+    },
+    {
+     "w": "5",
+     "start": 1.88,
+     "end": 2.12
+    },
+    {
+     "w": "en",
+     "start": 2.2,
+     "end": 2.28
+    },
+    {
+     "w": "2013",
+     "start": 2.36,
+     "end": 3.0
+    },
+    {
+     "w": "hubieras",
+     "start": 3.32,
+     "end": 3.64
+    },
+    {
+     "w": "metido",
+     "start": 3.72,
+     "end": 4.04
+    },
+    {
+     "w": "60 €",
+     "start": 4.2,
+     "end": 5.08
+    },
+    {
+     "w": "en",
+     "start": 5.12,
+     "end": 5.16
+    },
+    {
+     "w": "acciones",
+     "start": 5.24,
+     "end": 5.64
+    },
+    {
+     "w": "de",
+     "start": 5.68,
+     "end": 5.72
+    },
+    {
+     "w": "Take-Two,",
+     "start": 5.88,
+     "end": 6.6
+    },
+    {
+     "w": "la",
+     "start": 6.68,
+     "end": 6.72
+    },
+    {
+     "w": "empresa",
+     "start": 6.76,
+     "end": 7.08
+    },
+    {
+     "w": "que",
+     "start": 7.16,
+     "end": 7.24
+    },
+    {
+     "w": "lo",
+     "start": 7.28,
+     "end": 7.32
+    },
+    {
+     "w": "publica?",
+     "start": 7.48,
+     "end": 8.08
+    }
+   ]
+  },
+  {
+   "i": 1,
+   "start": 8.36,
+   "dur": 4.24,
+   "text": "Hoy tendrías más de ochocientos euros: unas catorce veces más.",
+   "words": [
+    {
+     "w": "Hoy",
+     "start": 8.36,
+     "end": 8.52
+    },
+    {
+     "w": "tendrías",
+     "start": 8.573,
+     "end": 9.08
+    },
+    {
+     "w": "más",
+     "start": 9.12,
+     "end": 9.24
+    },
+    {
+     "w": "de",
+     "start": 9.32,
+     "end": 9.36
+    },
+    {
+     "w": "800 €:",
+     "start": 9.4,
+     "end": 10.92
+    },
+    {
+     "w": "unas",
+     "start": 11.08,
+     "end": 11.24
+    },
+    {
+     "w": "14",
+     "start": 11.32,
+     "end": 11.8
+    },
+    {
+     "w": "veces",
+     "start": 11.88,
+     "end": 12.2
+    },
+    {
+     "w": "más.",
+     "start": 12.28,
+     "end": 12.6
+    }
+   ]
+  },
+  {
+   "i": 2,
+   "start": 13.0,
+   "dur": 4.72,
+   "text": "Pero ojo: unos meses antes quebró la editora de Saints Row, su gran rival.",
+   "words": [
+    {
+     "w": "Pero",
+     "start": 13.0,
+     "end": 13.16
+    },
+    {
+     "w": "ojo:",
+     "start": 13.24,
+     "end": 13.88
+    },
+    {
+     "w": "unos",
+     "start": 14.0,
+     "end": 14.12
+    },
+    {
+     "w": "meses",
+     "start": 14.2,
+     "end": 14.44
+    },
+    {
+     "w": "antes",
+     "start": 14.64,
+     "end": 14.84
+    },
+    {
+     "w": "quebró",
+     "start": 14.92,
+     "end": 15.24
+    },
+    {
+     "w": "la",
+     "start": 15.28,
+     "end": 15.32
+    },
+    {
+     "w": "editora",
+     "start": 15.4,
+     "end": 15.76
+    },
+    {
+     "w": "de",
+     "start": 15.8,
+     "end": 15.88
+    },
+    {
+     "w": "Saints",
+     "start": 15.96,
+     "end": 16.28
+    },
+    {
+     "w": "Row,",
+     "start": 16.44,
+     "end": 16.76
+    },
+    {
+     "w": "su",
+     "start": 16.84,
+     "end": 16.92
+    },
+    {
+     "w": "gran",
+     "start": 17.0,
+     "end": 17.24
+    },
+    {
+     "w": "rival.",
+     "start": 17.32,
+     "end": 17.72
+    }
+   ]
+  },
+  {
+   "i": 3,
+   "start": 18.12,
+   "dur": 2.48,
+   "text": "A toro pasado, todos somos genios.",
+   "words": [
+    {
+     "w": "A",
+     "start": 18.12,
+     "end": 18.2
+    },
+    {
+     "w": "toro",
+     "start": 18.28,
+     "end": 18.44
+    },
+    {
+     "w": "pasado,",
+     "start": 18.52,
+     "end": 19.08
+    },
+    {
+     "w": "todos",
+     "start": 19.28,
+     "end": 19.48
+    },
+    {
+     "w": "somos",
+     "start": 19.56,
+     "end": 19.72
+    },
+    {
+     "w": "genios.",
+     "start": 19.8,
+     "end": 20.6
+    }
+   ]
+  },
+  {
+   "i": 4,
+   "start": 20.68,
+   "dur": 3.12,
+   "text": "Por eso, no te lo juegues todo a una sola empresa.",
+   "words": [
+    {
+     "w": "Por",
+     "start": 20.68,
+     "end": 20.76
+    },
+    {
+     "w": "eso,",
+     "start": 20.92,
+     "end": 21.24
+    },
+    {
+     "w": "no",
+     "start": 21.4,
+     "end": 21.48
+    },
+    {
+     "w": "te",
+     "start": 21.56,
+     "end": 21.64
+    },
+    {
+     "w": "lo",
+     "start": 21.68,
+     "end": 21.72
+    },
+    {
+     "w": "juegues",
+     "start": 21.8,
+     "end": 22.12
+    },
+    {
+     "w": "todo",
+     "start": 22.2,
+     "end": 22.44
+    },
+    {
+     "w": "a",
+     "start": 22.48,
+     "end": 22.52
+    },
+    {
+     "w": "una",
+     "start": 22.6,
+     "end": 22.76
+    },
+    {
+     "w": "sola",
+     "start": 22.84,
+     "end": 23.0
+    },
+    {
+     "w": "empresa.",
+     "start": 23.08,
+     "end": 23.8
+    }
+   ]
+  },
+  {
+   "i": 5,
+   "start": 24.04,
+   "dur": 3.28,
+   "text": "¿Tú qué habrías elegido: el juego o las acciones?",
+   "words": [
+    {
+     "w": "¿Tú",
+     "start": 24.04,
+     "end": 24.16
+    },
+    {
+     "w": "qué",
+     "start": 24.2,
+     "end": 24.28
+    },
+    {
+     "w": "habrías",
+     "start": 24.32,
+     "end": 24.6
+    },
+    {
+     "w": "elegido:",
+     "start": 24.68,
+     "end": 25.4
+    },
+    {
+     "w": "el",
+     "start": 25.48,
+     "end": 25.56
+    },
+    {
+     "w": "juego",
+     "start": 25.64,
+     "end": 26.12
+    },
+    {
+     "w": "o",
+     "start": 26.16,
+     "end": 26.2
+    },
+    {
+     "w": "las",
+     "start": 26.28,
+     "end": 26.36
+    },
+    {
+     "w": "acciones?",
+     "start": 26.44,
+     "end": 27.32
+    }
+   ]
+  }
+ ],
+ "voz_url_nota": "ElevenLabs flow 22osR7QNJUSUhqSVKa9R, generación JRqGb8EY5wUEQ9SIJHgn (node 3zUq6w2CPb3ElN2wdgLe); transcripción idéntica al guion (eleven_scribe_v1)"
+}

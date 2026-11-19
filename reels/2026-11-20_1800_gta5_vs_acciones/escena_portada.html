@@ -1,0 +1,333 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<script src="../../toolkit/mascota/listo2d.js"></script>
+<script>window.PORTADA = true;</script>
+<style>
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#0a0318}
+canvas{position:absolute;inset:0}
+</style></head>
+<body><canvas id="c" width="1080" height="1920"></canvas>
+<script>
+// R8b · NEÓN TROPICAL DE NOCHE (parte 2 del especial GTA): la misma costa del reel de ayer, ahora de noche, con luna,
+// rascacielos iluminados y una valla de neón. Listo conduce un descapotable cian y cambia de accesorios según la historia
+// (gafas + mando → millonario → arruinado → genio con chistera). Sin logos, personajes ni tipografías del juego.
+const C = document.getElementById('c'), X = C.getContext('2d');
+const TIM = window.TIM, S = TIM.segments;
+const DUR = (window.DURACION = TIM.total);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, k) => a + (b - a) * k;
+const prog = (t, a, d) => clamp((t - a) / d);
+const eio = (k) => k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+const eout = (k) => 1 - Math.pow(1 - k, 3);
+const eback = (k, s = 1.7) => { k = clamp(k); return 1 + (s + 1) * Math.pow(k - 1, 3) + s * Math.pow(k - 1, 2); };
+const st = (i) => S[i].start, en = (i) => S[i].start + S[i].dur;
+const pal = (i, f, n = 0) => { const ws = S[i].words.filter((w) => w.w.toLowerCase().includes(f)); return (ws[n] || ws[0] || S[i].words[0]).start; };
+const T = {
+  gta: pal(0, 'gta'), anio: pal(0, '2013'), sesenta: pal(0, '60'), acciones: pal(0, 'acciones'), take: pal(0, 'take'), publica: pal(0, 'publica'),
+  hoy: st(1), ocho: pal(1, '800'), catorce: pal(1, '14'),
+  pero: st(2), quebro: pal(2, 'quebr'), saints: pal(2, 'saints'), rival: pal(2, 'rival'),
+  toro: st(3), genios: pal(3, 'genios'),
+  poreso: st(4), juegues: pal(4, 'juegues'), sola: pal(4, 'sola'), empresa: pal(4, 'empresa'),
+  cta: st(5), juego: pal(5, 'juego'), accs: pal(5, 'acciones'), fin: en(5),
+};
+const PAL = { rosa: '#ff3d8b', rosa2: '#ff7ac0', cian: '#34e5ff', amb: '#FFC547', verde: '#4ADE80', rojo: '#ff4d5e', tinta: '#120820', morado: '#2a0f45' };
+
+// ---------- texto de cómic: relleno, contorno grueso y sombra de color ----------
+function comic(s, x, y, size, fill, { stroke = PAL.tinta, sw = 0.16, sombra = PAL.rosa, ital = true, align = 'center', peso = 900 } = {}) {
+  X.font = `${ital ? 'italic ' : ''}${peso} ${size}px Inter`; X.textAlign = align; X.textBaseline = 'middle'; X.lineJoin = 'round';
+  if (sombra) { X.fillStyle = sombra; X.fillText(s, x + size * 0.06, y + size * 0.07); X.strokeStyle = sombra; X.lineWidth = size * sw; X.strokeText(s, x + size * 0.06, y + size * 0.07); }
+  X.strokeStyle = stroke; X.lineWidth = size * sw; X.strokeText(s, x, y); X.fillStyle = fill; X.fillText(s, x, y);
+}
+function rr(x, y, w, h, r, fill, stroke, lw) { X.beginPath(); X.roundRect(x, y, w, h, r); if (fill) { X.fillStyle = fill; X.fill(); } if (stroke) { X.strokeStyle = stroke; X.lineWidth = lw || 4; X.stroke(); } }
+function neonRect(x, y, w, h, r, col, lw = 6) { // marco de neón ESTABLE (sin parpadeo)
+  X.save(); X.shadowColor = col; X.shadowBlur = 24; X.strokeStyle = col; X.lineWidth = lw; X.beginPath(); X.roundRect(x, y, w, h, r); X.stroke();
+  X.shadowBlur = 0; X.strokeStyle = 'rgba(255,255,255,.75)'; X.lineWidth = lw * 0.35; X.stroke(); X.restore();
+}
+function panel(x, y, w, h, k, col = PAL.rosa) { // tarjeta oscura con neón: entra con rebote, sin aclarar la pantalla
+  X.save(); X.globalAlpha *= clamp(k * 2); X.translate(x, y + (1 - eback(k)) * 70); const s = 0.86 + 0.14 * eback(k); X.scale(s, s); X.rotate(-0.025);
+  rr(-w / 2 + 10, -h / 2 + 14, w, h, 26, 'rgba(5,0,14,.5)'); rr(-w / 2, -h / 2, w, h, 26, 'rgba(22,6,40,.93)'); neonRect(-w / 2, -h / 2, w, h, 26, col);
+  return () => X.restore();
+}
+function sello(s, x, y, k, col, size = 80, rot = -8) {
+  if (k <= 0) return; X.save(); X.translate(x, y); X.rotate(rot * Math.PI / 180); const sc = lerp(2.2, 1, eout(k)); X.scale(sc, sc); X.globalAlpha *= clamp(k * 3);
+  X.font = `italic 900 ${size}px Inter`; const w = X.measureText(s).width + 70; rr(-w / 2, -size * 0.75, w, size * 1.5, 20, 'rgba(22,6,40,.92)'); neonRect(-w / 2, -size * 0.75, w, size * 1.5, 20, col, 7);
+  comic(s, 0, 4, size, col, { sombra: null }); X.restore();
+}
+// iconos propios (sin marcas): mando genérico y flecha de gráfica
+function iconoMando(x, y, s, col = PAL.rosa) {
+  X.save(); X.translate(x, y); X.scale(s, s);
+  X.beginPath(); X.moveTo(-64, -22); X.quadraticCurveTo(0, -36, 64, -22); X.quadraticCurveTo(92, -16, 96, 22); X.quadraticCurveTo(98, 50, 74, 50);
+  X.quadraticCurveTo(56, 50, 44, 26); X.lineTo(-44, 26); X.quadraticCurveTo(-56, 50, -74, 50); X.quadraticCurveTo(-98, 50, -96, 22); X.quadraticCurveTo(-92, -16, -64, -22); X.closePath();
+  X.fillStyle = '#2b2140'; X.fill(); X.save(); X.shadowColor = col; X.shadowBlur = 14; X.strokeStyle = col; X.lineWidth = 6; X.stroke(); X.restore();
+  X.fillStyle = '#cfd6e6'; X.fillRect(-66, -6, 30, 10); X.fillRect(-56, -16, 10, 30);
+  [[50, -10, PAL.rosa], [66, 4, PAL.cian], [34, 4, PAL.amb], [50, 18, PAL.verde]].forEach(([bx, by, c]) => { X.fillStyle = c; X.beginPath(); X.arc(bx, by, 7, 0, 7); X.fill(); });
+  X.restore();
+}
+function iconoGrafica(x, y, s, col = PAL.verde, k = 1) {
+  X.save(); X.translate(x, y); X.scale(s, s); X.lineJoin = 'round'; X.lineCap = 'round';
+  const pts = [[-80, 40], [-40, 10], [-10, 26], [30, -18], [80, -50]]; const n = Math.max(1, Math.floor(k * (pts.length - 1) * 100) / 100);
+  X.save(); X.shadowColor = col; X.shadowBlur = 16; X.strokeStyle = col; X.lineWidth = 12; X.beginPath(); X.moveTo(...pts[0]);
+  for (let i = 1; i < pts.length; i++) { const f = clamp(n - (i - 1)); if (f <= 0) break; X.lineTo(lerp(pts[i - 1][0], pts[i][0], f), lerp(pts[i - 1][1], pts[i][1], f)); } X.stroke(); X.restore();
+  if (k >= 1) { X.fillStyle = col; X.beginPath(); X.moveTo(92, -60); X.lineTo(52, -58); X.lineTo(80, -24); X.closePath(); X.fill(); }
+  X.restore();
+}
+
+// ---------- el mundo de noche (paralaje) ----------
+const VEL = 480;
+let EDIF = [], EST = [];
+(function () {
+  let s = 11; const r = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  let x = -200; while (x < 4000) { const w = 70 + r() * 120, h = 140 + r() * 380; EDIF.push({ x, w, h, deco: r() < 0.4, neon: r() < 0.5 ? PAL.rosa : PAL.cian, ven: r() }); x += w + 8 + r() * 30; }
+  for (let i = 0; i < 90; i++) EST.push([r() * 1080, r() * 760, 1 + r() * 2.2]);
+})();
+const HOR = 1080;
+function cielo() {
+  const g = X.createLinearGradient(0, 0, 0, HOR); g.addColorStop(0, '#07021a'); g.addColorStop(0.45, '#1c0a3e'); g.addColorStop(0.78, '#55136a'); g.addColorStop(1, '#a3246e');
+  X.fillStyle = g; X.fillRect(0, 0, 1080, HOR);
+  X.fillStyle = 'rgba(255,240,255,.75)'; for (const [x, y, r] of EST) { X.beginPath(); X.arc(x, y, r, 0, 7); X.fill(); } // estrellas fijas
+}
+function luna() {
+  const lx = 800, ly = 560, r = 95;
+  const h = X.createRadialGradient(lx, ly, r * 0.8, lx, ly, r * 3); h.addColorStop(0, 'rgba(200,220,255,.28)'); h.addColorStop(1, 'rgba(200,220,255,0)');
+  X.fillStyle = h; X.fillRect(lx - r * 3, ly - r * 3, r * 6, r * 6);
+  X.fillStyle = '#f3f0ff'; X.beginPath(); X.arc(lx, ly, r, 0, 7); X.fill();
+  X.fillStyle = 'rgba(180,170,220,.45)'; [[-30, -20, 18], [25, 15, 24], [-10, 40, 12]].forEach(([dx, dy, rr2]) => { X.beginPath(); X.arc(lx + dx, ly + dy, rr2, 0, 7); X.fill(); });
+}
+function skyline(t) {
+  const off = (t * VEL * 0.08) % 3600;
+  for (const b of EDIF) {
+    let x = b.x - off; if (x + b.w < -50) x += 3600; if (x > 1130) continue;
+    const top = HOR - b.h;
+    X.fillStyle = '#1d0a30'; X.fillRect(x, top, b.w, b.h);
+    if (b.deco) { X.fillRect(x + b.w * 0.25, top - 30, b.w * 0.5, 30); X.fillRect(x + b.w * 0.42, top - 70, b.w * 0.16, 40); }
+    X.fillStyle = 'rgba(255,214,140,.7)';
+    for (let yy = top + 16; yy < HOR - 14; yy += 26) for (let xx = x + 10; xx < x + b.w - 12; xx += 20) if (((xx * 7 + yy * 3) | 0) % 5 < 1 + b.ven * 2) X.fillRect(xx, yy, 8, 11);
+    if (b.deco) { X.save(); X.shadowColor = b.neon; X.shadowBlur = 16; X.strokeStyle = b.neon; X.lineWidth = 4; X.strokeRect(x + 3, top + 3, b.w - 6, b.h); X.restore(); }
+  }
+  const nx = 300 - ((t * VEL * 0.08) % 3600); if (nx > -300 && nx < 1200) { X.save(); X.shadowColor = PAL.rosa; X.shadowBlur = 18; X.font = 'italic 900 44px Inter'; X.fillStyle = '#ffd1e6'; X.textAlign = 'center'; X.fillText('LISTO BANK', nx, HOR - 360); X.restore(); }
+}
+function mar(t) {
+  const g = X.createLinearGradient(0, HOR, 0, 1290); g.addColorStop(0, '#6a1a6e'); g.addColorStop(0.4, '#3a1158'); g.addColorStop(1, '#170733');
+  X.fillStyle = g; X.fillRect(0, HOR, 1080, 210);
+  for (let i = 0; i < 12; i++) { const y = HOR + 8 + i * 15, w = 170 - i * 10, x = 800 - w / 2 + Math.sin(t * 2 + i) * 16; X.fillStyle = `rgba(230,230,255,${0.5 - i * 0.035})`; X.fillRect(x, y, w, 4); }
+}
+function palmera(x, base, h, inc, t, col) {
+  X.save(); X.translate(x, base); X.strokeStyle = col; X.lineCap = 'round';
+  X.lineWidth = 16; X.beginPath(); X.moveTo(0, 0); X.quadraticCurveTo(h * inc * 0.5 + 10, -h * 0.5, h * inc, -h); X.stroke();
+  X.translate(h * inc, -h); X.fillStyle = col;
+  for (let k = 0; k < 7; k++) { const a = -Math.PI / 2 + (k - 3) * 0.52 + Math.sin(t * 1.4 + k) * 0.05; X.save(); X.rotate(a); X.beginPath(); X.moveTo(0, -6); X.quadraticCurveTo(70, -26, 140, 10); X.quadraticCurveTo(70, 4, 0, 6); X.fill(); X.restore(); }
+  X.restore();
+}
+function playa(t) {
+  X.fillStyle = '#5a2a5c'; X.fillRect(0, 1290, 1080, 40);
+  const off = (t * VEL * 0.45) % 330;
+  for (let i = -1; i < 5; i++) palmera(i * 330 - off + 120, 1320, 300 + (i % 2) * 70, 0.12 + (i % 3) * 0.05, t, '#12051d');
+}
+function carretera(t) {
+  X.fillStyle = '#211330'; X.fillRect(0, 1330, 1080, 170);
+  X.fillStyle = '#ffcf6a'; const off = (t * VEL) % 160; for (let x = -off; x < 1100; x += 160) X.fillRect(x, 1412, 80, 8);
+  X.fillStyle = '#3a2250'; X.fillRect(0, 1330, 1080, 10);
+  X.fillStyle = '#150a1f'; X.fillRect(0, 1500, 1080, 420);
+  X.save(); X.shadowColor = PAL.cian; X.shadowBlur = 16; X.fillStyle = PAL.cian; X.fillRect(0, 1506, 1080, 6); X.restore();
+  X.fillStyle = '#22122f'; const of4 = (t * VEL) % 120; for (let x = -of4; x < 1100; x += 120) X.fillRect(x, 1540, 112, 60);
+  const of2 = (t * VEL) % 540;
+  for (let x = -of2; x < 1200; x += 540) { X.fillStyle = '#0c0512'; X.fillRect(x, 1210, 10, 130); X.fillRect(x - 30, 1210, 40, 8); const g = X.createRadialGradient(x - 26, 1222, 4, x - 26, 1222, 110); g.addColorStop(0, 'rgba(255,214,150,.7)'); g.addColorStop(1, 'rgba(255,214,150,0)'); X.fillStyle = g; X.fillRect(x - 140, 1110, 230, 230); }
+  const of3 = (t * VEL * 1.5) % 1400;
+  palmera(1300 - of3, 1920, 640, -0.18, t, '#06020b'); palmera(2000 - of3, 1920, 560, 0.15, t, '#06020b');
+}
+function coche(t, cx, cy, listo) { // descapotable genérico de los 80 (cian), vista lateral, con faros encendidos
+  const bob = Math.sin(t * 9) * 2;
+  X.save(); X.translate(cx, cy + bob);
+  // haz de los faros (fijo)
+  const g = X.createLinearGradient(250, 0, 620, 0); g.addColorStop(0, 'rgba(255,240,190,.35)'); g.addColorStop(1, 'rgba(255,240,190,0)');
+  X.fillStyle = g; X.beginPath(); X.moveTo(250, -12); X.lineTo(640, -70); X.lineTo(640, 60); X.lineTo(250, 4); X.closePath(); X.fill();
+  if (listo) listo();
+  X.fillStyle = '#28d7f0'; X.beginPath(); X.moveTo(-250, 10); X.lineTo(-240, -40); X.lineTo(-120, -52); X.lineTo(-60, -52); X.lineTo(30, -50); X.lineTo(200, -40); X.lineTo(250, -10); X.lineTo(252, 22); X.lineTo(-250, 22); X.closePath(); X.fill();
+  X.strokeStyle = PAL.tinta; X.lineWidth = 7; X.stroke();
+  X.fillStyle = PAL.rosa; X.fillRect(-235, -8, 480, 9);
+  X.strokeStyle = '#e8fdff'; X.lineWidth = 6; X.beginPath(); X.moveTo(40, -50); X.lineTo(-10, -110); X.stroke();
+  for (const wx of [-160, 160]) { X.fillStyle = PAL.tinta; X.beginPath(); X.arc(wx, 24, 46, 0, 7); X.fill(); X.fillStyle = '#cfd6e6'; X.beginPath(); X.arc(wx, 24, 22, 0, 7); X.fill();
+    X.save(); X.translate(wx, 24); X.rotate(t * 14); X.strokeStyle = '#6b7280'; X.lineWidth = 5; for (let k = 0; k < 5; k++) { X.rotate(1.2566); X.beginPath(); X.moveTo(0, 0); X.lineTo(20, 0); X.stroke(); } X.restore(); }
+  X.fillStyle = '#fff6cc'; X.fillRect(238, -14, 14, 12);
+  X.fillStyle = PAL.rojo; X.fillRect(-252, -6, 10, 10);
+  X.restore();
+}
+
+// ---------- capa: subtítulos, tarjetas, CTA ----------
+const CLAVE = ['gta', '5', '2013', '60 €', 'acciones', 'take-two,', '800 €:', '800 €', '14', 'quebró', 'rival.', 'genios.', 'toro', 'sola', 'empresa.', 'juego', 'acciones?'];
+const TROZOS = [];
+S.forEach((s) => { let cur = []; s.words.forEach((w) => { const len = cur.map((x) => x.w).join(' ').length + w.w.length; if (cur.length >= 3 || (cur.length && len > 15)) { TROZOS.push(cur); cur = []; } cur.push(w); }); if (cur.length) TROZOS.push(cur); });
+function subtitulos(t) {
+  let tr = null; for (const c of TROZOS) if (t >= c[0].start - 0.06) tr = c;
+  if (!tr || t > tr[tr.length - 1].end + 0.5) return;
+  const k = eback(prog(t, tr[0].start - 0.06, 0.18), 2);
+  X.font = 'italic 900 84px Inter'; const sp = 24, ws = tr.map((w) => X.measureText(w.w).width), tot = ws.reduce((a, b) => a + b, 0) + sp * (tr.length - 1);
+  const esc = Math.min(1, 980 / tot); let x = 540 - tot * esc / 2;
+  X.save(); X.translate(540, 905); X.scale((0.85 + 0.15 * k) * esc, (0.85 + 0.15 * k) * esc); X.translate(-540, -905);
+  x = 540 - tot / 2;
+  tr.forEach((w, i) => { const on = t >= w.start - 0.03, cl = CLAVE.includes(w.w.toLowerCase()); comic(w.w, x, 905, 84, on ? (cl ? PAL.amb : '#ffffff') : 'rgba(255,255,255,.55)', { align: 'left', sombra: on ? PAL.rosa : null }); x += ws[i] + sp; });
+  X.restore();
+}
+function sale(t, a, b, d = 0.35) { return 1 - prog(t, b - d * 0.4, d); } // factor de salida
+function capa(t) {
+  // kicker
+  X.save(); X.globalAlpha = eout(prog(t, 0, 0.3)); rr(540 - 270, 150, 540, 66, 33, PAL.rosa); X.font = '800 30px Inter'; X.fillStyle = '#fff'; X.textAlign = 'center'; X.textBaseline = 'middle'; X.fillText('ESPECIAL GTA 6 · PARTE 2', 540, 184); X.restore();
+
+  // 1) GANCHO: título de cómic hasta "60 €"
+  if (t < T.sesenta + 0.3) {
+    const f = 1 - prog(t, T.sesenta - 0.15, 0.4);
+    const k1 = lerp(0.55, 1, eback(prog(t, 0.0, 0.35), 2)), k2 = eback(prog(t, Math.min(0.35, T.gta - 0.2), 0.35), 2), k3 = eback(prog(t, T.anio - 0.15, 0.35), 2);
+    X.save(); X.globalAlpha = f;
+    X.save(); X.translate(540, 470); X.rotate(-0.05); X.scale(k1, k1); comic('¿Y SI EN VEZ', 0, 0, 112, '#ffffff'); X.restore();
+    X.save(); X.translate(540, 595); X.rotate(-0.05); X.scale(k2, k2); comic('DE GTA 5…', 0, 0, 124, PAL.amb); X.restore();
+    X.save(); X.translate(540, 730); X.rotate(-0.05); X.scale(k3, k3); comic('…COMPRABAS ACCIONES?', 0, 0, 78, '#ffffff', { sombra: PAL.cian }); X.restore();
+    X.restore();
+  }
+  // 2) 2013: juego vs acciones (hasta "Hoy")
+  if (t > T.sesenta - 0.15 && t < T.hoy + 0.3) {
+    const f = 1 - prog(t, T.hoy - 0.15, 0.4), k = prog(t, T.sesenta - 0.15, 0.45);
+    X.save(); X.globalAlpha = f; const r = panel(540, 600, 900, 400, k, PAL.cian);
+    comic('2013 · TIENES 60 €', 0, -150, 56, '#ffffff', { sombra: PAL.rosa });
+    // izquierda: el juego
+    const kj = eout(prog(t, T.sesenta, 0.4)), ka = eout(prog(t, T.acciones - 0.1, 0.4)), kt = prog(t, T.take - 0.05, 0.3);
+    X.save(); X.globalAlpha *= clamp(kj * 2) * (ka > 0 ? lerp(1, 0.45, ka) : 1); iconoMando(-210, -10, 1.05); comic('EL JUEGO', -210, 100, 46, '#ffffff', { sombra: null }); X.restore();
+    // centro: "o"
+    X.save(); X.globalAlpha *= clamp(kj * 2); comic('o', 0, 10, 60, 'rgba(255,255,255,.85)', { sombra: null }); X.restore();
+    // derecha: acciones
+    X.save(); X.globalAlpha *= clamp(ka * 2); X.translate(210, 0); const sc = 1 + 0.18 * Math.exp(-Math.max(0, t - T.take) * 5) * (kt > 0 ? 1 : 0); X.scale(sc, sc);
+    iconoGrafica(0, -14, 1.05, PAL.verde, eout(prog(t, T.acciones, 0.8))); comic('ACCIONES', 0, 100, 46, PAL.verde, { sombra: null }); X.restore();
+    X.save(); X.globalAlpha *= clamp(kt * 2); X.font = '800 30px Inter'; X.fillStyle = '#c7f9d9'; X.textAlign = 'center'; X.fillText('de Take-Two, la que lo publica', 210, 160); X.restore();
+    r(); X.restore();
+  }
+  // 3) HOY: más de 800 € (×14)
+  if (t > T.hoy - 0.15 && t < T.pero + 0.3) {
+    const f = 1 - prog(t, T.pero - 0.15, 0.4), k = prog(t, T.hoy - 0.15, 0.45);
+    X.save(); X.globalAlpha = f; const r = panel(540, 590, 900, 420, k, PAL.verde);
+    X.font = '800 34px Inter'; X.fillStyle = '#b9f7cf'; X.textAlign = 'center'; X.textBaseline = 'middle'; X.fillText('ESOS 60 € HOY (19-NOV-2026)', 0, -150);
+    const kc = eio(prog(t, T.hoy + 0.1, Math.max(0.6, T.ocho - T.hoy - 0.1))); const v = Math.round(lerp(60, 800, kc) / 10) * 10;
+    const golpe = 1 + 0.22 * Math.exp(-Math.max(0, t - T.ocho) * 6) * (t > T.ocho ? 1 : 0);
+    const km = prog(t, T.ocho - 0.35, 0.3); X.save(); X.globalAlpha *= clamp(km * 2); comic('MÁS DE', 0, -88, 48, '#ffffff', { sombra: null }); X.restore();
+    X.save(); X.translate(0, 0); X.scale(golpe, golpe); comic(v.toLocaleString('es-ES') + ' €', 0, 0, 150, PAL.verde, { sombra: PAL.rosa }); X.restore();
+    X.font = '700 26px Inter'; X.fillStyle = 'rgba(255,255,255,.82)';
+    X.fillText('acción: ≈ 17–18 $ (sept. 2013) → 212,63 $ (19-nov-2026)', 0, 110);
+    X.fillText('en euros con el cambio del BCE · sin comisiones ni impuestos', 0, 148);
+    r(); X.restore();
+    X.save(); X.globalAlpha = f; sello('≈ ×14', 900, 600, prog(t, T.catorce - 0.1, 0.25), PAL.amb, 58, 8); X.restore();
+  }
+  // 4) PERO OJO: el rival quiebra
+  if (t > T.pero - 0.15 && t < T.toro + 0.3) {
+    const f = 1 - prog(t, T.toro - 0.15, 0.4), k = prog(t, T.pero - 0.15, 0.45);
+    X.save(); X.globalAlpha = f; const r = panel(540, 600, 900, 400, k, PAL.rojo);
+    comic('PERO OJO', 0, -140, 62, PAL.rojo, { sombra: PAL.tinta });
+    // gráfica que cae a cero
+    const kc = eout(prog(t, T.pero + 0.4, Math.max(0.8, T.quebro - T.pero)));
+    X.save(); X.translate(-150, 20); X.lineJoin = 'round'; X.lineCap = 'round';
+    const pts = [[-200, -60], [-130, -30], [-70, -70], [0, -10], [60, 30], [130, 80]];
+    X.shadowColor = PAL.rojo; X.shadowBlur = 14; X.strokeStyle = PAL.rojo; X.lineWidth = 12; X.beginPath(); X.moveTo(...pts[0]);
+    const n = kc * (pts.length - 1); for (let i = 1; i < pts.length; i++) { const ff = clamp(n - (i - 1)); if (ff <= 0) break; X.lineTo(lerp(pts[i - 1][0], pts[i][0], ff), lerp(pts[i - 1][1], pts[i][1], ff)); } X.stroke();
+    X.shadowBlur = 0; X.strokeStyle = 'rgba(255,255,255,.25)'; X.lineWidth = 3; X.beginPath(); X.moveTo(-220, 100); X.lineTo(160, 100); X.stroke(); X.restore();
+    X.save(); X.globalAlpha *= clamp(prog(t, T.saints - 0.1, 0.3) * 2); X.textAlign = 'left'; X.font = '800 32px Inter'; X.fillStyle = '#ffd0d5';
+    X.fillText('la editora de su', 70, -40); X.fillText('gran rival', 70, 0); comic('Saints Row', 70, 50, 46, '#ffffff', { align: 'left', sombra: null }); X.restore();
+    X.font = '700 25px Inter'; X.fillStyle = 'rgba(255,255,255,.8)'; X.textAlign = 'center'; X.fillText('THQ: bancarrota el 19-dic-2012 · subastada en enero de 2013', 0, 172);
+    r(); X.restore();
+    X.save(); X.globalAlpha = f; sello('QUIEBRA', 420, 690, prog(t, T.quebro - 0.1, 0.25), PAL.rojo, 56, -7); X.restore();
+  }
+  // 5) A TORO PASADO… (retrovisor)
+  if (t > T.toro - 0.15 && t < T.poreso + 0.3) {
+    const f = 1 - prog(t, T.poreso - 0.15, 0.4), k = eout(prog(t, T.toro - 0.15, 0.45));
+    X.save(); X.globalAlpha = f;
+    // retrovisor de neón con "2013" dentro
+    X.save(); X.translate(540, 410 - (1 - k) * 80); X.rotate(-0.04); X.globalAlpha *= clamp(k * 2);
+    X.fillStyle = '#0c0614'; X.fillRect(-12, 92, 24, 46);
+    X.beginPath(); X.ellipse(0, 0, 250, 96, 0, 0, 7); X.fillStyle = 'rgba(30,12,52,.95)'; X.fill();
+    X.save(); X.shadowColor = PAL.cian; X.shadowBlur = 22; X.strokeStyle = PAL.cian; X.lineWidth = 9; X.stroke(); X.restore();
+    X.save(); X.scale(-1, 1); comic('2013', 0, 0, 92, PAL.amb, { sombra: PAL.rosa }); X.restore(); // "en el espejo", al revés
+    X.restore();
+    const k2 = eback(prog(t, T.toro - 0.05, 0.35), 2), k3 = eback(prog(t, T.genios - 0.2, 0.35), 2.2);
+    X.save(); X.translate(540, 610); X.rotate(-0.05); X.scale(k2, k2); comic('A TORO PASADO…', 0, 0, 96, '#ffffff', { sombra: PAL.cian }); X.restore();
+    X.save(); X.translate(540, 740); X.rotate(-0.05); X.scale(k3, k3); comic('TODOS SOMOS GENIOS', 0, 0, 80, PAL.amb); X.restore();
+    X.restore();
+  }
+  // 6) NO TE LO JUEGUES TODO A UNA
+  if (t > T.poreso - 0.15 && t < T.cta + 0.3) {
+    const f = 1 - prog(t, T.cta - 0.15, 0.4), k = prog(t, T.poreso - 0.15, 0.45);
+    X.save(); X.globalAlpha = f; const r = panel(540, 600, 900, 420, k, PAL.amb);
+    comic('NO TODO A UNA EMPRESA', 0, -152, 54, PAL.amb, { sombra: PAL.rosa });
+    // izquierda: una sola ficha (✗)
+    const k1 = eout(prog(t, T.poreso + 0.1, 0.4)), k2 = eout(prog(t, T.sola - 0.1, 0.5));
+    X.save(); X.globalAlpha *= clamp(k1 * 2); X.translate(-215, 10);
+    rr(-80, -80, 160, 160, 22, 'rgba(255,255,255,.08)'); X.fillStyle = PAL.amb; X.beginPath(); X.arc(0, 0, 58, 0, 7); X.fill(); X.strokeStyle = PAL.tinta; X.lineWidth = 6; X.stroke();
+    comic('€', 0, 4, 64, PAL.tinta, { stroke: PAL.amb, sw: 0.05, sombra: null, ital: false });
+    if (k2 > 0) { X.save(); X.globalAlpha *= clamp(k2 * 2); X.strokeStyle = PAL.rojo; X.lineWidth = 16; X.lineCap = 'round'; const d = 70 * k2; X.beginPath(); X.moveTo(-d, -d); X.lineTo(d, d); X.moveTo(d, -d); X.lineTo(-d, d); X.stroke(); X.restore(); }
+    X.font = '800 30px Inter'; X.fillStyle = '#fff'; X.textAlign = 'center'; X.fillText('1 EMPRESA', 0, 125); X.restore();
+    // derecha: muchas fichas pequeñas (✓)
+    const k3 = prog(t, T.empresa - 0.3, 0.8);
+    X.save(); X.translate(215, 10);
+    for (let i = 0; i < 16; i++) { const ki = eback(clamp(k3 * 1.6 - i * 0.04), 2); if (ki <= 0) continue; const cx = -60 + (i % 4) * 40, cy = -60 + Math.floor(i / 4) * 40;
+      X.save(); X.globalAlpha *= clamp(ki * 2); X.translate(cx, cy); X.scale(ki, ki); X.fillStyle = [PAL.verde, PAL.cian, PAL.amb, PAL.rosa2][i % 4]; X.beginPath(); X.arc(0, 0, 16, 0, 7); X.fill(); X.strokeStyle = PAL.tinta; X.lineWidth = 3; X.stroke(); X.restore(); }
+    X.save(); X.globalAlpha *= clamp(k3 * 2); X.font = '800 30px Inter'; X.fillStyle = '#fff'; X.textAlign = 'center'; X.fillText('MUCHAS', 0, 125); X.restore();
+    X.restore();
+    r(); X.restore();
+    X.save(); X.globalAlpha = f; sello('DIVERSIFICA', 540, 803, prog(t, T.empresa - 0.05, 0.25), PAL.verde, 46, -4); X.restore();
+  }
+  // 7) CTA: pregunta de dos opciones
+  if (t > T.cta - 0.1) {
+    const k0 = eback(prog(t, T.cta - 0.1, 0.4), 2);
+    X.save(); X.translate(540, 430); X.rotate(-0.04); X.scale(k0, k0); comic('¿TÚ QUÉ HABRÍAS', 0, -50, 84, '#ffffff', { sombra: PAL.cian }); comic('ELEGIDO?', 0, 45, 96, PAL.amb); X.restore();
+    const b1 = eback(prog(t, T.juego - 0.15, 0.4)), b2 = eback(prog(t, T.accs - 0.15, 0.4));
+    const boton = (k, y, col, txt, icono) => { if (k <= 0) return; X.save(); X.globalAlpha = clamp(k * 2); X.translate(540, y + (1 - k) * 60); X.scale(0.7 + 0.3 * k, 0.7 + 0.3 * k); X.rotate(-0.025);
+      rr(-400, -66, 800, 132, 66, col); X.strokeStyle = PAL.tinta; X.lineWidth = 7; X.stroke(); icono();
+      X.font = 'italic 900 50px Inter'; X.fillStyle = PAL.tinta; X.textAlign = 'left'; X.textBaseline = 'middle'; X.fillText(txt, -180, 4); X.restore(); };
+    boton(b1, 600, PAL.rosa2, '1 · EL JUEGO', () => iconoMando(-275, 0, 0.62, PAL.tinta));
+    boton(b2, 760, PAL.verde, '2 · LAS ACCIONES', () => iconoGrafica(-275, 6, 0.62, PAL.tinta));
+    const k3 = eout(prog(t, T.accs + 0.4, 0.4));
+    X.save(); X.globalAlpha = clamp(k3 * 2); rr(540 - 180, 860 - 38 + (1 - k3) * 30, 360, 76, 38, '#ffffff'); X.font = 'italic 900 38px Inter'; X.fillStyle = PAL.tinta; X.textAlign = 'center'; X.textBaseline = 'middle'; X.fillText('Comenta 1 o 2', 540, 862 + (1 - k3) * 30); X.restore();
+  }
+  if (t < T.cta - 0.1) subtitulos(t);
+  // aviso (pequeño) y marca
+  X.save(); X.globalAlpha = 0.88; X.font = '600 23px Inter'; X.fillStyle = '#f1e4ff'; X.textAlign = 'center'; X.textBaseline = 'middle';
+  if (t > T.hoy - 0.2 && t < T.cta - 0.1) { X.fillText('Rentabilidades pasadas no garantizan rentabilidades futuras.', 540, 1545); X.fillText('Contenido educativo, no es una recomendación de inversión.', 540, 1577); }
+  else X.fillText('@eleurolisto', 540, 1545);
+  X.restore();
+}
+
+// ---------- Listo: accesorios y animaciones según la historia ----------
+function listoEnCoche(t) {
+  if (window.PORTADA) return null;
+  let expr = 'sorpresa', pose = 'saludo', acc = ['gafas', 'mando'], modo = null, accK = {}, anim = null, animT = 0, mira = [0.6, -0.3];
+  if (t > 1.2 && t < T.hoy) { expr = 'habla'; pose = 'senala'; accK = { mando: 1 }; }
+  if (t >= T.hoy - 0.1 && t < T.pero) { // millonario: corona, gafas, cadena y billetes
+    acc = []; modo = 'millonario'; expr = 'feliz'; pose = 'celebra'; const k = prog(t, T.ocho - 0.25, 0.45); accK = { corona: k, cadena: k, billetes: k, gafas: 1 };
+    if (t > T.ocho - 0.1) { anim = 'salto'; animT = t - (T.ocho - 0.1); if (animT > 2) anim = null; }
+  }
+  if (t >= T.pero && t < T.toro) { // arruinado: gorro roto, parche, bufanda, bolsillos vacíos y mosca
+    acc = []; modo = 'arruinado'; const k = prog(t, T.pero + 0.1, 0.5); accK = { gorroRoto: k, parche: k, bufandaRota: k, bolsillos: k, mosca: k };
+    anim = 'temblor'; animT = t - T.pero; expr = 'preocupado'; pose = 'brazosCruzados';
+  }
+  if (t >= T.toro && t < T.poreso) { // mira atrás (retrovisor) y se pone de "genio"
+    acc = ['monoculo', 'chistera']; const k = prog(t, T.genios - 0.25, 0.45); accK = { monoculo: k, chistera: k };
+    anim = 'mirarAtras'; animT = t - T.toro; mira = [-0.8, -0.3];
+  }
+  if (t >= T.poreso && t < T.cta) { acc = ['gafas']; accK = { gafas: prog(t, T.poreso, 0.4) }; expr = 'idea'; pose = 'senala'; }
+  if (t >= T.cta) { acc = ['gafas', 'mando']; accK = { mando: prog(t, T.juego - 0.2, 0.4) }; expr = 'guino'; pose = 'pulgar'; anim = 'rebote'; animT = t - T.cta; }
+  return () => Listo2D.dibujar(X, { x: -50, y: 30, s: 0.84, t, expr, pose, estilo: 'tropical', glow: 1.25, mira, acc, modo, accK, anim, animT, fijarPose: !!(anim === 'rebote') });
+}
+
+window.renderAt = (t) => {
+  X.setTransform(1, 0, 0, 1, 0, 0);
+  const golpe = (a) => Math.exp(-Math.max(0, t - a) * 5) * (t > a ? 1 : 0);
+  const punch = 1 + 0.025 * (golpe(T.ocho) + golpe(T.quebro) + golpe(T.genios));
+  const zoomFin = 1 + 0.04 * eio(prog(t, T.cta - 0.2, 1.2));
+  const z = punch * zoomFin;
+  X.setTransform(z, 0, 0, z, 540 - 540 * z, 1280 - 1280 * z);
+  cielo(); luna(); skyline(t); mar(t); playa(t);
+  const cx = lerp(-200, 520, eout(prog(t, 0, 0.9))) + Math.sin(t * 0.8) * 10;
+  carretera(t);
+  coche(t, cx, 1395, listoEnCoche(t));
+  X.setTransform(1, 0, 0, 1, 0, 0);
+  const v = X.createRadialGradient(540, 960, 600, 540, 960, 1300); v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(5,0,14,.5)'); X.fillStyle = v; X.fillRect(0, 0, 1080, 1920);
+  if (window.PORTADA) { Listo2D.dibujar(X, { x: 860, y: 1500, s: 1.2, t: 2, expr: 'feliz', pose: 'senalaIzq', estilo: 'tropical', glow: 1.25, modo: 'millonario', mira: [-0.6, -0.4] }); return; }
+  capa(t);
+};
+document.fonts.load('italic 900 80px Inter').then(() => document.fonts.load('800 30px Inter')).then(() => { window.listo = true; });
+</script></body></html>
