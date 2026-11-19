@@ -23,7 +23,14 @@
   "vidiq_uploadId_con_portada": "b9d78bac-0c1c-4a14-b2cd-ced78c238c78",
   "creditos": "ElevenLabs 471 caracteres; Creative Claw 4 (dos uniones de voz)",
   "duracion_s": 31.0,
-  "estado": "APROBADO (✅ Con portada) · se publica la versión con el pulgar corregido (uploadId a2e2e812-a2fb-400a-9fa9-1d20be72ba6c)",
+  "estado": "PUBLICADO 19-nov 20:30 (versión con portada y pulgar corregido, uploadId a2e2e812-a2fb-400a-9fa9-1d20be72ba6c)",
+  "publicado": {
+    "fecha": "2026-11-19T20:30+01:00",
+    "instagram": "https://www.instagram.com/reel/Df71O02D6x5/",
+    "instagram_mediaId": "17916602895285396",
+    "tiktok": "https://www.tiktok.com/@eleurolisto/video/7709966673867967777",
+    "tiktok_postId": "a5d8f021-e839-4899-b3e6-03c8d6fd8374"
+  },
   "version_pulgar_corregido": {
     "motivo": "Sergio (18-nov ~01:00): el pulgar de Listo parecía una peineta → 'Corregir todo'",
     "vidiq_uploadId_con_portada": "a2e2e812-a2fb-400a-9fa9-1d20be72ba6c",
