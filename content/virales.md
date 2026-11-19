@@ -3,6 +3,23 @@
 Investigación semanal con vidIQ (`vidiq_instagram_tiktok_outlier_search`, 5 créditos). Aquí se guardan los patrones, no se copian vídeos:
 cada recreación usa guion, cifras, diseño y voz propios de El Euro Listo.
 
+## 19-nov-2026 · búsqueda nocturna (pilar: CRIPTO / bitcoin y Hacienda; español, audiencia España, desde el 5-nov)
+
+| Cuenta | Vistas (x su mediana) | Gancho (0–3 s) | Formato / edición |
+|---|---|---|---|
+| @lacartabursatil (IG) | 260 K (66x) | Gráfica roja que cae: "Bitcoin se está desangrando" | Motion graphics con voz, música seria desde el segundo 0, datos en cadena que desmontan el titular, cortes y zooms rápidos |
+| @gabriel.garciax (IG, España) | 176 K (27x) | "¿Cuánto costaría la gasolina sin impuestos?" | Croma con gasolinera detrás, desglose de impuestos de un producto cotidiano; acaba vendiendo un curso (no copiar eso) |
+| @cryptoflanders (TikTok) | 176 K (107x) | "Binance cierra el 31 de diciembre en la UE" | Cabeza parlante. OJO: noticia sin verificar → no se usa (regla: nada de rumores) |
+| @luchonerbutti (IG, España) | 192 K (23x) | "Más de 641.000 millones. Récord de recaudación" | Pantalla partida noticia + creador; tiene carga política → no |
+| @siguealeuro1 (TikTok, España) | 136 K (21x) | Billete de 50 € + sello DELITO | Infografía animada de curiosidad legal (4.ª noche seguida en los outliers) |
+| @termodiario (TikTok) | 48 K (16x) | "El mismo día: Nvidia y Rusia… ¿y bitcoin?" | Motion graphics de iconos sobre fondo oscuro, explicador de noticia |
+
+### Lo que está funcionando hoy
+- **Bitcoin a la baja con datos** (260 K, 48 K): gráfica roja protagonista + datos que matizan el titular. → Reel 20:30 del sábado 21 "¿Bitcoin: burbuja u oro digital?" en look **terminal de bolsa** (gráfica en vivo, zooms a las caídas de 2018 y 2022, el matiz del oro en los 80) y votación 1/2.
+- **Impuestos de algo cotidiano / qué ve Hacienda** (176 K, 136 K): sigue el interés por Hacienda. → Reel 13:30 del sábado "¿Hacienda ve tus criptos?" (DAC8 + permutas + base del ahorro) en R2 "Tienes criptos" + llamadas entrantes.
+- **Edición que arrasa**: gráfica roja que cae en el primer fotograma con música seria y voz inmediata. Lo hemos llevado al terminal de bolsa (cifra −50 % gigante y precio que baja desde el fotograma 0).
+- Idea para otro día: "¿Cuánto cuesta X sin impuestos?" con un producto que no sea la gasolina (la luz, una cerveza, el tabaco…), desglose en barras.
+
 ## 18-nov-2026 · búsqueda nocturna (pilar: ESTAFAS de inversión y cripto; español, audiencia España, desde el 4-nov)
 
 | Cuenta | Vistas (x su mediana) | Gancho (0–3 s) | Formato / edición |

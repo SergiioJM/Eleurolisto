@@ -1,0 +1,592 @@
+{
+ "total": 35.188,
+ "voz": "ElevenLabs · Juanjo TikTok (30jLfQdV8RTduXvosh02, eleven_v4)",
+ "segments": [
+  {
+   "i": 0,
+   "start": 0.2,
+   "dur": 2.512,
+   "text": "Bitcoin ha caído a la mitad desde su máximo.",
+   "words": [
+    {
+     "w": "Bitcoin",
+     "start": 0.2,
+     "end": 0.691
+    },
+    {
+     "w": "ha",
+     "start": 0.728,
+     "end": 0.785
+    },
+    {
+     "w": "caído",
+     "start": 0.804,
+     "end": 1.131
+    },
+    {
+     "w": "a",
+     "start": 1.181,
+     "end": 1.219
+    },
+    {
+     "w": "la",
+     "start": 1.257,
+     "end": 1.313
+    },
+    {
+     "w": "mitad",
+     "start": 1.332,
+     "end": 1.634
+    },
+    {
+     "w": "desde",
+     "start": 1.709,
+     "end": 1.955
+    },
+    {
+     "w": "su",
+     "start": 1.974,
+     "end": 2.087
+    },
+    {
+     "w": "máximo.",
+     "start": 2.162,
+     "end": 2.712
+    }
+   ]
+  },
+  {
+   "i": 1,
+   "start": 2.834,
+   "dur": 1.736,
+   "text": "¿Burbuja u oro digital?",
+   "words": [
+    {
+     "w": "¿Burbuja",
+     "start": 2.834,
+     "end": 3.437
+    },
+    {
+     "w": "u",
+     "start": 3.664,
+     "end": 3.739
+    },
+    {
+     "w": "oro",
+     "start": 3.815,
+     "end": 3.966
+    },
+    {
+     "w": "digital?",
+     "start": 4.041,
+     "end": 4.57
+    }
+   ]
+  },
+  {
+   "i": 2,
+   "start": 4.764,
+   "dur": 9.201,
+   "text": "Los que dicen burbuja: no da beneficios ni intereses, y ya se hundió un ochenta y cuatro por ciento en dos mil dieciocho y un setenta y siete en dos mil veintidós.",
+   "words": [
+    {
+     "w": "Los",
+     "start": 4.764,
+     "end": 4.915
+    },
+    {
+     "w": "que",
+     "start": 4.953,
+     "end": 4.991
+    },
+    {
+     "w": "dicen",
+     "start": 5.066,
+     "end": 5.293
+    },
+    {
+     "w": "burbuja:",
+     "start": 5.368,
+     "end": 5.897
+    },
+    {
+     "w": "no",
+     "start": 6.127,
+     "end": 6.202
+    },
+    {
+     "w": "da",
+     "start": 6.278,
+     "end": 6.353
+    },
+    {
+     "w": "beneficios",
+     "start": 6.504,
+     "end": 6.957
+    },
+    {
+     "w": "ni",
+     "start": 7.033,
+     "end": 7.108
+    },
+    {
+     "w": "intereses,",
+     "start": 7.259,
+     "end": 7.938
+    },
+    {
+     "w": "y",
+     "start": 7.976,
+     "end": 8.014
+    },
+    {
+     "w": "ya",
+     "start": 8.089,
+     "end": 8.165
+    },
+    {
+     "w": "se",
+     "start": 8.24,
+     "end": 8.316
+    },
+    {
+     "w": "hundió",
+     "start": 8.353,
+     "end": 8.693
+    },
+    {
+     "w": "un",
+     "start": 8.768,
+     "end": 8.844
+    },
+    {
+     "w": "ochenta",
+     "start": 8.919,
+     "end": 9.297
+    },
+    {
+     "w": "y",
+     "start": 9.372,
+     "end": 9.448
+    },
+    {
+     "w": "cuatro",
+     "start": 9.485,
+     "end": 9.674
+    },
+    {
+     "w": "por",
+     "start": 9.749,
+     "end": 9.825
+    },
+    {
+     "w": "ciento",
+     "start": 9.9,
+     "end": 10.127
+    },
+    {
+     "w": "en",
+     "start": 10.202,
+     "end": 10.278
+    },
+    {
+     "w": "dos",
+     "start": 10.353,
+     "end": 10.429
+    },
+    {
+     "w": "mil",
+     "start": 10.504,
+     "end": 10.58
+    },
+    {
+     "w": "dieciocho",
+     "start": 10.655,
+     "end": 11.108
+    },
+    {
+     "w": "y",
+     "start": 11.41,
+     "end": 11.485
+    },
+    {
+     "w": "un",
+     "start": 11.561,
+     "end": 11.712
+    },
+    {
+     "w": "setenta",
+     "start": 11.787,
+     "end": 12.089
+    },
+    {
+     "w": "y",
+     "start": 12.165,
+     "end": 12.316
+    },
+    {
+     "w": "siete",
+     "start": 12.391,
+     "end": 12.542
+    },
+    {
+     "w": "en",
+     "start": 12.693,
+     "end": 12.844
+    },
+    {
+     "w": "dos",
+     "start": 12.919,
+     "end": 12.995
+    },
+    {
+     "w": "mil",
+     "start": 13.07,
+     "end": 13.146
+    },
+    {
+     "w": "veintidós.",
+     "start": 13.221,
+     "end": 13.965
+    }
+   ]
+  },
+  {
+   "i": 3,
+   "start": 14.041,
+   "dur": 8.0,
+   "text": "Los que dicen oro digital: solo existirán veintiún millones, y desde dos mil veinticuatro lo compran grandes fondos cotizados de Wall Street.",
+   "words": [
+    {
+     "w": "Los",
+     "start": 14.041,
+     "end": 14.191
+    },
+    {
+     "w": "que",
+     "start": 14.229,
+     "end": 14.267
+    },
+    {
+     "w": "dicen",
+     "start": 14.342,
+     "end": 14.644
+    },
+    {
+     "w": "oro",
+     "start": 14.795,
+     "end": 14.946
+    },
+    {
+     "w": "digital:",
+     "start": 15.022,
+     "end": 15.76
+    },
+    {
+     "w": "solo",
+     "start": 15.798,
+     "end": 15.986
+    },
+    {
+     "w": "existirán",
+     "start": 16.137,
+     "end": 16.59
+    },
+    {
+     "w": "veintiún",
+     "start": 16.628,
+     "end": 17.119
+    },
+    {
+     "w": "millones,",
+     "start": 17.194,
+     "end": 17.873
+    },
+    {
+     "w": "y",
+     "start": 17.911,
+     "end": 17.949
+    },
+    {
+     "w": "desde",
+     "start": 18.024,
+     "end": 18.175
+    },
+    {
+     "w": "dos",
+     "start": 18.251,
+     "end": 18.326
+    },
+    {
+     "w": "mil",
+     "start": 18.402,
+     "end": 18.477
+    },
+    {
+     "w": "veinticuatro",
+     "start": 18.553,
+     "end": 19.081
+    },
+    {
+     "w": "lo",
+     "start": 19.307,
+     "end": 19.383
+    },
+    {
+     "w": "compran",
+     "start": 19.458,
+     "end": 19.836
+    },
+    {
+     "w": "grandes",
+     "start": 19.911,
+     "end": 20.288
+    },
+    {
+     "w": "fondos",
+     "start": 20.364,
+     "end": 20.59
+    },
+    {
+     "w": "cotizados",
+     "start": 20.666,
+     "end": 21.194
+    },
+    {
+     "w": "de",
+     "start": 21.232,
+     "end": 21.269
+    },
+    {
+     "w": "Wall",
+     "start": 21.345,
+     "end": 21.496
+    },
+    {
+     "w": "Street.",
+     "start": 21.647,
+     "end": 22.041
+    }
+   ]
+  },
+  {
+   "i": 4,
+   "start": 22.117,
+   "dur": 4.974,
+   "text": "El matiz que casi nadie cuenta: hasta el oro perdió más de la mitad en los años ochenta.",
+   "words": [
+    {
+     "w": "El",
+     "start": 22.117,
+     "end": 22.192
+    },
+    {
+     "w": "matiz",
+     "start": 22.268,
+     "end": 22.57
+    },
+    {
+     "w": "que",
+     "start": 22.608,
+     "end": 22.645
+    },
+    {
+     "w": "casi",
+     "start": 22.796,
+     "end": 23.023
+    },
+    {
+     "w": "nadie",
+     "start": 23.098,
+     "end": 23.324
+    },
+    {
+     "w": "cuenta:",
+     "start": 23.4,
+     "end": 24.005
+    },
+    {
+     "w": "hasta",
+     "start": 24.043,
+     "end": 24.307
+    },
+    {
+     "w": "el",
+     "start": 24.382,
+     "end": 24.458
+    },
+    {
+     "w": "oro",
+     "start": 24.571,
+     "end": 24.684
+    },
+    {
+     "w": "perdió",
+     "start": 24.76,
+     "end": 25.213
+    },
+    {
+     "w": "más",
+     "start": 25.25,
+     "end": 25.363
+    },
+    {
+     "w": "de",
+     "start": 25.439,
+     "end": 25.514
+    },
+    {
+     "w": "la",
+     "start": 25.552,
+     "end": 25.59
+    },
+    {
+     "w": "mitad",
+     "start": 25.665,
+     "end": 25.892
+    },
+    {
+     "w": "en",
+     "start": 25.967,
+     "end": 26.043
+    },
+    {
+     "w": "los",
+     "start": 26.118,
+     "end": 26.194
+    },
+    {
+     "w": "años",
+     "start": 26.231,
+     "end": 26.42
+    },
+    {
+     "w": "ochenta.",
+     "start": 26.496,
+     "end": 27.091
+    }
+   ]
+  },
+  {
+   "i": 5,
+   "start": 27.128,
+   "dur": 2.733,
+   "text": "Y pase lo que pase, puede volver a caer a la mitad.",
+   "words": [
+    {
+     "w": "Y",
+     "start": 27.128,
+     "end": 27.166
+    },
+    {
+     "w": "pase",
+     "start": 27.317,
+     "end": 27.543
+    },
+    {
+     "w": "lo",
+     "start": 27.581,
+     "end": 27.619
+    },
+    {
+     "w": "que",
+     "start": 27.694,
+     "end": 27.77
+    },
+    {
+     "w": "pase,",
+     "start": 27.845,
+     "end": 28.298
+    },
+    {
+     "w": "puede",
+     "start": 28.336,
+     "end": 28.6
+    },
+    {
+     "w": "volver",
+     "start": 28.701,
+     "end": 28.902
+    },
+    {
+     "w": "a",
+     "start": 28.94,
+     "end": 28.977
+    },
+    {
+     "w": "caer",
+     "start": 29.053,
+     "end": 29.279
+    },
+    {
+     "w": "a",
+     "start": 29.317,
+     "end": 29.355
+    },
+    {
+     "w": "la",
+     "start": 29.392,
+     "end": 29.43
+    },
+    {
+     "w": "mitad.",
+     "start": 29.506,
+     "end": 29.861
+    }
+   ]
+  },
+  {
+   "i": 6,
+   "start": 29.931,
+   "dur": 4.505,
+   "text": "¿Tú qué dices? Comenta: uno, burbuja; dos, oro digital.",
+   "words": [
+    {
+     "w": "¿Tú",
+     "start": 29.931,
+     "end": 30.007
+    },
+    {
+     "w": "qué",
+     "start": 30.082,
+     "end": 30.158
+    },
+    {
+     "w": "dices?",
+     "start": 30.196,
+     "end": 30.689
+    },
+    {
+     "w": "Comenta:",
+     "start": 30.775,
+     "end": 31.435
+    },
+    {
+     "w": "uno,",
+     "start": 31.549,
+     "end": 31.964
+    },
+    {
+     "w": "burbuja;",
+     "start": 32.039,
+     "end": 32.776
+    },
+    {
+     "w": "dos,",
+     "start": 32.927,
+     "end": 33.38
+    },
+    {
+     "w": "oro",
+     "start": 33.493,
+     "end": 33.606
+    },
+    {
+     "w": "digital.",
+     "start": 33.87,
+     "end": 34.436
+    }
+   ]
+  }
+ ]
+}

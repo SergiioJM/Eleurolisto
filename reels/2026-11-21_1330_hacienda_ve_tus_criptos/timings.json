@@ -1,0 +1,336 @@
+{
+ "total": 21.227,
+ "voz": "k_santa",
+ "segments": [
+  {
+   "i": 0,
+   "start": 0.35,
+   "dur": 3.755,
+   "text": "¿Crees que si no pasas tus criptos a euros, Hacienda no se entera?",
+   "words": [
+    {
+     "w": "¿Crees",
+     "start": 0.35,
+     "end": 0.64
+    },
+    {
+     "w": "que",
+     "start": 0.64,
+     "end": 0.765
+    },
+    {
+     "w": "si",
+     "start": 0.765,
+     "end": 1.021
+    },
+    {
+     "w": "no",
+     "start": 1.021,
+     "end": 1.245
+    },
+    {
+     "w": "pasas",
+     "start": 1.245,
+     "end": 1.534
+    },
+    {
+     "w": "tus",
+     "start": 1.534,
+     "end": 1.772
+    },
+    {
+     "w": "criptos",
+     "start": 1.772,
+     "end": 2.243
+    },
+    {
+     "w": "a",
+     "start": 2.243,
+     "end": 2.38
+    },
+    {
+     "w": "euros,",
+     "start": 2.38,
+     "end": 2.695
+    },
+    {
+     "w": "Hacienda",
+     "start": 2.695,
+     "end": 3.183
+    },
+    {
+     "w": "no",
+     "start": 3.183,
+     "end": 3.406
+    },
+    {
+     "w": "se",
+     "start": 3.406,
+     "end": 3.633
+    },
+    {
+     "w": "entera?",
+     "start": 3.633,
+     "end": 4.105
+    }
+   ]
+  },
+  {
+   "i": 1,
+   "start": 4.405,
+   "dur": 5.908,
+   "text": "Desde enero, las plataformas de la Unión Europea apuntan lo que compras, vendes y cambias… para Hacienda.",
+   "words": [
+    {
+     "w": "Desde",
+     "start": 4.405,
+     "end": 4.755
+    },
+    {
+     "w": "enero,",
+     "start": 4.755,
+     "end": 5.106
+    },
+    {
+     "w": "las",
+     "start": 5.106,
+     "end": 5.402
+    },
+    {
+     "w": "plataformas",
+     "start": 5.402,
+     "end": 6.113
+    },
+    {
+     "w": "de",
+     "start": 6.113,
+     "end": 6.271
+    },
+    {
+     "w": "la",
+     "start": 6.271,
+     "end": 6.455
+    },
+    {
+     "w": "Unión",
+     "start": 6.455,
+     "end": 6.864
+    },
+    {
+     "w": "Europea",
+     "start": 6.864,
+     "end": 7.368
+    },
+    {
+     "w": "apuntan",
+     "start": 7.368,
+     "end": 7.851
+    },
+    {
+     "w": "lo",
+     "start": 7.851,
+     "end": 8.034
+    },
+    {
+     "w": "que",
+     "start": 8.034,
+     "end": 8.169
+    },
+    {
+     "w": "compras,",
+     "start": 8.169,
+     "end": 8.575
+    },
+    {
+     "w": "vendes",
+     "start": 8.575,
+     "end": 8.972
+    },
+    {
+     "w": "y",
+     "start": 8.972,
+     "end": 9.085
+    },
+    {
+     "w": "cambias…",
+     "start": 9.085,
+     "end": 9.506
+    },
+    {
+     "w": "para",
+     "start": 9.506,
+     "end": 9.772
+    },
+    {
+     "w": "Hacienda.",
+     "start": 9.772,
+     "end": 10.313
+    }
+   ]
+  },
+  {
+   "i": 2,
+   "start": 10.613,
+   "dur": 3.963,
+   "text": "Y cambiar bitcoin por otra cripto ya cuenta como ganancia o pérdida.",
+   "words": [
+    {
+     "w": "Y",
+     "start": 10.613,
+     "end": 10.728
+    },
+    {
+     "w": "cambiar",
+     "start": 10.728,
+     "end": 11.177
+    },
+    {
+     "w": "bitcoin",
+     "start": 11.177,
+     "end": 11.577
+    },
+    {
+     "w": "por",
+     "start": 11.577,
+     "end": 11.764
+    },
+    {
+     "w": "otra",
+     "start": 11.764,
+     "end": 12.064
+    },
+    {
+     "w": "cripto",
+     "start": 12.064,
+     "end": 12.517
+    },
+    {
+     "w": "ya",
+     "start": 12.517,
+     "end": 12.746
+    },
+    {
+     "w": "cuenta",
+     "start": 12.746,
+     "end": 13.18
+    },
+    {
+     "w": "como",
+     "start": 13.18,
+     "end": 13.481
+    },
+    {
+     "w": "ganancia",
+     "start": 13.481,
+     "end": 14.042
+    },
+    {
+     "w": "o",
+     "start": 14.042,
+     "end": 14.169
+    },
+    {
+     "w": "pérdida.",
+     "start": 14.169,
+     "end": 14.575
+    }
+   ]
+  },
+  {
+   "i": 3,
+   "start": 14.875,
+   "dur": 3.313,
+   "text": "Si ganas, pagas entre un diecinueve y un treinta por ciento.",
+   "words": [
+    {
+     "w": "Si",
+     "start": 14.875,
+     "end": 15.094
+    },
+    {
+     "w": "ganas,",
+     "start": 15.094,
+     "end": 15.403
+    },
+    {
+     "w": "pagas",
+     "start": 15.403,
+     "end": 15.723
+    },
+    {
+     "w": "entre",
+     "start": 15.723,
+     "end": 16.072
+    },
+    {
+     "w": "un",
+     "start": 16.072,
+     "end": 16.255
+    },
+    {
+     "w": "diecinueve",
+     "start": 16.255,
+     "end": 16.805
+    },
+    {
+     "w": "y",
+     "start": 16.805,
+     "end": 16.901
+    },
+    {
+     "w": "un",
+     "start": 16.901,
+     "end": 17.085
+    },
+    {
+     "w": "treinta",
+     "start": 17.085,
+     "end": 17.536
+    },
+    {
+     "w": "por",
+     "start": 17.536,
+     "end": 17.745
+    },
+    {
+     "w": "ciento.",
+     "start": 17.745,
+     "end": 18.188
+    }
+   ]
+  },
+  {
+   "i": 4,
+   "start": 18.488,
+   "dur": 1.839,
+   "text": "Mándaselo a tu amigo cripto.",
+   "words": [
+    {
+     "w": "Mándaselo",
+     "start": 18.488,
+     "end": 19.119
+    },
+    {
+     "w": "a",
+     "start": 19.119,
+     "end": 19.282
+    },
+    {
+     "w": "tu",
+     "start": 19.282,
+     "end": 19.446
+    },
+    {
+     "w": "amigo",
+     "start": 19.446,
+     "end": 19.859
+    },
+    {
+     "w": "cripto.",
+     "start": 19.859,
+     "end": 20.327
+    }
+   ]
+  }
+ ]
+}

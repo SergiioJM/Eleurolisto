@@ -1,0 +1,341 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<script src="../../toolkit/mascota/listo2d.js"></script>
+<style>
+@font-face{font-family:JBM;font-weight:400;src:url(../../toolkit/fuentes/jetbrains-mono-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:JBM;font-weight:700;src:url(../../toolkit/fuentes/jetbrains-mono-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:JBM;font-weight:800;src:url(../../toolkit/fuentes/jetbrains-mono-latin-800-normal.woff2) format("woff2")}
+@font-face{font-family:JBM;font-weight:800;src:url(../../toolkit/fuentes/jetbrains-mono-latin-ext-800-normal.woff2) format("woff2");unicode-range:U+0100-024F}
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#04070d}
+canvas{position:absolute;inset:0}
+.ov{position:absolute;pointer-events:none}
+#head{left:40px;right:40px;top:112px;display:flex;justify-content:space-between;font:700 24px JBM;color:#3f8f63;letter-spacing:1px}
+#head i{font-style:normal;color:#6b7c90}
+#tape{left:0;right:0;top:150px;height:52px;border-top:2px solid #12341f;border-bottom:2px solid #12341f;overflow:hidden;background:rgba(10,30,18,.35)}
+#tape div{position:absolute;top:9px;white-space:nowrap;font:700 26px JBM;color:#7fd8a2;letter-spacing:.5px}
+#tape b{color:#ff5a4f;font-weight:700}#tape u{color:#f6c443;text-decoration:none}
+#kick{left:0;right:0;top:226px;text-align:center}
+#kick span{display:inline-block;font:800 28px JBM;letter-spacing:4px;color:#ff8a80;border:2px solid #ff5a4f;padding:7px 22px 5px;border-radius:8px;background:rgba(60,8,8,.45)}
+#hook{left:0;right:0;top:282px;text-align:center}
+#hook small{display:block;font:800 40px JBM;color:#d8e3ef;letter-spacing:2px}
+#hook b{display:inline-block;font:800 210px/1 JBM;color:#ff4d42;letter-spacing:-8px;text-shadow:0 0 26px rgba(255,77,66,.35)}
+#hook div{font:700 34px JBM;color:#9fb0c3}
+#hook div em{font-style:normal;color:#ff8a80}
+#tabs{left:40px;right:40px;top:300px;height:130px}
+.tab{position:absolute;top:0;width:430px;height:120px;border-radius:14px;border:3px solid;display:flex;align-items:center;justify-content:center;font:800 54px JBM;letter-spacing:1px;box-sizing:border-box;transform-origin:50% 50%}
+#tb{left:0;color:#ff6b61;border-color:#ff4d42;background:rgba(80,10,10,.35)}
+#to{right:0;color:#ffd166;border-color:#f6c443;background:rgba(70,50,0,.35)}
+#vs{position:absolute;left:440px;top:30px;width:120px;text-align:center;font:800 50px JBM;color:#6b7c90}
+#args{left:60px;right:60px;top:466px;height:120px}
+.arg{position:absolute;left:0;right:0;font:700 38px/1.25 JBM;color:#e6edf5;white-space:nowrap}
+.arg .x{color:#ff5a4f}.arg .ok{color:#f6c443}.arg em{font-style:normal;color:#ffd166}
+#odo{position:absolute;right:0;top:-6px;font:800 54px JBM;color:#ffd166;text-align:right}
+#odo small{display:block;font:700 24px JBM;color:#9fb0c3;margin-top:2px}
+#prompt{left:52px;right:300px;top:1196px;font:700 44px/1.3 JBM;color:#e6edf5}
+#prompt .p{color:#22c55e}#prompt .k{color:#ffd166}#prompt .cur{display:inline-block;width:24px;height:44px;background:#22c55e;vertical-align:-6px;margin-left:4px}
+#fuente{left:40px;right:40px;top:1464px;text-align:center;font:600 21px JBM;color:rgba(160,180,200,.6)}
+#marca{left:0;right:0;top:1500px;text-align:center;font:700 26px JBM;color:rgba(255,255,255,.45)}
+#aviso{left:0;right:0;top:470px;text-align:center}
+#aviso span{display:inline-block;font:800 46px JBM;color:#ffb4ae;border:3px solid #ff4d42;border-radius:12px;padding:12px 30px 8px;background:rgba(70,8,8,.5)}
+#pregunta{left:0;right:0;top:560px;text-align:center;font:800 92px JBM;color:#fff;letter-spacing:-2px}
+</style></head>
+<body>
+<canvas id="cv" width="1080" height="1920"></canvas>
+<div id="head" class="ov"><span>▌EUROLISTO_TERMINAL</span><i>BTC/USD · ESCALA LOG.</i></div>
+<div id="tape" class="ov"><div id="tapetx"></div></div>
+<div id="kick" class="ov"><span>⚔ POLÉMICA · BITCOIN</span></div>
+<div id="hook" class="ov"><small>BITCOIN DESDE SU MÁXIMO</small><b id="pct">−50 %</b><div><em id="px1">126.080 $</em> → <em id="px2">62.448 $</em></div></div>
+<div id="tabs" class="ov"><div id="tb" class="tab">BURBUJA</div><div id="vs">VS</div><div id="to" class="tab">ORO DIGITAL</div></div>
+<div id="args" class="ov">
+  <div class="arg" id="a1"><span class="x">✕</span> No da beneficios ni intereses</div>
+  <div class="arg" id="a2" style="top:56px"><span class="x">✕</span> Ya se hundió <em>2 veces</em> más de un 75 %</div>
+  <div class="arg" id="a3"><span class="ok">✓</span> Oferta limitada</div>
+  <div id="odo"><span id="odon">0</span> ₿<small>MÁXIMO QUE EXISTIRÁ</small></div>
+  <div class="arg" id="a4" style="top:56px"><span class="ok">✓</span> ETF al contado desde <em>2024</em></div>
+  <div class="arg" id="a5"><span class="ok">◆</span> EL MATIZ: <em>el oro también cae</em></div>
+</div>
+<div id="aviso" class="ov"><span>⚠ RIESGO MUY ALTO</span></div>
+<div id="pregunta" class="ov">¿TÚ QUÉ DICES?</div>
+<div id="prompt" class="ov"></div>
+<div id="fuente" class="ov">Fuentes: CoinGecko · Whale Scan (vía Merca2) · LBMA · simplificado</div>
+<div id="marca" class="ov">@eleurolisto</div>
+<script>
+// Look "TERMINAL DE BOLSA / DATOS" (catálogo, punto 5; primera vez): fondo casi negro FIJO con rejilla, cinta de cotizaciones
+// que corre, gráfica protagonista en vivo (bitcoin 2013–2026 en escala log.) con zooms a las caídas de 2018 y 2022, marca
+// del ETF de 2024, cambio a la gráfica del oro (1975–1991) y barras de caídas. Pestañas BURBUJA / ORO DIGITAL que al final
+// son la votación. Subtítulos de terminal que se escriben letra a letra. Listo en modelado 'neon' de presentador.
+// Todo depende solo de t y de timings.json (ElevenLabs · Juanjo) -> render determinista. Sin cambios de luz: el color va
+// en líneas, textos y tarjetas; el fondo no cambia nunca.
+const TIM = window.TIM, S = TIM.segments, DUR = TIM.total;
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x)), lerp = (a, b, k) => a + (b - a) * k, prog = (t, a, d) => clamp((t - a) / d);
+const easeOut = (k) => 1 - Math.pow(1 - k, 3), easeIn = (k) => k * k * k, easeInOut = (k) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
+const easeBack = (k, s = 1.7) => 1 + (s + 1) * Math.pow(k - 1, 3) + s * Math.pow(k - 1, 2), smooth = (k) => k * k * (3 - 2 * k);
+const hash = (i) => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+const limpia = (w) => w.toLowerCase().replace(/[¿?¡!.,:;…]/g, "");
+const pal = (i, f, n = 0) => { const ws = S[i].words.filter((w) => limpia(w.w) === f); const w = ws[n] || ws[0]; if (!w) console.warn("falta", f); return w ? w.start : S[i].start; };
+const T = {
+  mitad0: pal(0, "mitad"), maximo: pal(0, "máximo"),
+  s1: S[1].start, burbuja1: pal(1, "burbuja"), oro1: pal(1, "oro"),
+  s2: S[2].start, beneficios: pal(2, "beneficios"), hundio: pal(2, "hundió"), ochenta: pal(2, "ochenta"), dieciocho: pal(2, "dieciocho"), setenta: pal(2, "setenta"), veintidos: pal(2, "veintidós"),
+  s3: S[3].start, existiran: pal(3, "existirán"), veintiun: pal(3, "veintiún"), millones: pal(3, "millones"), veinticuatro: pal(3, "veinticuatro"), fondos: pal(3, "fondos"), street: pal(3, "street"),
+  s4: S[4].start, matiz: pal(4, "matiz"), oro4: pal(4, "oro"), perdio: pal(4, "perdió"), mitad4: pal(4, "mitad"), ochenta4: pal(4, "ochenta"),
+  s5: S[5].start, puede: pal(5, "puede"), caer: pal(5, "caer"), mitad5: pal(5, "mitad"),
+  s6: S[6].start, comenta: pal(6, "comenta"), uno: pal(6, "uno"), dos: pal(6, "dos"), digital6: pal(6, "digital"),
+};
+const $ = (id) => document.getElementById(id);
+const cv = $("cv"), X = cv.getContext("2d"), W = 1080, H = 1920;
+const fmt = (v) => Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+// ---------- datos (simplificados; puntos clave verificados: máx. 126.080 $ el 6-oct-2025, 62.448 $ el 18-nov-2026 (CoinGecko);
+// caídas de ciclo −84 % (2017→2018) y −77 % (2021→2022) (Whale Scan vía Merca2); oro 850 $ en ene-1980 y algo más de 400 $ a fin de 1989 (LBMA)) ----------
+const BTC = [[2013.0, 13.5], [2013.3, 120], [2013.55, 70], [2013.92, 1150], [2014.1, 800], [2014.4, 600], [2014.9, 320], [2015.04, 170], [2015.5, 260], [2016.0, 430], [2016.5, 650],
+  [2016.95, 960], [2017.4, 2500], [2017.7, 4300], [2017.96, 19700], [2018.1, 9000], [2018.45, 6500], [2018.8, 6300], [2018.96, 3200], [2019.5, 12000], [2019.95, 7200], [2020.2, 5000],
+  [2020.6, 11500], [2020.99, 29000], [2021.28, 63000], [2021.55, 30000], [2021.86, 69000], [2022.2, 42000], [2022.45, 19000], [2022.89, 15500], [2023.25, 28000], [2023.7, 26000],
+  [2023.95, 42000], [2024.2, 73000], [2024.6, 54000], [2024.96, 100000], [2025.27, 76000], [2025.55, 118000], [2025.76, 126080], [2025.95, 88000], [2026.2, 78000], [2026.5, 58566],
+  [2026.75, 76000], [2026.86, 63000], [2026.885, 62448]];
+const ORO = [[1975.0, 183], [1975.7, 140], [1976.6, 104], [1977.5, 145], [1978.8, 230], [1979.5, 280], [1979.9, 512], [1980.05, 850], [1980.3, 500], [1980.75, 700], [1981.5, 400],
+  [1982.45, 297], [1982.75, 480], [1983.1, 510], [1983.9, 380], [1985.15, 285], [1986.0, 330], [1987.9, 500], [1988.9, 410], [1989.99, 401], [1990.8, 380], [1991.5, 360]];
+function densa(P, paso, ruido, seed) { // interpolación log-lineal + ruido fijo en el espacio de datos (no cambia al hacer zoom)
+  const out = [];
+  for (let i = 0; i < P.length - 1; i++) {
+    const [x0, y0] = P[i], [x1, y1] = P[i + 1], n = Math.max(2, Math.round((x1 - x0) / paso));
+    for (let k = 0; k < n; k++) { const u = k / n, x = x0 + (x1 - x0) * u, ly = Math.log10(y0) + (Math.log10(y1) - Math.log10(y0)) * u;
+      const env = Math.sin(u * Math.PI), j = out.length; out.push([x, Math.pow(10, ly + ruido * env * ((hash(j + seed) - 0.5) * 1.0 + (hash(j * 7 + seed) - 0.5) * 0.6))]); }
+  }
+  out.push(P[P.length - 1]); return out;
+}
+const BTCd = densa(BTC, 0.012, 0.05, 3), OROd = densa(ORO, 0.03, 0.03, 9);
+
+// ---------- dibujo ----------
+const PANEL = { x: 60, y: 690, w: 960, h: 440 };
+function rejilla() {
+  X.fillStyle = "#04070d"; X.fillRect(0, 0, W, H);
+  X.strokeStyle = "rgba(34,197,94,0.07)"; X.lineWidth = 1;
+  for (let x = 0; x <= W; x += 54) { X.beginPath(); X.moveTo(x + 0.5, 0); X.lineTo(x + 0.5, H); X.stroke(); }
+  for (let y = 0; y <= H; y += 54) { X.beginPath(); X.moveTo(0, y + 0.5); X.lineTo(W, y + 0.5); X.stroke(); }
+  // líneas de barrido fijas (textura CRT estática, sin parpadeo)
+  X.fillStyle = "rgba(0,0,0,0.18)"; for (let y = 0; y < H; y += 4) X.fillRect(0, y, W, 1);
+}
+function marco(ox, alpha, titulo, color) {
+  const { x, y, w, h } = PANEL;
+  X.save(); X.globalAlpha = alpha; X.translate(ox, 0);
+  X.fillStyle = "rgba(8,16,24,0.85)"; X.strokeStyle = "rgba(127,216,162,0.35)"; X.lineWidth = 2;
+  X.beginPath(); X.roundRect(x - 20, y - 70, w + 40, h + 110, 16); X.fill(); X.stroke();
+  X.fillStyle = color; X.font = "800 28px JBM"; X.textBaseline = "alphabetic"; X.fillText(titulo, x, y - 30);
+  X.restore();
+}
+function grafica(D, win, ox, alpha, opts = {}) {
+  const { x, y, w, h } = PANEL, L = opts.log !== false;
+  const fx = (v) => x + (v - win.x0) / (win.x1 - win.x0) * w;
+  const fy = (p) => { const q = L ? Math.log10(p) : p; return y + h - (q - win.lo) / (win.hi - win.lo) * h; };
+  X.save(); X.globalAlpha = alpha; X.translate(ox, 0);
+  X.beginPath(); X.rect(x - 4, y - 6, w + 8, h + 12); X.clip();
+  // niveles de precio
+  X.font = "700 22px JBM"; X.fillStyle = "rgba(160,180,200,0.75)"; X.strokeStyle = "rgba(127,216,162,0.14)"; X.lineWidth = 1;
+  for (const p of opts.niveles || []) { const yy = fy(p); if (yy < y - 2 || yy > y + h + 2) continue; X.beginPath(); X.moveTo(x, yy); X.lineTo(x + w, yy); X.stroke(); X.fillText(fmt(p) + " $", x + 6, yy - 8); }
+  // años
+  X.fillStyle = "rgba(160,180,200,0.6)";
+  for (let a = Math.ceil(win.x0); a <= win.x1; a++) { const xx = fx(a); if (a % (opts.cadaAnios || 1)) continue; X.beginPath(); X.moveTo(xx, y + h - 10); X.lineTo(xx, y + h); X.stroke(); X.fillText(String(a), xx + 4, y + h - 14); }
+  // cajas de caída (pico -> valle)
+  for (const c of opts.caidas || []) {
+    if (c.k <= 0) continue;
+    const xa = fx(c.p[0]), xb = fx(c.v[0]), ya = fy(c.p[1]), yb = fy(c.v[1]);
+    X.globalAlpha = alpha * clamp(c.k * 2);
+    X.fillStyle = "rgba(255,77,66,0.12)"; X.fillRect(xa, ya, xb - xa, yb - ya);
+    X.strokeStyle = "#ff4d42"; X.lineWidth = 3; X.setLineDash([10, 8]); X.beginPath(); X.moveTo(xa, ya); X.lineTo(xb + 30, ya); X.stroke(); X.setLineDash([]);
+    const yk = lerp(ya, yb, easeOut(c.k)); X.beginPath(); X.moveTo(xb + 22, ya); X.lineTo(xb + 22, yk); X.stroke();
+    X.beginPath(); X.moveTo(xb + 10, yk - 16); X.lineTo(xb + 22, yk); X.lineTo(xb + 34, yk - 16); X.stroke();
+    X.globalAlpha = alpha;
+  }
+  // línea
+  const xr = opts.hasta ?? 1e9;
+  X.lineJoin = "round"; X.lineCap = "round";
+  const tramo = (desde, hastaX, color, ancho) => {
+    X.strokeStyle = color; X.lineWidth = ancho; X.shadowColor = color; X.shadowBlur = 12; X.beginPath(); let on = false;
+    for (const [a, p] of D) { if (a < desde || a > hastaX) continue; const px = fx(a), py = fy(p); if (!on) { X.moveTo(px, py); on = true; } else X.lineTo(px, py); }
+    X.stroke(); X.shadowBlur = 0;
+  };
+  const corte = opts.rojoDesde ?? 1e9;
+  tramo(-1e9, Math.min(xr, corte), opts.color || "#4ade80", 5);
+  if (xr > corte) tramo(corte - 0.001, xr, "#ff4d42", 5);
+  // punto final
+  const ult = D.filter((d) => d[0] <= xr).pop();
+  if (ult && opts.punto) { X.fillStyle = xr > corte ? "#ff4d42" : (opts.color || "#4ade80"); X.beginPath(); X.arc(fx(ult[0]), fy(ult[1]), 10, 0, 7); X.fill(); }
+  // marcas verticales
+  for (const m of opts.marcas || []) {
+    if (m.k <= 0) continue; const xx = fx(m.x);
+    X.globalAlpha = alpha * clamp(m.k * 1.5); X.strokeStyle = m.color; X.lineWidth = 3; X.setLineDash([12, 10]);
+    X.beginPath(); X.moveTo(xx, y + h); X.lineTo(xx, lerp(y + h, y + 10, easeOut(m.k))); X.stroke(); X.setLineDash([]);
+    X.globalAlpha = alpha;
+  }
+  X.restore();
+  return { fx: (v) => fx(v) + ox, fy };
+}
+function etiqueta(tx, x, y, color, k, tam = 30, fondo = "rgba(8,16,24,0.92)") {
+  if (k <= 0) return; X.save(); X.globalAlpha = clamp(k * 1.6); X.font = `800 ${tam}px JBM`;
+  const w = X.measureText(tx).width + 26, s = 0.7 + 0.3 * easeBack(clamp(k));
+  X.translate(x, y); X.scale(s, s); X.fillStyle = fondo; X.strokeStyle = color; X.lineWidth = 3;
+  X.beginPath(); X.roundRect(-w / 2, -tam * 0.95, w, tam * 1.45, 10); X.fill(); X.stroke();
+  X.fillStyle = color; X.textAlign = "center"; X.fillText(tx, 0, 0); X.restore();
+}
+
+// ventanas de la gráfica de bitcoin
+const VFULL = { x0: 2012.7, x1: 2027.25, lo: Math.log10(7), hi: Math.log10(260000) };
+const V18 = { x0: 2016.7, x1: 2019.75, lo: Math.log10(600), hi: Math.log10(40000) };
+const V22 = { x0: 2020.55, x1: 2023.55, lo: Math.log10(6000), hi: Math.log10(160000) };
+const mezclaV = (a, b, k) => ({ x0: lerp(a.x0, b.x0, k), x1: lerp(a.x1, b.x1, k), lo: lerp(a.lo, b.lo, k), hi: lerp(a.hi, b.hi, k) });
+function ventana(t) {
+  let v = VFULL;
+  const k1 = easeInOut(prog(t, T.hundio - 0.35, 0.85)), k2 = easeInOut(prog(t, T.setenta - 0.55, 0.85)), k3 = easeInOut(prog(t, T.s3 - 0.35, 0.9));
+  v = mezclaV(VFULL, V18, k1); v = mezclaV(v, V22, k2); v = mezclaV(v, VFULL, k3);
+  return v;
+}
+
+// ---------- subtítulos de terminal (se escriben letra a letra al ritmo de la voz) ----------
+const CLAVE = ["bitcoin", "mitad", "burbuja", "oro", "digital", "beneficios", "intereses", "ochenta", "cuatro", "setenta", "siete", "veintiún", "millones", "veinticuatro", "fondos", "matiz", "perdió", "caer", "uno", "dos"];
+const trozos = [];
+S.forEach((s) => { let cur = [], n = 0; s.words.forEach((w, j) => { cur.push(w); n += w.w.length + 1; const fin = /[.?:;]$/.test(w.w) || (n > 34 && /,$/.test(w.w)) || n > 44 || j === s.words.length - 1; if (fin) { trozos.push(cur); cur = []; n = 0; } }); });
+trozos.forEach((c, i) => { c.a = i === 0 ? -1 : c[0].start - 0.06; c.b = i < trozos.length - 1 ? trozos[i + 1][0].start - 0.06 : DUR + 1; });
+function prompt(t) {
+  const i = trozos.findIndex((c) => t >= c.a && t < c.b); if (i < 0) { $("prompt").innerHTML = ""; return; }
+  const c = trozos[i]; let html = '<span class="p">&gt; </span>';
+  c.forEach((w, j) => {
+    const k = i === 0 && j < 2 ? 1 : clamp((t - w.start + 0.03) / Math.max(0.12, (w.end - w.start) * 0.8));
+    const n = Math.round(w.w.length * k); if (n <= 0) return;
+    const txt = w.w.slice(0, n); html += `<span class="${CLAVE.includes(limpia(w.w)) ? "k" : ""}">${txt}</span>` + (n === w.w.length ? " " : "");
+  });
+  html += '<span class="cur"></span>';
+  $("prompt").innerHTML = html;
+}
+
+// ---------- escena por tiempo ----------
+const TAPE = "BTC/USD 62.448 <b>▼ 50,5 % desde máx.</b> · MÁX. 126.080 (6-OCT-2025) · CAÍDA 2018 <b>−84 %</b> · CAÍDA 2022 <b>−77 %</b> · OFERTA MÁX. <u>21.000.000 ₿</u> · ETF AL CONTADO DESDE ENE-2024 · ORO ENE-1980 <u>850 $</u> → FIN 1989 ~400 $ · EDUCATIVO, NO ES ASESORAMIENTO · ";
+$("tapetx").innerHTML = TAPE + TAPE + TAPE;
+function renderAt(t) {
+  rejilla();
+  $("tapetx").style.left = (-((t * 95) % 1800)) + "px";
+  // --- cabecera: gancho -50 % (0 → S1), luego pestañas ---
+  const kHookOut = easeIn(prog(t, T.s1 - 0.15, 0.45));
+  const golpe = t > T.mitad0 - 0.05 ? 1 + 0.12 * Math.sin(clamp((t - T.mitad0 + 0.05) / 0.3) * Math.PI) : 1;
+  $("hook").style.display = kHookOut < 1 ? "block" : "none";
+  $("hook").style.transform = `translateY(${-kHookOut * 260}px)`; $("hook").style.opacity = 1 - kHookOut;
+  $("pct").style.transform = `scale(${(0.86 + 0.14 * easeBack(prog(t, 0, 0.45))) * golpe})`;
+  const kp = easeOut(prog(t, -0.5, 2.0)); $("px2").textContent = fmt(lerp(126080, 62448, kp)) + " $";
+  // pestañas
+  const kT = easeBack(prog(t, T.s1 - 0.1, 0.5)), kT2 = easeBack(prog(t, T.oro1 - 0.15, 0.5));
+  $("tabs").style.display = t > T.s1 - 0.1 ? "block" : "none";
+  const act = t < T.s2 ? 0 : t < T.s3 - 0.1 ? 1 : t < T.s4 - 0.1 ? 2 : t < T.s6 - 0.1 ? 3 : 4;
+  const vot = (tt) => (t > tt - 0.05 ? 1 + 0.14 * Math.sin(clamp((t - tt + 0.05) / 0.32) * Math.PI) : 1);
+  const escB = act === 1 ? 1.05 : act === 2 || act === 3 ? 0.92 : 1, escO = act === 2 ? 1.05 : act === 1 || act === 3 ? 0.92 : 1;
+  const opB = act === 2 || act === 3 ? 0.45 : 1, opO = act === 1 || act === 3 ? 0.45 : 1;
+  $("tb").style.transform = `translateX(${(1 - clamp(kT)) * -520}px) scale(${escB * (act === 4 ? vot(T.uno) : 1)})`; $("tb").style.opacity = opB;
+  $("to").style.transform = `translateX(${(1 - clamp(kT2)) * 520}px) scale(${escO * (act === 4 ? vot(T.dos) : 1)})`; $("to").style.opacity = opO;
+  $("vs").style.opacity = clamp(kT2) * (act === 4 ? 0.0 : 1);
+  $("tb").textContent = act === 4 ? "1 · BURBUJA" : "BURBUJA"; $("to").textContent = act === 4 ? "2 · ORO DIG." : "ORO DIGITAL";
+  // argumentos
+  const arg = (id, a, b) => { const k = easeOut(prog(t, a, 0.35)), ko = prog(t, b, 0.3), el = $(id); el.style.display = k > 0 && ko < 1 ? "block" : "none"; el.style.opacity = (1 - ko); el.style.transform = `translateX(${(1 - k) * -60 + ko * -40}px)`; };
+  arg("a1", T.beneficios - 0.3, T.s3 - 0.35); arg("a2", T.ochenta - 0.2, T.s3 - 0.35);
+  arg("a3", T.existiran - 0.3, T.s4 - 0.35); arg("a4", T.veinticuatro - 0.25, T.s4 - 0.35);
+  arg("a5", T.matiz - 0.3, T.s5 - 0.3);
+  { const k = easeOut(prog(t, T.existiran - 0.2, 0.3)), ko = prog(t, T.s4 - 0.35, 0.3), el = $("odo");
+    el.style.display = k > 0 && ko < 1 ? "block" : "none"; el.style.opacity = 1 - ko; el.style.transform = `translateX(${(1 - k) * 60}px)`;
+    const kc = easeOut(prog(t, T.existiran - 0.1, T.millones + 0.35 - T.existiran)); $("odon").textContent = fmt(21000000 * kc);
+    el.style.transform += ` scale(${t > T.millones ? 1 + 0.1 * Math.sin(clamp((t - T.millones) / 0.3) * Math.PI) : 1})`; }
+  const kAv = easeBack(prog(t, T.puede - 0.2, 0.4), 2), kAvO = prog(t, T.s6 - 0.2, 0.3);
+  $("aviso").style.display = kAv > 0 && kAvO < 1 ? "block" : "none"; $("aviso").style.opacity = 1 - kAvO; $("aviso").style.transform = `scale(${Math.max(0.01, kAv)})`;
+
+  // --- panel: BTC (S0–S3, S5) / ORO (S4) / barras (S5) / pregunta (S6) ---
+  const kOroIn = easeInOut(prog(t, T.s4 - 0.25, 1.0)), kOroOut = easeInOut(prog(t, T.s5 - 0.2, 1.0));
+  const oxBTC = -kOroIn * 1100 + kOroOut * 1100, oxORO = (1 - kOroIn) * 1100 - kOroOut * 1100;
+  const kFin = easeInOut(prog(t, T.s6 - 0.25, 0.8));
+  const enBarras = t > T.s5 - 0.2;
+  // BTC
+  if (oxBTC > -1090 && !enBarras) {
+    marco(oxBTC, 1, "BITCOIN · USD", "#7fd8a2");
+    const hasta = lerp(2025.2, 2026.885, easeOut(prog(t, 0.0, 1.9)));
+    const kc18 = prog(t, T.ochenta - 0.1, 0.8), kc22 = prog(t, T.setenta - 0.1, 0.8);
+    const g = grafica(BTCd, ventana(t), oxBTC, 1, { niveles: [10, 100, 1000, 10000, 100000], hasta, rojoDesde: 2025.76, punto: true, cadaAnios: ventana(t).x1 - ventana(t).x0 > 6 ? 2 : 1,
+      caidas: [{ p: [2017.96, 19700], v: [2018.96, 3200], k: kc18 * (1 - prog(t, T.s3 - 0.4, 0.4)) }, { p: [2021.86, 69000], v: [2022.89, 15500], k: kc22 * (1 - prog(t, T.s3 - 0.4, 0.4)) }],
+      marcas: [{ x: 2024.03, color: "#f6c443", k: prog(t, T.veinticuatro - 0.2, 0.6) * (1 - prog(t, T.s4 - 0.3, 0.3)) }] });
+    const v = ventana(t);
+    // etiquetas
+    const kMax = prog(t, 0.2, 0.4) * (1 - prog(t, T.hundio - 0.4, 0.3)) + prog(t, T.s3 - 0.1, 0.4) * (1 - prog(t, T.s4 - 0.4, 0.3));
+    etiqueta("MÁX. 126.080 $", clamp(g.fx(2025.76), 240, 860), g.fy(126080) + (g.fy(126080) < PANEL.y + 60 ? 70 : -24), "#e6edf5", kMax, 26);
+    const kHoy = prog(t, 1.4, 0.4) * (1 - prog(t, T.hundio - 0.4, 0.3)) + prog(t, T.s3 - 0.1, 0.4) * (1 - prog(t, T.s4 - 0.4, 0.3));
+    etiqueta("HOY 62.448 $", clamp(g.fx(2026.885) - 70, 240, 900), g.fy(62448) + 64, "#ff6b61", kHoy, 26);
+    const k84 = prog(t, T.ochenta - 0.05, 0.4) * (1 - prog(t, T.setenta - 0.6, 0.3));
+    etiqueta("−84 %", g.fx(2018.96) + 22, g.fy(3200) + 60, "#ff4d42", k84, 54);
+    const k77 = prog(t, T.setenta - 0.05, 0.4) * (1 - prog(t, T.s3 - 0.4, 0.3));
+    etiqueta("−77 %", g.fx(2022.89) + 22, g.fy(15500) + 60, "#ff4d42", k77, 54);
+    const kEtf = prog(t, T.veinticuatro - 0.1, 0.4) * (1 - prog(t, T.s4 - 0.35, 0.3));
+    etiqueta("ETF AL CONTADO · ENE-2024", clamp(g.fx(2024.03), 300, 780), PANEL.y + 34, "#f6c443", kEtf, 24);
+  }
+  // ORO
+  if (oxORO < 1090 && oxORO > -1090) {
+    marco(oxORO, 1, "ORO · USD/ONZA", "#ffd166");
+    const winO = { x0: 1974.6, x1: 1992.2, lo: 0, hi: 1000 };
+    const hastaO = lerp(1979.6, 1991.5, easeOut(prog(t, T.s4 + 0.2, 1.6)));
+    const g = grafica(OROd, winO, oxORO, 1, { log: false, niveles: [200, 400, 600, 800], hasta: hastaO, color: "#f6c443", punto: true, cadaAnios: 3,
+      caidas: [{ p: [1980.05, 850], v: [1989.99, 401], k: prog(t, T.perdio - 0.1, 0.8) }] });
+    etiqueta("850 $ · ENE-1980", g.fx(1980.05) + 120, g.fy(850) + 8, "#ffd166", prog(t, T.oro4 - 0.3, 0.4), 26);
+    etiqueta("−53 %", g.fx(1989.99) - 30, g.fy(401) + 110, "#ff4d42", prog(t, T.mitad4 - 0.1, 0.4), 54);
+    etiqueta("~400 $ · FIN 1989", g.fx(1989.99) - 130, g.fy(401) - 40, "#e6edf5", prog(t, T.ochenta4 - 0.3, 0.4), 24);
+  }
+  // barras de caídas (S5)
+  if (enBarras && kFin < 1) {
+    const kIn = easeOut(prog(t, T.s5 - 0.2, 0.6)), ox = (1 - kIn) * 1100 - kFin * 1100;
+    marco(ox, 1, "CAÍDAS DE BITCOIN DESDE SU MÁXIMO", "#ff8a80");
+    const datos = [["2018", 84], ["2022", 77], ["2026", 50]];
+    datos.forEach(([a, p], i) => {
+      const k = easeOut(prog(t, T.s5 + i * 0.35, 0.6)), x = PANEL.x + 130 + i * 300 + ox, y0 = PANEL.y + 50, hgt = p / 84 * 330 * k;
+      X.fillStyle = "rgba(255,77,66,0.22)"; X.strokeStyle = "#ff4d42"; X.lineWidth = 3;
+      X.beginPath(); X.roundRect(x - 70, y0, 140, Math.max(2, hgt), 8); X.fill(); X.stroke();
+      X.fillStyle = "#e6edf5"; X.font = "800 32px JBM"; X.textAlign = "center"; X.fillText(a, x, y0 - 12 + 0);
+      X.fillStyle = "#ff6b61"; X.font = "800 46px JBM"; if (k > 0.3) X.fillText("−" + Math.round(p * clamp((k - 0.3) / 0.7)) + " %", x, y0 + hgt + 52);
+      X.textAlign = "left";
+    });
+    const kq = prog(t, T.caer - 0.1, 0.4);
+    if (kq > 0) { X.save(); X.globalAlpha = kq; X.fillStyle = "#ffb4ae"; X.font = "800 34px JBM"; X.textAlign = "center"; X.fillText("¿Y LA PRÓXIMA?", 540 + ox, PANEL.y + PANEL.h + 18); X.restore(); }
+  }
+  // pregunta final
+  const kQ = easeBack(prog(t, T.s6 - 0.05, 0.45));
+  $("pregunta").style.display = kQ > 0 ? "block" : "none"; $("pregunta").style.transform = `scale(${Math.max(0.01, kQ)})`;
+
+  // --- Listo (neon) de presentador; al final, en grande en el centro ---
+  let o = { estilo: "neon", t, expr: "normal", pose: "reposo", mira: [-0.6, -0.2] };
+  let lx = 930, ly = 1436, ls = 0.62;
+  if (t < T.s1) {
+    if (t < 1.05) { o.anim = "entrada"; o.animT = t + 0.25; }
+    else { o.pose = "senalaIzq"; o.expr = "sorpresa"; }
+  } else if (t < T.s2) { o.pose = "piensa"; o.expr = "normal"; o.mira = [-0.3, -0.6]; }
+  else if (t < T.s3) {
+    o.pose = t < T.ochenta ? "brazosCruzados" : "senalaIzq"; o.expr = t < T.ochenta ? "normal" : "preocupado";
+    if (t > T.ochenta && t < T.ochenta + 1.3) { o.anim = "temblor"; o.animT = t - T.ochenta; }
+    if (t > T.veintidos - 0.1) { o.anim = "desinfla"; o.animT = t - T.veintidos + 0.1; }
+  } else if (t < T.s4) {
+    o.pose = t < T.veinticuatro ? "piensa" : "senalaIzq"; o.expr = t < T.millones ? "normal" : "idea";
+    if (t > T.millones - 0.05 && t < T.millones + 0.9) { o.anim = "salto"; o.animT = t - T.millones + 0.05; }
+  } else if (t < T.s5) {
+    o.pose = t < T.perdio ? "piensa" : "senalaIzq"; o.expr = t < T.perdio ? "normal" : "sorpresa";
+  } else if (t < T.s6) {
+    o.pose = "brazosCruzados"; o.expr = "preocupado"; o.acc = ["gorroRoto"]; o.accK = { gorroRoto: easeOut(prog(t, T.caer - 0.15, 0.4)) };
+    if (t > T.caer) { o.anim = "temblor"; o.animT = t - T.caer; }
+  } else {
+    const k = easeInOut(prog(t, T.s6 - 0.2, 0.7)); lx = lerp(930, 680, k); ly = lerp(1436, 1270, k); ls = lerp(0.62, 0.95, k);
+    o.pose = t < T.comenta ? "saludo" : "pulgar"; o.expr = t < T.comenta ? "feliz" : "guino";
+    if (t > T.comenta - 0.05 && t < T.comenta + 0.95) { o.anim = "salto"; o.animT = t - T.comenta + 0.05; }
+  }
+  o.x = lx; o.y = ly; o.s = ls;
+  if (window.PORTADA) { o.anim = null; o.x = 790; o.y = 1660; o.s = 1.15; o.pose = "senalaIzq"; o.expr = "sorpresa"; o.mira = [-0.7, -0.6]; }
+  o.glow = t > T.s5 && t < T.s6 ? lerp(1, 0.7, smooth(prog(t, T.s5, 0.6))) : 1;
+  Listo2D.dibujar(X, o);
+
+  $("fuente").style.opacity = 1;
+  $("kick").style.transform = `translateY(${(1 - easeOut(prog(t, 0, 0.4))) * -30}px)`;
+  prompt(t);
+}
+window.DURACION = DUR;
+window.renderAt = renderAt;
+Promise.all([document.fonts.load("800 40px JBM"), document.fonts.load("700 40px JBM")]).then(() => document.fonts.ready).then(() => { renderAt(0); window.listo = true; });
+</script>
+</body></html>

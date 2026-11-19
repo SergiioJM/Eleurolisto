@@ -1,0 +1,268 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<script type="importmap">{"imports":{"three":"../../toolkit/escena3d/node_modules/three/build/three.module.js","lib3d":"../../toolkit/escena3d/lib3d.js","listo3d":"../../toolkit/mascota/listo3d.js"}}</script>
+<style>
+@font-face{font-family:Anton;src:url(../../toolkit/fuentes/anton-latin-400-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2192}
+@font-face{font-family:Anton;src:url(../../toolkit/fuentes/anton-latin-ext-400-normal.woff2) format("woff2");unicode-range:U+0100-024F}
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#070b1c;font-family:Poppins,sans-serif}
+canvas{position:absolute;inset:0}
+.ov{position:absolute;pointer-events:none}
+#kick{left:0;right:0;top:168px;text-align:center}
+#kick span{display:inline-block;font:700 30px Poppins;letter-spacing:5px;color:#cfe0ff;background:rgba(20,32,80,.72);border:2px solid rgba(140,170,255,.45);padding:8px 26px 5px;border-radius:40px}
+#tit{left:0;right:0;top:236px;height:170px;text-align:center;perspective:900px}
+#tit div{position:absolute;left:0;right:0;top:0;font:400 150px/1.1 Anton;letter-spacing:2px;color:#f6c443;
+  background:linear-gradient(180deg,#ffe48a 0%,#f6c443 45%,#c98a12 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 0 18px rgba(246,196,67,.45)) drop-shadow(0 6px 0 rgba(90,55,0,.85));transform-origin:50% 50%;backface-visibility:hidden}
+#subs{left:60px;right:60px;top:430px;min-height:150px;text-align:center;font:700 58px/1.2 Poppins;color:#fff;letter-spacing:-.5px;text-shadow:0 3px 0 #0a1030,0 0 18px rgba(0,0,0,.6)}
+#subs span{display:inline-block;margin:0 7px;transition:none}
+#subs span.k{color:#ffd34d}
+#subs span.fut{opacity:.28}
+#cartas{left:110px;right:110px;top:0;height:1920px}
+.card{position:absolute;left:0;right:0;height:132px;border-radius:30px;background:rgba(10,16,36,.93);border:4px solid #3d6cff;box-shadow:0 18px 40px rgba(0,0,0,.55);
+  display:flex;align-items:center;gap:26px;padding:0 30px;box-sizing:border-box;transform-origin:50% 50%}
+.card.oro{border-color:#f6c443}.card.rojo{border-color:#ff5a4f}.card.verde{border-color:#22c55e}
+.card .ic{width:88px;height:88px;border-radius:50%;background:#22c55e;display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 0 0 6px rgba(34,197,94,.18)}
+.card .ic.rojo{background:#ef4444;box-shadow:0 0 0 6px rgba(239,68,68,.18)}
+.card .ic.azul{background:#3b82f6;box-shadow:0 0 0 6px rgba(59,130,246,.2)}
+.card .ic svg{width:50px;height:50px}
+.card .tx small{display:block;font:700 27px Poppins;letter-spacing:3px;color:#9fb3d9}
+.card .tx b{display:block;font:400 64px/1.02 Anton;letter-spacing:1px;color:#fff;white-space:nowrap}
+.card .tx b em{font-style:normal;color:#ffd34d}
+#sello{transform:translate(-50%,-50%) rotate(-8deg);font:400 54px/1 Anton;letter-spacing:2px;color:#ff5a4f;border:6px solid #ff5a4f;border-radius:16px;padding:12px 24px 8px;background:rgba(10,16,36,.85);white-space:nowrap}
+#pct{transform:translate(-50%,-50%);text-align:center;white-space:nowrap}
+#pct b{display:inline-block;font:400 168px/1 Anton;color:#2a1708;background:#f6c443;padding:20px 54px 8px;border-radius:56px;box-shadow:0 16px 0 rgba(90,55,0,.6),0 28px 60px rgba(0,0,0,.55)}
+#pct div{margin-top:24px;font:700 38px Poppins;color:#fff;text-shadow:0 3px 12px rgba(0,0,0,.8)}
+#pct div span{color:#ffd34d}
+#fuente{left:0;right:0;top:1492px;text-align:center;font:600 23px Poppins;color:rgba(200,215,255,.62)}
+#marca{left:0;right:0;top:1530px;text-align:center;font:600 28px Poppins;color:rgba(255,255,255,.5)}
+</style></head>
+<body>
+<div id="kick" class="ov"><span>DINERO Y LEY · CRIPTO</span></div>
+<div id="tit" class="ov"><div id="t0">TIENES CRIPTOS</div><div id="t1">Y GANAS DINERO</div><div id="t2">YA LO SABES</div></div>
+<div id="subs" class="ov"></div>
+<div id="cartas" class="ov"></div>
+<div id="sello" class="ov">= GANANCIA O PÉRDIDA</div>
+<div id="pct" class="ov"><b>19–30 %</b><div>Ej.: ganas 1.000 € → pagas <span>190 €</span></div></div>
+<div id="fuente" class="ov">Fuentes: AEAT (Manual IRPF 2025) · Directiva DAC8 (UE), datos desde 1-ene-2026</div>
+<div id="marca" class="ov">@eleurolisto</div>
+<script type="module">
+// Look R2 · "TIENES X AÑOS" + LLAMADAS ENTRANTES con personaje 3D tierno (referencia 02 de Sergio, con personaje NUESTRO:
+// Listo en modelado 'toon'). Habitación en penumbra azul FIJA, titular dorado con brillo arriba que cambia girando (sin luz),
+// tarjetas de "LLAMADA ENTRANTE" que suben y se apilan. Subtítulo limpio bajo el título (palabras que se encienden).
+// Todo depende solo de t y de timings.json (voz local k_santa) -> render determinista. Sin cambios de luz.
+import * as THREE from "three";
+import * as L from "lib3d";
+import { crearListo } from "listo3d";
+const { clamp, lerp, prog, easeOut, easeInOut, easeBack, easeIn, smooth } = L;
+const TIM = window.TIM, S = TIM.segments, DUR = TIM.total;
+const limpia = (w) => w.toLowerCase().replace(/[¿?¡!.,:;…]/g, "");
+const pal = (i, f, n = 0) => { const ws = S[i].words.filter((w) => limpia(w.w) === f); const w = ws[n] || ws[0]; if (!w) console.warn("falta", f); return w ? w.start : S[i].start; };
+const T = {
+  pasas: pal(0, "pasas"), criptos: pal(0, "criptos"), hacienda0: pal(0, "hacienda"), entera: pal(0, "entera"),
+  s1: S[1].start, plataformas: pal(1, "plataformas"), europea: pal(1, "europea"), apuntan: pal(1, "apuntan"), compras: pal(1, "compras"), cambias: pal(1, "cambias"), hacienda1: pal(1, "hacienda"),
+  s2: S[2].start, bitcoin: pal(2, "bitcoin"), cripto: pal(2, "cripto"), cuenta: pal(2, "cuenta"), ganancia: pal(2, "ganancia"), perdida: pal(2, "pérdida"),
+  s3: S[3].start, pagas: pal(3, "pagas"), diecinueve: pal(3, "diecinueve"), treinta: pal(3, "treinta"),
+  s4: S[4].start, amigo: pal(4, "amigo"), cripto4: pal(4, "cripto"),
+};
+const $ = (id) => document.getElementById(id);
+
+// ---------- render ----------
+const W = 1080, H = 1920;
+const r = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+r.setSize(W, H); r.setPixelRatio(1); r.outputColorSpace = THREE.SRGBColorSpace;
+r.toneMapping = THREE.ACESFilmicToneMapping; r.toneMappingExposure = 1.05;
+r.shadowMap.enabled = true; r.shadowMap.type = THREE.PCFSoftShadowMap;
+document.body.prepend(r.domElement);
+const esc = new THREE.Scene(); esc.background = new THREE.Color(0x070b1c);
+const cam = new THREE.PerspectiveCamera(34, W / H, 0.1, 100);
+esc.add(new THREE.HemisphereLight(0x5f7cff, 0x1a1022, 0.9));
+const luna = new THREE.DirectionalLight(0x8fa6ff, 1.25); luna.position.set(-5, 8, 7); luna.castShadow = true;
+luna.shadow.mapSize.set(1024, 1024); Object.assign(luna.shadow.camera, { left: -6, right: 6, top: 7, bottom: -2, near: 1, far: 30 }); luna.shadow.radius = 5; esc.add(luna);
+const lampara = new THREE.PointLight(0xffb36b, 6, 9, 1.8); lampara.position.set(3.0, 2.6, 0.6); esc.add(lampara);   // lamparita cálida FIJA
+const mate = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.85, metalness: 0, ...o });
+const mesh = (geo, m, pos = [0, 0, 0], sombra = true) => { const k = new THREE.Mesh(geo, m); k.position.set(...pos); k.castShadow = sombra; k.receiveShadow = true; return k; };
+const texCanvas = (w, h, dib) => { const c = document.createElement("canvas"); c.width = w; c.height = h; dib(c.getContext("2d"), w, h); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; };
+
+// --- habitación (pared, suelo, zócalo, póster, ventana, mesa con portátil, cama) ---
+esc.add(mesh(new THREE.PlaneGeometry(30, 16), mate(0x1d3478), [0, 7.2, -2.6], false));                  // pared azul
+const suelo = mesh(new THREE.PlaneGeometry(30, 14), mate(0x2a1a1f), [0, 0, 4], false); suelo.rotation.x = -Math.PI / 2; esc.add(suelo);
+esc.add(mesh(new THREE.BoxGeometry(30, 0.28, 0.12), mate(0x16285e), [0, 0.14, -2.52], false));         // zócalo
+{ // póster: gráfica que sube (verde) en marco
+  const tex = texCanvas(256, 340, (x, w, h) => { x.fillStyle = "#0f3d2a"; x.fillRect(0, 0, w, h); x.strokeStyle = "#1f6b48"; x.lineWidth = 2;
+    for (let i = 1; i < 6; i++) { x.beginPath(); x.moveTo(0, i * h / 6); x.lineTo(w, i * h / 6); x.stroke(); }
+    x.strokeStyle = "#4ade80"; x.lineWidth = 9; x.lineJoin = "round"; x.beginPath();
+    [[20, 280], [60, 240], [95, 255], [130, 190], [165, 205], [200, 120], [236, 70]].forEach(([a, b], i) => i ? x.lineTo(a, b) : x.moveTo(a, b)); x.stroke();
+    x.fillStyle = "#f6c443"; x.beginPath(); x.arc(70, 80, 42, 0, 7); x.fill(); x.fillStyle = "#7a5200"; x.font = "bold 50px Poppins"; x.textAlign = "center"; x.textBaseline = "middle"; x.fillText("€", 70, 84); });
+  esc.add(mesh(new THREE.BoxGeometry(2.1, 2.75, 0.08), mate(0x0b1430), [-2.75, 4.35, -2.52], false));
+  esc.add(mesh(new THREE.PlaneGeometry(1.85, 2.5), new THREE.MeshStandardMaterial({ map: tex, roughness: 0.9 }), [-2.75, 4.35, -2.47], false));
+}
+{ // ventana con noche y luna
+  const tex = texCanvas(256, 300, (x, w, h) => { const g = x.createLinearGradient(0, 0, 0, h); g.addColorStop(0, "#0a1440"); g.addColorStop(1, "#1a2c6e"); x.fillStyle = g; x.fillRect(0, 0, w, h);
+    x.fillStyle = "#e9eeff"; x.beginPath(); x.arc(180, 70, 30, 0, 7); x.fill(); x.fillStyle = "#13205a"; x.beginPath(); x.arc(166, 62, 28, 0, 7); x.fill();
+    x.fillStyle = "rgba(220,230,255,.8)"; [[40, 50], [90, 120], [210, 170], [60, 210], [140, 40], [230, 240]].forEach(([a, b]) => x.fillRect(a, b, 3, 3));
+    x.fillStyle = "#0c1638"; for (let i = 0; i < 6; i++) { const bw = 30 + (i * 37) % 25, bh = 50 + (i * 53) % 70; x.fillRect(i * 44, h - bh, bw, bh); } });
+  esc.add(mesh(new THREE.BoxGeometry(2.5, 2.9, 0.1), mate(0xdfe5f2), [2.85, 4.5, -2.52], false));
+  esc.add(mesh(new THREE.PlaneGeometry(2.15, 2.55), new THREE.MeshBasicMaterial({ map: tex }), [2.85, 4.5, -2.46], false));
+  esc.add(mesh(new THREE.BoxGeometry(0.08, 2.55, 0.06), mate(0xdfe5f2), [2.85, 4.5, -2.42], false));
+  esc.add(mesh(new THREE.BoxGeometry(2.15, 0.08, 0.06), mate(0xdfe5f2), [2.85, 4.5, -2.42], false));
+}
+// mesa con portátil y lamparita (derecha)
+const mesa = new THREE.Group(); mesa.position.set(3.0, 0, -1.2); esc.add(mesa);
+mesa.add(mesh(new THREE.BoxGeometry(2.6, 0.12, 1.3), mate(0x5a3b2c), [0, 1.55, 0]));
+for (const [x, z] of [[-1.15, -0.5], [1.15, -0.5], [-1.15, 0.5], [1.15, 0.5]]) mesa.add(mesh(new THREE.BoxGeometry(0.1, 1.5, 0.1), mate(0x4a2f22), [x, 0.75, z]));
+const pantTex = texCanvas(256, 160, (x, w, h) => { x.fillStyle = "#0b1a2e"; x.fillRect(0, 0, w, h); x.strokeStyle = "#ef4444"; x.lineWidth = 6; x.beginPath();
+  [[10, 40], [50, 30], [90, 60], [130, 55], [170, 100], [210, 92], [246, 130]].forEach(([a, b], i) => i ? x.lineTo(a, b) : x.moveTo(a, b)); x.stroke(); });
+const portatil = new THREE.Group(); portatil.position.set(-0.35, 1.61, 0.05); portatil.rotation.y = -0.35; mesa.add(portatil);
+portatil.add(mesh(new THREE.BoxGeometry(1.0, 0.05, 0.7), mate(0x8a93a6, { metalness: 0.3, roughness: 0.4 })));
+const tapa = mesh(new THREE.BoxGeometry(1.0, 0.66, 0.04), mate(0x8a93a6, { metalness: 0.3, roughness: 0.4 }), [0, 0.33, -0.34]); tapa.rotation.x = -0.18; portatil.add(tapa);
+const pant = new THREE.Mesh(new THREE.PlaneGeometry(0.9, 0.56), new THREE.MeshBasicMaterial({ map: pantTex })); pant.position.set(0, 0, 0.025); tapa.add(pant);
+mesa.add(mesh(new THREE.CylinderGeometry(0.16, 0.2, 0.06, 20), mate(0x222a3a), [0.75, 1.64, -0.2]));
+mesa.add(mesh(new THREE.CylinderGeometry(0.025, 0.025, 0.7, 8), mate(0x222a3a), [0.75, 2.0, -0.2]));
+mesa.add(mesh(new THREE.ConeGeometry(0.3, 0.32, 24, 1, true), new THREE.MeshStandardMaterial({ color: 0xffd9a0, emissive: 0xffb36b, emissiveIntensity: 0.9, side: THREE.DoubleSide }), [0.75, 2.45, -0.2], false));
+// cama (izquierda)
+const cama = new THREE.Group(); cama.position.set(-3.6, 0, -0.6); esc.add(cama);
+cama.add(mesh(new THREE.BoxGeometry(2.6, 0.55, 3.4), mate(0x3a2a36), [0, 0.35, 0]));
+cama.add(mesh(new THREE.BoxGeometry(2.5, 0.28, 3.3), mate(0x2f5bd3), [0, 0.76, 0.02]));
+cama.add(mesh(new THREE.BoxGeometry(1.4, 0.26, 0.7), mate(0xe9edf7), [0, 1.0, -1.15]));
+cama.add(mesh(new THREE.BoxGeometry(2.6, 1.5, 0.15), mate(0x3a2a36), [0, 0.9, -1.72]));
+
+// --- Listo (toon) ---
+const LIS = crearListo({ estilo: "toon", escala: 1.0 }); esc.add(LIS.root);
+LIS.root.traverse((o) => { if (o.isMesh && !o.material.transparent) o.castShadow = true; });
+
+// ---------- cámara: empuje lento + ligera órbita (todo movimiento, nada de luz) ----------
+const camK = L.camaraSuave([
+  { t: 0, p: [0, 2.35, 13.0], m: [0, 2.2, 0], fov: 34 },
+  { t: T.s1, p: [0.3, 2.3, 12.3], m: [0.1, 2.15, 0], fov: 34 },
+  { t: T.hacienda1, p: [-0.15, 2.25, 11.3], m: [0, 2.1, 0], fov: 34 },
+  { t: T.s2 + 0.4, p: [-0.7, 2.4, 12.0], m: [0, 2.15, 0], fov: 34 },
+  { t: T.s3, p: [0.4, 2.3, 11.6], m: [0, 2.1, 0], fov: 34 },
+  { t: T.s4, p: [0.0, 2.3, 12.3], m: [0, 2.15, 0], fov: 34 },
+  { t: DUR, p: [0.0, 2.3, 11.5], m: [0, 2.15, 0], fov: 34 },
+], 0.55);
+
+// ---------- tarjetas ----------
+const TEL = `<svg viewBox="0 0 24 24"><path fill="#fff" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>`;
+const SWAP = `<svg viewBox="0 0 24 24"><path fill="#fff" d="M7 7h11l-3-3 1.4-1.4L22.8 9l-6.4 6.4L15 14l3-3H7V7zm10 10H6l3 3-1.4 1.4L1.2 15l6.4-6.4L9 10l-3 3h11v4z"/></svg>`;
+const EURO = `<svg viewBox="0 0 24 24"><path fill="#fff" d="M15 4c1.7 0 3.2.6 4.4 1.6l-1.5 1.8A4.9 4.9 0 0 0 10.5 9H16l-.6 2H10v1.9h5l-.6 2h-3.9a4.9 4.9 0 0 0 7.4 1.6l1.5 1.8A7.4 7.4 0 0 1 8 14.9H5l.6-2H8V11H5l.6-2H8A7.4 7.4 0 0 1 15 4z"/></svg>`;
+const CARTAS = [
+  { id: "c1", cls: "", ic: "", svg: TEL, small: "LLAMADA ENTRANTE", big: "TU APP DE CRIPTOS", ini: T.plataformas - 0.25, fin: T.s2 - 0.1 },
+  { id: "c2", cls: "oro", ic: "", svg: TEL, small: "LLAMADA ENTRANTE", big: "<em>HACIENDA</em>", ini: T.hacienda1 - 0.3, fin: T.s3 - 0.05 },
+  { id: "c3", cls: "rojo", ic: "azul", svg: SWAP, small: "OPERACIÓN", big: "BTC → OTRA CRIPTO", ini: T.bitcoin - 0.3, fin: T.s3 - 0.05 },
+  { id: "c5", cls: "verde", ic: "", svg: TEL, small: "LLAMANDO…", big: "TU AMIGO CRIPTO", ini: T.s4 - 0.15, fin: DUR + 1 },
+];
+$("cartas").innerHTML = CARTAS.map((c) => `<div class="card ${c.cls}" id="${c.id}"><div class="ic ${c.ic}">${c.svg}</div><div class="tx"><small>${c.small}</small><b>${c.big}</b></div></div>`).join("");
+const huecos = [1088, 1246]; // y de las dos ranuras (como en la referencia: dos tarjetas apiladas sobre el cuerpo)
+// ranura de cada tarjeta en el tiempo (determinista): c1 arriba; c2 abajo y sube cuando c1 se va; c3 abajo; c5 arriba
+const ranura = { c1: () => huecos[0], c2: (t) => lerp(huecos[1], huecos[0], easeInOut(prog(t, T.s2 - 0.1, 0.45))), c3: () => huecos[1], c5: () => huecos[0] };
+function cartas(t) {
+  CARTAS.forEach((c) => {
+    const el = $(c.id), k = easeBack(prog(t, c.ini, 0.45), 1.3), ko = easeIn(prog(t, c.fin, 0.4));
+    if (t < c.ini || ko >= 1) { el.style.display = "none"; return; }
+    el.style.display = "flex";
+    const subida = (1 - clamp(k)) * 380;                // entra desde abajo
+    const vibra = t - c.ini < 1.4 && c.id !== "c3" ? Math.sin((t - c.ini) * 42) * 4 * (1 - prog(t, c.ini + 0.5, 0.9)) : 0; // vibración de llamada (movimiento)
+    el.style.top = (ranura[c.id](t) + subida) + "px";
+    el.style.opacity = (1 - ko) * clamp(k * 1.5);
+    el.style.transform = `translateX(${vibra + ko * 760}px) rotate(${vibra * 0.25}deg) scale(${0.9 + 0.1 * clamp(k)})`;
+  });
+}
+
+// ---------- subtítulos (limpios, palabras que se encienden; el gancho se lee entero desde el fotograma 0) ----------
+const CLAVE = ["criptos", "euros", "hacienda", "enera", "entera", "enero", "europea", "compras", "vendes", "cambias", "bitcoin", "cripto", "ganancia", "pérdida", "diecinueve", "treinta", "amigo"];
+const trozos = [];
+S.forEach((s, si) => { let cur = []; s.words.forEach((w, j) => { cur.push(w); const fin = si === 0 ? j === s.words.length - 1 : /[.?…]$/.test(w.w) || (cur.length >= 6 && /,$/.test(w.w)) || cur.length >= 7 || j === s.words.length - 1; if (fin) { trozos.push(cur); cur = []; } }); });
+trozos.forEach((c, i) => { c.a = i === 0 ? -1 : c[0].start - 0.08; c.b = i < trozos.length - 1 ? trozos[i + 1][0].start - 0.08 : DUR + 1; });
+let ult = -1;
+function subs(t) {
+  const i = trozos.findIndex((c) => t >= c.a && t < c.b), el = $("subs");
+  if (i !== ult) { el.innerHTML = i < 0 ? "" : trozos[i].map((w) => `<span>${w.w}</span>`).join(""); ult = i; }
+  if (i < 0) return;
+  const c = trozos[i], k = easeOut(prog(t, c.a, 0.2));
+  el.style.transform = `translateY(${(1 - k) * 26}px)`; el.style.opacity = clamp(k * 1.4);
+  [...el.children].forEach((sp, j) => {
+    const w = c[j], dicha = t >= w.start - 0.04 || (i === 0 && t < w.start);  // el gancho entero visible desde t=0
+    const act = t >= w.start - 0.04 && t < w.end + 0.06;
+    sp.className = (CLAVE.includes(limpia(w.w)) ? "k" : "") + (dicha || i === 0 ? "" : " fut");
+    sp.style.transform = act ? `translateY(${-6 * Math.sin(clamp((t - w.start) / 0.22) * Math.PI)}px)` : "";
+  });
+}
+
+// proyección 3D -> pantalla
+const v = new THREE.Vector3();
+const aPantalla = (x, y, z) => { v.set(x, y, z).project(cam); return [(v.x + 1) / 2 * W, (1 - v.y) / 2 * H]; };
+
+// ---------- escena por tiempo ----------
+function renderAt(t) {
+  const c = camK(t); cam.position.set(...c.p); cam.lookAt(...c.m); cam.fov = c.fov; cam.updateProjectionMatrix(); cam.updateMatrixWorld(true);
+  // la pantalla del portátil se desplaza (gráfica que corre) — movimiento, mismo brillo
+  pantTex.offset.x = (t * 0.06) % 1; pantTex.wrapS = THREE.RepeatWrapping;
+
+  // --- Listo ---
+  let lo = { expr: "normal", pose: "reposo", mira: [0, 0.1], acc: [], accK: {} };
+  let lx = 0, lz = 0.6;
+  let glow = 1;
+  if (t < T.s1) {
+    if (t < 1.0) { lo.anim = "entrada"; lo.animT = t + 0.28; }
+    else if (t < T.hacienda0) { lo.pose = "piensa"; lo.expr = "normal"; lo.mira = [-0.3, 0.4]; }
+    else { lo.pose = "brazosCruzados"; lo.expr = t < T.entera ? "feliz" : "guino"; lo.acc = ["gafas"]; lo.accK = { gafas: easeOut(prog(t, T.hacienda0 + 0.1, 0.35)) }; }
+  } else if (t < T.s2) {
+    lo.pose = "telefono"; lo.expr = t < T.apuntan ? "sorpresa" : "habla";
+    if (t < T.plataformas + 0.6) { lo.acc = ["gafas"]; lo.accK = { gafas: 1 - easeIn(prog(t, T.plataformas, 0.45)) }; }   // las gafas salen volando
+    if (t > T.hacienda1 - 0.35) { lo.anim = "temblor"; lo.animT = t - T.hacienda1; lo.fijarPose = true; lo.pose = "telefono"; lo.expr = "preocupado"; }
+    glow = lerp(1, 0.75, smooth(prog(t, T.hacienda1 - 0.3, 0.6)));
+  } else if (t < T.s3) {
+    lo.pose = t < T.cuenta ? "senala" : "piensa"; lo.expr = t < T.cuenta ? "sorpresa" : t < T.ganancia ? "normal" : "idea"; lo.mira = [0.6, -0.4];
+    if (t > T.s2 - 0.1 && t < T.s2 + 0.9) { lo.anim = "salto"; lo.animT = t - T.s2 + 0.1; lo.fijarExpr = true; lo.expr = "sorpresa"; }
+    glow = lerp(0.75, 1.15, smooth(prog(t, T.ganancia - 0.2, 0.6)));
+  } else if (t < T.s4) {
+    lo.anim = "desinfla"; lo.animT = t - T.pagas + 0.1; lo.fijarExpr = false;
+    if (t < T.pagas - 0.1) { lo.anim = null; lo.pose = "reposo"; lo.expr = "sorpresa"; }
+    glow = lerp(1.15, 0.8, smooth(prog(t, T.pagas - 0.1, 0.5)));
+  } else {
+    lo.pose = t < T.amigo ? "telefono" : "pulgar"; lo.expr = t < T.amigo ? "habla" : "guino";
+    if (t > T.amigo - 0.05 && t < T.amigo + 0.95) { lo.anim = "salto"; lo.animT = t - T.amigo + 0.05; lo.fijarPose = true; lo.fijarExpr = true; }
+    glow = lerp(0.8, 1.1, smooth(prog(t, T.s4, 0.6)));
+  }
+  lo.glow = glow;
+  LIS.root.position.set(lx, 0, lz);
+  LIS.root.rotation.y = Math.sin(t * 0.7) * 0.08 + (t > T.s2 && t < T.s3 ? 0.25 * smooth(prog(t, T.s2, 0.5)) * (1 - smooth(prog(t, T.s3 - 0.4, 0.4))) : 0);
+  LIS.actualizar(t, lo);
+
+  // --- título dorado: cambia girando como una tarjeta (movimiento, no luz) ---
+  const flips = [[0, T.s3 - 0.15], [T.s3 - 0.15, T.s4 - 0.1], [T.s4 - 0.1, DUR + 1]];
+  ["t0", "t1", "t2"].forEach((id, j) => {
+    const [a, b] = flips[j], el = $(id);
+    const kin = j === 0 ? 1 : easeOut(prog(t, a + 0.3, 0.38)), kout = easeIn(prog(t, b, 0.3));
+    const vis = (j === 0 || t >= a + 0.3) && kout < 1;
+    el.style.display = vis ? "block" : "none";
+    const ang = (1 - kin) * -90 + kout * 90;
+    const pop = j === 0 ? easeBack(prog(t, 0, 0.5)) : 1;
+    el.style.transform = `rotateX(${ang}deg) scale(${(j === 0 ? 0.6 + 0.4 * pop : 1) * (1 + 0.025 * Math.sin(t * 2.2))})`;
+  });
+  $("kick").style.transform = `translateY(${(1 - easeOut(prog(t, 0, 0.4))) * -30}px)`;
+
+  // --- tarjetas ---
+  cartas(t);
+  // sello "= GANANCIA O PÉRDIDA" junto a la tarjeta de la operación
+  const ks = easeBack(prog(t, T.ganancia - 0.15, 0.3), 2.2), kso = prog(t, T.s3 - 0.05, 0.35);
+  $("sello").style.display = ks > 0 && kso < 1 ? "block" : "none";
+  $("sello").style.left = "540px"; $("sello").style.top = (1430 + kso * 200) + "px";
+  $("sello").style.opacity = 1 - kso;
+  $("sello").style.transform = `translate(-50%,-50%) rotate(-8deg) scale(${lerp(2.2, 1, clamp(ks))})`;
+  // golpe: 19–30 %
+  const kp = easeBack(prog(t, T.diecinueve - 0.12, 0.35), 2), kpo = easeIn(prog(t, T.s4 - 0.55, 0.35));
+  $("pct").style.display = kp > 0 && kpo < 1 ? "block" : "none";
+  $("pct").style.left = "540px"; $("pct").style.top = "1170px"; $("pct").style.opacity = 1 - kpo;
+  const golpeT = t > T.treinta - 0.05 ? 1 + 0.1 * Math.sin(clamp((t - T.treinta + 0.05) / 0.28) * Math.PI) : 1;
+  $("pct").style.transform = `translate(-50%,-50%) scale(${Math.max(0.01, kp * (1 - 0.6 * kpo)) * golpeT})`;
+  $("fuente").style.opacity = t < T.s1 ? 0 : 1;
+
+  subs(t);
+  r.render(esc, cam);
+}
+window.DURACION = DUR;
+window.renderAt = renderAt;
+document.fonts.load("64px Anton").then(() => document.fonts.ready).then(() => { renderAt(0); window.listo = true; });
+</script>
+</body></html>

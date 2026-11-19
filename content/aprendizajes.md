@@ -22,6 +22,13 @@ Qué funciona según los datos de Instagram (vidiq_instagram_owner_insights, mod
 
 - **🔥 19-nov (noche): el especial GTA 6 se ha pegado en TikTok: 985 visualizaciones y 30 likes (3 %), 1 compartido, 0 comentarios**, unas 50 veces la media del resto en TikTok (casi todos entre 0 y 20; el segundo, dividendos, 157 en su primera hora). Claves: **tema del día que la gente busca (#gta6) + look nuevo llamativo (R8) + una cuenta fácil de compartir (precio → horas de tu vida) sin sermonear** ("si lo vale, disfrútalo sin culpa"). Fallo: el CTA "mándaselo a…" no saca comentarios → la parte 2 acaba con una pregunta de dos opciones. → Cuando haya un evento enorme de cultura pop (lanzamiento, final, estreno), reel especial ese mismo día o el anterior a las 18:00, y si pega, **parte 2 dentro de las 48 h** con el giro hacia inversión.
 
+## Actualización 19-nov noche (11 reels con datos; seguidores en IG: 2)
+- **Dividendos sin humo (R3, ElevenLabs Mateo, 31 s): 2,1 % de skip y 52 % visto** en su primera hora (55 visualizaciones): el mejor gancho hasta ahora ("¿un sueldo extra sin trabajar?" = promesa que la gente quiere + giro). Muestra pequeña: revisarlo mañana.
+- **Efectivo en casa (R6 pixel, voz local k_santa, 21 s): 161 visualizaciones, 41 % visto y 45 % de skip.** Buen alcance (curiosidad legal) pero el primer segundo aún pierde a casi la mitad.
+- **Patrón que se repite: los reels con voz local tienen más skip** (Bizum 67 %, efectivo 45 %) que los de voz premium (dividendos 2 %, GTA 39 %, inflación 32 %). Puede ser el gancho o la voz: el sábado se compara otra vez (13:30 local k_santa vs 20:30 ElevenLabs Juanjo). Si se confirma, proponer a Sergio ElevenLabs también a las 13:30 cuando haya caracteres.
+- La subida de sueldo bajó a 45 % visto y 55 % de skip con más datos (la primera hora engaña). GTA 6 sigue siendo el de más alcance (285): la actualidad funciona.
+- Seguimos sin compartidos ni guardados: los reels del sábado cierran con pregunta de dos opciones ("comenta 1 o 2") y un "mándaselo a tu amigo cripto".
+
 ## Por reel
 | Fecha | Hora | Reel | Formato | Voz | Visualizaciones | % visto | Skip rate | Compartidos | Guardados |
 |---|---|---|---|---|---|---|---|---|---|
@@ -29,6 +36,8 @@ Qué funciona según los datos de Instagram (vidiq_instagram_owner_insights, mod
 | 2026-11-16 | 20:30 | Estos dos cobran lo mismo (Ana y Leo) | 2D A vs B con personajes | Javier | 145 (18-nov noche) | 34,7 % | 56,5 % | 0 | 1 |
 | 2026-11-17 | 13:30 | El ladrón invisible: inflación | 3D de bloques | Javier | 184 | 57,7 % | 31,5 % | 0 | 0 |
 | 2026-11-17 | 20:30 | Regla 50/30/20 (cocina) | 3D de bloques | Javier | 154 (18-nov noche) | 52,1 % | 36,1 % | 0 | 0 |
-| 2026-11-18 | 13:30 | Bizum por error | interfaz de móvil 2D | local v1 | 46 | 17,9 % | 77,5 % | 0 | 0 |
-| 2026-11-18 | 18:00 | GTA 6: horas de curro (especial) | R8 neón tropical | Javier | 168 (~3 h) | 46,9 % | 34,2 % | 0 | 0 |
-| 2026-11-18 | 20:30 | Subida de sueldo | tipografía cinética v2 | Javier | 13 (~1 h) | 65,8 % | 11,1 % | 0 | 0 |
+| 2026-11-18 | 13:30 | Bizum por error | interfaz de móvil 2D | local v1 | 119 (19-nov noche) | 23,9 % | 67,3 % | 0 | 0 |
+| 2026-11-18 | 18:00 | GTA 6: horas de curro (especial) | R8 neón tropical | Javier | 285 (19-nov noche) | 49,3 % | 38,7 % | 0 | 0 |
+| 2026-11-18 | 20:30 | Subida de sueldo | tipografía cinética v2 | Javier | 168 (19-nov noche) | 45,3 % | 55,4 % | 0 | 0 |
+| 2026-11-19 | 13:30 | Efectivo en casa | R6 pixel art | local k_santa | 161 (~8 h) | 41,4 % | 45,2 % | 0 | 0 |
+| 2026-11-19 | 20:30 | Dividendos sin humo | R3 ilustración en corte | ElevenLabs Mateo | 55 (~1 h) | 51,6 % | 2,1 % | 0 | 0 |

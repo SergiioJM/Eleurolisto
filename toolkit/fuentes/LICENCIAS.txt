@@ -1,0 +1,4 @@
+Fuentes con licencia SIL Open Font License 1.1 (redistribución permitida), descargadas de @fontsource:
+- Anton (Vernon Adams)
+- JetBrains Mono (JetBrains)
+- Archivo Black (Omnibus-Type)
