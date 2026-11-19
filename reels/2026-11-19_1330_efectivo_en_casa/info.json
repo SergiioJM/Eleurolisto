@@ -26,7 +26,14 @@
   "audio": "voz local + música + efectos, loudnorm −14 LUFS (medido −14,5), AAC 48 kHz",
   "portada": "portada/portada.jpg (fondo: plano cerrado x7 del reel con Listo sorprendido; kicker 'DINERO Y LEY', '¿Cuánto EFECTIVO en casa?', sub 'y cuándo se entera Hacienda'); video_portada.mp4 = mismo vídeo con la portada en el primer fotograma",
   "duracion_s": 21.3,
-  "estado": "APROBADO (✅ Con portada) · se publica la versión con el pulgar corregido (uploadId 70eac5fe-d7c1-49c7-9f55-a8e1d84a619c)",
+  "estado": "PUBLICADO 19-nov 13:30 (versión con portada y pulgar corregido, uploadId 70eac5fe-d7c1-49c7-9f55-a8e1d84a619c)",
+  "publicado": {
+    "fecha": "2026-11-19T13:30+01:00",
+    "instagram": "https://www.instagram.com/reel/Df7FchuAkq3/",
+    "instagram_mediaId": "18032346149865877",
+    "tiktok": "https://www.tiktok.com/@eleurolisto/video/7709859011826371872",
+    "tiktok_postId": "f1f5932b-7e00-4359-8a08-50477800a9cc"
+  },
   "vidiq_uploadId_sin_portada": "9f7bee4d-4e74-4d1b-9c15-c6fba8ef2d95",
   "vidiq_uploadId_con_portada": "ce2967c2-9560-4989-81cd-cf81c18b9caa",
   "video_raw": "https://raw.githubusercontent.com/SergiioJM/Eleurolisto/3d09727f73169fa62893790a1de2aed635499625/reels/2026-11-19_1330_efectivo_en_casa/video.mp4",
