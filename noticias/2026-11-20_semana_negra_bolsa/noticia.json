@@ -1,0 +1,80 @@
+{
+ "fecha": "20 nov 2026",
+ "fuente": "Europa Press (El Debate, Forbes, Demócrata) · Reuters · CNBC · CME FedWatch",
+ "etiqueta": "SEMANA NEGRA",
+ "slides": [
+  {
+   "tipo": "portada",
+   "titular": "La bolsa española cae un <em>5,7 %</em> en una semana",
+   "bajada": "Cinco días seguidos en rojo. Qué ha pasado y qué significa si tienes un fondo indexado o un plan de pensiones."
+  },
+  {
+   "tipo": "cifra",
+   "etiqueta": "IBEX 35",
+   "cifra": "−5,7 %",
+   "cifraTam": 210,
+   "texto": "en una semana: de 20.020 a 18.873 puntos",
+   "nota": "Solo hoy, −1,63 %. Cinco sesiones seguidas a la baja."
+  },
+  {
+   "tipo": "puntos",
+   "etiqueta": "NO ES SOLO ESPAÑA",
+   "titulo": "Cae casi todo",
+   "puntos": [
+    "Alemania: <em>−2,6 %</em> hoy. Italia −2,5 % y Francia −1,9 %",
+    "Wall Street va camino de su <em>peor semana desde abril de 2025</em>",
+    "El Nasdaq, más de un <em>13 %</em> por debajo de su récord: desde −10 % ya se llama «corrección»"
+   ]
+  },
+  {
+   "tipo": "puntos",
+   "etiqueta": "POR QUÉ",
+   "titulo": "Por qué cae",
+   "puntos": [
+    "Dudas sobre la <em>inteligencia artificial</em>: ¿darán beneficios las inversiones gigantes? Los chips, a la baja",
+    "<em>Tipos al alza</em>: el mercado da más de un 90 % a que la Fed suba el 9 de diciembre",
+    "Tensión en <em>Oriente Próximo</em>: el petróleo Brent, en torno a 91 $"
+   ]
+  },
+  {
+   "tipo": "vs",
+   "etiqueta": "QUÉ SIGNIFICA PARA TI",
+   "titulo": "¿Te afecta?",
+   "izq": {
+    "lab": "SÍ",
+    "icono": "📉",
+    "nombre": "Fondo indexado, plan de pensiones o acciones",
+    "cifra": "En rojo",
+    "texto": "su valor baja con la bolsa",
+    "color": "rojo"
+   },
+   "der": {
+    "lab": "NO",
+    "icono": "🏦",
+    "nombre": "Cuenta remunerada o depósito",
+    "cifra": "Igual",
+    "texto": "ese dinero no depende de la bolsa",
+    "color": "verde"
+   },
+   "nota": "Un fondo mixto cae menos: depende de cuánta bolsa lleve dentro."
+  },
+  {
+   "tipo": "mito",
+   "etiqueta": "MITO VS REALIDAD",
+   "mito": "Si mi fondo está en rojo, ese dinero ya lo he perdido",
+   "realidad": "Mientras no vendas, la pérdida es «latente»: sube y baja con el mercado. Se vuelve definitiva (y cuenta para Hacienda) cuando vendes.",
+   "nota": "Esto no es una recomendación de comprar ni de vender."
+  },
+  {
+   "tipo": "cierre",
+   "etiqueta": "PARA HOY",
+   "titulo": "3 preguntas que hacerte",
+   "puntos": [
+    "¿Sé qué tengo? La ficha del fondo dice cuánta <em>bolsa</em> lleva",
+    "¿Cuándo voy a necesitar este dinero? El <em>plazo</em> pesa más que un mal día",
+    "¿Me quita el sueño? Revisa tu <em>perfil de riesgo</em>"
+   ],
+   "cta": "Pásaselo a quien tenga un fondo 📉"
+  }
+ ]
+}
