@@ -1,0 +1,392 @@
+{
+ "total": 20.763,
+ "voz": "ElevenLabs · Mateo (gpMzl7dbkfC9dIxAqQZT, eleven_v4)",
+ "segments": [
+  {
+   "i": 0,
+   "start": 0.2,
+   "dur": 3.693,
+   "text": "El ladrón invisible ha vuelto a tu casa… y ahora roba más.",
+   "words": [
+    {
+     "w": "El",
+     "start": 0.2,
+     "end": 0.339
+    },
+    {
+     "w": "ladrón",
+     "start": 0.374,
+     "end": 0.617
+    },
+    {
+     "w": "invisible",
+     "start": 0.687,
+     "end": 1.243
+    },
+    {
+     "w": "ha",
+     "start": 1.313,
+     "end": 1.383
+    },
+    {
+     "w": "vuelto",
+     "start": 1.452,
+     "end": 1.73
+    },
+    {
+     "w": "a",
+     "start": 1.765,
+     "end": 1.8
+    },
+    {
+     "w": "tu",
+     "start": 1.87,
+     "end": 1.939
+    },
+    {
+     "w": "casa…",
+     "start": 1.974,
+     "end": 2.403
+    },
+    {
+     "w": "y",
+     "start": 2.473,
+     "end": 2.542
+    },
+    {
+     "w": "ahora",
+     "start": 2.647,
+     "end": 2.89
+    },
+    {
+     "w": "roba",
+     "start": 3.168,
+     "end": 3.447
+    },
+    {
+     "w": "más.",
+     "start": 3.481,
+     "end": 3.893
+    }
+   ]
+  },
+  {
+   "i": 1,
+   "start": 3.991,
+   "dur": 2.506,
+   "text": "La inflación ya está en el cuatro coma nueve por ciento.",
+   "words": [
+    {
+     "w": "La",
+     "start": 3.991,
+     "end": 4.061
+    },
+    {
+     "w": "inflación",
+     "start": 4.095,
+     "end": 4.478
+    },
+    {
+     "w": "ya",
+     "start": 4.548,
+     "end": 4.617
+    },
+    {
+     "w": "está",
+     "start": 4.687,
+     "end": 4.826
+    },
+    {
+     "w": "en",
+     "start": 4.861,
+     "end": 4.895
+    },
+    {
+     "w": "el",
+     "start": 4.93,
+     "end": 4.965
+    },
+    {
+     "w": "cuatro",
+     "start": 5.104,
+     "end": 5.313
+    },
+    {
+     "w": "coma",
+     "start": 5.452,
+     "end": 5.591
+    },
+    {
+     "w": "nueve",
+     "start": 5.661,
+     "end": 5.869
+    },
+    {
+     "w": "por",
+     "start": 5.939,
+     "end": 6.008
+    },
+    {
+     "w": "ciento.",
+     "start": 6.078,
+     "end": 6.497
+    }
+   ]
+  },
+  {
+   "i": 2,
+   "start": 6.567,
+   "dur": 5.602,
+   "text": "Si sigue a este ritmo, lo que hoy compras con diez mil euros, dentro de un año costará diez mil cuatrocientos noventa.",
+   "words": [
+    {
+     "w": "Si",
+     "start": 6.567,
+     "end": 6.636
+    },
+    {
+     "w": "sigue",
+     "start": 6.706,
+     "end": 6.914
+    },
+    {
+     "w": "a",
+     "start": 6.949,
+     "end": 6.984
+    },
+    {
+     "w": "este",
+     "start": 7.088,
+     "end": 7.193
+    },
+    {
+     "w": "ritmo,",
+     "start": 7.262,
+     "end": 7.61
+    },
+    {
+     "w": "lo",
+     "start": 7.68,
+     "end": 7.749
+    },
+    {
+     "w": "que",
+     "start": 7.819,
+     "end": 7.888
+    },
+    {
+     "w": "hoy",
+     "start": 7.934,
+     "end": 8.027
+    },
+    {
+     "w": "compras",
+     "start": 8.097,
+     "end": 8.375
+    },
+    {
+     "w": "con",
+     "start": 8.445,
+     "end": 8.514
+    },
+    {
+     "w": "diez",
+     "start": 8.584,
+     "end": 8.723
+    },
+    {
+     "w": "mil",
+     "start": 8.793,
+     "end": 8.932
+    },
+    {
+     "w": "euros,",
+     "start": 8.967,
+     "end": 9.419
+    },
+    {
+     "w": "dentro",
+     "start": 9.523,
+     "end": 9.697
+    },
+    {
+     "w": "de",
+     "start": 9.767,
+     "end": 9.801
+    },
+    {
+     "w": "un",
+     "start": 9.836,
+     "end": 9.906
+    },
+    {
+     "w": "año",
+     "start": 9.94,
+     "end": 10.114
+    },
+    {
+     "w": "costará",
+     "start": 10.219,
+     "end": 10.462
+    },
+    {
+     "w": "diez",
+     "start": 10.532,
+     "end": 10.74
+    },
+    {
+     "w": "mil",
+     "start": 10.81,
+     "end": 10.88
+    },
+    {
+     "w": "cuatrocientos",
+     "start": 11.019,
+     "end": 11.575
+    },
+    {
+     "w": "noventa.",
+     "start": 11.645,
+     "end": 12.169
+    }
+   ]
+  },
+  {
+   "i": 3,
+   "start": 12.204,
+   "dur": 2.388,
+   "text": "Y en cinco años, unos doce mil setecientos.",
+   "words": [
+    {
+     "w": "Y",
+     "start": 12.204,
+     "end": 12.239
+    },
+    {
+     "w": "en",
+     "start": 12.308,
+     "end": 12.378
+    },
+    {
+     "w": "cinco",
+     "start": 12.447,
+     "end": 12.586
+    },
+    {
+     "w": "años,",
+     "start": 12.726,
+     "end": 13.073
+    },
+    {
+     "w": "unos",
+     "start": 13.143,
+     "end": 13.352
+    },
+    {
+     "w": "doce",
+     "start": 13.421,
+     "end": 13.56
+    },
+    {
+     "w": "mil",
+     "start": 13.63,
+     "end": 13.699
+    },
+    {
+     "w": "setecientos.",
+     "start": 13.839,
+     "end": 14.592
+    }
+   ]
+  },
+  {
+   "i": 4,
+   "start": 14.679,
+   "dur": 0.568,
+   "text": "¿Y el tuyo?",
+   "words": [
+    {
+     "w": "¿Y",
+     "start": 14.679,
+     "end": 14.748
+    },
+    {
+     "w": "el",
+     "start": 14.818,
+     "end": 14.853
+    },
+    {
+     "w": "tuyo?",
+     "start": 14.887,
+     "end": 15.247
+    }
+   ]
+  },
+  {
+   "i": 5,
+   "start": 15.326,
+   "dur": 2.865,
+   "text": "Comenta: uno, quieto; dos, trabajando.",
+   "words": [
+    {
+     "w": "Comenta:",
+     "start": 15.326,
+     "end": 15.828
+    },
+    {
+     "w": "uno,",
+     "start": 15.958,
+     "end": 16.375
+    },
+    {
+     "w": "quieto;",
+     "start": 16.514,
+     "end": 16.919
+    },
+    {
+     "w": "dos,",
+     "start": 16.989,
+     "end": 17.476
+    },
+    {
+     "w": "trabajando.",
+     "start": 17.511,
+     "end": 18.191
+    }
+   ]
+  },
+  {
+   "i": 6,
+   "start": 18.261,
+   "dur": 1.808,
+   "text": "Porque el ladrón siempre vuelve.",
+   "words": [
+    {
+     "w": "Porque",
+     "start": 18.261,
+     "end": 18.4
+    },
+    {
+     "w": "el",
+     "start": 18.435,
+     "end": 18.469
+    },
+    {
+     "w": "ladrón",
+     "start": 18.539,
+     "end": 19.026
+    },
+    {
+     "w": "siempre",
+     "start": 19.095,
+     "end": 19.513
+    },
+    {
+     "w": "vuelve.",
+     "start": 19.548,
+     "end": 20.069
+    }
+   ]
+  }
+ ]
+}

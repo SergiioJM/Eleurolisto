@@ -32,5 +32,11 @@
   "portada": "portada/portada.jpg (fondo: la calle con la casa en venta, el monigote y Listo en grande sorprendido, dibujado con window.PORTADA; kicker POLÉMICA · VIVIENDA, '¿Comprar o ALQUILAR E INVERTIR?', '3 finales: uno nadie lo cuenta', etiqueta 'alquilar: 39 %')",
   "creditos": "ElevenLabs 589 caracteres (2.481 → ~3.517 de 10.000 con los dos reels); 0 de Creative Claw; vidIQ 0",
   "elevenlabs_flow": "qKb9hlaApr4LLnofHi7h (voz nodo qYWmcvpdh4ME3vMAC7sD, generación 4ejVFgpxXW1D2uSZ8Yvh; transcripción duaXBKrnDvcWcotdrEZB)",
-  "estado": "PENDIENTE de aprobación (enviado el 20-nov por la noche)"
+  "estado": "PENDIENTE de aprobación (enviado el 20-nov por la noche)",
+  "commit_sha": "4e72a582f70b45cbc95db9e46ac1b3261b9e6459",
+  "vidiq_uploadId_con_portada": "901604f4-0fc1-4b3b-9fcf-0edb121f8807",
+  "vidiq_uploadId_sin_portada": "89dca57e-925e-416d-9686-e2e012054837",
+  "duracion_s": 33.6,
+  "brillo": "brillo medio por fotograma (54x96 gris): 33–53, sube despacio con las tarjetas; salto máximo 3,0 (0 saltos > 8)",
+  "loudness": "−14,6 LUFS"
 }

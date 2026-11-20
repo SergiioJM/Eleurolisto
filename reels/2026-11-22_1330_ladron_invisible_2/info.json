@@ -1,0 +1,37 @@
+{
+  "fecha": "2026-11-22",
+  "hora": "13:30",
+  "titulo": "El ladrón invisible 2: la inflación al 4,9 % (secuela del n.º 2 del ranking)",
+  "pilar": "Economía (inflación)",
+  "look": "R7 · 3D de bloques 'simulación' (look del top 3, secuela) con luz de tarde FIJA + Listo 'lowpoly'",
+  "formato": "escena3d (Three.js) con motor.mjs: misma habitación del 17-nov pero sin ciclo día/noche (el paso del tiempo va en el reloj y el contador). Fotograma 0: 'PARTE 2 · EL LADRÓN HA VUELTO' gigante y el aceite ya saliendo por la ventana; '…y ahora roba MÁS' (2 robos más); sello '4,9 %' (IPC, INE); 'lo que HOY compras' → la compra entera vuelve a la mesa en cascada; panel TIEMPO / LA MISMA COMPRA con odómetro 10.000 → 10.490 € (1 año) → 12.702 € (5 años) mientras los productos salen volando; golpe '+27 %'; lección en pantalla; pregunta '¿Y EL TUYO?' con botones 1 QUIETO / 2 TRABAJANDO; Listo pulsa '+ SEGUIR · parte 3'. Subtítulos palabra a palabra con recuadro azul (los del 3D de bloques).",
+  "gancho": "El ladrón invisible ha vuelto a tu casa… y ahora roba más (texto en pantalla: EL LADRÓN HA VUELTO)",
+  "ganchos_candidatos": [
+    "El ladrón invisible ha vuelto… y ahora roba más (elegido: secuela directa del n.º 2, personaje + robo en el fotograma 0)",
+    "Tu dinero en la cuenta pierde 467 € al año",
+    "4,9 %: la inflación más alta en años",
+    "¿Cuánto te roba la inflación este año?",
+    "10.000 € hoy = 10.490 € dentro de un año"
+  ],
+  "voz": "ElevenLabs · Mateo (gpMzl7dbkfC9dIxAqQZT, eleven_v4); 447 caracteres; transcripción Scribe idéntica; se quita la frase 'El dinero que no vas a tocar…' (va en pantalla y en el texto) para dejarlo en ~21 s; pausas acortadas y atempo 1,15",
+  "etiqueta_ia": true,
+  "guion": "El ladrón invisible ha vuelto a tu casa… y ahora roba más. La inflación ya está en el cuatro coma nueve por ciento. Si sigue a este ritmo, lo que hoy compras con diez mil euros, dentro de un año costará diez mil cuatrocientos noventa. Y en cinco años, unos doce mil setecientos. ¿Y el tuyo? Comenta: uno, quieto; dos, trabajando. Porque el ladrón siempre vuelve.",
+  "datos": "IPC de octubre de 2026: 4,9 % interanual, confirmado por el INE el 13-nov (Trading Economics 'Spain Inflation Rate Unrevised at 4.9% in October'; Demócrata 'El INE ratifica un IPC del 4,9 % en octubre'; CaixaBank Research). Proyección HIPOTÉTICA si se mantuviera: 10.000 × 1,049 = 10.490 €; 10.000 × 1,049^5 = 12.702 € (+27,0 %) (Python). En pantalla: 'proyección hipotética si se mantuviera'.",
+  "fuentes": [
+    "https://tradingeconomics.com/spain/inflation-cpi/news/601041",
+    "https://www.democrata.es/economia/el-ine-ratifica-un-ipc-del-4-9-en-octubre-por-el-alza-del-gas-y-el-abaratamiento-de-los-carburantes/",
+    "https://ine.es/dyngs/Prensa/IPC1026.pdf"
+  ],
+  "origen": "crecimiento: secuela del n.º 2 del ranking (El ladrón invisible, 3D) + plan semanal (domingo 13:30)",
+  "caption": "Inflación: el ladrón invisible ha vuelto y ahora roba más 🕵️ El IPC está en el 4,9 % (INE, octubre). Si siguiera a este ritmo, lo que hoy compras con 10.000 € costaría 10.490 € dentro de un año y unos 12.700 € en cinco. El dinero que no vas a tocar en años tiene que ganarle, como mínimo, a la inflación. ¿El tuyo está quieto o trabajando? Comenta 1 o 2 👇 y mándaselo a quien tiene todo en la cuenta.\nContenido educativo, no es asesoramiento financiero.\n#inflacion #ipc #ahorro #finanzaspersonales #eleurolisto\n🎙 elevenlabs.io",
+  "listo_papel": "Modelado 'lowpoly' (como el 3D de bloques), de pie en la mesa entre la compra: cae del cielo (entrada) y saluda; señala sorprendido los robos y tiembla con 'roba más'; brazos cruzados y preocupado con el 4,9 %; piensa y mira el móvil mientras sube el precio; con los 12.700 € le cae el gorro roto (arruinado) y se desinfla; se enciende con '¿Y el tuyo?' (idea), salta con la opción 2 y firma con giro + guiño + mano redonda en alto pulsando '+ SEGUIR'.",
+  "musica": "original sintetizada, style upbeat, 104 bpm, seed 6, baja (0.30 / ducking 0.09)",
+  "sfx": "biblioteca video-shotcraft (lib:): whoosh-fast, hit-weak, sparkle-poof-hit, swoosh-quick, hit-fast-exciting, bass-hit-short (4,9 %), air-woosh-quick, ui-message-pop (la compra vuelve), clock-tick-single (1 año), wind-woosh-throw, ui-confirm-tone, clock-knob-spin (5 años), impact-zoom-quick (12.700), gravel-fall-hit (gorro roto), swoosh-slow, sparkle-touch, ui-select-modern (1 y 2), ui-success-soft, whoosh-swirl, switch-click-quick (SEGUIR), chime-crystal",
+  "creditos": "ElevenLabs 447 caracteres; 0 de Creative Claw; vidIQ 0",
+  "elevenlabs_flow": "UI8ktKMg0bFbH2RNIhcn (voz nodo s0fBJWmwMDjiizTHtMBH, generación dBj6HsC48tuAkAz2arq0; transcripción rx05jzZvhWluZOh8IiCd)",
+  "estado": "PENDIENTE de aprobación (enviado el 20-nov por la noche)",
+  "portada": "portada/portada.jpg (fondo: la habitación con el aceite saliendo por la ventana y Listo 'lowpoly' señalándolo sorprendido, dibujado con window.PORTADA; kicker PARTE 2 · INFLACIÓN, 'El LADRÓN ha vuelto', 'y ahora roba más', etiqueta '4,9 %')",
+  "duracion_s": 21.2,
+  "brillo": "brillo medio por fotograma (54x96 gris): 87–119 (luz fija); salto máximo 3,0 (0 saltos > 8; el sello del 4,9 % se suavizó)",
+  "loudness": "−14,5 LUFS"
+}
