@@ -36,6 +36,8 @@ Qué funciona según los datos de Instagram (vidiq_instagram_owner_insights, mod
 - **Comparativas**: voz premium 57 vs local 47; 3D 61 vs 2D 53; gancho en pregunta 59 vs afirmación 53; ahorro básico 53 vs resto 56; 13:30 50 vs 20:30 56 vs especial 68.
 - **Carruseles de noticias**: alcance de 3 cuentas en IG (solo seguidores) y 0–49 vistas en TikTok: no traen gente nueva.
 
+- **20-nov (tarde), TikTok: dividendos (R3 plano de corte, ElevenLabs Mateo, 31 s) ya lleva 1,8 K visualizaciones, 19 likes y 2 guardados** (el mejor de la cuenta, por delante del GTA 6 parte 1 con 986 y 30 likes). Inversión explicada "sin humo" con un ejemplo de números sencillo (20 € → 19 € + 1 €) también tira en TikTok → más reels de inversión que desmontan una creencia popular con una cuenta fácil.
+
 ## Por reel
 | Fecha | Hora | Reel | Formato | Voz | Visualizaciones | % visto | Skip rate | Compartidos | Guardados |
 |---|---|---|---|---|---|---|---|---|---|

@@ -31,5 +31,12 @@
   "vidiq_uploadId_con_portada": "4e102f10-0dc1-4ef8-b13b-851fe947fffe",
   "vidiq_uploadId_sin_portada": "30686d3b-3caf-47f2-8084-09f10cf04f38",
   "creditos": "ElevenLabs 406 caracteres · Creative Claw 4 (dos uniones de voz; quedan 2)",
-  "estado": "APROBADO (✅ Con portada, 19-nov por la noche) · se publica el vie 20 a las 18:00 con el aviso trig_01167GWmSiBvZKUVKaekw7Nq (uploadId 4e102f10-0dc1-4ef8-b13b-851fe947fffe)"
+  "estado": "PUBLICADO 20-nov 18:00 en IG + TikTok (versión con portada, uploadId 4e102f10-0dc1-4ef8-b13b-851fe947fffe)",
+  "publicado": {
+    "fecha": "2026-11-20T18:00+01:00",
+    "instagram": "https://www.instagram.com/reel/Df-I1tGGtn7/",
+    "instagram_mediaId": "17916368778590185",
+    "tiktok": "pendiente (vidIQ no devolvió el enlace)",
+    "tiktok_postId": "20ffebc6-180b-4841-8f2f-c38c63f1ff36"
+  }
 }
