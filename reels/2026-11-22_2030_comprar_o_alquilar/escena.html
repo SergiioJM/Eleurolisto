@@ -1,0 +1,342 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<script src="../../toolkit/mascota/listo2d.js"></script>
+<style>
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#0b1120}
+canvas{position:absolute;inset:0}
+</style></head>
+<body>
+<canvas id="cv" width="1080" height="1920"></canvas>
+<script>
+// Look R1 · SELECTOR DE ESTADOS CON MONIGOTES 2D (primera vez): escena plana de calle de noche (fondo FIJO), fila de
+// pestañas tipo botón de radio arriba (COMPRAR / ALQUILAR + INVERTIR / ALQUILAR + GASTAR) que se van marcando y la MISMA
+// escena se repite con cada opción y cambia el final (rebobinado entre finales). Monigote blanco con gorra azul ("tú") y
+// Listo en modelado 'plano'. Todo depende solo de t y de timings.json (ElevenLabs · Lucía). Sin cambios de luz: el fondo
+// no cambia nunca; el color va en tarjetas, pestañas, monedas y textos.
+const TIM = window.TIM, S = TIM.segments, DUR = TIM.total;
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x)), lerp = (a, b, k) => a + (b - a) * k, prog = (t, a, d) => clamp((t - a) / d);
+const easeOut = (k) => 1 - Math.pow(1 - k, 3), easeIn = (k) => k * k * k, easeInOut = (k) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
+const easeBack = (k, s = 1.7) => (k <= 0 ? 0 : 1 + (s + 1) * Math.pow(k - 1, 3) + s * Math.pow(k - 1, 2)), smooth = (k) => k * k * (3 - 2 * k);
+const hash = (i) => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+const limpia = (w) => w.toLowerCase().replace(/[¿?¡!.,:;…]/g, "");
+const pal = (i, f, n = 0) => { const ws = S[i].words.filter((w) => limpia(w.w) === f); const w = ws[n] || ws[0]; if (!w) console.warn("falta", f); return w ? w.start : S[i].start; };
+const T = {
+  treinta0: pal(0, "treinta"), familia: pal(0, "familia"), s1: S[1].start, veintinueve: pal(1, "veintinueve"),
+  s2: S[2].start, compro: pal(2, "compro"), tres2: pal(2, "tres"),
+  s3: S[3].start, compras: pal(3, "compras"),
+  s4: S[4].start, treinta4: pal(4, "treinta"), precio: pal(4, "precio"), veinte: pal(4, "veinte"), diez: pal(4, "diez"), gastos: pal(4, "gastos"),
+  s5: S[5].start, cuota: pal(5, "cuota"), forzoso: pal(5, "forzoso"),
+  s6: S[6].start, alquilas6: pal(6, "alquilas"), inviertes: pal(6, "inviertes"), diferencia6: pal(6, "diferencia"), mes: pal(6, "mes"),
+  s7: S[7].start, mejor: pal(7, "mejor"), caidas: pal(7, "caídas"), sin: pal(7, "sin"), garantias: pal(7, "garantías"),
+  s8: S[8].start, nadie: pal(8, "nadie"), alquilas8: pal(8, "alquilas"), gastas: pal(8, "gastas"), diferencia8: pal(8, "diferencia"),
+  s9: S[9].start, casa: pal(9, "casa"), cartera: pal(9, "cartera"),
+  s10: S[10].start, s11: S[11].start, uno: pal(11, "uno"), comprar11: pal(11, "comprar"), dos: pal(11, "dos"), invertir: pal(11, "invertir"),
+};
+const FIN = S[11].start + S[11].dur;
+const cv = document.getElementById("cv"), X = cv.getContext("2d"), W = 1080, H = 1920;
+const F = (peso, px, fam = "Poppins") => `${peso} ${px}px ${fam}`;
+const fmt = (v) => Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+const C = { fondo: "#0b1120", ambar: "#F59E0B", verde: "#22C55E", rojo: "#EF4444", azul: "#3B82F6", blanco: "#F8FAFC", gris: "#94A3B8" };
+const GROUND = 1232;
+
+// ---------- utilidades de dibujo ----------
+function rr(x, y, w, h, r) { X.beginPath(); X.moveTo(x + r, y); X.arcTo(x + w, y, x + w, y + h, r); X.arcTo(x + w, y + h, x, y + h, r); X.arcTo(x, y + h, x, y, r); X.arcTo(x, y, x + w, y, r); X.closePath(); }
+function texto(s, x, y, font, color, align = "center", alpha = 1, base = "middle") { if (alpha <= 0) return; X.save(); X.globalAlpha *= alpha; X.font = font; X.fillStyle = color; X.textAlign = align; X.textBaseline = base; X.fillText(s, x, y); X.restore(); }
+function textoBorde(s, x, y, font, color, borde, w, alpha = 1) { if (alpha <= 0) return; X.save(); X.globalAlpha *= alpha; X.font = font; X.textAlign = "center"; X.textBaseline = "middle"; X.lineJoin = "round"; X.strokeStyle = borde; X.lineWidth = w; X.strokeText(s, x, y); X.fillStyle = color; X.fillText(s, x, y); X.restore(); }
+function moneda(x, y, r, a = 1) { if (a <= 0) return; X.save(); X.globalAlpha *= a; X.fillStyle = "#B45309"; X.beginPath(); X.arc(x, y + r * 0.12, r, 0, 7); X.fill(); X.fillStyle = C.ambar; X.beginPath(); X.arc(x, y, r, 0, 7); X.fill(); X.strokeStyle = "#FCD34D"; X.lineWidth = r * 0.12; X.beginPath(); X.arc(x, y, r * 0.72, 0, 7); X.stroke(); texto("€", x, y + r * 0.04, F(700, r * 1.05), "#7C2D12"); X.restore(); }
+function sello(s, x, y, color, k, rot = -0.08, px = 76) {
+  if (k <= 0) return; const e = lerp(2.2, 1, easeOut(k)); X.save(); X.translate(x, y); X.rotate(rot); X.scale(e, e); X.globalAlpha *= clamp(k * 3);
+  X.font = F(700, px); const w = X.measureText(s).width + 60, h = px * 1.35; rr(-w / 2, -h / 2, w, h, 18); X.fillStyle = "rgba(11,17,32,0.85)"; X.fill();
+  X.lineWidth = 9; X.strokeStyle = color; X.stroke(); texto(s, 0, 4, F(700, px), color); X.restore();
+}
+
+// ---------- decorado fijo (calle de noche) ----------
+const fondo = document.createElement("canvas"); fondo.width = W; fondo.height = H;
+(function pintarFondo() {
+  const g = fondo.getContext("2d");
+  g.fillStyle = C.fondo; g.fillRect(0, 0, W, H);
+  const cielo = g.createLinearGradient(0, 380, 0, GROUND); cielo.addColorStop(0, "#0b1120"); cielo.addColorStop(1, "#131c33"); g.fillStyle = cielo; g.fillRect(0, 380, W, GROUND - 380);
+  // luna fija
+  g.fillStyle = "rgba(226,232,240,0.85)"; g.beginPath(); g.arc(905, 470, 34, 0, 7); g.fill(); g.fillStyle = "#121b31"; g.beginPath(); g.arc(920, 460, 30, 0, 7); g.fill();
+  // edificios lejanos
+  for (let i = 0; i < 12; i++) {
+    const w = 70 + hash(i) * 70, h = 160 + hash(i + 9) * 230, x = i * 92 - 20, y = GROUND - h - 90;
+    g.fillStyle = "#162038"; g.fillRect(x, y, w, h + 90);
+    for (let fy = y + 18; fy < GROUND - 40; fy += 34) for (let fx = x + 12; fx < x + w - 14; fx += 26) {
+      const on = hash(fx * 3.1 + fy * 1.7) > 0.72; g.fillStyle = on ? "rgba(245,196,94,0.30)" : "rgba(60,75,110,0.45)"; g.fillRect(fx, fy, 12, 16); }
+  }
+  // acera y calzada
+  g.fillStyle = "#1c2640"; g.fillRect(0, GROUND, W, 70); g.fillStyle = "#26324f"; g.fillRect(0, GROUND, W, 8);
+  g.fillStyle = "#101828"; g.fillRect(0, GROUND + 70, W, H - GROUND - 70);
+  g.fillStyle = "rgba(148,163,184,0.25)"; for (let x = 20; x < W; x += 140) g.fillRect(x, GROUND + 175, 80, 10);
+})();
+const CASA = { x: 70, w: 360, top: 905 }, PISO = { x: 640, w: 380, top: 805 };
+function casa(fill) { // casa en venta (izquierda), fill 0..1 = cuánto es tuya
+  const { x, w, top } = CASA, y0 = top + 120;
+  X.fillStyle = "#2b3a5c"; X.fillRect(x, y0, w, GROUND - y0);
+  if (fill > 0) { const h = (GROUND - y0) * fill; X.fillStyle = "rgba(245,158,11,0.55)"; X.fillRect(x, GROUND - h, w, h); }
+  X.fillStyle = "#3b4d75"; X.beginPath(); X.moveTo(x - 24, y0 + 4); X.lineTo(x + w / 2, top); X.lineTo(x + w + 24, y0 + 4); X.closePath(); X.fill();
+  X.fillStyle = "#0f172a"; rr(x + w / 2 - 44, GROUND - 130, 88, 130, 10); X.fill();
+  for (const fx of [x + 40, x + w - 120]) { X.fillStyle = "rgba(245,196,94,0.75)"; X.fillRect(fx, y0 + 50, 80, 70); X.fillStyle = "#2b3a5c"; X.fillRect(fx + 37, y0 + 50, 6, 70); X.fillRect(fx, y0 + 82, 80, 6); }
+}
+function piso() {
+  const { x, w, top } = PISO; X.fillStyle = "#24314f"; X.fillRect(x, top, w, GROUND - top);
+  X.fillStyle = "#2f3e63"; X.fillRect(x - 10, top - 16, w + 20, 20);
+  for (let r = 0; r < 4; r++) for (let c = 0; c < 4; c++) { const fx = x + 26 + c * 88, fy = top + 36 + r * 82; X.fillStyle = hash(r * 7 + c) > 0.45 ? "rgba(245,196,94,0.7)" : "rgba(80,100,150,0.6)"; X.fillRect(fx, fy, 58, 56); }
+  X.fillStyle = "#0f172a"; rr(x + w / 2 - 50, GROUND - 120, 100, 120, 8); X.fill();
+}
+function cartel(s, x, y, color, a = 1, sw = 0) { if (a <= 0) return; X.save(); X.globalAlpha *= a; X.translate(x, y); X.rotate(Math.sin(sw) * 0.04); X.font = F(700, 34); const w = X.measureText(s).width + 36; X.strokeStyle = "#cbd5e1"; X.lineWidth = 3; X.beginPath(); X.moveTo(-w / 3, -30); X.lineTo(-w / 3, 0); X.moveTo(w / 3, -30); X.lineTo(w / 3, 0); X.stroke(); rr(-w / 2, 0, w, 54, 8); X.fillStyle = color; X.fill(); texto(s, 0, 29, F(700, 34), "#0b1120"); X.restore(); }
+
+// ---------- monigote ("tú") ----------
+function monigote(x, y, s, o = {}) {
+  const t = o.t || 0, walk = o.walk || 0, ph = (o.ph || 0) * Math.PI * 2;
+  const L = 18 * s, head = 40 * s, body = 100 * s, leg = 92 * s, arm = 78 * s;
+  X.save(); X.translate(x, y); if (o.flip) X.scale(-1, 1);
+  X.fillStyle = "rgba(0,0,0,0.32)"; X.beginPath(); X.ellipse(0, 4, 62 * s, 12 * s, 0, 0, 7); X.fill();
+  const bob = walk * Math.abs(Math.sin(ph)) * 8 * s + (1 - walk) * Math.sin(t * 2.2) * 2 * s;
+  const hip = [0, -leg - bob], neck = [0, -leg - body - bob];
+  X.strokeStyle = C.blanco; X.lineCap = "round"; X.lineJoin = "round"; X.lineWidth = L;
+  const pierna = (a) => { X.beginPath(); X.moveTo(...hip); const kx = Math.sin(a) * leg * 0.55, ky = hip[1] + leg * 0.5; X.lineTo(kx, ky); X.lineTo(Math.sin(a) * leg * 0.75 + (a > 0 ? 6 : -6) * s, 0); X.stroke(); };
+  pierna(walk * Math.sin(ph) * 0.55 + 0.12); pierna(-walk * Math.sin(ph) * 0.55 - 0.12);
+  X.beginPath(); X.moveTo(...hip); X.lineTo(...neck); X.stroke();
+  const brazo = (lado, ang) => { const sx = neck[0], sy = neck[1] + 18 * s; X.beginPath(); X.moveTo(sx, sy); const ex = sx + Math.sin(ang) * arm * 0.55 * lado, ey = sy + Math.cos(ang) * arm * 0.55; X.lineTo(ex, ey); X.lineTo(ex + Math.sin(ang * 1.15) * arm * 0.5 * lado, ey + Math.cos(ang * 1.15) * arm * 0.5); X.stroke(); return [ex + Math.sin(ang * 1.15) * arm * 0.5 * lado, ey + Math.cos(ang * 1.15) * arm * 0.5]; };
+  const aD = o.armD !== undefined ? o.armD : 0.35 + walk * Math.sin(ph) * 0.5, aI = o.armI !== undefined ? o.armI : 0.35 - walk * Math.sin(ph) * 0.5;
+  const manoD = brazo(1, aD); brazo(-1, aI);
+  // cabeza
+  const hx = 0, hy = neck[1] - head * 0.95; X.fillStyle = C.blanco; X.beginPath(); X.arc(hx, hy, head, 0, 7); X.fill();
+  X.fillStyle = "#0f172a"; const mir = o.mira || 0.3; X.beginPath(); X.arc(hx + 10 * s + mir * 8 * s, hy + 2 * s, 5.5 * s, 0, 7); X.arc(hx + 28 * s + mir * 8 * s, hy + 2 * s, 5.5 * s, 0, 7); X.fill();
+  if (o.boca) { X.strokeStyle = "#0f172a"; X.lineWidth = 4 * s; X.beginPath(); if (o.boca === "triste") X.arc(hx + 18 * s, hy + 26 * s, 9 * s, Math.PI * 1.15, Math.PI * 1.85); else X.arc(hx + 18 * s, hy + 12 * s, 10 * s, 0.2, Math.PI - 0.2); X.stroke(); }
+  // gorra azul
+  X.fillStyle = C.azul; X.beginPath(); X.arc(hx, hy - 6 * s, head * 1.02, Math.PI * 1.02, Math.PI * 1.98); X.fill(); X.fillRect(hx - 6 * s, hy - 14 * s, head * 1.55, 10 * s);
+  X.restore();
+  return [x + (o.flip ? -manoD[0] : manoD[0]), y + manoD[1]];
+}
+
+// ---------- pestañas (botón de radio) ----------
+const TABS = [{ s: "COMPRAR", c: C.ambar }, { s: "ALQUILAR + INVERTIR", c: C.verde }, { s: "ALQUILAR + GASTAR", c: C.rojo }];
+const TABW = [250, 400, 370], TABX = [24, 286, 698], TABY = 300;
+function pestanas(t, activa, pulso, alpha) {
+  if (alpha <= 0) return; X.save(); X.globalAlpha *= alpha;
+  for (let i = 0; i < 3; i++) {
+    const on = i === activa, x = TABX[i], w = TABW[i], p = pulso[i] || 0, sc = 1 + 0.08 * Math.sin(Math.PI * p);
+    X.save(); X.translate(x + w / 2, TABY + 34); X.scale(sc, sc);
+    rr(-w / 2, -34, w, 68, 34); X.fillStyle = on ? "rgba(30,41,59,0.95)" : "rgba(20,28,46,0.9)"; X.fill();
+    X.lineWidth = on ? 5 : 2; X.strokeStyle = on ? TABS[i].c : "rgba(148,163,184,0.45)"; X.stroke();
+    X.fillStyle = TABS[i].c; X.beginPath(); X.arc(-w / 2 + 30, 0, 9, 0, 7); X.fill();
+    texto(TABS[i].s, -w / 2 + 50, 2, F(700, 28), on ? "#fff" : "rgba(226,232,240,0.75)", "left");
+    X.strokeStyle = on ? TABS[i].c : "rgba(148,163,184,0.7)"; X.lineWidth = 3; X.beginPath(); X.arc(w / 2 - 30, 0, 12, 0, 7); X.stroke();
+    if (on) { X.fillStyle = TABS[i].c; X.beginPath(); X.arc(w / 2 - 30, 0, 6.5, 0, 7); X.fill(); }
+    X.restore();
+  }
+  X.restore();
+}
+
+// ---------- subtítulos limpios abajo (karaoke: palabra actual en ámbar) ----------
+const SUST = { "treinta y nueve por ciento": "39 %", "treinta por ciento": "30 %", "veintinueve": "29 %" };
+const trozos = [];
+S.forEach((s) => { const ws = s.words; for (let i = 0; i < ws.length; i += 4) { const g = ws.slice(i, i + (ws.length - i === 5 ? 5 : 4)); if (g.length === 0) continue; trozos.push({ a: g[0].start, b: (ws[i + g.length] || { start: s.start + s.dur + 0.05 }).start, ws: g }); if (ws.length - i === 5) i++; } });
+trozos.forEach((c, k) => { const sig = trozos[k + 1]; c.b = sig ? Math.min(sig.a, c.ws[c.ws.length - 1].end + 0.6) : c.ws[c.ws.length - 1].end + 0.6; });
+function subtitulos(t) {
+  const c = trozos.find((q) => t >= q.a - 0.03 && t < q.b); if (!c) return;
+  X.font = F(700, 54); let parts = c.ws.map((w) => ({ s: w.w.replace(/[;:]/g, ","), on: t >= w.start - 0.03 }));
+  const tot = parts.reduce((a, p) => a + X.measureText(p.s + " ").width, 0); let x = W / 2 - tot / 2; const y = 1372;
+  const k = easeOut(prog(t, c.a - 0.03, 0.16));
+  X.save(); X.globalAlpha = k; X.translate(0, (1 - k) * 18);
+  for (const p of parts) { const w = X.measureText(p.s + " ").width; X.lineJoin = "round"; X.strokeStyle = "rgba(0,0,0,0.85)"; X.lineWidth = 12; X.textAlign = "left"; X.textBaseline = "middle"; X.strokeText(p.s, x, y); X.fillStyle = p.on ? "#FCD34D" : "#fff"; X.fillText(p.s, x, y); x += w; }
+  X.restore();
+}
+
+// ---------- tarjeta superior ----------
+function tarjeta(x, y, w, h, color, a = 1) { if (a <= 0) return; X.save(); X.globalAlpha *= a; rr(x, y, w, h, 26); X.fillStyle = "rgba(15,23,42,0.92)"; X.fill(); X.lineWidth = 4; X.strokeStyle = color; X.stroke(); X.restore(); }
+function barra(x, y, wMax, k, color, etiqueta, valor, a = 1) { if (a <= 0) return; X.save(); X.globalAlpha *= a; texto(etiqueta, x, y - 34, F(700, 36), "#e2e8f0", "left"); rr(x, y, wMax, 64, 32); X.fillStyle = "rgba(51,65,85,0.6)"; X.fill(); if (k > 0) { rr(x, y, Math.max(64, wMax * k), 64, 32); X.fillStyle = color; X.fill(); } texto(valor, x + Math.max(64, wMax * k) - 20, y + 34, F(700, 44), "#0b1120", "right"); X.restore(); }
+function icono(tipo, x, y, s, a) { // iconos planos para "te lo gastas"
+  if (a <= 0) return; X.save(); X.globalAlpha *= a; X.translate(x, y); X.scale(s, s); X.lineWidth = 5; X.lineJoin = "round";
+  rr(-48, -48, 96, 96, 22); X.fillStyle = "#1e293b"; X.fill(); X.strokeStyle = "rgba(239,68,68,0.8)"; X.stroke();
+  if (tipo === "bolsa") { X.fillStyle = "#f472b6"; rr(-24, -14, 48, 42, 6); X.fill(); X.strokeStyle = "#f472b6"; X.beginPath(); X.arc(0, -14, 14, Math.PI, 0); X.stroke(); }
+  if (tipo === "avion") { X.fillStyle = "#93c5fd"; X.beginPath(); X.moveTo(-30, 4); X.lineTo(30, -6); X.lineTo(34, 2); X.lineTo(-26, 12); X.closePath(); X.fill(); X.beginPath(); X.moveTo(2, 0); X.lineTo(-10, -26); X.lineTo(-2, -26); X.lineTo(14, -2); X.fill(); X.beginPath(); X.moveTo(0, 8); X.lineTo(-8, 28); X.lineTo(0, 28); X.lineTo(12, 6); X.fill(); }
+  if (tipo === "movil") { X.fillStyle = "#e2e8f0"; rr(-17, -30, 34, 60, 8); X.fill(); X.fillStyle = "#3b82f6"; X.fillRect(-12, -22, 24, 40); }
+  if (tipo === "pizza") { X.fillStyle = "#fbbf24"; X.beginPath(); X.moveTo(-26, -20); X.lineTo(26, -20); X.lineTo(0, 30); X.closePath(); X.fill(); X.fillStyle = "#dc2626"; for (const [px, py] of [[-8, -8], [8, -6], [0, 8]]) { X.beginPath(); X.arc(px, py, 5, 0, 7); X.fill(); } }
+  X.restore();
+}
+function grafica(x, y, w, h, k, t) { // cartera que crece con caídas (ilustrativa)
+  const P = [[0, 0.06], [0.12, 0.14], [0.2, 0.1], [0.32, 0.24], [0.42, 0.2], [0.5, 0.33], [0.58, 0.16], [0.66, 0.3], [0.78, 0.5], [0.86, 0.44], [1, 0.74]];
+  X.save(); X.strokeStyle = "rgba(148,163,184,0.25)"; X.lineWidth = 2; for (let i = 1; i < 4; i++) { X.beginPath(); X.moveTo(x, y + h - h * i / 4); X.lineTo(x + w, y + h - h * i / 4); X.stroke(); }
+  X.beginPath(); X.rect(x - 10, y - 40, w * k + 10, h + 80); X.clip();
+  X.beginPath(); P.forEach(([u, v], i) => { const px = x + u * w, py = y + h - v * h; i ? X.lineTo(px, py) : X.moveTo(px, py); }); X.lineWidth = 9; X.strokeStyle = C.verde; X.lineJoin = "round"; X.stroke();
+  X.lineTo(x + w, y + h); X.lineTo(x, y + h); X.closePath(); X.fillStyle = "rgba(34,197,94,0.12)"; X.fill();
+  X.restore();
+  return (u) => { let i = 0; while (i < P.length - 2 && P[i + 1][0] < u) i++; const [u0, v0] = P[i], [u1, v1] = P[i + 1]; return [x + u * w, y + h - lerp(v0, v1, (u - u0) / (u1 - u0)) * h]; };
+}
+
+// ---------- posición del monigote según el final ----------
+const XC = 540, XCASA = 300, XPISO = 760;
+function monX(t) {
+  // final 1: centro -> casa; rebobina; final 2: centro -> piso; rebobina; final 3: centro -> piso; final: centro
+  if (t < T.s3 + 0.05) return { x: XC, walk: 0, ph: 0, flip: false };
+  const andar = (a, b, t0, d) => { const k = prog(t, t0, d); return { x: lerp(a, b, easeInOut(k)), walk: k > 0 && k < 1 ? 1 : 0, ph: (t - t0) * 1.6, flip: b < a }; };
+  const rebob = (a, b, t0, d) => { const k = prog(t, t0, d); return { x: lerp(a, b, easeInOut(k)), walk: 0, ph: 0, flip: false, rew: k > 0 && k < 1 ? 1 : 0 }; };
+  if (t < T.s6 - 0.45) return andar(XC, XCASA, T.s3 + 0.1, 1.1);
+  if (t < T.s6 + 0.15) return rebob(XCASA, XC, T.s6 - 0.45, 0.5);
+  if (t < T.s8 - 0.45) return andar(XC, XPISO, T.alquilas6, 1.0);
+  if (t < T.s8 + 0.15) return rebob(XPISO, XC, T.s8 - 0.45, 0.5);
+  if (t < T.s10 - 0.3) return andar(XC, XPISO, T.alquilas8 - 0.2, 0.9);
+  return { x: XPISO, walk: 0, ph: 0, flip: false };
+}
+
+// ---------- render ----------
+function renderAt(t) {
+  const P = window.PORTADA;
+  X.drawImage(fondo, 0, 0);
+  // finales: 0 = gancho, 1 compras, 2 alquilas e inviertes, 3 alquilas y gastas, 4 pregunta
+  const fase = t < T.s3 - 0.05 ? 0 : t < T.s6 - 0.05 ? 1 : t < T.s8 - 0.05 ? 2 : t < T.s10 - 0.05 ? 3 : 4;
+  // casa: se llena con las cuotas (final 1)
+  const fillCasa = fase === 1 ? 0.12 * easeOut(prog(t, T.veinte, 0.5)) + 0.88 * easeInOut(prog(t, T.cuota, T.forzoso + 0.5 - T.cuota)) : 0;
+  casa(fillCasa); piso();
+  const sw = t * 2.1;
+  cartel(fase === 1 && t > T.forzoso ? "TUYA" : "SE VENDE", CASA.x + CASA.w / 2, CASA.top + 150, fase === 1 && t > T.forzoso ? C.verde : C.ambar, 1, sw);
+  cartel("SE ALQUILA", PISO.x + PISO.w / 2, PISO.top + 360, "#93c5fd", 1, sw + 1);
+
+  // --- monigote ---
+  const m = monX(t); let armD, armI, boca = null;
+  if (fase === 1 && t > T.forzoso) { armD = 2.6; armI = 2.6; boca = "feliz"; }
+  if (fase === 3 && t > T.casa) { armD = 0.1; armI = 0.1; boca = "triste"; }
+  if (fase === 2 && t > T.mejor && t < T.caidas) { armD = 2.4; boca = "feliz"; }
+  if (fase === 4) { armD = 1.6 + 0.2 * Math.sin(t * 3); }
+  // rebobinado: líneas de movimiento + ◀◀
+  if (m.rew) { X.save(); X.globalAlpha = 0.5 * Math.sin(Math.PI * m.rew); X.strokeStyle = "#cbd5e1"; X.lineWidth = 6; for (let i = 0; i < 4; i++) { X.beginPath(); X.moveTo(m.x + 70 + i * 18, GROUND - 260 + i * 60); X.lineTo(m.x + 170 + i * 18, GROUND - 260 + i * 60); X.stroke(); } X.restore(); texto("◀◀", m.x, GROUND - 330, F(700, 64), "#e2e8f0", "center", Math.sin(Math.PI * m.rew)); }
+  const mano = monigote(m.x, GROUND, 1.0, { t, walk: m.walk, ph: m.ph, flip: m.flip, armD, armI, boca, mira: m.flip ? 0 : 0.4 });
+  // bolsa de dinero en la mano en los finales (se vacía)
+  if (fase >= 1 && fase <= 3) {
+    let bolsa = 1;
+    if (fase === 1) bolsa = 1 - easeInOut(prog(t, T.veinte, T.gastos - T.veinte + 0.3));
+    if (fase === 2) bolsa = 1 - easeInOut(prog(t, T.inviertes, 0.9));
+    if (fase === 3) bolsa = 1 - easeInOut(prog(t, T.gastas, 0.9));
+    if (bolsa > 0.02) { X.save(); X.translate(mano[0], mano[1] + 34); X.scale(0.6 + 0.4 * bolsa, 0.6 + 0.4 * bolsa); X.fillStyle = "#a16207"; X.beginPath(); X.ellipse(0, 0, 40, 36, 0, 0, 7); X.fill(); X.fillStyle = "#ca8a04"; X.fillRect(-14, -44, 28, 14); texto("€", 0, 4, F(700, 40), "#fef3c7"); X.restore(); }
+  }
+
+  // --- GANCHO (0 → s3) ---
+  if (!P && (fase === 0 || t < T.s3 + 0.4)) {
+    const out = easeIn(prog(t, T.s2 + 0.2, 0.5));
+    const kT = P ? 1 : 1; // título visible desde el fotograma 0
+    X.save(); X.globalAlpha = 1 - out; X.translate(0, -out * 80);
+    textoBorde("¿COMPRAR", W / 2, 470, F(700, 128), "#fff", "#0b1120", 16, kT);
+    textoBorde("O ALQUILAR?", W / 2, 600, F(700, 128), C.ambar, "#0b1120", 16, kT);
+    // barras de esfuerzo
+    const kb = easeOut(prog(t, T.treinta0 - 0.15, 0.7)), kc = easeOut(prog(t, T.s1 - 0.05, 0.6));
+    barra(150, 742, 780, 0.39 / 0.39 * kb, C.rojo, "ALQUILAR se come", kb > 0.05 ? `${Math.round(39 * kb)} %` : "", clamp(kb * 3));
+    barra(150, 862, 780, 0.29 / 0.39 * kc, C.ambar, "COMPRAR (la hipoteca)", kc > 0.05 ? `${Math.round(29 * kc)} %` : "", clamp(kc * 3));
+    if (kb > 0) { X.save(); X.globalAlpha *= clamp(kb * 2); rr(120, 940, 840, 52, 26); X.fillStyle = "rgba(15,23,42,0.9)"; X.fill(); X.restore(); }
+    texto("de los ingresos de una familia media · idealista, 2.º trim. 2026", W / 2, 966, F(600, 26, "Inter"), "rgba(226,232,240,0.95)", "center", clamp(kb * 2));
+    X.restore();
+    // "mira los 3 finales"
+    const k3 = easeBack(prog(t, T.s2 + 0.9, 0.4)) * (1 - prog(t, T.s3 + 0.1, 0.3));
+    if (k3 > 0) { X.save(); X.translate(W / 2, 560); X.scale(k3, k3); textoBorde("MIRA LOS 3 FINALES", 0, 0, F(700, 84), "#fff", "#0b1120", 14); X.restore(); textoBorde("▲", W / 2, 420, F(700, 54), "#fff", "#0b1120", 8, k3); }
+  }
+
+  // --- FINAL 1: COMPRAS ---
+  if (fase === 1) {
+    const kc = easeOut(prog(t, T.s4 - 0.1, 0.4)), co = 1 - prog(t, T.s6 - 0.4, 0.3);
+    X.save(); X.globalAlpha = co; X.translate((1 - kc) * 80, 0);
+    tarjeta(70, 420, 940, 400, C.ambar, kc);
+    texto("PISO DE 200.000 €", 110, 470, F(700, 40), "#fff", "left", kc);
+    const k30 = easeBack(prog(t, T.treinta4 - 0.05, 0.35), 2);
+    if (k30 > 0) { X.save(); X.translate(860, 470); X.scale(k30, k30); texto("30 %", 0, 0, F(700, 78), C.ambar); X.restore(); texto("AHORRADO ANTES", 860, 528, F(700, 24), "#fde68a", "center", clamp(k30)); }
+    const k20 = easeOut(prog(t, T.veinte - 0.05, 0.5)), k10 = easeOut(prog(t, T.diez - 0.05, 0.5));
+    barra(110, 585, 860, (2 / 3) * k20, C.ambar, "20 % entrada", k20 > 0.1 ? "40.000 €" : "", clamp(k20 * 3));
+    barra(110, 700, 860, (1 / 3) * k10, "#fcd34d", "≈10 % impuestos y gastos", k10 > 0.1 ? "20.000 €" : "", clamp(k10 * 3));
+    // total con odómetro
+    const ktot = prog(t, T.gastos, 0.6); if (ktot > 0) { texto(`= ${fmt(60000 * easeOut(ktot))} € antes de firmar`, 110, 798, F(700, 38), "#fff", "left", clamp(ktot * 3)); }
+    X.restore();
+    // monedas que vuelan de la bolsa a la casa
+    for (let i = 0; i < 8; i++) { const t0 = T.veinte + i * 0.22, k = prog(t, t0, 0.55); if (k > 0 && k < 1) { const e = easeInOut(k); moneda(lerp(mano[0], CASA.x + CASA.w / 2, e), lerp(mano[1], CASA.top + 230, e) - Math.sin(Math.PI * e) * 160, 22); } }
+    // ahorro forzoso
+    const kf = prog(t, T.forzoso - 0.05, 0.28) * co;
+    if (t > T.cuota) { const kq = easeOut(prog(t, T.cuota - 0.1, 0.35)) * co; X.save(); X.globalAlpha = kq; X.translate(0, (1 - kq) * 30); rr(150, 842, 780, 66, 33); X.fillStyle = "rgba(15,23,42,0.92)"; X.fill(); texto("CADA CUOTA → UN TROZO DE CASA", W / 2, 876, F(700, 36), "#fde68a"); X.restore(); }
+    sello("AHORRO FORZOSO", W / 2, 640, C.verde, kf, -0.06, 84);
+  }
+
+  // --- FINAL 2: ALQUILAS E INVIERTES ---
+  let gfun = null;
+  if (fase === 2) {
+    const kc = easeOut(prog(t, T.s6 + 0.1, 0.4)), co = 1 - prog(t, T.s8 - 0.4, 0.3);
+    X.save(); X.globalAlpha = co; X.translate((1 - kc) * 80, 0);
+    tarjeta(70, 420, 940, 400, C.verde, kc);
+    texto("TU CARTERA", 110, 470, F(700, 40), "#fff", "left", kc);
+    const ki = easeOut(prog(t, T.inviertes, 0.5));
+    texto("60.000 € de entrada", 110, 525, F(700, 32), "#86efac", "left", ki);
+    const kd = easeOut(prog(t, T.diferencia6, 0.4));
+    texto("+ la diferencia cada mes", 110, 568, F(700, 32), "#86efac", "left", kd);
+    const kg = prog(t, T.s7 - 0.1, T.garantias - T.s7 + 0.2);
+    gfun = grafica(140, 600, 800, 190, easeInOut(kg), t);
+    X.restore();
+    // monedas a la cartera (entrada) y goteo mensual
+    for (let i = 0; i < 6; i++) { const t0 = T.inviertes + i * 0.12, k = prog(t, t0, 0.55); if (k > 0 && k < 1) { const e = easeInOut(k); moneda(lerp(mano[0], 160, e), lerp(mano[1], 610, e) - Math.sin(Math.PI * e) * 120, 22); } }
+    for (let i = 0; i < 6; i++) { const t0 = T.diferencia6 + 0.2 + i * 0.28, k = prog(t, t0, 0.5); if (k > 0 && k < 1) moneda(lerp(mano[0], 200 + i * 20, easeInOut(k)), lerp(mano[1], 700, easeInOut(k)) - Math.sin(Math.PI * k) * 90, 16, 1 - k * 0.3); }
+    // caídas: círculo rojo en el bache
+    if (gfun && t > T.caidas - 0.2) { const kk = easeOut(prog(t, T.caidas - 0.2, 0.3)) * co; const [px, py] = gfun(0.58); X.save(); X.globalAlpha = kk; X.strokeStyle = C.rojo; X.lineWidth = 7; X.beginPath(); X.arc(px, py, 50 * kk, 0, 7); X.stroke(); texto("CAÍDAS", px + 66, py + 6, F(700, 34), "#fca5a5", "left"); X.restore(); }
+    if (gfun && t > T.mejor - 0.2 && t < T.caidas) { const kk = easeOut(prog(t, T.mejor - 0.2, 0.3)); const [px, py] = gfun(Math.min(1, prog(t, T.s7 - 0.1, T.garantias - T.s7 + 0.2))); texto("▲", px, py - 34, F(700, 40), C.verde, "center", kk); }
+    sello("SIN GARANTÍAS", W / 2, 655, C.rojo, prog(t, T.sin - 0.05, 0.28) * co, 0.05, 74);
+    texto("ilustrativo · el pasado no garantiza el futuro", 970, 470, F(600, 24, "Inter"), "rgba(203,213,225,0.8)", "right", kc * co);
+  }
+
+  // --- FINAL 3: ALQUILAS Y TE LO GASTAS ---
+  if (fase === 3) {
+    const kc = easeOut(prog(t, T.s8 + 0.1, 0.4)), co = 1 - prog(t, T.s10 - 0.35, 0.3);
+    X.save(); X.globalAlpha = co; X.translate((1 - kc) * 80, 0);
+    tarjeta(70, 420, 940, 400, C.rojo, kc);
+    texto("EL FINAL QUE NADIE CUENTA", 110, 470, F(700, 40), "#fff", "left", easeOut(prog(t, T.nadie - 0.1, 0.4)));
+    X.restore();
+    const ICS = ["bolsa", "avion", "movil", "pizza"];
+    ICS.forEach((ic, i) => { const k = easeBack(prog(t, T.gastas + i * 0.2, 0.35), 2) * (1 - prog(t, T.s9 - 0.1, 0.3)) * co; icono(ic, 200 + i * 227, 620, Math.max(0.001, k), clamp(k * 2)); });
+    for (let i = 0; i < 8; i++) { const t0 = T.gastas + i * 0.1, k = prog(t, t0, 0.55); const dest = 200 + (i % 4) * 227; if (k > 0 && k < 1) { const e = easeInOut(k); moneda(lerp(mano[0], dest, e), lerp(mano[1], 640, e) - Math.sin(Math.PI * e) * 140, 20); } }
+    // ni casa ni cartera
+    const kA = easeBack(prog(t, T.casa - 0.05, 0.35), 2) * co, kB = easeBack(prog(t, T.cartera - 0.05, 0.35), 2) * co;
+    const caja0 = (cx, s, k) => { if (k <= 0) return; X.save(); X.translate(cx, 640); X.scale(k, k); rr(-190, -110, 380, 220, 24); X.fillStyle = "#1e293b"; X.fill(); X.lineWidth = 5; X.strokeStyle = "rgba(239,68,68,0.9)"; X.stroke(); texto(s, 0, -40, F(700, 44), "#e2e8f0"); texto("0 €", 0, 36, F(700, 64), C.rojo); X.strokeStyle = C.rojo; X.lineWidth = 12; X.beginPath(); X.moveTo(-150, -80); X.lineTo(150, 80); X.stroke(); X.restore(); };
+    caja0(310, "CASA", kA); caja0(770, "CARTERA", kB);
+  }
+
+  // --- PREGUNTA FINAL ---
+  if (fase === 4) {
+    const kq = easeBack(prog(t, T.s10 - 0.05, 0.4), 1.8);
+    X.save(); X.translate(W / 2, 470); X.scale(Math.max(0.001, kq), Math.max(0.001, kq)); textoBorde("¿TÚ CUÁL ELIGES?", 0, 0, F(700, 96), "#fff", "#0b1120", 16); X.restore();
+    const boton = (y, s, c, k, on) => { if (k <= 0) return; X.save(); X.translate(W / 2, y); const e = easeBack(k, 2); X.scale(e, e); rr(-400, -62, 800, 124, 62); X.fillStyle = c; X.fill(); if (on) { X.lineWidth = 8; X.strokeStyle = "#fff"; X.stroke(); } texto(s, 0, 4, F(700, 52), "#0b1120"); X.restore(); };
+    boton(620, "1 · COMPRAR", C.ambar, prog(t, T.uno - 0.1, 0.35), t > T.uno && t < T.dos);
+    boton(770, "2 · ALQUILAR E INVERTIR", C.verde, prog(t, T.dos - 0.1, 0.35), t > T.dos);
+    texto("COMENTA 1 O 2 👇", W / 2, 880, F(700, 40), "#e2e8f0", "center", easeOut(prog(t, T.s11, 0.4)));
+  }
+
+  // pestañas: visibles todo el vídeo salvo la pregunta final
+  const activa = fase >= 1 && fase <= 3 ? fase - 1 : -1;
+  const pulso = [0, 1, 2].map((i) => prog(t, T.tres2 + 0.05 + i * 0.22, 0.3));
+  if (fase >= 1 && fase <= 3) pulso[activa] = Math.max(pulso[activa], prog(t, [T.s3, T.s6, T.s8][activa] - 0.05, 0.35));
+  if (!P) { pestanas(t, activa, pulso, 1 - prog(t, T.s10 - 0.2, 0.3) * 0.75);
+  texto("⚔ LA POLÉMICA DEL DOMINGO", W / 2, 264, F(700, 30), "#fca5a5", "center", 1); }
+
+  // --- LISTO (modelado 'plano', como los monigotes) ---
+  const o = { x: 905, y: GROUND, s: 0.62, t, estilo: "plano", expr: "normal", pose: "reposo", mira: [-0.6, -0.2] };
+  if (t < 1.1) { o.anim = "entrada"; o.animT = t; o.x = 905; }
+  else if (t < T.s1) { o.pose = "senalaIzq"; o.expr = "sorpresa"; }
+  else if (t < T.s2) { o.pose = "brazosCruzados"; o.expr = "preocupado"; }
+  else if (t < T.s3) { o.pose = "piensa"; o.expr = "idea"; }
+  else if (fase === 1) { o.x = 905; o.pose = t < T.treinta4 ? "piensa" : t < T.cuota ? "senalaIzq" : "manosCadera"; o.expr = t < T.treinta4 ? "normal" : t < T.cuota ? "sorpresa" : "feliz"; if (t > T.forzoso) { o.anim = "salto"; o.animT = t - T.forzoso; } }
+  else if (fase === 2) { o.x = 130; o.mira = [0.6, -0.2]; o.pose = t < T.mejor ? "senala" : "celebra"; o.expr = t < T.mejor ? "idea" : "feliz"; if (t > T.mejor - 0.1 && t < T.caidas - 0.2) { o.anim = "salto"; o.animT = t - T.mejor + 0.1; } if (t > T.caidas - 0.2) { o.anim = "temblor"; o.animT = t - T.caidas; } }
+  else if (fase === 3) { o.x = 130; o.mira = [0.6, -0.2]; o.pose = "brazosAbiertos"; o.expr = "preocupado"; if (t > T.casa - 0.3) { o.modo = "arruinado"; o.accK = { gorroRoto: easeOut(prog(t, T.casa - 0.3, 0.5)) }; o.anim = "desinfla"; o.animT = t - T.casa + 0.3; } }
+  else { // final: al centro en grande, firma (guiño + mano redonda en alto) y SEGUIR
+    const k = easeInOut(prog(t, T.s10 - 0.3, 0.6)); o.x = lerp(130, 240, k); o.s = lerp(0.62, 0.78, k); o.mira = [0.4, -0.3];
+    o.pose = t < T.uno ? "saludo" : t < FIN - 1.0 ? "pulgar" : "senala"; o.expr = t < T.uno ? "feliz" : t < FIN - 1.0 ? "guino" : "feliz";
+    if (t > T.s10 - 0.3 && t < T.s10 + 0.6) { o.anim = "giro"; o.animT = t - T.s10 + 0.3; }
+  }
+  if (P) { o.anim = null; o.modo = null; o.accK = null; o.x = 850; o.y = GROUND; o.s = 1.15; o.pose = "senalaIzq"; o.expr = "sorpresa"; o.mira = [-0.7, -0.4]; }
+  Listo2D.dibujar(X, o);
+  // botón SEGUIR que pulsa Listo al final
+  if (!P) { const ks = prog(t, FIN - 1.1, 0.35); if (ks > 0) { const press = prog(t, FIN - 0.45, 0.12) * (1 - prog(t, FIN - 0.2, 0.15)); X.save(); X.translate(530, GROUND - 170); const e = easeBack(ks, 2) * (1 - 0.1 * press); X.scale(e, e); rr(-150, -50, 300, 100, 50); X.fillStyle = "#fff"; X.fill(); texto("+ SEGUIR", 0, 4, F(700, 44), "#0b1120"); X.restore(); } }
+
+  // pie: fuente y marca
+  if (!P) { texto("Ejemplo orientativo · educativo, no es asesoramiento", W / 2, 1446, F(600, 22, "Inter"), "rgba(203,213,225,0.55)");
+  texto("@eleurolisto", W / 2, 1490, F(700, 30), "rgba(255,255,255,0.55)"); }
+  if (!P) subtitulos(t);
+}
+window.DURACION = DUR;
+window.renderAt = renderAt;
+Promise.all([document.fonts.load("700 40px Poppins"), document.fonts.load("600 20px Inter")]).then(() => document.fonts.ready).then(() => { renderAt(0); window.listo = true; });
+</script></body></html>

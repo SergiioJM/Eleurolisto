@@ -38,6 +38,12 @@ Qué funciona según los datos de Instagram (vidiq_instagram_owner_insights, mod
 
 - **20-nov (tarde), TikTok: dividendos (R3 plano de corte, ElevenLabs Mateo, 31 s) ya lleva 1,8 K visualizaciones, 19 likes y 2 guardados** (el mejor de la cuenta, por delante del GTA 6 parte 1 con 986 y 30 likes). Inversión explicada "sin humo" con un ejemplo de números sencillo (20 € → 19 € + 1 €) también tira en TikTok → más reels de inversión que desmontan una creencia popular con una cuenta fácil.
 
+## Fórmula del día · 20-nov noche (12 reels con datos; IG 2 seguidores, 7 días: 1.742 vistas, alcance 1.284, 14 visitas al perfil, 37 interacciones)
+- **Top 3 (TOTAL)**: GTA 6 (67; 285 IG + 986 TT), inflación 3D (62; 32 % de skip, 57 % visto), indexados vs gestores R5 (62, pero solo ~1,7 h y 21 vistas: no fiable) y dividendos (61; **1,8 K en TikTok**). Común: personaje o escena en conflicto desde el fotograma 0, tema que la gente busca o teme (GTA, inflación) o una creencia de inversión desmontada con una cuenta fácil, voz premium, 21–31 s.
+- **Peores 3**: estafas R4 (33; **64,5 % de skip**, 38 vistas IG en 8 h y 5 en TikTok), café (44; 72 % de skip) y Bizum (45; 68 % de skip). Común: **los tres a las 13:30, dos con voz local y dos abren con móviles/interfaz o un aviso** ("¿te piden pagar…?"). El R4 de móviles repite el fallo del Bizum aunque el texto era grande: el móvil en el primer segundo no frena el scroll.
+- **Comparativas**: voz premium 57 vs local 43 (n = 9/3); 3D 60 vs 2D 51; 13:30 47 vs 20:30 58 vs especiales 60. GTA 5 parte 2 (R8b, 18:00): 170 vistas en IG en 4 h con 36 % de skip (bien), pero **no aparece en el feed público de TikTok a las 3 h** (mirar en la app).
+- **Decisiones de esta noche (reels del domingo 22)**: los dos con **ElevenLabs** (13:30 Mateo, 20:30 Lucía, que se estrena) porque la voz local es el factor común de los peores; el de las 13:30 es **secuela del n.º 2** ("El ladrón invisible 2", mismo look 3D y mismo gancho, cifra nueva: IPC 4,9 %), con el texto gigante "EL LADRÓN HA VUELTO" y el robo ya en marcha en el fotograma 0; el de las 20:30, **polémica de vivienda** (comprar vs alquilar e invertir, tema con mucha búsqueda y que divide) en el look R1 (primera vez) con pregunta 1/2 y botón SEGUIR. Nada de móviles ni interfaces en el primer segundo.
+
 ## Por reel
 | Fecha | Hora | Reel | Formato | Voz | Visualizaciones | % visto | Skip rate | Compartidos | Guardados |
 |---|---|---|---|---|---|---|---|---|---|

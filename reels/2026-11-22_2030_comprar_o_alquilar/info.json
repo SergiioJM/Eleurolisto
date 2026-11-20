@@ -1,0 +1,36 @@
+{
+  "fecha": "2026-11-22",
+  "hora": "20:30",
+  "titulo": "¿Comprar casa o alquilar e invertir la diferencia? (polémica con datos)",
+  "pilar": "Vivienda + Inversión (polémica)",
+  "look": "R1 · Selector de estados con monigotes 2D (PRIMERA VEZ) + Listo 'plano'",
+  "formato": "HTML/canvas 2D renderizado con motor.mjs: calle de noche FIJA (casa 'SE VENDE' a la izquierda y edificio 'SE ALQUILA' a la derecha), monigote blanco con gorra azul ('tú') y fila de pestañas tipo botón de radio (COMPRAR / ALQUILAR + INVERTIR / ALQUILAR + GASTAR). Gancho '¿COMPRAR O ALQUILAR?' gigante + barras 39 % vs 29 %; 'MIRA LOS 3 FINALES' con las pestañas pulsando; la misma escena se repite con cada pestaña y rebobina (◀◀) entre finales: 1) monedas a la casa, barras 20 % entrada (40.000 €) + ≈10 % impuestos y gastos (20.000 €) = 60.000 € antes de firmar, la casa se llena con las cuotas y sello AHORRO FORZOSO; 2) monedas a 'TU CARTERA', goteo mensual, gráfica ilustrativa que sube con caídas (círculo rojo) y sello SIN GARANTÍAS; 3) monedas a compras, viajes, móvil y comida y 'CASA 0 € / CARTERA 0 €' tachados. Final '¿TÚ CUÁL ELIGES?' con botones 1 · COMPRAR / 2 · ALQUILAR E INVERTIR y Listo pulsando '+ SEGUIR'. Subtítulo limpio abajo tipo karaoke (palabra actual en ámbar).",
+  "gancho": "Alquilar ya se come el 39 % de lo que gana una familia. Comprar, el 29 %. ¿Entonces compro? (texto en pantalla: ¿COMPRAR O ALQUILAR?)",
+  "ganchos_candidatos": [
+    "Alquilar ya se come el 39 %… comprar, el 29 %. ¿Entonces compro? (elegido: cifra que duele + pregunta que divide)",
+    "¿Comprar o alquilar? Hay un tercer final que nadie cuenta",
+    "Con 60.000 € ahorrados, ¿casa o cartera?",
+    "El alquiler ya es más caro que la hipoteca",
+    "3 finales para tu sueldo: elige"
+  ],
+  "voz": "ElevenLabs · Lucía (s4NXWwstm4IwAI2dMQ6M, eleven_v4; primera vez); 589 caracteres; transcripción Scribe idéntica; pausas acortadas (> 0,27 s → 0,19 s) y atempo 1,12 → 33,6 s",
+  "etiqueta_ia": true,
+  "guion": "Alquilar ya se come el treinta y nueve por ciento de lo que gana una familia. Comprar, el veintinueve. ¿Entonces compro? Mira los tres finales. Uno: compras. Antes necesitas ahorrado un treinta por ciento del precio: veinte de entrada y diez de impuestos y gastos. Luego, cada cuota es ahorro forzoso. Dos: alquilas, e inviertes esa entrada y la diferencia cada mes. A largo plazo puede salir mejor, pero aguantando caídas y sin garantías. Tres, el que nadie cuenta: alquilas y te gastas la diferencia. Ni casa, ni cartera. ¿Tú cuál eliges? Comenta: uno, comprar; dos, alquilar e invertir.",
+  "datos": "Esfuerzo (idealista, 18-ago-2026, datos del 2.º trimestre de 2026): alquilar consume el 39 % de los ingresos netos de una familia media; la compra, el 29 % 'sin considerar el ahorro previo necesario para obtener financiación' (2.ª fuente: OKdiario/Talent24h y Finantres, 39 % vs ~30 %). Entrada habitual del 20 % (los bancos financian hasta el 80 %) y gastos e impuestos de compra de ~10 % (ITP 6–10 % según comunidad + notaría, registro, gestoría; idealista y guía de gastos 2026). Ejemplo: piso de 200.000 € → 40.000 + 20.000 = 60.000 € (Python). Gráfica de la cartera ILUSTRATIVA (así se indica en pantalla), sin rentabilidades concretas.",
+  "fuentes": [
+    "https://www.idealista.com/news/inmobiliario/vivienda/2026/08/18/910335-el-esfuerzo-para-alquilar-se-eleva-al-39-superando-en-10-puntos-al-necesario-para",
+    "https://talent24h.okdiario.com/?p=25173",
+    "https://finantresnoticias.com/tu-dinero/alquiler-absorbe-39-por-ciento-ingresos-familiares-comprar-roza-30-por-ciento/",
+    "https://www.idealista.com/news/node/748073",
+    "https://arquitasa.com/gastos-compra-vivienda"
+  ],
+  "origen": "plan semanal (domingo 20:30: VIVIENDA + INVERSIÓN, polémica) + regla de crecimiento (polémica con datos, pregunta 1/2) + estilo de referencia R1",
+  "caption": "¿Comprar casa o alquilar e invertir la diferencia? ⚔️ Alquilar ya se come el 39 % de los ingresos de una familia media y la hipoteca, el 29 % (idealista, 2.º trimestre de 2026). Pero para comprar necesitas antes un 30 % ahorrado: 20 % de entrada + ~10 % de impuestos y gastos (en un piso de 200.000 €, unos 60.000 €). Alquilar e invertir puede salir mejor a largo plazo, pero sin garantías y aguantando caídas. Y el final que nadie cuenta: alquilar y gastarte la diferencia = ni casa ni cartera. ¿Tú qué eliges? Comenta 1 (comprar) o 2 (alquilar e invertir) 👇\nContenido educativo, no es asesoramiento financiero.\n#comprarcasa #alquiler #invertir #finanzaspersonales #eleurolisto\n🎙 elevenlabs.io",
+  "listo_papel": "Modelado 'plano' (blanco liso, ojos de punto, como los monigotes). Cae del cielo junto al edificio en alquiler (entrada), señala sorprendido el 39 %, brazos cruzados preocupado con el 29 %, piensa con '¿entonces compro?'; final 1: piensa → señala el 30 % → en jarras y salta con AHORRO FORZOSO; final 2: señala la cartera con idea, salta con 'puede salir mejor' y tiembla con las caídas; final 3: brazos abiertos, preocupado y le cae el gorro roto (arruinado) con 'ni casa ni cartera' y se desinfla; cierre: giro, saludo, guiño + mano redonda en alto y pulsa '+ SEGUIR'.",
+  "musica": "original sintetizada, style chill, 82 bpm, seed 12, baja (0.30 / ducking 0.09)",
+  "sfx": "biblioteca video-shotcraft (lib:): whoosh-fast, hit-weak, sweep-fast-small (barras), hit-blow, swoosh-quick, ui-message-pop, ui-option-select (pestañas), ui-select-modern, hit-fast-exciting (30 %), pop-electric (monedas), ui-confirm-tone, mech-tech-movement, bass-hit-short (AHORRO FORZOSO), sparkle-poof-hit, zoom-swipe-fast (rebobinado), ui-tone-quick (goteo mensual), marker-pen-line (gráfica), stardust-swish, impact-zoom-quick (SIN GARANTÍAS), ui-popup-dry (iconos), gravel-fall-hit (gorro roto), whoosh-swirl, switch-click-quick (SEGUIR), chime-crystal",
+  "portada": "portada/portada.jpg (fondo: la calle con la casa en venta, el monigote y Listo en grande sorprendido, dibujado con window.PORTADA; kicker POLÉMICA · VIVIENDA, '¿Comprar o ALQUILAR E INVERTIR?', '3 finales: uno nadie lo cuenta', etiqueta 'alquilar: 39 %')",
+  "creditos": "ElevenLabs 589 caracteres (2.481 → ~3.517 de 10.000 con los dos reels); 0 de Creative Claw; vidIQ 0",
+  "elevenlabs_flow": "qKb9hlaApr4LLnofHi7h (voz nodo qYWmcvpdh4ME3vMAC7sD, generación 4ejVFgpxXW1D2uSZ8Yvh; transcripción duaXBKrnDvcWcotdrEZB)",
+  "estado": "PENDIENTE de aprobación (enviado el 20-nov por la noche)"
+}

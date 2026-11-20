@@ -1,40 +1,435 @@
 {
  "_nota": "Métricas de TODOS los vídeos (IG + TikTok). La tarea nocturna las actualiza cada noche (IG: vidiq_instagram_owner_insights mode reels/media, 0 créditos; TikTok: vidiq_tiktok_profile_videos, 5 créditos) y ejecuta `python3 toolkit/ranking.py` para regenerar content/ranking.md. Campos: ig_* de Instagram (vistas, % visto, skip, likes, comentarios, compartidos, guardados), tt_* de TikTok.",
- "actualizado": "2026-11-19 22:10 (Madrid)",
- "cuenta": {"ig_seguidores": 2, "ig_5dias": {"alcance": 1100, "vistas": 1503, "visitas_perfil": 13, "cuentas_que_interactuan": 23, "interacciones": 34}, "tt_seguidores": null},
+ "actualizado": "2026-11-20 21:30 (Madrid)",
+ "cuenta": {
+  "ig_seguidores": 2,
+  "ig_5dias": {
+   "alcance": 1284,
+   "vistas": 1742,
+   "visitas_perfil": 14,
+   "cuentas_que_interactuan": 25,
+   "interacciones": 37
+  },
+  "tt_seguidores": null
+ },
  "videos": [
-  {"id": "2026-11-16_1330_cafe", "fecha": "2026-11-16", "hora": "13:30", "tema": "Gastos hormiga: café de 2 €", "pilar": "Ahorro", "look": "2D reelkit", "voz": "Javier", "dur": 14,
+  {
+   "id": "2026-11-16_1330_cafe",
+   "fecha": "2026-11-16",
+   "hora": "13:30",
+   "tema": "Gastos hormiga: café de 2 €",
+   "pilar": "Ahorro",
+   "look": "2D reelkit",
+   "voz": "Javier",
+   "dur": 14,
    "gancho": "Gastos hormiga: un café de 2 € al día son 730 € al año",
-   "ig": {"code": "DfzXAwRil-c", "vistas": 125, "visto": 38.7, "skip": 72.4, "likes": 3, "coment": 0, "comp": 0, "guard": 0}, "tt": {"id": "7708745661499346209", "vistas": 5, "likes": 1, "coment": 0, "comp": 0, "guard": 0}},
-  {"id": "2026-11-16_2030_ana_y_leo", "fecha": "2026-11-16", "hora": "20:30", "tema": "Estos dos cobran lo mismo (págate primero)", "pilar": "Ahorro", "look": "2D A vs B con personajes", "voz": "Javier", "dur": 28,
+   "ig": {
+    "code": "DfzXAwRil-c",
+    "vistas": 125,
+    "visto": 38.7,
+    "skip": 72.4,
+    "likes": 3,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0
+   },
+   "tt": {
+    "id": "7708745661499346209",
+    "vistas": 5,
+    "likes": 1,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0
+   }
+  },
+  {
+   "id": "2026-11-16_2030_ana_y_leo",
+   "fecha": "2026-11-16",
+   "hora": "20:30",
+   "tema": "Estos dos cobran lo mismo (págate primero)",
+   "pilar": "Ahorro",
+   "look": "2D A vs B con personajes",
+   "voz": "Javier",
+   "dur": 28,
    "gancho": "Estos dos cobran lo mismo",
-   "ig": {"code": "Df0HFZWHPcn", "vistas": 149, "visto": 34.0, "skip": 57.5, "likes": 5, "coment": 0, "comp": 0, "guard": 1}, "tt": {"id": "7708853898148105504", "vistas": 1, "likes": 1, "coment": 0, "comp": 0, "guard": 0}},
-  {"id": "2026-11-17_1330_inflacion", "fecha": "2026-11-17", "hora": "13:30", "tema": "El ladrón invisible: inflación", "pilar": "Economía", "look": "3D de bloques (R7)", "voz": "Javier", "dur": 24,
+   "ig": {
+    "code": "Df0HFZWHPcn",
+    "vistas": 149,
+    "visto": 34.0,
+    "skip": 57.5,
+    "likes": 5,
+    "coment": 0,
+    "comp": 0,
+    "guard": 1
+   },
+   "tt": {
+    "id": "7708853898148105504",
+    "vistas": 1,
+    "likes": 1,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0
+   }
+  },
+  {
+   "id": "2026-11-17_1330_inflacion",
+   "fecha": "2026-11-17",
+   "hora": "13:30",
+   "tema": "El ladrón invisible: inflación",
+   "pilar": "Economía",
+   "look": "3D de bloques (R7)",
+   "voz": "Javier",
+   "dur": 24,
    "gancho": "Hay un ladrón en tu casa (10.000 € en un cajón)",
-   "ig": {"code": "Df17ztWD-nb", "vistas": 191, "visto": 57.1, "skip": 32.2, "likes": 4, "coment": 0, "comp": 0, "guard": 0}, "tt": {"id": "7709116935748783392", "vistas": 2, "likes": 1, "coment": 0, "comp": 0, "guard": 0}},
-  {"id": "2026-11-17_2030_503020", "fecha": "2026-11-17", "hora": "20:30", "tema": "Regla 50/30/20 (cocina, tres tarros)", "pilar": "Ahorro", "look": "3D de bloques (R7)", "voz": "Javier", "dur": 26,
+   "ig": {
+    "code": "Df17ztWD-nb",
+    "vistas": 191,
+    "visto": 57.1,
+    "skip": 32.2,
+    "likes": 4,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0
+   },
+   "tt": {
+    "id": "7709116935748783392",
+    "vistas": 2,
+    "likes": 1,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0
+   }
+  },
+  {
+   "id": "2026-11-17_2030_503020",
+   "fecha": "2026-11-17",
+   "hora": "20:30",
+   "tema": "Regla 50/30/20 (cocina, tres tarros)",
+   "pilar": "Ahorro",
+   "look": "3D de bloques (R7)",
+   "voz": "Javier",
+   "dur": 26,
    "gancho": "Regla 50/30/20 con una nómina de 1.400 €",
-   "ig": {"code": "Df2rnJdCGWJ", "vistas": 160, "visto": 51.7, "skip": 36.8, "likes": 2, "coment": 0, "comp": 0, "guard": 0}, "tt": {"id": "7709224431331085601", "vistas": 0, "likes": 1, "coment": 0, "comp": 0, "guard": 0}},
-  {"id": "2026-11-18_1330_bizum", "fecha": "2026-11-18", "hora": "13:30", "tema": "Bizum por error", "pilar": "Estafas", "look": "Interfaz de móvil 2D", "voz": "local v1", "dur": 17,
+   "ig": {
+    "code": "Df2rnJdCGWJ",
+    "vistas": 160,
+    "visto": 51.7,
+    "skip": 36.8,
+    "likes": 2,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0
+   },
+   "tt": {
+    "id": "7709224431331085601",
+    "vistas": 0,
+    "likes": 1,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0
+   }
+  },
+  {
+   "id": "2026-11-18_1330_bizum",
+   "fecha": "2026-11-18",
+   "hora": "13:30",
+   "tema": "Bizum por error",
+   "pilar": "Estafas",
+   "look": "Interfaz de móvil 2D",
+   "voz": "local v1",
+   "dur": 17,
    "gancho": "Bizum por error: para recibir dinero no tienes que aceptar nada",
-   "ig": {"code": "Df4gaB3Eo5-", "vistas": 119, "visto": 23.9, "skip": 67.3, "likes": 2, "coment": 0, "comp": 0, "guard": 0}, "tt": {"id": "7709487428356050209", "vistas": 0, "likes": 0, "coment": 0, "comp": 0, "guard": 0}},
-  {"id": "2026-11-18_1800_gta6", "fecha": "2026-11-18", "hora": "18:00", "tema": "GTA 6: ¿cuántas horas de curro cuesta? (especial)", "pilar": "Trabajo y nómina", "look": "R8 neón tropical", "voz": "Javier", "dur": 21,
+   "ig": {
+    "code": "Df4gaB3Eo5-",
+    "vistas": 121,
+    "visto": 25.0,
+    "skip": 67.6,
+    "likes": 2,
+    "coment": 1,
+    "comp": 0,
+    "guard": 0
+   },
+   "tt": {
+    "id": "7709487428356050209",
+    "vistas": 0,
+    "likes": 0,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0
+   }
+  },
+  {
+   "id": "2026-11-18_1800_gta6",
+   "fecha": "2026-11-18",
+   "hora": "18:00",
+   "tema": "GTA 6: ¿cuántas horas de curro cuesta? (especial)",
+   "pilar": "Trabajo y nómina",
+   "look": "R8 neón tropical",
+   "voz": "Javier",
+   "dur": 21,
    "gancho": "¿Cuántas horas hay que currar para pagarte GTA 6?",
-   "ig": {"code": "Df4_TitEvGO", "vistas": 285, "visto": 49.3, "skip": 38.7, "likes": 4, "coment": 0, "comp": 0, "guard": 0}, "tt": {"id": "7709557012484345121", "vistas": 985, "likes": 30, "coment": 0, "comp": 1, "guard": 0}},
-  {"id": "2026-11-18_2030_subida", "fecha": "2026-11-18", "hora": "20:30", "tema": "Subida de sueldo: ahorra la mitad", "pilar": "Ahorro", "look": "Tipografía cinética v2", "voz": "Javier", "dur": 22,
+   "ig": {
+    "code": "Df4_TitEvGO",
+    "vistas": 285,
+    "visto": 49.2,
+    "skip": 38.7,
+    "likes": 4,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0
+   },
+   "tt": {
+    "id": "7709557012484345121",
+    "vistas": 986,
+    "likes": 30,
+    "coment": 0,
+    "comp": 1,
+    "guard": 0
+   }
+  },
+  {
+   "id": "2026-11-18_2030_subida",
+   "fecha": "2026-11-18",
+   "hora": "20:30",
+   "tema": "Subida de sueldo: ahorra la mitad",
+   "pilar": "Ahorro",
+   "look": "Tipografía cinética v2",
+   "voz": "Javier",
+   "dur": 22,
    "gancho": "Si te suben 150 €, ahorra al menos la mitad",
-   "ig": {"code": "Df5QeO5k9Hh", "vistas": 168, "visto": 45.3, "skip": 55.4, "likes": 4, "coment": 0, "comp": 0, "guard": 0}, "tt": {"id": "7709595697397386528", "vistas": 19, "likes": 1, "coment": 0, "comp": 0, "guard": 0}},
-  {"id": "2026-11-19_1330_efectivo", "fecha": "2026-11-19", "hora": "13:30", "tema": "¿Cuánto efectivo puedes guardar en casa?", "pilar": "Dinero y ley", "look": "R6 pixel art", "voz": "local k_santa", "dur": 21,
+   "ig": {
+    "code": "Df5QeO5k9Hh",
+    "vistas": 168,
+    "visto": 45.3,
+    "skip": 55.4,
+    "likes": 4,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0
+   },
+   "tt": {
+    "id": "7709595697397386528",
+    "vistas": 19,
+    "likes": 1,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0
+   }
+  },
+  {
+   "id": "2026-11-19_1330_efectivo",
+   "fecha": "2026-11-19",
+   "hora": "13:30",
+   "tema": "¿Cuánto efectivo puedes guardar en casa?",
+   "pilar": "Dinero y ley",
+   "look": "R6 pixel art",
+   "voz": "local k_santa",
+   "dur": 21,
    "gancho": "¿Cuánto dinero en efectivo puedes guardar en casa?",
-   "ig": {"code": "Df7FchuAkq3", "vistas": 162, "visto": 41.4, "skip": 44.9, "likes": 3, "coment": 0, "comp": 0, "guard": 0}, "tt": {"id": "7709859011826371872", "vistas": 13, "likes": 0, "coment": 0, "comp": 0, "guard": 0}},
-  {"id": "2026-11-19_2030_dividendos", "fecha": "2026-11-19", "hora": "20:30", "tema": "Dividendos sin humo", "pilar": "Inversión", "look": "R3 ilustración en corte", "voz": "ElevenLabs Mateo", "dur": 31,
+   "ig": {
+    "code": "Df7FchuAkq3",
+    "vistas": 163,
+    "visto": 41.0,
+    "skip": 45.3,
+    "likes": 3,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0
+   },
+   "tt": {
+    "id": "7709859011826371872",
+    "vistas": 13,
+    "likes": 0,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0
+   }
+  },
+  {
+   "id": "2026-11-19_2030_dividendos",
+   "fecha": "2026-11-19",
+   "hora": "20:30",
+   "tema": "Dividendos sin humo",
+   "pilar": "Inversión",
+   "look": "R3 ilustración en corte",
+   "voz": "ElevenLabs Mateo",
+   "dur": 31,
    "gancho": "¿Un sueldo extra cada mes sin trabajar?",
-   "ig": {"code": "Df71O02D6x5", "vistas": 133, "visto": 28.4, "skip": 33.6, "likes": 1, "coment": 0, "comp": 0, "guard": 0}, "tt": {"id": "7709966673867967777", "vistas": 157, "likes": 2, "coment": 0, "comp": 0, "guard": 0}}
+   "ig": {
+    "code": "Df71O02D6x5",
+    "vistas": 138,
+    "visto": 28.0,
+    "skip": 36.3,
+    "likes": 1,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0
+   },
+   "tt": {
+    "id": "7709966673867967777",
+    "vistas": 1800,
+    "likes": 19,
+    "coment": 0,
+    "comp": 0,
+    "guard": 2
+   }
+  },
+  {
+   "id": "2026-11-20_1330_estafa_pagar_retirar",
+   "fecha": "2026-11-20",
+   "hora": "13:30",
+   "tema": "¿Te piden pagar para sacar tu dinero? (estafa)",
+   "pilar": "Estafas",
+   "look": "R4 móviles en abanico",
+   "voz": "local v1",
+   "dur": 21,
+   "gancho": "¿Te piden pagar para sacar tu dinero?",
+   "ig": {
+    "code": "Df9qI_Sj2pH",
+    "vistas": 38,
+    "visto": 27.2,
+    "skip": 64.5,
+    "likes": 0,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0
+   },
+   "tt": {
+    "id": "7710229700089564448",
+    "vistas": 5,
+    "likes": 0,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0
+   }
+  },
+  {
+   "id": "2026-11-20_1800_gta5_vs_acciones",
+   "fecha": "2026-11-20",
+   "hora": "18:00",
+   "tema": "GTA 5 o acciones (especial parte 2)",
+   "pilar": "Inversión",
+   "look": "R8b neón tropical noche",
+   "voz": "ElevenLabs Juanjo",
+   "dur": 28,
+   "gancho": "¿GTA 5 o acciones de Take-Two en 2013?",
+   "ig": {
+    "code": "Df-I1tGGtn7",
+    "vistas": 170,
+    "visto": 47.1,
+    "skip": 36.3,
+    "likes": 1,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0
+   },
+   "tt": {
+    "id": "7710298997839220001",
+    "vistas": null,
+    "nota": "no aparece en el feed público de TikTok a las ~3 h (21:10 del 20-nov): revisar en la app"
+   }
+  },
+  {
+   "id": "2026-11-20_2030_indexados_vs_gestores",
+   "fecha": "2026-11-20",
+   "hora": "20:30",
+   "tema": "Fondos indexados vs gestión activa",
+   "pilar": "Inversión",
+   "look": "R5 3D plastilina",
+   "voz": "ElevenLabs Carmen",
+   "dur": 35,
+   "gancho": "97,6 % de los fondos no bate a su índice",
+   "ig": {
+    "code": "Df-aFKInJ04",
+    "vistas": 21,
+    "visto": 2.4,
+    "skip": 10.0,
+    "likes": 0,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0
+   },
+   "tt": {
+    "id": "7710337885974662432",
+    "vistas": 75,
+    "likes": 1,
+    "coment": 0,
+    "comp": 0,
+    "guard": 1
+   }
+  }
  ],
  "posts": [
-  {"id": "2026-11-17_smi", "tipo": "carrusel noticia", "tema": "SMI 2027", "ig": {"vistas": 15, "alcance": 3, "likes": 1}, "tt": {"vistas": 49, "likes": 1, "comp": 1}},
-  {"id": "2026-11-18_listo", "tipo": "carrusel presentación (fijado)", "tema": "¿Te sobra mes? Presentación de Listo", "ig": {"vistas": 8, "alcance": 3, "likes": 2}, "tt": {"vistas": 0, "likes": 1}},
-  {"id": "2026-11-18_euribor", "tipo": "carrusel noticia", "tema": "Euríbor y tipos", "ig": {"vistas": 18, "alcance": 3, "likes": 1}, "tt": {"vistas": 0, "likes": 0}},
-  {"id": "2026-11-19_transparencia", "tipo": "carrusel noticia", "tema": "Transparencia salarial", "ig": {"vistas": 5, "alcance": 3, "likes": 1}, "tt": {"vistas": 2, "likes": 0}}
+  {
+   "id": "2026-11-17_smi",
+   "tipo": "carrusel noticia",
+   "tema": "SMI 2027",
+   "ig": {
+    "vistas": 15,
+    "alcance": 3,
+    "likes": 1
+   },
+   "tt": {
+    "vistas": 49,
+    "likes": 1,
+    "comp": 1
+   }
+  },
+  {
+   "id": "2026-11-18_listo",
+   "tipo": "carrusel presentación (fijado)",
+   "tema": "¿Te sobra mes? Presentación de Listo",
+   "ig": {
+    "vistas": 9,
+    "alcance": 3,
+    "likes": 2
+   },
+   "tt": {
+    "vistas": 0,
+    "likes": 1
+   }
+  },
+  {
+   "id": "2026-11-18_euribor",
+   "tipo": "carrusel noticia",
+   "tema": "Euríbor y tipos",
+   "ig": {
+    "vistas": 18,
+    "alcance": 3,
+    "likes": 1
+   },
+   "tt": {
+    "vistas": 0,
+    "likes": 0
+   }
+  },
+  {
+   "id": "2026-11-19_transparencia",
+   "tipo": "carrusel noticia",
+   "tema": "Transparencia salarial",
+   "ig": {
+    "vistas": 5,
+    "alcance": 3,
+    "likes": 1
+   },
+   "tt": {
+    "vistas": 2,
+    "likes": 0
+   }
+  },
+  {
+   "id": "2026-11-20_gasolina_luz",
+   "tipo": "carrusel noticia",
+   "tema": "Gasolina y luz en diciembre",
+   "ig": {
+    "vistas": 10,
+    "alcance": 3,
+    "likes": 1
+   },
+   "tt": {
+    "vistas": 1,
+    "likes": 0
+   }
+  }
  ]
 }

@@ -1,0 +1,597 @@
+{
+ "total": 33.598,
+ "voz": "ElevenLabs · Lucía (s4NXWwstm4IwAI2dMQ6M, eleven_v4)",
+ "segments": [
+  {
+   "i": 0,
+   "start": 0.2,
+   "dur": 3.566,
+   "text": "Alquilar ya se come el treinta y nueve por ciento de lo que gana una familia.",
+   "words": [
+    {
+     "w": "Alquilar",
+     "start": 0.2,
+     "end": 0.7
+    },
+    {
+     "w": "ya",
+     "start": 0.843,
+     "end": 0.914
+    },
+    {
+     "w": "se",
+     "start": 0.986,
+     "end": 1.057
+    },
+    {
+     "w": "come",
+     "start": 1.164,
+     "end": 1.271
+    },
+    {
+     "w": "el",
+     "start": 1.307,
+     "end": 1.343
+    },
+    {
+     "w": "treinta",
+     "start": 1.414,
+     "end": 1.7
+    },
+    {
+     "w": "y",
+     "start": 1.771,
+     "end": 1.843
+    },
+    {
+     "w": "nueve",
+     "start": 1.879,
+     "end": 2.057
+    },
+    {
+     "w": "por",
+     "start": 2.129,
+     "end": 2.271
+    },
+    {
+     "w": "ciento",
+     "start": 2.343,
+     "end": 2.557
+    },
+    {
+     "w": "de",
+     "start": 2.629,
+     "end": 2.7
+    },
+    {
+     "w": "lo",
+     "start": 2.736,
+     "end": 2.771
+    },
+    {
+     "w": "que",
+     "start": 2.843,
+     "end": 2.914
+    },
+    {
+     "w": "gana",
+     "start": 2.986,
+     "end": 3.129
+    },
+    {
+     "w": "una",
+     "start": 3.2,
+     "end": 3.271
+    },
+    {
+     "w": "familia.",
+     "start": 3.343,
+     "end": 3.766
+    }
+   ]
+  },
+  {
+   "i": 1,
+   "start": 3.844,
+   "dur": 1.353,
+   "text": "Comprar, el veintinueve.",
+   "words": [
+    {
+     "w": "Comprar,",
+     "start": 3.844,
+     "end": 4.415
+    },
+    {
+     "w": "el",
+     "start": 4.486,
+     "end": 4.558
+    },
+    {
+     "w": "veintinueve.",
+     "start": 4.629,
+     "end": 5.197
+    }
+   ]
+  },
+  {
+   "i": 2,
+   "start": 5.251,
+   "dur": 1.984,
+   "text": "¿Entonces compro? Mira los tres finales.",
+   "words": [
+    {
+     "w": "¿Entonces",
+     "start": 5.251,
+     "end": 5.679
+    },
+    {
+     "w": "compro?",
+     "start": 5.751,
+     "end": 6.108
+    },
+    {
+     "w": "Mira",
+     "start": 6.235,
+     "end": 6.378
+    },
+    {
+     "w": "los",
+     "start": 6.45,
+     "end": 6.521
+    },
+    {
+     "w": "tres",
+     "start": 6.593,
+     "end": 6.664
+    },
+    {
+     "w": "finales.",
+     "start": 6.735,
+     "end": 7.235
+    }
+   ]
+  },
+  {
+   "i": 3,
+   "start": 7.363,
+   "dur": 0.876,
+   "text": "Uno: compras.",
+   "words": [
+    {
+     "w": "Uno:",
+     "start": 7.363,
+     "end": 7.668
+    },
+    {
+     "w": "compras.",
+     "start": 7.739,
+     "end": 8.239
+    }
+   ]
+  },
+  {
+   "i": 4,
+   "start": 8.353,
+   "dur": 5.279,
+   "text": "Antes necesitas ahorrado un treinta por ciento del precio: veinte de entrada y diez de impuestos y gastos.",
+   "words": [
+    {
+     "w": "Antes",
+     "start": 8.353,
+     "end": 8.638
+    },
+    {
+     "w": "necesitas",
+     "start": 8.71,
+     "end": 9.138
+    },
+    {
+     "w": "ahorrado",
+     "start": 9.174,
+     "end": 9.567
+    },
+    {
+     "w": "un",
+     "start": 9.638,
+     "end": 9.781
+    },
+    {
+     "w": "treinta",
+     "start": 9.853,
+     "end": 10.138
+    },
+    {
+     "w": "por",
+     "start": 10.21,
+     "end": 10.281
+    },
+    {
+     "w": "ciento",
+     "start": 10.353,
+     "end": 10.567
+    },
+    {
+     "w": "del",
+     "start": 10.638,
+     "end": 10.71
+    },
+    {
+     "w": "precio:",
+     "start": 10.781,
+     "end": 11.294
+    },
+    {
+     "w": "veinte",
+     "start": 11.329,
+     "end": 11.508
+    },
+    {
+     "w": "de",
+     "start": 11.579,
+     "end": 11.651
+    },
+    {
+     "w": "entrada",
+     "start": 11.865,
+     "end": 12.079
+    },
+    {
+     "w": "y",
+     "start": 12.151,
+     "end": 12.222
+    },
+    {
+     "w": "diez",
+     "start": 12.294,
+     "end": 12.472
+    },
+    {
+     "w": "de",
+     "start": 12.508,
+     "end": 12.579
+    },
+    {
+     "w": "impuestos",
+     "start": 12.687,
+     "end": 13.008
+    },
+    {
+     "w": "y",
+     "start": 13.079,
+     "end": 13.115
+    },
+    {
+     "w": "gastos.",
+     "start": 13.151,
+     "end": 13.632
+    }
+   ]
+  },
+  {
+   "i": 5,
+   "start": 13.715,
+   "dur": 2.456,
+   "text": "Luego, cada cuota es ahorro forzoso.",
+   "words": [
+    {
+     "w": "Luego,",
+     "start": 13.715,
+     "end": 14.144
+    },
+    {
+     "w": "cada",
+     "start": 14.18,
+     "end": 14.358
+    },
+    {
+     "w": "cuota",
+     "start": 14.43,
+     "end": 14.715
+    },
+    {
+     "w": "es",
+     "start": 14.858,
+     "end": 15.001
+    },
+    {
+     "w": "ahorro",
+     "start": 15.144,
+     "end": 15.501
+    },
+    {
+     "w": "forzoso.",
+     "start": 15.572,
+     "end": 16.171
+    }
+   ]
+  },
+  {
+   "i": 6,
+   "start": 16.243,
+   "dur": 3.608,
+   "text": "Dos: alquilas, e inviertes esa entrada y la diferencia cada mes.",
+   "words": [
+    {
+     "w": "Dos:",
+     "start": 16.243,
+     "end": 16.658
+    },
+    {
+     "w": "alquilas,",
+     "start": 16.729,
+     "end": 17.292
+    },
+    {
+     "w": "e",
+     "start": 17.327,
+     "end": 17.363
+    },
+    {
+     "w": "inviertes",
+     "start": 17.435,
+     "end": 17.863
+    },
+    {
+     "w": "esa",
+     "start": 17.935,
+     "end": 18.006
+    },
+    {
+     "w": "entrada",
+     "start": 18.22,
+     "end": 18.435
+    },
+    {
+     "w": "y",
+     "start": 18.506,
+     "end": 18.542
+    },
+    {
+     "w": "la",
+     "start": 18.577,
+     "end": 18.649
+    },
+    {
+     "w": "diferencia",
+     "start": 18.685,
+     "end": 19.149
+    },
+    {
+     "w": "cada",
+     "start": 19.292,
+     "end": 19.435
+    },
+    {
+     "w": "mes.",
+     "start": 19.506,
+     "end": 19.851
+    }
+   ]
+  },
+  {
+   "i": 7,
+   "start": 19.922,
+   "dur": 3.885,
+   "text": "A largo plazo puede salir mejor, pero aguantando caídas y sin garantías.",
+   "words": [
+    {
+     "w": "A",
+     "start": 19.922,
+     "end": 19.958
+    },
+    {
+     "w": "largo",
+     "start": 19.994,
+     "end": 20.208
+    },
+    {
+     "w": "plazo",
+     "start": 20.28,
+     "end": 20.565
+    },
+    {
+     "w": "puede",
+     "start": 20.637,
+     "end": 20.78
+    },
+    {
+     "w": "salir",
+     "start": 20.851,
+     "end": 21.065
+    },
+    {
+     "w": "mejor,",
+     "start": 21.137,
+     "end": 21.505
+    },
+    {
+     "w": "pero",
+     "start": 21.576,
+     "end": 21.695
+    },
+    {
+     "w": "aguantando",
+     "start": 21.743,
+     "end": 22.147
+    },
+    {
+     "w": "caídas",
+     "start": 22.219,
+     "end": 22.719
+    },
+    {
+     "w": "y",
+     "start": 22.79,
+     "end": 22.862
+    },
+    {
+     "w": "sin",
+     "start": 22.933,
+     "end": 23.076
+    },
+    {
+     "w": "garantías.",
+     "start": 23.147,
+     "end": 23.807
+    }
+   ]
+  },
+  {
+   "i": 8,
+   "start": 23.843,
+   "dur": 3.553,
+   "text": "Tres, el que nadie cuenta: alquilas y te gastas la diferencia.",
+   "words": [
+    {
+     "w": "Tres,",
+     "start": 23.843,
+     "end": 24.247
+    },
+    {
+     "w": "el",
+     "start": 24.319,
+     "end": 24.39
+    },
+    {
+     "w": "que",
+     "start": 24.462,
+     "end": 24.533
+    },
+    {
+     "w": "nadie",
+     "start": 24.676,
+     "end": 24.962
+    },
+    {
+     "w": "cuenta:",
+     "start": 24.997,
+     "end": 25.415
+    },
+    {
+     "w": "alquilas",
+     "start": 25.523,
+     "end": 26.058
+    },
+    {
+     "w": "y",
+     "start": 26.094,
+     "end": 26.13
+    },
+    {
+     "w": "te",
+     "start": 26.201,
+     "end": 26.273
+    },
+    {
+     "w": "gastas",
+     "start": 26.308,
+     "end": 26.558
+    },
+    {
+     "w": "la",
+     "start": 26.594,
+     "end": 26.63
+    },
+    {
+     "w": "diferencia.",
+     "start": 26.701,
+     "end": 27.396
+    }
+   ]
+  },
+  {
+   "i": 9,
+   "start": 27.432,
+   "dur": 1.262,
+   "text": "Ni casa, ni cartera.",
+   "words": [
+    {
+     "w": "Ni",
+     "start": 27.432,
+     "end": 27.468
+    },
+    {
+     "w": "casa,",
+     "start": 27.539,
+     "end": 28.039
+    },
+    {
+     "w": "ni",
+     "start": 28.075,
+     "end": 28.111
+    },
+    {
+     "w": "cartera.",
+     "start": 28.182,
+     "end": 28.694
+    }
+   ]
+  },
+  {
+   "i": 10,
+   "start": 28.718,
+   "dur": 0.894,
+   "text": "¿Tú cuál eliges?",
+   "words": [
+    {
+     "w": "¿Tú",
+     "start": 28.718,
+     "end": 28.837
+    },
+    {
+     "w": "cuál",
+     "start": 28.872,
+     "end": 28.979
+    },
+    {
+     "w": "eliges?",
+     "start": 29.051,
+     "end": 29.612
+    }
+   ]
+  },
+  {
+   "i": 11,
+   "start": 29.683,
+   "dur": 3.201,
+   "text": "Comenta: uno, comprar; dos, alquilar e invertir.",
+   "words": [
+    {
+     "w": "Comenta:",
+     "start": 29.683,
+     "end": 30.191
+    },
+    {
+     "w": "uno,",
+     "start": 30.299,
+     "end": 30.62
+    },
+    {
+     "w": "comprar;",
+     "start": 30.727,
+     "end": 31.17
+    },
+    {
+     "w": "dos,",
+     "start": 31.242,
+     "end": 31.67
+    },
+    {
+     "w": "alquilar",
+     "start": 31.777,
+     "end": 32.17
+    },
+    {
+     "w": "e",
+     "start": 32.194,
+     "end": 32.217
+    },
+    {
+     "w": "invertir.",
+     "start": 32.242,
+     "end": 32.884
+    }
+   ]
+  }
+ ]
+}

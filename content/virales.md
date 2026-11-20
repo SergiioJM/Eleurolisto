@@ -3,6 +3,11 @@
 Investigación semanal con vidIQ (`vidiq_instagram_tiktok_outlier_search`, 5 créditos). Aquí se guardan los patrones, no se copian vídeos:
 cada recreación usa guion, cifras, diseño y voz propios de El Euro Listo.
 
+## 20-nov-2026 · noche alterna (sin búsqueda de outliers: vidIQ 45 créditos, se reserva para TikTok cada noche)
+- Lo que está funcionando en NUESTRA cuenta (más fiable que los outliers ajenos): en TikTok, **inversión que desmonta una creencia con una cuenta fácil** (dividendos 1,8 K) y **cultura pop del día** (GTA 6, 986). En IG, el gancho con personaje 3D (inflación, 32 % de skip). Lo que no: móviles/interfaz en el primer segundo (estafas R4 64,5 % de skip, Bizum 68 %).
+- **Edición recreada esta noche: R1 "selector de estados"** (la de los monigotes con pestañas SOBRADO/DUDA/MIEDO/ENFOQUE que pasó Sergio): misma gramática (pestañas de radio arriba, la misma escena se repite y cambia el final, rebobinado entre finales) llevada a "¿comprar o alquilar e invertir?" con tres finales. Personajes, decorado y paleta nuestros.
+- Próxima búsqueda de outliers: noche del 21-nov (pilar vivienda o Black Friday, que cae el 27-nov).
+
 ## 19-nov-2026 · búsqueda nocturna (pilar: CRIPTO / bitcoin y Hacienda; español, audiencia España, desde el 5-nov)
 
 | Cuenta | Vistas (x su mediana) | Gancho (0–3 s) | Formato / edición |
