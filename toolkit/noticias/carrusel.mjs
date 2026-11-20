@@ -4,7 +4,9 @@
 //
 // Salida junto al JSON: ig_1.jpg… (1080x1350, feed de Instagram) y tt_1.jpg… (1080x1920, fotos de TikTok).
 // Tipos de diapositiva: portada {etiqueta, titular, bajada}, cifra {cifra, texto, nota, cifraTam?}, puntos {titulo, puntos[]},
-// cierre {titulo, puntos[], cta}, mito {mito, realidad, nota} (tarjeta roja tachada + tarjeta verde). En los textos, <em>…</em> resalta en ámbar.
+// cierre {titulo, puntos[], cta}, mito {mito, realidad, nota} (tarjeta roja tachada + tarjeta verde),
+// vs {titulo?, izq:{lab, icono, nombre, cifra, texto, color:"verde"|"rojo"|"azul"|"ambar"}, der:{…}, nota?} (comparativa en dos tarjetas).
+// En los textos, <em>…</em> resalta en ámbar.
 import fs from "node:fs";
 import path from "node:path";
 import { createRequire } from "node:module";
@@ -54,6 +56,20 @@ li b{flex:none;width:64px;height:64px;border-radius:18px;background:#4d8dff;colo
 .mv .real .lab{background:#22c55e;color:#0b1022}
 .mv .mito p{font:600 ${H > 1500 ? 46 : 42}px/1.3 'Poppins';color:#f3c4c4;text-decoration:line-through;text-decoration-color:rgba(239,68,68,.85);text-decoration-thickness:4px}
 .mv .real p{font:600 ${H > 1500 ? 48 : 43}px/1.3 'Poppins'}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.vs .card{border-radius:34px;padding:${H > 1500 ? "40px 30px" : "30px 28px"};display:flex;flex-direction:column;gap:${H > 1500 ? 20 : 14}px}
+.vs .verde{background:rgba(34,197,94,.13);border:3px solid rgba(34,197,94,.6)}
+.vs .rojo{background:rgba(239,68,68,.12);border:3px solid rgba(239,68,68,.55)}
+.vs .azul{background:rgba(77,141,255,.13);border:3px solid rgba(77,141,255,.6)}
+.vs .ambar{background:rgba(255,197,71,.12);border:3px solid rgba(255,197,71,.6)}
+.vs .lab{align-self:flex-start;font:800 26px 'Poppins';letter-spacing:2px;padding:8px 18px;border-radius:30px}
+.vs .verde .lab{background:#22c55e;color:#0b1022}.vs .rojo .lab{background:#ef4444;color:#fff}
+.vs .azul .lab{background:#4d8dff;color:#fff}.vs .ambar .lab{background:#ffc547;color:#14181f}
+.vs .ico{font-size:${H > 1500 ? 96 : 80}px;line-height:1}
+.vs .nom{font:700 36px/1.2 'Poppins'}
+.vs .cif{font:800 ${H > 1500 ? 84 : 76}px/1 'Poppins';letter-spacing:-2px}
+.vs .verde .cif{color:#22c55e}.vs .rojo .cif{color:#ff6b5e}.vs .azul .cif{color:#7aa9ff}.vs .ambar .cif{color:#ffc547}
+.vs .txt{font:600 32px/1.3 'Poppins';color:#d6def5}
 .mv .real small{display:block;font:500 ${H > 1500 ? 32 : 30}px/1.4 'Poppins';color:#aab5d6;margin-top:16px}
 `;
 
@@ -66,6 +82,11 @@ function cuerpo(s, i) {
   if (s.tipo === "mito")
     mid = `<div class="mv"><div class="card mito"><div class="lab">✕ MITO</div><p>${s.mito}</p></div>` +
       `<div class="card real"><div class="lab">✓ REALIDAD</div><p>${s.realidad}</p>${s.nota ? `<small>${s.nota}</small>` : ""}</div></div>`;
+  if (s.tipo === "vs") {
+    const c = (x) => `<div class="card ${x.color || "azul"}"><div class="lab">${x.lab}</div>${x.icono ? `<div class="ico">${x.icono}</div>` : ""}` +
+      `<div class="nom">${x.nombre}</div><div class="cif">${x.cifra}</div><div class="txt">${x.texto}</div></div>`;
+    mid = (s.titulo ? `<h2>${s.titulo}</h2>` : "") + `<div class="vs">${c(s.izq)}${c(s.der)}</div>` + (s.nota ? `<div class="nota">${s.nota}</div>` : "");
+  }
   if (s.tipo === "puntos" || s.tipo === "cierre")
     mid = `<h2>${s.titulo}</h2><ul>${(s.puntos || []).map((p, k) => `<li><b>${k + 1}</b><span>${p}</span></li>`).join("")}</ul>` +
       (s.cta ? `<div class="cta">${s.cta}</div>` : "");
