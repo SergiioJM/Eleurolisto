@@ -33,5 +33,8 @@
   "portada": "portada/portada.jpg (fondo: la habitación con el aceite saliendo por la ventana y Listo 'lowpoly' señalándolo sorprendido, dibujado con window.PORTADA; kicker PARTE 2 · INFLACIÓN, 'El LADRÓN ha vuelto', 'y ahora roba más', etiqueta '4,9 %')",
   "duracion_s": 21.2,
   "brillo": "brillo medio por fotograma (54x96 gris): 87–119 (luz fija); salto máximo 3,0 (0 saltos > 8; el sello del 4,9 % se suavizó)",
-  "loudness": "−14,5 LUFS"
+  "loudness": "−14,5 LUFS",
+  "commit_sha": "a5c48f743aca869042af4ae055148efcb1be083c",
+  "vidiq_uploadId_con_portada": "5a7d425d-7f87-4cec-83cb-59808330a631",
+  "vidiq_uploadId_sin_portada": "24ddc86e-2493-4e1c-aecf-aa34c6977c9e"
 }
