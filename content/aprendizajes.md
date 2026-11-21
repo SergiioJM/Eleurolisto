@@ -56,3 +56,7 @@ Qué funciona según los datos de Instagram (vidiq_instagram_owner_insights, mod
 | 2026-11-18 | 20:30 | Subida de sueldo | tipografía cinética v2 | Javier | 168 (19-nov noche) | 45,3 % | 55,4 % | 0 | 0 |
 | 2026-11-19 | 13:30 | Efectivo en casa | R6 pixel art | local k_santa | 161 (~8 h) | 41,4 % | 45,2 % | 0 | 0 |
 | 2026-11-19 | 20:30 | Dividendos sin humo | R3 ilustración en corte | ElevenLabs Mateo | 55 (~1 h) | 51,6 % | 2,1 % | 0 | 0 |
+
+## 21-nov (mañana, Sergio: "el segundo reel de GTA en IG ha ido muy bien")
+- **GTA parte 2 ("¿GTA 5 o acciones?", R8b neón de noche, ElevenLabs Juanjo, 28 s) despega en Instagram: 1.273 visualizaciones** en ~16 h (anoche 170), 19 me gusta, 2 guardados, 49,8 % visto, 32,4 % de skip. La media de los otros 11 reels es ~156 → **×8,2**. Es la 2.ª vez que la serie GTA gana (la parte 1 hizo 986 en TikTok).
+- Lección: **cultura pop + inversión con una cifra de "¿y si…?"** (60 € → más de 800 €) y el giro "a toro pasado todos somos genios" retiene y se comparte más que cualquier reel de ahorro. Regla 3b: la serie se continúa en ≤ 48 h (hasta el dom 22 a las 18:00).
