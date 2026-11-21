@@ -18,16 +18,17 @@ Actualizado: 2026-11-20 21:30 (Madrid). Generado con `python3 toolkit/ranking.py
 | 10 | 11-18 13:30 | Bizum por error | Interfaz de móvil 2D | local v1 | Bizum por error: para recibir dinero no tienes que aceptar nada | 121+0 | 32 | 25 | 63 | 62 | **45** |
 | 11 | 11-16 13:30 | Gastos hormiga: café de 2 € | 2D reelkit | Javier | Gastos hormiga: un café de 2 € al día son 730 € al año | 125+5 | 28 | 39 | 64 | 46 | **44** |
 | 12 | 11-20 13:30 | ¿Te piden pagar para sacar tu dinero? (estafa) | R4 móviles en abanico | local v1 | ¿Te piden pagar para sacar tu dinero? | 38+5 | 36 | 27 | 50 | 0 | **33** |
+| 13 | 11-21 13:30 | ¿Hacienda ve tus criptos? | R2 llamadas entrantes (3D toon) | local k_santa | ¿Crees que si no pasas tus criptos a euros, Hacienda no se entera? | 0+0 | 50 | 0 | 0 | 0 | **18** |
 
 ## Comparativas automáticas (media de la puntuación TOTAL)
 
-- **Voz premium (Javier/ElevenLabs) vs local:** premium: 57 (n=9) · local: 43 (n=3)
-- **3D vs 2D:** 3D: 60 (n=3) · 2D/otros: 51 (n=9)
-- **Gancho en pregunta (¿…?) vs afirmación:** pregunta: 53 (n=5) · afirmación: 54 (n=7)
-- **Ahorro básico vs resto de pilares:** ahorro: 52 (n=4) · resto: 54 (n=8)
-- **13:30 vs 20:30 vs especiales:** 13:30: 47 (n=5) · 20:30: 58 (n=5) · otras horas: 60 (n=2)
+- **Voz premium (Javier/ElevenLabs) vs local:** premium: 57 (n=9) · local: 37 (n=4)
+- **3D vs 2D:** 3D: 50 (n=4) · 2D/otros: 51 (n=9)
+- **Gancho en pregunta (¿…?) vs afirmación:** pregunta: 47 (n=6) · afirmación: 54 (n=7)
+- **Ahorro básico vs resto de pilares:** ahorro: 52 (n=4) · resto: 50 (n=9)
+- **13:30 vs 20:30 vs especiales:** 13:30: 42 (n=6) · 20:30: 58 (n=5) · otras horas: 60 (n=2)
 
-- Comentarios totales: 1 · compartidos: 1 · guardados: 4 en 12 vídeos.
+- Comentarios totales: 1 · compartidos: 1 · guardados: 4 en 13 vídeos.
 
 ## Posts de imágenes (carruseles)
 

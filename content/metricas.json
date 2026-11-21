@@ -357,6 +357,35 @@
     "comp": 0,
     "guard": 1
    }
+  },
+  {
+   "id": "2026-11-21_1330_hacienda_criptos",
+   "fecha": "2026-11-21",
+   "hora": "13:30",
+   "tema": "¿Hacienda ve tus criptos?",
+   "pilar": "Dinero y ley",
+   "look": "R2 llamadas entrantes (3D toon)",
+   "voz": "local k_santa",
+   "dur": 21,
+   "gancho": "¿Crees que si no pasas tus criptos a euros, Hacienda no se entera?",
+   "ig": {
+    "code": "DgAOvhOk-qm",
+    "vistas": null,
+    "visto": null,
+    "skip": null,
+    "likes": null,
+    "coment": null,
+    "comp": null,
+    "guard": null
+   },
+   "tt": {
+    "id": "7710600588899159328",
+    "vistas": null,
+    "likes": null,
+    "coment": null,
+    "comp": null,
+    "guard": null
+   }
   }
  ],
  "posts": [
