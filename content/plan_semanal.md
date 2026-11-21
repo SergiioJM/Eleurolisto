@@ -14,6 +14,8 @@ Contexto de mercado (18-nov): bitcoin cerca de 64.800 $ el 15-nov tras liquidaci
 | Mié 25 | **SECUELA del n.º 3 del ranking: "50/30/20 con el SMI de 2027 (1.286 €)"** en 3D (otro decorado), con la nómina neta verificada — antes: **INVERSIÓN · Interés compuesto con datos reales** (MSCI World a 20–30 años, histórico, no garantizado) | **POLÉMICA · FIRE y la regla del 4 %: ¿jubilarse a los 40 es posible en España?** |
 | Jue 26 | **NÓMINA (temporada, mucha búsqueda): "La paga extra de diciembre: cuánto te quitan y qué hacer con ella"** — antes: **CRIPTO · ETF de bitcoin vs comprar bitcoin directamente**: diferencias de custodia, comisiones y fiscalidad en España (sin nombrar productos) | **ORO vs BITCOIN vs BOLSA** en las últimas crisis (datos) |
 
+**EXTRA Dom 22 a las 18:00 · ESPECIAL GTA 6 parte 3 (HECHO Y APROBADO el 21-nov por la mañana, en la conversación de noticias):** «¿1 empresa o 500?» (los 60 € de 2013 en el S&P 500 → casi 300 €). La parte 2 hizo 1.273 vistas en IG (×8 la media). **La tarea nocturna NO tiene que hacerlo ni ocupar esa franja.** Si la parte 3 también funciona, la parte 4 ya está prometida en el vídeo («¿PARTE 4?»).
+
 **EXTRA Vie 20 a las 18:00 · ESPECIAL GTA 6 parte 2** (lo prepara la sesión principal el 19-nov por la noche, porque la parte 1 se ha pegado en TikTok): "¿Y si en vez de GTA 5 hubieras comprado acciones de Take-Two en 2013?" + "a toro pasado todos somos genios" (diversificación). **La tarea nocturna NO tiene que hacerlo ni ocupar esa franja.**
 
 Experimento de la semana: **los reels "polémica" acaban con una pregunta de dos opciones** ("¿burbuja o futuro? Comenta 1 o 2") y se compara con los demás en comentarios y compartidos.
