@@ -1,0 +1,428 @@
+{
+ "total": 31.64,
+ "voz": "ElevenLabs · Juanjo Viral (30jLfQdV8RTduXvosh02), eleven_v4",
+ "offset_voz": 0.2,
+ "segments": [
+  {
+   "i": 0,
+   "start": 0.2,
+   "dur": 5.68,
+   "text": "GTA, parte tres: ¿y si en vez de una empresa hubieras comprado quinientas?",
+   "words": [
+    {
+     "w": "GTA,",
+     "start": 0.2,
+     "end": 1.08
+    },
+    {
+     "w": "parte",
+     "start": 1.24,
+     "end": 1.56
+    },
+    {
+     "w": "3:",
+     "start": 1.76,
+     "end": 2.04
+    },
+    {
+     "w": "¿y",
+     "start": 2.52,
+     "end": 2.6
+    },
+    {
+     "w": "si",
+     "start": 2.68,
+     "end": 2.76
+    },
+    {
+     "w": "en",
+     "start": 2.8,
+     "end": 2.84
+    },
+    {
+     "w": "vez",
+     "start": 2.92,
+     "end": 3.0
+    },
+    {
+     "w": "de",
+     "start": 3.08,
+     "end": 3.16
+    },
+    {
+     "w": "una",
+     "start": 3.24,
+     "end": 3.32
+    },
+    {
+     "w": "empresa",
+     "start": 3.56,
+     "end": 3.8
+    },
+    {
+     "w": "hubieras",
+     "start": 3.96,
+     "end": 4.36
+    },
+    {
+     "w": "comprado",
+     "start": 4.44,
+     "end": 4.84
+    },
+    {
+     "w": "500?",
+     "start": 4.92,
+     "end": 5.88
+    }
+   ]
+  },
+  {
+   "i": 1,
+   "start": 6.12,
+   "dur": 6.2,
+   "text": "Los mismos sesenta euros de dos mil trece, en un índice con las quinientas mayores empresas de Estados Unidos.",
+   "words": [
+    {
+     "w": "Los",
+     "start": 6.12,
+     "end": 6.28
+    },
+    {
+     "w": "mismos",
+     "start": 6.36,
+     "end": 6.6
+    },
+    {
+     "w": "60 €",
+     "start": 6.68,
+     "end": 7.48
+    },
+    {
+     "w": "de",
+     "start": 7.52,
+     "end": 7.56
+    },
+    {
+     "w": "2013,",
+     "start": 7.64,
+     "end": 8.6
+    },
+    {
+     "w": "en",
+     "start": 8.64,
+     "end": 8.68
+    },
+    {
+     "w": "un",
+     "start": 8.76,
+     "end": 8.84
+    },
+    {
+     "w": "índice",
+     "start": 8.88,
+     "end": 9.24
+    },
+    {
+     "w": "con",
+     "start": 9.32,
+     "end": 9.4
+    },
+    {
+     "w": "las",
+     "start": 9.48,
+     "end": 9.56
+    },
+    {
+     "w": "500",
+     "start": 9.64,
+     "end": 10.12
+    },
+    {
+     "w": "mayores",
+     "start": 10.2,
+     "end": 10.52
+    },
+    {
+     "w": "empresas",
+     "start": 10.6,
+     "end": 11.0
+    },
+    {
+     "w": "de",
+     "start": 11.08,
+     "end": 11.16
+    },
+    {
+     "w": "Estados",
+     "start": 11.28,
+     "end": 11.56
+    },
+    {
+     "w": "Unidos.",
+     "start": 11.64,
+     "end": 12.32
+    }
+   ]
+  },
+  {
+   "i": 2,
+   "start": 12.52,
+   "dur": 4.16,
+   "text": "Hoy serían casi trescientos euros: casi cinco veces más.",
+   "words": [
+    {
+     "w": "Hoy",
+     "start": 12.52,
+     "end": 12.68
+    },
+    {
+     "w": "serían",
+     "start": 12.76,
+     "end": 13.08
+    },
+    {
+     "w": "casi",
+     "start": 13.16,
+     "end": 13.4
+    },
+    {
+     "w": "300 €:",
+     "start": 13.48,
+     "end": 15.0
+    },
+    {
+     "w": "casi",
+     "start": 15.08,
+     "end": 15.24
+    },
+    {
+     "w": "5",
+     "start": 15.4,
+     "end": 15.72
+    },
+    {
+     "w": "veces",
+     "start": 15.8,
+     "end": 16.04
+    },
+    {
+     "w": "más.",
+     "start": 16.12,
+     "end": 16.68
+    }
+   ]
+  },
+  {
+   "i": 3,
+   "start": 16.92,
+   "dur": 1.44,
+   "text": "Menos que Take-Two, vale.",
+   "words": [
+    {
+     "w": "Menos",
+     "start": 16.92,
+     "end": 17.16
+    },
+    {
+     "w": "que",
+     "start": 17.24,
+     "end": 17.32
+    },
+    {
+     "w": "Take-Two,",
+     "start": 17.4,
+     "end": 17.96
+    },
+    {
+     "w": "vale.",
+     "start": 18.04,
+     "end": 18.36
+    }
+   ]
+  },
+  {
+   "i": 4,
+   "start": 18.68,
+   "dur": 2.92,
+   "text": "Pero si una de ellas quiebra, no te quedas a cero.",
+   "words": [
+    {
+     "w": "Pero",
+     "start": 18.68,
+     "end": 18.84
+    },
+    {
+     "w": "si",
+     "start": 19.0,
+     "end": 19.16
+    },
+    {
+     "w": "una",
+     "start": 19.24,
+     "end": 19.32
+    },
+    {
+     "w": "de",
+     "start": 19.4,
+     "end": 19.48
+    },
+    {
+     "w": "ellas",
+     "start": 19.64,
+     "end": 19.8
+    },
+    {
+     "w": "quiebra,",
+     "start": 19.84,
+     "end": 20.44
+    },
+    {
+     "w": "no",
+     "start": 20.48,
+     "end": 20.52
+    },
+    {
+     "w": "te",
+     "start": 20.6,
+     "end": 20.68
+    },
+    {
+     "w": "quedas",
+     "start": 20.72,
+     "end": 21.0
+    },
+    {
+     "w": "a",
+     "start": 21.027,
+     "end": 21.053
+    },
+    {
+     "w": "0.",
+     "start": 21.08,
+     "end": 21.6
+    }
+   ]
+  },
+  {
+   "i": 5,
+   "start": 21.8,
+   "dur": 4.96,
+   "text": "Y eso, después de la peor semana de Wall Street desde abril de dos mil veinticinco.",
+   "words": [
+    {
+     "w": "Y",
+     "start": 21.8,
+     "end": 21.88
+    },
+    {
+     "w": "eso,",
+     "start": 21.96,
+     "end": 22.36
+    },
+    {
+     "w": "después",
+     "start": 22.48,
+     "end": 22.76
+    },
+    {
+     "w": "de",
+     "start": 22.8,
+     "end": 22.84
+    },
+    {
+     "w": "la",
+     "start": 22.88,
+     "end": 22.92
+    },
+    {
+     "w": "peor",
+     "start": 23.08,
+     "end": 23.4
+    },
+    {
+     "w": "semana",
+     "start": 23.48,
+     "end": 23.8
+    },
+    {
+     "w": "de",
+     "start": 23.88,
+     "end": 23.96
+    },
+    {
+     "w": "Wall",
+     "start": 24.04,
+     "end": 24.2
+    },
+    {
+     "w": "Street",
+     "start": 24.28,
+     "end": 24.52
+    },
+    {
+     "w": "desde",
+     "start": 24.6,
+     "end": 24.84
+    },
+    {
+     "w": "abril",
+     "start": 24.92,
+     "end": 25.16
+    },
+    {
+     "w": "de",
+     "start": 25.2,
+     "end": 25.24
+    },
+    {
+     "w": "2025.",
+     "start": 25.32,
+     "end": 26.76
+    }
+   ]
+  },
+  {
+   "i": 6,
+   "start": 26.787,
+   "dur": 3.253,
+   "text": "¿Tú qué eliges: una empresa o quinientas?",
+   "words": [
+    {
+     "w": "¿Tú",
+     "start": 26.787,
+     "end": 26.92
+    },
+    {
+     "w": "qué",
+     "start": 27.0,
+     "end": 27.08
+    },
+    {
+     "w": "eliges:",
+     "start": 27.24,
+     "end": 27.96
+    },
+    {
+     "w": "una",
+     "start": 28.04,
+     "end": 28.12
+    },
+    {
+     "w": "empresa",
+     "start": 28.4,
+     "end": 28.68
+    },
+    {
+     "w": "o",
+     "start": 28.92,
+     "end": 28.96
+    },
+    {
+     "w": "500?",
+     "start": 29.0,
+     "end": 30.04
+    }
+   ]
+  }
+ ]
+}

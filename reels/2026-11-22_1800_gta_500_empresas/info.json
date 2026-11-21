@@ -1,0 +1,30 @@
+{
+  "fecha": "2026-11-22",
+  "hora": "18:00",
+  "titulo": "Especial GTA 6 parte 3: ¿1 empresa o 500? (los 60 € de 2013 en un índice de 500 empresas)",
+  "pilar": "Inversión (gancho GTA 6; extra a las 18:00, fuera de los 2 reels del día)",
+  "motivo": "GTA parte 2 despegó en Instagram (1.273 visualizaciones a las ~16 h, ×8 la media). Sergio, 21-nov ~09:00: 'el segundo reel de GTA en IG ha ido muy bien' y eligió 'Mañana a las 18:00' para la parte 3. Regla 3b: secuela en ≤ 48 h. Engancha con la noticia del día (semana negra en bolsa).",
+  "look": "R8b neón tropical de noche (misma costa que la parte 2): rejilla de 500 luces (una por empresa), moneda de 60 €, contador 60 → casi 300 €, barras Take-Two/índice/THQ, una luz roja que cae (quiebra), ticker rojo de la semana, CTA 1/2 y botón '+ SEGUIR · ¿PARTE 4?'.",
+  "voz": "ElevenLabs · Juanjo Viral (30jLfQdV8RTduXvosh02), eleven_v4, 29,8 s (445 caracteres); transcripción eleven_scribe_v1 idéntica al guion",
+  "voz_flow": "ElevenLabs flow Gn24OlnTU7CityzNMB9c · generación AdKwDD70MRVhFaZKbuOz · node ud4G8S92F5RVPx86PiI9",
+  "mezcla": "Local (21-nov: el workspace YA puede descargar de elevenlabsusercontent.com): música+efectos +3 dB, voz +11 dB con 0,2 s de retardo, loudnorm −14 LUFS → −15,0 LUFS integrados, pico −1,3 dBTP. 0 créditos de Creative Claw.",
+  "etiqueta_ia": true,
+  "guion": "GTA, parte tres: ¿y si en vez de una empresa hubieras comprado quinientas? Los mismos sesenta euros de dos mil trece, en un índice con las quinientas mayores empresas de Estados Unidos. Hoy serían casi trescientos euros: casi cinco veces más. Menos que Take-Two, vale. Pero si una de ellas quiebra, no te quedas a cero. Y eso, después de la peor semana de Wall Street desde abril de dos mil veinticinco. ¿Tú qué eliges: una empresa o quinientas?",
+  "datos": {
+    "sp500_2013": "1.704,76 el 17-sep-2013 (día de salida de GTA V): AP vía Christian Science Monitor 'rose 7.16 points, or 0.4 percent, to 1,704.76' https://m.csmonitor.com/Business/Latest-News-Wires/2013/0917/Stocks-rise-as-Federal-Reserve-convenes · 24/7 Wall St 'S&P500 1,704.76 (+7.16; +0.42%)' https://247wallst.com/investing/2013/09/17/tuesday-closing-bell-stocks-go-green-wait-for-fomc/ · AOL 'to 1,704' https://www.aol.com/2013/09/17/market-close-fed-stimulus-sandp-near-record/",
+    "sp500_hoy": "6.910,39 el 20-nov-2026 (−3,70 %): CappNotes https://cappnotes.substack.com/p/closing-look-friday-november-20-2026 · EFE vía El Informador ('hasta seis mil 910 unidades') https://www.informador.mx/economia/viernes-negro-en-sector-tecnologico-nasdaq-se-desploma-5.28--arrastrado-por-nvidia-y-anthropic-20261120-0129.html ; Yahoo/Valora Analitik da 6.924,67 (con ese dato salen 296 €: no cambia 'casi 300')",
+    "cambio": "BCE: 1 € = 1,3356 $ el 17-sep-2013 (BOE-A-2013-9703) y 1 € = 1,1014 $ el 16-nov-2026 (BOE-A-2026-24116); mercado 20-nov 1,0982 $ (Europa Press)",
+    "calculo": "60 € × 1,3356 = 80,14 $ → × 6.910,39 / 1.704,76 = 324,8 $ → ÷ 1,1014–1,0982 = 294,9–295,8 € (×4,9) → 'casi 300 €, casi 5 veces más'. Sin dividendos (con ellos sería algo más), comisiones ni impuestos.",
+    "semana": "S&P 500 −8,6 % en la semana, 'its worst week since April 2025' (CappNotes; EFE vía El Informador −9 %; Reuters 20-nov 'steepest weekly decline since April 2025')",
+    "take_two_thq": "De la parte 2 (≈ ×14 al 19-nov; THQ quebró el 19-dic-2012). Take-Two se cita sin cifra en la voz ('Menos que Take-Two') y como '≈ ×14 (parte 2, 19-nov)' en pantalla."
+  },
+  "cnmv": "Sin recomendar ningún valor ni producto: caso histórico/hipotético + diversificación. Aviso en pantalla ('Rentabilidades pasadas no garantizan rentabilidades futuras. Contenido educativo, no es una recomendación de inversión.') y en el texto. El S&P 500 se presenta como índice (concepto), sin nombrar fondos, ETF ni brokers.",
+  "caption": "GTA 6 parte 3: ¿1 empresa o 500? 🎮📈 Los mismos 60 € de 2013 (cuando salió GTA 5), en un índice con las 500 mayores empresas de EE. UU. (S&P 500), hoy serían casi 300 €: casi 5 veces más. Menos que Take-Two (×14), sí… pero si una quiebra, no te quedas a cero. Y eso, tras la peor semana de Wall Street desde abril de 2025. ¿Tú qué eliges? Comenta 1 (una empresa) o 2 (500 empresas) 👇 Pásaselo a tu amigo que juega a GTA.\nCálculo: S&P 500 a 1.704,76 (17-sep-2013) y 6.910,39 (20-nov-2026), en euros con el cambio del BCE; sin dividendos, comisiones ni impuestos. Se invierte en un índice a través de un fondo o ETF que lo copia. Rentabilidades pasadas no garantizan rentabilidades futuras. Contenido educativo, no es asesoramiento financiero.\n#gta6 #sp500 #fondosindexados #finanzaspersonales #eleurolisto\n🎙 elevenlabs.io",
+  "listo_papel": "Conduce el descapotable de noche con gafas y mando; salta con brazos abiertos en '500'; señala la rejilla; gafas + cadena que cae y salto en 'casi 300 €'; mirarAtras con brazos cruzados en 'Menos que Take-Two'; piensa y tiembla con la quiebra → idea y en jarras en 'no te quedas a cero'; tiembla con la peor semana y se pone las gafas en 'y aun así ×5'; CTA: guiño, mano redonda en alto, mando y rebote junto a '+ SEGUIR · ¿PARTE 4?'. Manos redondas, sin dedos.",
+  "musica": "original sintetizada, upbeat 100 bpm seed 11 (synth ochentera), baja (≈ 9,5 dB por debajo de la voz al hablar)",
+  "sfx": "biblioteca video-shotcraft (lib:), 35 efectos, sfx_gain 0.3",
+  "brillo": "33–57; salto máximo 3,2 entre fotogramas (0 saltos > 8)",
+  "portada": "portada/portada.jpg: kicker 'ESPECIAL GTA 6 · PARTE 3', '60 € EN 2013: ¿1 EMPRESA O 500?', sub 'hoy serían casi 300 €'; costa de noche con Listo sorprendido (gafas y mando). Va en el fotograma 0 de video_final_portada.mp4.",
+  "duracion_s": 31.7,
+  "estado": "PENDIENTE de aprobación (enviado 21-nov por la mañana en la conversación 'Noticias del 21-nov mañana')"
+}
