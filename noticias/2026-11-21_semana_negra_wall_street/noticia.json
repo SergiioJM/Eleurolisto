@@ -1,0 +1,80 @@
+{
+ "fecha": "Cierre del viernes 20 nov 2026",
+ "fuente": "EFE (El Informador) · Infobae · Europa Press (El Debate, Forbes) · Reuters · CNBC",
+ "etiqueta": "SEMANA NEGRA",
+ "slides": [
+  {
+   "tipo": "portada",
+   "titular": "Semana negra: el Ibex cae un <em>5,7 %</em> y Wall Street, un <em>8,6 %</em>",
+   "bajada": "Y el viernes, el Nasdaq se hundió un 5,3 % en un solo día. Qué ha pasado y qué significa si tienes un fondo indexado o un plan de pensiones."
+  },
+  {
+   "tipo": "cifra",
+   "etiqueta": "NASDAQ · VIERNES 20",
+   "cifra": "−5,3 %",
+   "cifraTam": 210,
+   "texto": "en un solo día, arrastrado por las empresas de inteligencia artificial",
+   "nota": "El S&P 500, −3,7 % ese día y −8,6 % en la semana: su peor semana desde abril de 2025."
+  },
+  {
+   "tipo": "puntos",
+   "etiqueta": "NO ES SOLO EE. UU.",
+   "titulo": "Cae casi todo",
+   "puntos": [
+    "Ibex 35: <em>−5,7 %</em> en la semana, de 20.020 a 18.873 puntos, cinco días seguidos en rojo",
+    "Alemania <em>−2,6 %</em> el viernes; Italia −2,5 % y Francia −1,9 %",
+    "El S&P 500 ya está más de un <em>10 %</em> por debajo de su récord: eso se llama «corrección»"
+   ]
+  },
+  {
+   "tipo": "puntos",
+   "etiqueta": "POR QUÉ",
+   "titulo": "Por qué cae",
+   "puntos": [
+    "Dudas sobre la <em>inteligencia artificial</em>: ¿darán beneficios las inversiones gigantes? Nvidia, −14 % el viernes",
+    "<em>Tipos al alza</em>: el mercado da casi por hecha una subida de la Fed el 9 de diciembre",
+    "Tensión en <em>Oriente Próximo</em>: el petróleo Brent, en torno a 92 $"
+   ]
+  },
+  {
+   "tipo": "vs",
+   "etiqueta": "QUÉ SIGNIFICA PARA TI",
+   "titulo": "¿Te afecta?",
+   "izq": {
+    "lab": "SÍ",
+    "icono": "📉",
+    "nombre": "Fondo indexado, plan de pensiones o acciones",
+    "cifra": "En rojo",
+    "texto": "su valor baja con la bolsa",
+    "color": "rojo"
+   },
+   "der": {
+    "lab": "NO",
+    "icono": "🏦",
+    "nombre": "Cuenta remunerada o depósito",
+    "cifra": "Igual",
+    "texto": "ese dinero no depende de la bolsa",
+    "color": "verde"
+   },
+   "nota": "Un fondo mixto cae menos: depende de cuánta bolsa lleve dentro."
+  },
+  {
+   "tipo": "mito",
+   "etiqueta": "MITO VS REALIDAD",
+   "mito": "Si mi fondo está en rojo, ese dinero ya lo he perdido",
+   "realidad": "Mientras no vendas, la pérdida es «latente»: sube y baja con el mercado. Se vuelve definitiva (y cuenta para Hacienda) cuando vendes.",
+   "nota": "Esto no es una recomendación de comprar ni de vender."
+  },
+  {
+   "tipo": "cierre",
+   "etiqueta": "PARA ESTE FINDE",
+   "titulo": "3 preguntas que hacerte",
+   "puntos": [
+    "¿Sé qué tengo? La ficha del fondo dice cuánta <em>bolsa</em> lleva",
+    "¿Cuándo voy a necesitar este dinero? El <em>plazo</em> pesa más que una mala semana",
+    "¿Me quita el sueño? Revisa tu <em>perfil de riesgo</em>"
+   ],
+   "cta": "Pásaselo a quien tenga un fondo 📉"
+  }
+ ]
+}
