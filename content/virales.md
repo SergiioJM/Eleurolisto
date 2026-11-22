@@ -3,6 +3,23 @@
 Investigación semanal con vidIQ (`vidiq_instagram_tiktok_outlier_search`, 5 créditos). Aquí se guardan los patrones, no se copian vídeos:
 cada recreación usa guion, cifras, diseño y voz propios de El Euro Listo.
 
+## 22-nov-2026 · búsqueda nocturna (pilar: DINERO Y LEY / temporada — Lotería de Navidad y Hacienda; español, audiencia España, desde el 8-nov, ≥ 5.000 vistas)
+| Cuenta | Vistas (x su mediana) | Gancho (0–3 s) | Formato / edición |
+|---|---|---|---|
+| @enplata.tv (TikTok) | 308 K (2,3x; 113 K seguidores) | Décimo animado + cifras que saltan: «El Gordo 07254 · 380.000 €» → «Si te toca el Gordo, ¿cuánto te queda de verdad? 328.000 €» | Motion graphics 2D rápido, 66 s, voz inmediata + notificaciones; explica también el décimo compartido |
+| @gcmasesores (IG) | 306 K (74,7x) | «Lo que se quedó Hacienda del bote de Pasapalabra» (pantalla partida: el concursante gana arriba, el creador abajo) | Reacción a noticia viral + desglose fiscal con rótulos que guían |
+| @gabriel.garciax (IG) | 200 K (30,2x) | «¿Cuánto costaría la gasolina sin impuestos?» | Croma, desglose de un precio en impuestos + «comenta YO» |
+| @finanzas.facilitas (IG) | 190 K (41,4x; 1 K seguidores) | Multitud 3D animada + «Mañana» (huelga) → cuánto te descuentan de la nómina | Motion graphics de alto ritmo, desglose de nómina con datos, pregunta final; en bucle |
+| @luchonerbutti (IG) | 192 K (23x) | «Escucha esto.» + récord de recaudación (641.000 M€) | Pantalla partida noticia + cara, opinión con datos y pregunta |
+| @siguealeuro1 (TikTok) | 136 K (20,5x; 222 seguidores) | Billete de 50 € en la calle + sello «DELITO» y «¿TE LO QUEDAS?» | Infografía animada rápida, 22 s, curiosidad legal |
+| @elfuncionariosupremo (IG) | 88 K (35,4x) | «Alguien en Valencia se ha hecho millonario de golpe…» (fondo liso, texto negro y amarillo) | Mito vs realidad numerado sobre premios, impuestos y ruina de ganadores; en bucle |
+
+### Lo que está funcionando hoy
+- **«Lo que se queda Hacienda» de un premio o un precio** (lotería, Pasapalabra, gasolina): cifra bruta → impuestos → lo que queda. Es lo más compartido de la semana en España. → Usado en el reel de las 13:30 del lunes 23 («El Gordo no son 400.000 €»).
+- **Cuentas pequeñas que revientan** (@finanzas.facilitas 1 K seguidores → 190 K; @siguealeuro1 222 → 136 K): motion graphics con desglose y un sello o un «¿te lo quedas?» en el primer segundo. El tamaño de la cuenta no frena si el gancho es una cifra que duele.
+- **Edición**: animación 2D rápida con cifras que saltan desde el fotograma 0, sellos («DELITO»), pantalla partida noticia + explicación. Nada de interfaz de móvil en el primer segundo.
+- Ideas para recrear: «¿Cuánto costaría X sin impuestos?» (gasolina, luz, tabaco) en R4 o cómic; «¿Te lo quedas?» (curiosidades legales) en pixel art; huelga/nómina cuando haya una convocatoria real.
+
 ## 20-nov-2026 · noche alterna (sin búsqueda de outliers: vidIQ 45 créditos, se reserva para TikTok cada noche)
 - Lo que está funcionando en NUESTRA cuenta (más fiable que los outliers ajenos): en TikTok, **inversión que desmonta una creencia con una cuenta fácil** (dividendos 1,8 K) y **cultura pop del día** (GTA 6, 986). En IG, el gancho con personaje 3D (inflación, 32 % de skip). Lo que no: móviles/interfaz en el primer segundo (estafas R4 64,5 % de skip, Bizum 68 %).
 - **Edición recreada esta noche: R1 "selector de estados"** (la de los monigotes con pestañas SOBRADO/DUDA/MIEDO/ENFOQUE que pasó Sergio): misma gramática (pestañas de radio arriba, la misma escena se repite y cambia el final, rebobinado entre finales) llevada a "¿comprar o alquilar e invertir?" con tres finales. Personajes, decorado y paleta nuestros.
