@@ -415,6 +415,24 @@
     "comp": null,
     "guard": null
    }
+  },
+  {
+   "id": "2026-11-22_2030_comprar_o_alquilar",
+   "fecha": "2026-11-22",
+   "hora": "20:30",
+   "tema": "¿Comprar o alquilar e invertir? (polémica)",
+   "pilar": "Vivienda + Inversión",
+   "look": "R1 monigotes",
+   "voz": "ElevenLabs Lucía",
+   "dur": 34,
+   "gancho": "Alquilar ya se come el 39 %… comprar, el 29 %. ¿Entonces compro?",
+   "ig": {
+    "code": "DgDjwFWkplG",
+    "mediaId": "17961039174256694"
+   },
+   "tt": {
+    "id": "7711080059188071713"
+   }
   }
  ],
  "posts": [

@@ -32,12 +32,21 @@
   "portada": "portada/portada.jpg (fondo: la calle con la casa en venta, el monigote y Listo en grande sorprendido, dibujado con window.PORTADA; kicker POLÉMICA · VIVIENDA, '¿Comprar o ALQUILAR E INVERTIR?', '3 finales: uno nadie lo cuenta', etiqueta 'alquilar: 39 %')",
   "creditos": "ElevenLabs 589 caracteres (2.481 → ~3.517 de 10.000 con los dos reels); 0 de Creative Claw; vidIQ 0",
   "elevenlabs_flow": "qKb9hlaApr4LLnofHi7h (voz nodo qYWmcvpdh4ME3vMAC7sD, generación 4ejVFgpxXW1D2uSZ8Yvh; transcripción duaXBKrnDvcWcotdrEZB)",
-  "estado": "APROBADO CON portada por Sergio (20-nov ~21:40: «Perfecto»; se usa la versión con portada, la que elige siempre); aviso de publicación trig_01SL1h8nmW2zW3qcSPqL4YpQ",
+  "estado": "PUBLICADO 22-nov ~20:29 (con portada; aprobado el 20-nov, «Perfecto», y confirmado por Sergio el 22-nov 18:05: «Hoy domingo lanza solo el reel de las 20:30»)",
   "commit_sha": "4e72a582f70b45cbc95db9e46ac1b3261b9e6459",
   "vidiq_uploadId_con_portada": "901604f4-0fc1-4b3b-9fcf-0edb121f8807",
   "vidiq_uploadId_sin_portada": "89dca57e-925e-416d-9686-e2e012054837",
   "duracion_s": 33.6,
   "brillo": "brillo medio por fotograma (54x96 gris): 33–53, sube despacio con las tarjetas; salto máximo 3,0 (0 saltos > 8)",
   "loudness": "−14,6 LUFS",
-  "gmail_thread": "1a1faaf99279434e"
+  "gmail_thread": "1a1faaf99279434e",
+  "instagram": {
+    "permalink": "https://www.instagram.com/reel/DgDjwFWkplG/",
+    "mediaId": "17961039174256694",
+    "containerId": "18015013706777966"
+  },
+  "tiktok": {
+    "url": "https://www.tiktok.com/@eleurolisto/video/7711080059188071713",
+    "vidiq_post": "ddb6e59c-772e-49ae-b3de-d78d3537d401"
+  }
 }
