@@ -26,8 +26,15 @@
   "brillo": "33–57; salto máximo 3,2 entre fotogramas (0 saltos > 8)",
   "portada": "portada/portada.jpg: kicker 'ESPECIAL GTA 6 · PARTE 3', '60 € EN 2013: ¿1 EMPRESA O 500?', sub 'hoy serían casi 300 €'; costa de noche con Listo sorprendido (gafas y mando). Va en el fotograma 0 de video_final_portada.mp4.",
   "duracion_s": 31.7,
-  "estado": "APROBADO CON portada (21-nov ~09:20); se publica el dom 22 a las 18:00 con send_later trig_01Mw2hHtHriF5A48XrhEeXFa",
+  "estado": "PUBLICADO 22-nov ~17:59 en IG + TikTok (versión con portada, uploadId c9272b12-712a-4822-80bc-559b433eb979)",
   "vidiq_uploadId_con_portada": "c9272b12-712a-4822-80bc-559b433eb979",
   "vidiq_uploadId_sin_portada": "d120cf4f-2cb9-4d1a-9e89-f9ec968a8dbe",
-  "creditos": "ElevenLabs 445 caracteres (quedan ~6.000 de 10.000) · Creative Claw 0 · vidIQ 0"
+  "creditos": "ElevenLabs 445 caracteres (quedan ~6.000 de 10.000) · Creative Claw 0 · vidIQ 0",
+  "publicado": {
+    "fecha": "2026-11-22T17:59+01:00",
+    "instagram": "https://www.instagram.com/reel/DgDSeSHk-x8/",
+    "instagram_mediaId": "18095275253206185",
+    "tiktok": "https://www.tiktok.com/@eleurolisto/video/7711041362786798880",
+    "tiktok_postId": "478a5a5e-2188-4f1e-931b-f569a6e4b04c"
+  }
 }
