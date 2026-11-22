@@ -23,3 +23,5 @@
 
 ## Aparcado el 18-nov (de plan_semanal.md)
 - **CRIPTO · Apalancamiento: así se liquidan miles de millones en un día** (qué es una liquidación, por qué con x10 una caída del 10 % se lo lleva todo; riesgo muy alto). Refrescar las cifras de liquidaciones del día (CoinGlass/prensa) antes de usarlo. Encaja con el look R7 low-poly "¿Y si…?" o con un R13 "globo de alerta".
+
+- **[22-nov] El ladrón invisible 2 — HECHO Y APROBADO, sin publicar** (R7 3D, ElevenLabs Mateo, IPC 4,9 %): no salió el domingo 22 a las 13:30 (límite de uso) y Sergio eligió hacer dos reels nuevos el lunes. uploadId CON portada 5a7d425d-7f87-4cec-83cb-59808330a631 · sin portada 24ddc86e-2493-4e1c-aecf-aa34c6977c9e; caption en reels/2026-11-22_1330_ladron_invisible_2/. Antes de usarlo en otro hueco: comprobar que el IPC sigue siendo el último dato (si sale uno nuevo del INE, rehacer las cifras) y pedir a Sergio que confirme la nueva fecha.
