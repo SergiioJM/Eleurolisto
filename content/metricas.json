@@ -1,16 +1,23 @@
 {
  "_nota": "Métricas de TODOS los vídeos (IG + TikTok). La tarea nocturna las actualiza cada noche (IG: vidiq_instagram_owner_insights mode reels/media, 0 créditos; TikTok: vidiq_tiktok_profile_videos, 5 créditos) y ejecuta `python3 toolkit/ranking.py` para regenerar content/ranking.md. Campos: ig_* de Instagram (vistas, % visto, skip, likes, comentarios, compartidos, guardados), tt_* de TikTok.",
- "actualizado": "2026-11-20 21:30 (Madrid)",
+ "actualizado": "2026-11-22 21:25 (Madrid)",
  "cuenta": {
   "ig_seguidores": 2,
   "ig_5dias": {
-   "alcance": 1284,
-   "vistas": 1742,
+   "alcance": 2538,
+   "vistas": 3318,
    "visitas_perfil": 14,
-   "cuentas_que_interactuan": 25,
-   "interacciones": 37
+   "cuentas_que_interactuan": 46,
+   "interacciones": 67
   },
-  "tt_seguidores": null
+  "tt_seguidores": null,
+  "ig_14dias": {
+   "alcance": 2538,
+   "vistas": 3318,
+   "visitas_perfil": 14,
+   "cuentas_que_interactuan": 46,
+   "interacciones": 67
+  }
  },
  "videos": [
   {
@@ -141,11 +148,11 @@
    "gancho": "Bizum por error: para recibir dinero no tienes que aceptar nada",
    "ig": {
     "code": "Df4gaB3Eo5-",
-    "vistas": 121,
-    "visto": 25.0,
-    "skip": 67.6,
+    "vistas": 122,
+    "visto": 27.4,
+    "skip": 67.0,
     "likes": 2,
-    "coment": 1,
+    "coment": 2,
     "comp": 0,
     "guard": 0
    },
@@ -229,7 +236,7 @@
    "ig": {
     "code": "Df7FchuAkq3",
     "vistas": 163,
-    "visto": 41.0,
+    "visto": 40.7,
     "skip": 45.3,
     "likes": 3,
     "coment": 0,
@@ -258,7 +265,7 @@
    "ig": {
     "code": "Df71O02D6x5",
     "vistas": 138,
-    "visto": 28.0,
+    "visto": 27.9,
     "skip": 36.3,
     "likes": 1,
     "coment": 0,
@@ -286,10 +293,10 @@
    "gancho": "¿Te piden pagar para sacar tu dinero?",
    "ig": {
     "code": "Df9qI_Sj2pH",
-    "vistas": 38,
-    "visto": 27.2,
-    "skip": 64.5,
-    "likes": 0,
+    "vistas": 101,
+    "visto": 21.4,
+    "skip": 62.9,
+    "likes": 1,
     "coment": 0,
     "comp": 0,
     "guard": 0
@@ -297,7 +304,7 @@
    "tt": {
     "id": "7710229700089564448",
     "vistas": 5,
-    "likes": 0,
+    "likes": 1,
     "coment": 0,
     "comp": 0,
     "guard": 0
@@ -315,18 +322,18 @@
    "gancho": "¿GTA 5 o acciones de Take-Two en 2013?",
    "ig": {
     "code": "Df-I1tGGtn7",
-    "vistas": 170,
-    "visto": 47.1,
-    "skip": 36.3,
-    "likes": 1,
+    "vistas": 1293,
+    "visto": 49.8,
+    "skip": 32.6,
+    "likes": 19,
     "coment": 0,
     "comp": 0,
-    "guard": 0
+    "guard": 2
    },
    "tt": {
     "id": "7710298997839220001",
     "vistas": null,
-    "nota": "no aparece en el feed público de TikTok a las ~3 h (21:10 del 20-nov): revisar en la app"
+    "nota": "22-nov 21:20: sigue sin aparecer en el feed público de TikTok (2 días): probablemente en revisión o no apto para Para ti → Sergio debe mirarlo en la app"
    }
   },
   {
@@ -341,18 +348,18 @@
    "gancho": "97,6 % de los fondos no bate a su índice",
    "ig": {
     "code": "Df-aFKInJ04",
-    "vistas": 21,
-    "visto": 2.4,
-    "skip": 10.0,
-    "likes": 0,
+    "vistas": 128,
+    "visto": 26.8,
+    "skip": 35.8,
+    "likes": 2,
     "coment": 0,
     "comp": 0,
     "guard": 0
    },
    "tt": {
     "id": "7710337885974662432",
-    "vistas": 75,
-    "likes": 1,
+    "vistas": 723,
+    "likes": 5,
     "coment": 0,
     "comp": 0,
     "guard": 1
@@ -370,21 +377,21 @@
    "gancho": "¿Crees que si no pasas tus criptos a euros, Hacienda no se entera?",
    "ig": {
     "code": "DgAOvhOk-qm",
-    "vistas": null,
-    "visto": null,
-    "skip": null,
-    "likes": null,
-    "coment": null,
-    "comp": null,
-    "guard": null
+    "vistas": 126,
+    "visto": 28.1,
+    "skip": 58.2,
+    "likes": 1,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0
    },
    "tt": {
     "id": "7710600588899159328",
-    "vistas": null,
-    "likes": null,
-    "coment": null,
-    "comp": null,
-    "guard": null
+    "vistas": 40,
+    "likes": 0,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0
    }
   },
   {
@@ -399,21 +406,21 @@
    "gancho": "¿1 empresa o 500? (GTA, parte tres)",
    "ig": {
     "code": "DgDSeSHk-x8",
-    "vistas": null,
-    "visto": null,
-    "skip": null,
-    "likes": null,
-    "coment": null,
-    "comp": null,
-    "guard": null
+    "vistas": 148,
+    "visto": 36.6,
+    "skip": 47.5,
+    "likes": 2,
+    "coment": 0,
+    "comp": 1,
+    "guard": 0
    },
    "tt": {
     "id": "7711041362786798880",
-    "vistas": null,
-    "likes": null,
-    "coment": null,
-    "comp": null,
-    "guard": null
+    "vistas": 267,
+    "likes": 3,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0
    }
   },
   {
@@ -428,10 +435,23 @@
    "gancho": "Alquilar ya se come el 39 %… comprar, el 29 %. ¿Entonces compro?",
    "ig": {
     "code": "DgDjwFWkplG",
-    "mediaId": "17961039174256694"
+    "mediaId": "17961039174256694",
+    "vistas": 9,
+    "visto": null,
+    "skip": null,
+    "likes": 0,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0,
+    "nota": "métricas de solo ~50 min (22-nov 21:20): skip/visto aún sin datos"
    },
    "tt": {
-    "id": "7711080059188071713"
+    "id": "7711080059188071713",
+    "vistas": 70,
+    "likes": 0,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0
    }
   }
  ],
@@ -504,6 +524,20 @@
    },
    "tt": {
     "vistas": 1,
+    "likes": 0
+   }
+  },
+  {
+   "id": "2026-11-21_semana_negra",
+   "tipo": "carrusel noticia",
+   "tema": "Semana negra en bolsa",
+   "ig": {
+    "vistas": 7,
+    "alcance": 2,
+    "likes": 1
+   },
+   "tt": {
+    "vistas": 0,
     "likes": 0
    }
   }

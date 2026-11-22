@@ -1,0 +1,269 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<script src="../../toolkit/mascota/listo2d.js"></script>
+<style>
+@font-face{font-family:"Archivo Black";src:url("../../toolkit/fuentes/archivo-black-latin-400-normal.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Archivo Black";src:url("../../toolkit/fuentes/archivo-black-latin-ext-400-normal.woff2") format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#f3e9d2}
+canvas{position:absolute;inset:0}
+</style></head>
+<body><canvas id="cv" width="1080" height="1920"></canvas>
+<script>
+// Look R9 · CÓMIC (primera vez en un reel; creado en el laboratorio del 18-nov): página de cómic sobre papel FIJO, viñetas con
+// contorno negro grueso y trama de puntos que entran con empuje lateral (como pasar de viñeta), onomatopeyas ("¡ZAS!"),
+// cartela de narrador para los subtítulos y Listo en modelado 'comic' que "rompe la viñeta" por abajo.
+// Todo depende solo de t y de timings.json (ElevenLabs · Juanjo Viral). Sin cambios de luz: papel y viñetas en tonos pastel
+// de brillo parecido; el dinamismo va en movimiento (empujes, zooms, golpes de rótulo).
+const TIM = window.TIM, S = TIM.segments, DUR = TIM.total;
+const P = !!window.PORTADA;
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x)), lerp = (a, b, k) => a + (b - a) * k, prog = (t, a, d) => clamp((t - a) / d);
+const eout = (k) => 1 - Math.pow(1 - k, 3), eio = (k) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
+const eback = (k, s = 1.7) => { k = clamp(k); return k <= 0 ? 0 : 1 + (s + 1) * Math.pow(k - 1, 3) + s * Math.pow(k - 1, 2); };
+const limpia = (w) => w.toLowerCase().replace(/[¿?¡!.,:;…]/g, "");
+const pal = (i, f, n = 0) => { const ws = S[i].words.filter((w) => limpia(w.w) === f); const w = ws[n] || ws[0]; if (!w) console.warn("falta", f); return w ? w.start : S[i].start; };
+const T = {
+  gordo: pal(0, "gordo"), no: pal(0, "no"), cuatro: pal(0, "cuatrocientos"), euros: pal(0, "euros"),
+  s1: S[1].start, queda: pal(1, "queda"), setenta: pal(1, "setenta"), mil1: pal(1, "mil"),
+  s2: S[2].start, cuarenta: pal(2, "cuarenta"), libres: pal(2, "libres"), resto: pal(2, "resto"), veinte: pal(2, "veinte"), ciento: pal(2, "ciento"),
+  s3: S[3].start, quedan: pal(3, "quedan"), trescientos: pal(3, "trescientos"), mil3: pal(3, "mil"),
+  s4: S[4].start, ojo: pal(4, "ojo"), probabilidad: pal(4, "probabilidad"), una: pal(4, "una"), cien: pal(4, "cien"),
+  s5: S[5].start, juegas: pal(5, "juegas"), comenta: pal(5, "comenta"), uno: pal(5, "uno"), si: pal(5, "sí"), dos: pal(5, "dos"), paso: pal(5, "paso"),
+};
+const FIN = S[5].start + S[5].dur;
+const cv = document.getElementById("cv"), X = cv.getContext("2d"), W = 1080, H = 1920;
+const CB = (px) => `${px}px "Archivo Black"`, PP = (peso, px) => `${peso} ${px}px Poppins`;
+const fmt = (v) => Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+const C = { tinta: "#111111", ambar: "#F59E0B", verde: "#22C55E", rojo: "#EF4444", azul: "#3B82F6", papel: "#f3e9d2" };
+// viñeta: posición fija en la página
+const PX = 50, PY = 318, PW = 980, PH = 900;
+const FONDOS = ["#ffe066", "#ffc9c9", "#a5d8ff", "#b2f2bb", "#d0bfff", "#ffe066"];
+const INI = [0, T.s1 - 0.12, T.s2 - 0.12, T.s3 - 0.12, T.s4 - 0.12, T.s5 - 0.12];
+const TR = 0.42; // duración del empuje entre viñetas
+
+// ---------- utilidades ----------
+function rr(x, y, w, h, r) { X.beginPath(); X.roundRect(x, y, w, h, r); }
+function letra(s, x, y, px, fill, borde = C.tinta, bw = 12, sombra = null, align = "center", font = null) {
+  X.save(); X.font = font || CB(px); X.textAlign = align; X.textBaseline = "middle"; X.lineJoin = "round";
+  if (sombra) { X.fillStyle = sombra; X.strokeStyle = sombra; X.lineWidth = bw; X.strokeText(s, x + px * 0.06, y + px * 0.07); X.fillText(s, x + px * 0.06, y + px * 0.07); }
+  X.strokeStyle = borde; X.lineWidth = bw; X.strokeText(s, x, y); X.fillStyle = fill; X.fillText(s, x, y); X.restore();
+}
+function texto(s, x, y, font, color, align = "center", alpha = 1) { if (alpha <= 0) return; X.save(); X.globalAlpha *= alpha; X.font = font; X.fillStyle = color; X.textAlign = align; X.textBaseline = "middle"; X.fillText(s, x, y); X.restore(); }
+function estallido(cx, cy, r1, r2, n, fill, rot = 0, k = 1) {
+  if (k <= 0) return; X.save(); X.translate(cx, cy); X.rotate(rot); X.scale(k, k); X.beginPath();
+  for (let i = 0; i < n * 2; i++) { const a = (i / (n * 2)) * Math.PI * 2, r = i % 2 ? r2 : r1; X.lineTo(Math.cos(a) * r, Math.sin(a) * r); }
+  X.closePath(); X.fillStyle = fill; X.fill(); X.lineWidth = 9; X.strokeStyle = C.tinta; X.lineJoin = "round"; X.stroke(); X.restore();
+}
+function boton(cx, cy, w, h, s, fill, k, on, px = 52) {
+  if (k <= 0) return; const e = eback(k, 2); X.save(); X.translate(cx, cy); X.scale(e, e);
+  rr(-w / 2 + 8, -h / 2 + 10, w, h, h / 2); X.fillStyle = C.tinta; X.fill();
+  rr(-w / 2, -h / 2 + (on ? 6 : 0), w, h, h / 2); X.fillStyle = fill; X.fill(); X.lineWidth = 8; X.strokeStyle = C.tinta; X.stroke();
+  letra(s, 0, (on ? 6 : 0) + 3, px, "#fff", C.tinta, 9); X.restore();
+}
+// trama de puntos (patrón precalculado)
+const trama = (() => { const c = document.createElement("canvas"); c.width = c.height = 24; const g = c.getContext("2d"); g.fillStyle = "rgba(0,0,0,0.07)"; g.beginPath(); g.arc(6, 6, 3.2, 0, 7); g.fill(); g.beginPath(); g.arc(18, 18, 3.2, 0, 7); g.fill(); return c; })();
+const tramaP = X.createPattern(trama, "repeat");
+const papelC = document.createElement("canvas"); papelC.width = W; papelC.height = H;
+(function pintarPapel() {
+  const g = papelC.getContext("2d"); g.fillStyle = C.papel; g.fillRect(0, 0, W, H);
+  for (let i = 0; i < 2600; i++) { const x = (Math.sin(i * 12.9898) * 43758.5453 % 1 + 1) % 1 * W, y = (Math.sin(i * 78.233) * 12345.678 % 1 + 1) % 1 * H; g.fillStyle = i % 2 ? "rgba(120,90,40,0.05)" : "rgba(255,255,255,0.18)"; g.fillRect(x, y, 3, 3); }
+  g.fillStyle = "rgba(120,90,40,0.06)"; for (let y = 0; y < H; y += 30) for (let x = (y / 30) % 2 * 15; x < W; x += 30) { g.beginPath(); g.arc(x, y, 2.2, 0, 7); g.fill(); }
+})();
+
+// ---------- billetes ----------
+function fajo(x, y, w = 190, h = 46, a = 1) {
+  if (a <= 0) return; X.save(); X.globalAlpha *= a; rr(x - w / 2, y - h / 2, w, h, 6); X.fillStyle = "#4ade80"; X.fill(); X.lineWidth = 5; X.strokeStyle = C.tinta; X.stroke();
+  X.fillStyle = "#166534"; X.fillRect(x - 18, y - h / 2 + 2, 36, h - 4); X.fillStyle = "#dcfce7"; X.font = CB(22); X.textAlign = "center"; X.textBaseline = "middle"; X.fillText("€", x - w / 2 + 26, y + 1); X.fillText("€", x + w / 2 - 26, y + 1); X.restore();
+}
+
+// ---------- 100.000 décimos (cuadrícula) ----------
+const GC = 400, GR = 250, GX = 40, GY = 250, GW = 900, GH = 600, CW = GW / GC, CH = GH / GR, TC = 233, TRow = 141;
+const rejilla = document.createElement("canvas"); rejilla.width = GW; rejilla.height = GH;
+(function pintarRejilla() { const g = rejilla.getContext("2d"); g.fillStyle = "#fffaf0"; for (let r = 0; r < GR; r++) for (let c = 0; c < GC; c++) g.fillRect(c * CW + CW * 0.1, r * CH + CH * 0.1, CW * 0.8, CH * 0.8); g.fillStyle = C.ambar; g.fillRect(TC * CW, TRow * CH, CW, CH); })();
+function dibujaRejilla(ox, oy, z, kTu) { // z = aumento (1 = cuadrícula entera); centrada en el décimo marcado
+  const fx = (TC + 0.5) * CW, fy = (TRow + 0.5) * CH; // foco en coordenadas de la rejilla
+  const cx = ox + GX + GW / 2, cy = oy + GY + GH / 2;
+  const mapx = (gx) => cx + (gx - lerp(GW / 2, fx, 1 - 1 / z)) * z, mapy = (gy) => cy + (gy - lerp(GH / 2, fy, 1 - 1 / z)) * z;
+  X.save(); X.beginPath(); X.rect(ox + GX - 10, oy + GY - 10, GW + 20, GH + 20); X.clip();
+  X.fillStyle = "#7c6bb0"; X.fillRect(ox + GX - 10, oy + GY - 10, GW + 20, GH + 20);
+  const cw = CW * z, ch = CH * z;
+  if (cw < 7) { X.imageSmoothingEnabled = true; const x0 = mapx(0), y0 = mapy(0); X.drawImage(rejilla, x0, y0, GW * z, GH * z); }
+  else {
+    const c0 = Math.max(0, Math.floor((ox + GX - mapx(0)) / cw) - 1), c1 = Math.min(GC - 1, Math.ceil((ox + GX + GW - mapx(0)) / cw) + 1);
+    const r0 = Math.max(0, Math.floor((oy + GY - mapy(0)) / ch) - 1), r1 = Math.min(GR - 1, Math.ceil((oy + GY + GH - mapy(0)) / ch) + 1);
+    for (let r = r0; r <= r1; r++) for (let c = c0; c <= c1; c++) {
+      const x = mapx(c * CW), y = mapy(r * CH); const tu = c === TC && r === TRow;
+      X.fillStyle = tu ? C.ambar : "#fffaf0"; X.fillRect(x + cw * 0.1, y + ch * 0.1, cw * 0.8, ch * 0.8);
+      if (cw > 40) { X.fillStyle = tu ? "#7c2d12" : "rgba(80,60,120,0.55)"; X.font = CB(Math.min(26, cw * 0.18)); X.textAlign = "center"; X.textBaseline = "middle";
+        X.fillText(String(r * GC + c).padStart(5, "0"), x + cw / 2, y + ch / 2); }
+    }
+  }
+  X.restore();
+  // marco de la rejilla
+  X.lineWidth = 8; X.strokeStyle = C.tinta; X.strokeRect(ox + GX - 10, oy + GY - 10, GW + 20, GH + 20);
+  // "TU DÉCIMO": flecha al décimo marcado
+  if (kTu > 0) { const tx = mapx(fx), ty = mapy(fy); X.save(); X.globalAlpha = kTu; X.strokeStyle = C.rojo; X.lineWidth = 7; X.beginPath(); X.arc(tx, ty, lerp(70, 26, clamp((z - 1) / -1 + 1)), 0, 7); X.stroke();
+    X.restore(); }
+  return [mapx(fx), mapy(fy)];
+}
+
+// ---------- contenido de cada viñeta (coordenadas relativas a la viñeta) ----------
+function vineta(i, t) {
+  const ox = 0, oy = 0;
+  if (i === 0 && P) { // PORTADA: fondo limpio para portada.mjs (el título lo pone la plantilla)
+    X.save(); X.strokeStyle = "rgba(0,0,0,0.10)"; X.lineWidth = 6; for (let k = 0; k < 28; k++) { const a = (k / 28) * Math.PI * 2; X.beginPath(); X.moveTo(400 + Math.cos(a) * 260, 640 + Math.sin(a) * 260); X.lineTo(400 + Math.cos(a) * 900, 640 + Math.sin(a) * 900); X.stroke(); } X.restore();
+    estallido(400, 700, 270, 205, 14, "#fff", 0.1, 1);
+    letra("−72.000 €", 400, 700, 88, C.rojo, C.tinta, 14);
+    X.save(); X.translate(170, 520); X.rotate(-0.18); estallido(0, 0, 120, 82, 11, C.ambar); letra("¡ZAS!", 0, 4, 58, C.rojo, C.tinta, 10); X.restore();
+    return;
+  }
+  if (i === 0) { // EL GORDO NO SON 400.000 €
+    // líneas de velocidad (fijas)
+    X.save(); X.strokeStyle = "rgba(0,0,0,0.10)"; X.lineWidth = 6; for (let k = 0; k < 28; k++) { const a = (k / 28) * Math.PI * 2; X.beginPath(); X.moveTo(380 + Math.cos(a) * 260, 560 + Math.sin(a) * 260); X.lineTo(380 + Math.cos(a) * 900, 560 + Math.sin(a) * 900); X.stroke(); } X.restore();
+    const kb = P ? 1 : 0.92 + 0.08 * eback(prog(t, 0, 0.35), 2.5);
+    X.save(); X.translate(PW / 2, 120); X.scale(kb, kb); letra("EL GORDO", 0, 0, 130, "#fff", C.tinta, 16, C.rojo); X.restore();
+    X.save(); X.translate(PW / 2 - 40, 255); X.rotate(-0.04); letra("NO SON", 0, 0, 92, C.ambar, C.tinta, 14, C.tinta); X.restore();
+    const pul = 1 + 0.03 * Math.sin(t * 9);
+    estallido(370, 560, 270, 200, 14, "#fff", 0.1, (P ? 1 : 0.85 + 0.15 * eback(prog(t, 0, 0.4), 2)) * pul);
+    letra("400.000 €", 370, 560, 96, C.verde, C.tinta, 14);
+    const kx = P ? 0 : prog(t, T.euros - 0.05, 0.25), kx2 = P ? 0 : prog(t, T.euros + 0.12, 0.25);
+    if (kx > 0) { X.save(); X.lineCap = "round"; X.strokeStyle = C.rojo; X.lineWidth = 26; X.beginPath(); X.moveTo(170, 440); X.lineTo(lerp(170, 570, kx), lerp(440, 680, kx)); X.stroke();
+      if (kx2 > 0) { X.beginPath(); X.moveTo(570, 440); X.lineTo(lerp(570, 170, kx2), lerp(440, 680, kx2)); X.stroke(); } X.restore(); }
+    if (!P) { const kq = eback(prog(t, T.euros + 0.35, 0.3), 2.5); if (kq > 0) { X.save(); X.translate(370, 800); X.rotate(-0.06); X.scale(kq, kq); letra("¿ENTONCES?", 0, 0, 64, "#fff", C.tinta, 12, C.azul); X.restore(); } }
+  }
+  if (i === 1) { // HACIENDA SE QUEDA 72.000
+    const pila = 10, base = 820; const kg = prog(t, T.setenta - 0.05, 0.7), sube = eio(prog(t, T.setenta + 0.15, 0.6));
+    for (let k = 0; k < pila; k++) { if (k >= 8 && kg > 0) continue; fajo(330 + (k % 2) * 6, base - k * 44, 230, 46); }
+    texto("400.000 €", 330, base + 52, CB(40), C.tinta);
+    // garra de Hacienda que baja
+    const kd = eout(prog(t, T.s1 + 0.05, 0.45)), yG = lerp(-260, base - 9 * 44 - 70, kd) - sube * 700;
+    X.save(); X.translate(330, yG);
+    X.fillStyle = "#9ca3af"; X.strokeStyle = C.tinta; X.lineWidth = 7; X.fillRect(-26, -900, 52, 900); X.strokeRect(-26, -900, 52, 900);
+    rr(-150, -250, 300, 86, 14); X.fillStyle = "#334155"; X.fill(); X.stroke(); texto("HACIENDA", 0, -206, CB(46), "#fff");
+    const ab = lerp(0.55, 0.12, prog(t, T.queda, 0.3));
+    for (const sg of [-1, 1]) { X.save(); X.rotate(sg * ab); X.beginPath(); X.moveTo(0, 0); X.lineTo(sg * 150, 40); X.lineTo(sg * 150, 110); X.lineTo(sg * 120, 120); X.lineTo(sg * 110, 64); X.lineTo(0, 30); X.closePath(); X.fillStyle = "#cbd5e1"; X.fill(); X.stroke(); X.restore(); }
+    X.beginPath(); X.arc(0, 0, 34, 0, 7); X.fillStyle = "#64748b"; X.fill(); X.stroke();
+    if (kg > 0) { fajo(0, 95, 230, 46); fajo(6, 140, 230, 46); }
+    X.restore();
+    // ¡ZAS! y −72.000 €
+    const kz = eback(prog(t, T.queda - 0.05, 0.3), 2.6);
+    if (kz > 0) { X.save(); X.translate(760, 330); X.rotate(0.16); X.scale(kz, kz); estallido(0, 0, 175, 120, 12, C.ambar); letra("¡ZAS!", 0, 6, 92, C.rojo, C.tinta, 14); X.restore(); }
+    const km = eback(prog(t, T.setenta - 0.05, 0.35), 2.2);
+    if (km > 0) { X.save(); X.translate(610, 545); X.rotate(-0.05); X.scale(km, km); letra("−72.000 €", 0, 0, 92, C.rojo, C.tinta, 15, "#fff"); X.restore();
+      texto("se lo queda Hacienda", 610, 625, PP(700, 36), C.tinta, "center", clamp(km)); }
+  }
+  if (i === 2) { // CÓMO SE CALCULA
+    letra("¿CÓMO SE CALCULA?", PW / 2, 95, 64, "#fff", C.tinta, 12, C.azul);
+    const bx = 110, bw = 230, by0 = 820, bh = 640; // barra vertical: 400.000 €
+    rr(bx, by0 - bh, bw, bh, 10); X.fillStyle = "#fff"; X.fill(); X.lineWidth = 8; X.strokeStyle = C.tinta; X.stroke();
+    const kL = eout(prog(t, T.cuarenta - 0.1, 0.4)), kR = eout(prog(t, T.resto - 0.1, 0.5)), kV = eout(prog(t, T.veinte - 0.1, 0.4));
+    const hL = bh * 0.1, hR = bh * 0.9, hV = hR * 0.2;
+    X.save(); rr(bx, by0 - bh, bw, bh, 10); X.clip();
+    X.fillStyle = C.verde; X.fillRect(bx, by0 - hL * kL, bw, hL * kL);
+    X.fillStyle = "#cbd5e1"; X.fillRect(bx, by0 - hL - (hR - hV) * kR, bw, (hR - hV) * kR);
+    if (kR > 0) { X.fillStyle = "#cbd5e1"; X.fillRect(bx, by0 - bh, bw, hV * kR); }
+    X.fillStyle = C.rojo; X.fillRect(bx, by0 - bh, bw, hV * kV);
+    X.fillStyle = tramaP; X.fillRect(bx, by0 - bh, bw, bh); X.restore();
+    rr(bx, by0 - bh, bw, bh, 10); X.lineWidth = 8; X.strokeStyle = C.tinta; X.stroke();
+    texto("400.000 €", bx + bw / 2, by0 + 50, CB(40), C.tinta);
+    // etiquetas
+    const etq = (y, s1, s2, col, k) => { if (k <= 0) return; X.save(); X.globalAlpha = clamp(k * 2); X.translate((1 - eout(k)) * 60, 0);
+      X.strokeStyle = C.tinta; X.lineWidth = 5; X.beginPath(); X.moveTo(bx + bw + 10, y); X.lineTo(bx + bw + 60, y); X.stroke();
+      rr(bx + bw + 60, y - 62, 520, 124, 16); X.fillStyle = "#fff"; X.fill(); X.lineWidth = 6; X.stroke();
+      texto(s1, bx + bw + 85, y - 24, CB(44), col, "left"); texto(s2, bx + bw + 85, y + 30, PP(700, 32), C.tinta, "left"); X.restore(); };
+    etq(by0 - hL / 2 - 10, "40.000 €", "libres de impuestos", "#15803d", prog(t, T.libres - 0.25, 0.4));
+    etq(by0 - hL - (hR - hV) / 2, "360.000 €", "el resto", "#475569", prog(t, T.resto - 0.1, 0.4));
+    etq(by0 - bh + hV / 2 + 30, "× 20 % = 72.000 €", "para Hacienda", C.rojo, prog(t, T.veinte, 0.4));
+  }
+  if (i === 3) { // TE QUEDAN 328.000 €
+    letra("TE QUEDAN", PW / 2, 115, 110, "#fff", C.tinta, 16, C.verde);
+    const kc = prog(t, T.quedan, T.mil3 + 0.25 - T.quedan), v = 328000 * eout(kc);
+    const golpe = eback(prog(t, T.mil3 + 0.2, 0.35), 3);
+    estallido(PW / 2, 470, 340, 255, 16, "#fff", 0.05, 0.9 + 0.1 * golpe);
+    X.save(); X.translate(PW / 2, 470); const sc = 1 + 0.12 * Math.sin(Math.PI * prog(t, T.mil3 + 0.2, 0.35)); X.scale(sc, sc); letra(fmt(v) + " €", 0, 0, 118, C.verde, C.tinta, 16); X.restore();
+    texto("de 400.000 € por décimo", PW / 2, 570, PP(700, 36), C.tinta, "center", eout(prog(t, T.trescientos, 0.4)));
+    // fajos que vuelan hacia Listo
+    for (let k = 0; k < 6; k++) { const kk = prog(t, T.trescientos + k * 0.12, 0.6); if (kk > 0 && kk < 1) { const e = eio(kk); fajo(lerp(PW / 2, 820, e), lerp(480, 780, e) - Math.sin(Math.PI * e) * 160, 170, 40); } }
+  }
+  if (i === 4) { // 1 ENTRE 100.000
+    texto("PROBABILIDAD DE QUE TE TOQUE", PW / 2, 80, CB(40), C.tinta);
+    const kz = eio(prog(t, T.s4 + 0.1, T.una - T.s4 + 0.1));
+    const z = Math.exp(lerp(Math.log(60), 0, kz));
+    dibujaRejilla(0, 0, z, 1 - prog(t, T.cien + 0.4, 0.3) * 0.0);
+    if (z > 8) { const k = clamp((z - 8) / 10); texto("TU DÉCIMO", PW / 2, 200, CB(40), C.rojo, "center", k); }
+    const ku = eback(prog(t, T.una - 0.05, 0.35), 2.4);
+    if (ku > 0) { X.save(); X.translate(PW / 2 - 90, 770); X.rotate(-0.03); X.scale(ku, ku); rr(-360, -72, 720, 144, 24); X.fillStyle = "#fff"; X.fill(); X.lineWidth = 9; X.strokeStyle = C.tinta; X.stroke();
+      letra("1 ENTRE 100.000", 0, 4, 74, C.rojo, C.tinta, 12); X.restore(); }
+  }
+  if (i === 5) { // ¿TÚ JUEGAS?
+    X.save(); X.translate(PW / 2, 120); const kq = P ? 1 : eback(prog(t, T.s5 - 0.05, 0.4), 2); X.scale(kq, kq); letra("¿TÚ JUEGAS", 0, 0, 104, "#fff", C.tinta, 16, C.rojo); X.restore();
+    X.save(); X.translate(PW / 2, 240); const kq2 = eback(prog(t, T.juegas, 0.4), 2); X.scale(kq2, kq2); letra("ESTE AÑO?", 0, 0, 104, "#fff", C.tinta, 16, C.rojo); X.restore();
+    boton(PW / 2 - 140, 420, 520, 118, "1 · SÍ, JUEGO", C.verde, prog(t, T.uno - 0.15, 0.35), t > T.uno && t < T.dos);
+    boton(PW / 2 - 140, 575, 520, 118, "2 · PASO", C.rojo, prog(t, T.dos - 0.15, 0.35), t > T.dos);
+    letra("COMENTA 1 O 2", PW / 2 - 140, 715, 54, C.ambar, C.tinta, 11, null, "center");
+    X.save(); X.globalAlpha = eout(prog(t, T.comenta, 0.3)); X.restore();
+  }
+}
+
+function subtitulos(t) {
+  if (P) return; let si = S.findIndex((s, k) => t >= s.start - 0.05 && (k === S.length - 1 || t < S[k + 1].start - 0.05)); if (si < 0) return;
+  const ws = S[si].words; let wi = ws.findIndex((w, k) => t >= w.start - 0.03 && (k === ws.length - 1 || t < ws[k + 1].start - 0.03)); if (wi < 0) wi = 0;
+  // trozos de ~22 caracteres
+  const trozos = []; let cur = [];
+  ws.forEach((w, k) => { const len = cur.map((x) => ws[x].w).join(" ").length; if (cur.length && len + w.w.length > 22) { trozos.push(cur); cur = []; } cur.push(k); }); if (cur.length) trozos.push(cur);
+  const tr = trozos.find((g) => g.includes(wi)) || trozos[0];
+  X.font = CB(50); const partes = tr.map((k) => ws[k].w.toUpperCase()); const sp = 28;
+  const anchos = partes.map((p) => X.measureText(p).width), total = anchos.reduce((a, b) => a + b, 0) + sp * (partes.length - 1);
+  const y = 1318, bw = Math.max(520, total + 80);
+  X.save(); X.translate(W / 2, y); X.rotate(-0.012);
+  rr(-bw / 2 + 8, -58, bw, 116, 6); X.fillStyle = C.tinta; X.fill();
+  rr(-bw / 2, -66, bw, 116, 6); X.fillStyle = "#fff8dc"; X.fill(); X.lineWidth = 7; X.strokeStyle = C.tinta; X.stroke();
+  let x = -total / 2; partes.forEach((p, j) => { const k = tr[j]; const act = k === wi; const pas = k < wi;
+    X.textAlign = "left"; X.textBaseline = "middle"; X.font = CB(50); X.fillStyle = act ? C.rojo : pas ? C.tinta : "rgba(17,17,17,0.35)";
+    const e = act ? 1 + 0.07 * (1 - prog(t, ws[k].start, 0.15)) : 1; X.save(); X.translate(x + anchos[j] / 2, -6); X.scale(e, e); X.fillText(p, -anchos[j] / 2, 0); X.restore(); x += anchos[j] + sp; });
+  X.restore();
+}
+
+function renderAt(t) {
+  X.setTransform(1, 0, 0, 1, 0, 0); X.globalAlpha = 1; X.drawImage(papelC, 0, 0);
+  // cabecera: cartela del especial
+  if (!P) { X.save(); X.translate(W / 2, 236); X.rotate(-0.025); rr(-330, -38, 660, 76, 6); X.fillStyle = C.rojo; X.fill(); X.lineWidth = 7; X.strokeStyle = C.tinta; X.stroke();
+  texto("ESPECIAL LOTERÍA · PARTE 1", 0, 3, CB(38), "#fff"); X.restore(); }
+  // viñeta actual y la anterior (empuje lateral)
+  let cur = 0; for (let k = 0; k < INI.length; k++) if (t >= INI[k]) cur = k;
+  const kt = P || cur === 0 ? 1 : eio(prog(t, INI[cur], TR));
+  const dib = (k, off, rot) => { if (k < 0) return; X.save(); X.translate(PX + PW / 2 + off, PY + PH / 2); X.rotate(rot); X.translate(-PW / 2, -PH / 2);
+    rr(14, 16, PW, PH, 18); X.fillStyle = C.tinta; X.fill();
+    rr(0, 0, PW, PH, 18); X.fillStyle = FONDOS[k]; X.fill(); X.save(); X.clip(); X.fillStyle = tramaP; X.fillRect(0, 0, PW, PH); vineta(k, t); X.restore();
+    rr(0, 0, PW, PH, 18); X.lineWidth = 11; X.strokeStyle = C.tinta; X.stroke(); X.restore(); };
+  if (cur > 0 && kt < 1) dib(cur - 1, -kt * (W + 60), -0.05 * kt);
+  dib(cur, (1 - kt) * (W + 60), 0.05 * (1 - kt));
+
+  // --- LISTO (modelado 'comic'), rompe la viñeta por abajo ---
+  const o = { x: 860, y: 1252, s: 0.74, t, estilo: "comic", expr: "sorpresa", pose: "saludo", mira: [-0.6, -0.3], acc: ["decimo"] };
+  if (cur === 0) { o.anim = "rebote"; o.animT = t; o.expr = t < T.euros ? "sorpresa" : "preocupado"; o.pose = t < T.euros ? "saludo" : "brazosAbiertos"; if (t > T.euros) o.acc = []; if (t < T.euros) o.accK = { decimo: 1 }; }
+  else if (cur === 1) { o.acc = []; o.pose = t < T.setenta ? "brazosCruzados" : "brazosAbiertos"; o.expr = "preocupado"; o.anim = t < T.setenta ? "temblor" : "desinfla"; o.animT = t < T.setenta ? t - T.queda : t - T.setenta; o.x = 880; }
+  else if (cur === 2) { o.acc = []; o.pose = t < T.resto ? "piensa" : "senalaIzq"; o.expr = t < T.resto ? "idea" : "normal"; o.x = 900; if (t > T.veinte) { o.expr = "sorpresa"; } }
+  else if (cur === 3) { o.acc = []; o.modo = "vacilon"; o.accK = { gafas: eout(prog(t, T.trescientos - 0.2, 0.5)), cadena: eout(prog(t, T.trescientos, 0.5)) }; o.pose = "celebra"; o.expr = "feliz"; o.anim = "salto"; o.animT = t - T.trescientos + 0.1; o.x = 860; }
+  else if (cur === 4) { o.acc = []; o.pose = t < T.una ? "piensa" : "brazosAbiertos"; o.expr = t < T.una ? "normal" : "preocupado"; if (t > T.una - 0.1) { o.anim = "temblor"; o.animT = t - T.una + 0.1; } o.x = 900;
+    if (t > T.cien) { o.acc = ["gorroRoto"]; o.accK = { gorroRoto: eout(prog(t, T.cien, 0.5)) }; } }
+  else { // firma: giro, guiño + mano redonda en alto, y pulsa SEGUIR
+    o.acc = []; o.x = 840; o.s = 0.8;
+    if (t < T.s5 + 0.9) { o.anim = "giro"; o.animT = t - T.s5 + 0.1; o.pose = "saludo"; o.expr = "feliz"; }
+    else if (t < FIN - 1.0) { o.pose = "pulgar"; o.expr = "guino"; }
+    else { o.pose = "senalaIzq"; o.expr = "feliz"; }
+  }
+  if (P) { o.anim = null; o.modo = null; o.x = 830; o.y = 1250; o.s = 0.95; o.pose = "saludo"; o.expr = "sorpresa"; o.acc = ["decimo"]; o.accK = { decimo: 1 }; }
+  // transición: Listo se agacha un poco al pasar de viñeta (movimiento, no luz)
+  Listo2D.dibujar(X, o);
+  // botón + SEGUIR al final
+  if (!P) { const ks = prog(t, FIN - 1.15, 0.35); if (ks > 0) { const press = prog(t, FIN - 0.45, 0.12) * (1 - prog(t, FIN - 0.2, 0.15));
+    X.save(); X.translate(470, 1148); const e = eback(ks, 2) * (1 - 0.08 * press); X.scale(e, e); rr(-200, -52, 400, 104, 52); X.fillStyle = "#fff"; X.fill(); X.lineWidth = 8; X.strokeStyle = C.tinta; X.stroke();
+    texto("+ SEGUIR", 0, -8, CB(46), C.tinta); texto("parte 2 muy pronto", 0, 30, PP(700, 22), C.rojo); X.restore(); } }
+  subtitulos(t);
+  if (!P) { texto("Premios por décimo de 20 € · 40.000 € exentos y 20 % del resto (gravamen especial) · educativo", W / 2, 1438, PP(600, 21), "rgba(60,45,20,0.7)");
+    texto("@eleurolisto", W / 2, 1484, CB(30), "rgba(17,17,17,0.6)"); }
+}
+window.DURACION = DUR;
+window.renderAt = renderAt;
+Promise.all([document.fonts.load('40px "Archivo Black"'), document.fonts.load("700 40px Poppins"), document.fonts.load("600 20px Poppins")]).then(() => document.fonts.ready).then(() => { renderAt(0); window.listo = true; });
+</script></body></html>

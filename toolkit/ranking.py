@@ -32,7 +32,7 @@ f = lambda x: f"{x:.0f}"
 L = [f"# Ranking de vídeos — @eleurolisto", "", f"Actualizado: {D.get('actualizado','')}. Generado con `python3 toolkit/ranking.py` desde `content/metricas.json` (no editar a mano).", ""]
 c = D.get("cuenta", {})
 L += [f"**Cuenta:** IG {c.get('ig_seguidores','?')} seguidores" + (f" · TikTok {c['tt_seguidores']} seguidores" if c.get("tt_seguidores") else "") +
-      (f" · IG últimos días: alcance {c['ig_5dias']['alcance']}, vistas {c['ig_5dias']['vistas']}, visitas al perfil {c['ig_5dias']['visitas_perfil']}, interacciones {c['ig_5dias']['interacciones']}" if c.get("ig_5dias") else ""), ""]
+      (f" · IG 14 días: alcance {c['ig_5dias']['alcance']}, vistas {c['ig_5dias']['vistas']}, visitas al perfil {c['ig_5dias']['visitas_perfil']}, interacciones {c['ig_5dias']['interacciones']}" if c.get("ig_5dias") else ""), ""]
 L += ["| # | Fecha | Tema | Look | Voz | Gancho (0–3 s) | Vistas IG+TT | GANCHO | RETENC. | ALCANCE | INTERAC. | **TOTAL** |", "|---|---|---|---|---|---|---|---|---|---|---|---|"]
 for i, v in enumerate(orden, 1):
     L.append(f"| {i} | {v['fecha'][5:]} {v['hora']} | {v['tema']} | {v['look']} | {v['voz']} | {v['gancho']} | {g(v.get('ig'),'vistas')}+{g(v.get('tt'),'vistas')} | {f(v['s_gancho'])} | {f(v['s_ret'])} | {f(v['s_alc'])} | {f(v['s_int'])} | **{f(v['total'])}** |")

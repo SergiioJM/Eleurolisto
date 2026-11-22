@@ -1,0 +1,580 @@
+{
+ "total": 31.413,
+ "voz": "ElevenLabs · Mateo (gpMzl7dbkfC9dIxAqQZT, eleven_v4)",
+ "segments": [
+  {
+   "i": 0,
+   "start": 0.2,
+   "dur": 3.612,
+   "text": "Hacienda te devuelve cuatrocientos cincuenta euros… y luego te los cobra.",
+   "words": [
+    {
+     "w": "Hacienda",
+     "start": 0.2,
+     "end": 0.6
+    },
+    {
+     "w": "te",
+     "start": 0.633,
+     "end": 0.667
+    },
+    {
+     "w": "devuelve",
+     "start": 0.733,
+     "end": 1.067
+    },
+    {
+     "w": "cuatrocientos",
+     "start": 1.133,
+     "end": 1.8
+    },
+    {
+     "w": "cincuenta",
+     "start": 1.844,
+     "end": 2.133
+    },
+    {
+     "w": "euros…",
+     "start": 2.267,
+     "end": 2.727
+    },
+    {
+     "w": "y",
+     "start": 2.76,
+     "end": 2.794
+    },
+    {
+     "w": "luego",
+     "start": 2.86,
+     "end": 3.127
+    },
+    {
+     "w": "te",
+     "start": 3.194,
+     "end": 3.26
+    },
+    {
+     "w": "los",
+     "start": 3.327,
+     "end": 3.394
+    },
+    {
+     "w": "cobra.",
+     "start": 3.46,
+     "end": 3.812
+    }
+   ]
+  },
+  {
+   "i": 1,
+   "start": 3.862,
+   "dur": 1.962,
+   "text": "Plan de pensiones: ¿chollo o trampa?",
+   "words": [
+    {
+     "w": "Plan",
+     "start": 3.862,
+     "end": 3.996
+    },
+    {
+     "w": "de",
+     "start": 4.062,
+     "end": 4.096
+    },
+    {
+     "w": "pensiones:",
+     "start": 4.129,
+     "end": 4.739
+    },
+    {
+     "w": "¿chollo",
+     "start": 4.789,
+     "end": 5.123
+    },
+    {
+     "w": "o",
+     "start": 5.256,
+     "end": 5.323
+    },
+    {
+     "w": "trampa?",
+     "start": 5.389,
+     "end": 5.824
+    }
+   ]
+  },
+  {
+   "i": 2,
+   "start": 5.91,
+   "dur": 6.567,
+   "text": "Chollo: metes mil quinientos euros al año y, si tu tramo de IRPF es del treinta por ciento, te ahorras cuatrocientos cincuenta.",
+   "words": [
+    {
+     "w": "Chollo:",
+     "start": 5.91,
+     "end": 6.243
+    },
+    {
+     "w": "metes",
+     "start": 6.362,
+     "end": 6.629
+    },
+    {
+     "w": "mil",
+     "start": 6.762,
+     "end": 6.829
+    },
+    {
+     "w": "quinientos",
+     "start": 6.896,
+     "end": 7.229
+    },
+    {
+     "w": "euros",
+     "start": 7.296,
+     "end": 7.496
+    },
+    {
+     "w": "al",
+     "start": 7.562,
+     "end": 7.629
+    },
+    {
+     "w": "año",
+     "start": 7.662,
+     "end": 7.896
+    },
+    {
+     "w": "y,",
+     "start": 8.029,
+     "end": 8.162
+    },
+    {
+     "w": "si",
+     "start": 8.229,
+     "end": 8.296
+    },
+    {
+     "w": "tu",
+     "start": 8.362,
+     "end": 8.429
+    },
+    {
+     "w": "tramo",
+     "start": 8.462,
+     "end": 8.696
+    },
+    {
+     "w": "de",
+     "start": 8.729,
+     "end": 8.762
+    },
+    {
+     "w": "IRPF",
+     "start": 8.896,
+     "end": 9.629
+    },
+    {
+     "w": "es",
+     "start": 9.696,
+     "end": 9.762
+    },
+    {
+     "w": "del",
+     "start": 9.829,
+     "end": 9.896
+    },
+    {
+     "w": "treinta",
+     "start": 9.962,
+     "end": 10.162
+    },
+    {
+     "w": "por",
+     "start": 10.229,
+     "end": 10.296
+    },
+    {
+     "w": "ciento,",
+     "start": 10.362,
+     "end": 10.829
+    },
+    {
+     "w": "te",
+     "start": 10.862,
+     "end": 10.896
+    },
+    {
+     "w": "ahorras",
+     "start": 10.962,
+     "end": 11.229
+    },
+    {
+     "w": "cuatrocientos",
+     "start": 11.296,
+     "end": 11.896
+    },
+    {
+     "w": "cincuenta.",
+     "start": 11.962,
+     "end": 12.477
+    }
+   ]
+  },
+  {
+   "i": 3,
+   "start": 12.544,
+   "dur": 4.61,
+   "text": "Trampa: al sacarlo, tributa todo, lo que metiste y lo que ganó, como si fuera sueldo.",
+   "words": [
+    {
+     "w": "Trampa:",
+     "start": 12.544,
+     "end": 13.054
+    },
+    {
+     "w": "al",
+     "start": 13.12,
+     "end": 13.187
+    },
+    {
+     "w": "sacarlo,",
+     "start": 13.254,
+     "end": 13.787
+    },
+    {
+     "w": "tributa",
+     "start": 13.887,
+     "end": 14.187
+    },
+    {
+     "w": "todo,",
+     "start": 14.32,
+     "end": 14.787
+    },
+    {
+     "w": "lo",
+     "start": 14.82,
+     "end": 14.854
+    },
+    {
+     "w": "que",
+     "start": 14.92,
+     "end": 14.987
+    },
+    {
+     "w": "metiste",
+     "start": 15.054,
+     "end": 15.387
+    },
+    {
+     "w": "y",
+     "start": 15.52,
+     "end": 15.587
+    },
+    {
+     "w": "lo",
+     "start": 15.654,
+     "end": 15.72
+    },
+    {
+     "w": "que",
+     "start": 15.787,
+     "end": 15.854
+    },
+    {
+     "w": "ganó,",
+     "start": 15.92,
+     "end": 16.254
+    },
+    {
+     "w": "como",
+     "start": 16.32,
+     "end": 16.387
+    },
+    {
+     "w": "si",
+     "start": 16.454,
+     "end": 16.52
+    },
+    {
+     "w": "fuera",
+     "start": 16.554,
+     "end": 16.72
+    },
+    {
+     "w": "sueldo.",
+     "start": 16.787,
+     "end": 17.154
+    }
+   ]
+  },
+  {
+   "i": 4,
+   "start": 17.254,
+   "dur": 4.066,
+   "text": "Y no puedes tocarlo hasta que cada aportación cumpla diez años, salvo que te jubiles.",
+   "words": [
+    {
+     "w": "Y",
+     "start": 17.254,
+     "end": 17.32
+    },
+    {
+     "w": "no",
+     "start": 17.387,
+     "end": 17.454
+    },
+    {
+     "w": "puedes",
+     "start": 17.52,
+     "end": 17.72
+    },
+    {
+     "w": "tocarlo",
+     "start": 17.787,
+     "end": 18.054
+    },
+    {
+     "w": "hasta",
+     "start": 18.087,
+     "end": 18.254
+    },
+    {
+     "w": "que",
+     "start": 18.32,
+     "end": 18.387
+    },
+    {
+     "w": "cada",
+     "start": 18.454,
+     "end": 18.654
+    },
+    {
+     "w": "aportación",
+     "start": 18.72,
+     "end": 19.187
+    },
+    {
+     "w": "cumpla",
+     "start": 19.254,
+     "end": 19.52
+    },
+    {
+     "w": "diez",
+     "start": 19.654,
+     "end": 19.854
+    },
+    {
+     "w": "años,",
+     "start": 19.92,
+     "end": 20.32
+    },
+    {
+     "w": "salvo",
+     "start": 20.42,
+     "end": 20.587
+    },
+    {
+     "w": "que",
+     "start": 20.62,
+     "end": 20.654
+    },
+    {
+     "w": "te",
+     "start": 20.72,
+     "end": 20.787
+    },
+    {
+     "w": "jubiles.",
+     "start": 20.82,
+     "end": 21.32
+    }
+   ]
+  },
+  {
+   "i": 5,
+   "start": 21.404,
+   "dur": 3.622,
+   "text": "La clave: ganas si al rescatarlo pagas menos IRPF que hoy.",
+   "words": [
+    {
+     "w": "La",
+     "start": 21.404,
+     "end": 21.537
+    },
+    {
+     "w": "clave:",
+     "start": 21.604,
+     "end": 22.007
+    },
+    {
+     "w": "ganas",
+     "start": 22.074,
+     "end": 22.407
+    },
+    {
+     "w": "si",
+     "start": 22.474,
+     "end": 22.541
+    },
+    {
+     "w": "al",
+     "start": 22.607,
+     "end": 22.674
+    },
+    {
+     "w": "rescatarlo",
+     "start": 22.741,
+     "end": 23.141
+    },
+    {
+     "w": "pagas",
+     "start": 23.207,
+     "end": 23.474
+    },
+    {
+     "w": "menos",
+     "start": 23.541,
+     "end": 23.741
+    },
+    {
+     "w": "IRPF",
+     "start": 23.874,
+     "end": 24.541
+    },
+    {
+     "w": "que",
+     "start": 24.607,
+     "end": 24.674
+    },
+    {
+     "w": "hoy.",
+     "start": 24.741,
+     "end": 25.026
+    }
+   ]
+  },
+  {
+   "i": 6,
+   "start": 25.06,
+   "dur": 3.243,
+   "text": "Si lo sacas todo de golpe, puedes saltar de tramo y perder la ventaja.",
+   "words": [
+    {
+     "w": "Si",
+     "start": 25.06,
+     "end": 25.093
+    },
+    {
+     "w": "lo",
+     "start": 25.16,
+     "end": 25.226
+    },
+    {
+     "w": "sacas",
+     "start": 25.26,
+     "end": 25.493
+    },
+    {
+     "w": "todo",
+     "start": 25.56,
+     "end": 25.76
+    },
+    {
+     "w": "de",
+     "start": 25.793,
+     "end": 25.826
+    },
+    {
+     "w": "golpe,",
+     "start": 25.893,
+     "end": 26.293
+    },
+    {
+     "w": "puedes",
+     "start": 26.337,
+     "end": 26.493
+    },
+    {
+     "w": "saltar",
+     "start": 26.56,
+     "end": 26.826
+    },
+    {
+     "w": "de",
+     "start": 26.86,
+     "end": 26.893
+    },
+    {
+     "w": "tramo",
+     "start": 26.96,
+     "end": 27.226
+    },
+    {
+     "w": "y",
+     "start": 27.293,
+     "end": 27.36
+    },
+    {
+     "w": "perder",
+     "start": 27.426,
+     "end": 27.693
+    },
+    {
+     "w": "la",
+     "start": 27.726,
+     "end": 27.76
+    },
+    {
+     "w": "ventaja.",
+     "start": 27.826,
+     "end": 28.303
+    }
+   ]
+  },
+  {
+   "i": 7,
+   "start": 28.336,
+   "dur": 2.414,
+   "text": "¿Chollo o trampa? Comenta uno o dos.",
+   "words": [
+    {
+     "w": "¿Chollo",
+     "start": 28.336,
+     "end": 28.669
+    },
+    {
+     "w": "o",
+     "start": 28.803,
+     "end": 28.869
+    },
+    {
+     "w": "trampa?",
+     "start": 28.936,
+     "end": 29.344
+    },
+    {
+     "w": "Comenta",
+     "start": 29.416,
+     "end": 29.75
+    },
+    {
+     "w": "uno",
+     "start": 29.816,
+     "end": 30.016
+    },
+    {
+     "w": "o",
+     "start": 30.15,
+     "end": 30.216
+    },
+    {
+     "w": "dos.",
+     "start": 30.35,
+     "end": 30.75
+    }
+   ]
+  }
+ ]
+}

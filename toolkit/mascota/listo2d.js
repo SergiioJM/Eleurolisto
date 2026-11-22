@@ -16,7 +16,7 @@
 //   pegatina = { color: '#fff', grosor: 10 } añade contorno de pegatina a CUALQUIER estilo (ideal sobre vídeo real)
 //   anim   = 'entrada'|'salto'|'giro'|'baile'|'temblor'|'cohete'|'desinfla'|'rebote'|'asoma'|'mirarAtras' con animT = s desde que empieza
 //   dx, dy, sqx, sqy, rot = transformación manual (squash & stretch)
-//   acc    = ['gafas','monoculo','chistera','corona','cadena','pajarita','billetes','gorroRoto','parche','bufandaRota','bolsillos','mosca']
+//   acc    = ['gafas','monoculo','chistera','corona','cadena','pajarita','billetes','decimo' (22-nov),'gorroRoto','parche','bufandaRota','bolsillos','mosca']
 //   modo   = 'vacilon' | 'rico' | 'millonario' | 'arruinado' (atajos de acc). accK = { gafas: 0..1 } anima la entrada.
 //   Listo2D.pixel(ctx, {…, px}) = versión pixel art (R6). En 3D: toolkit/mascota/listo3d.js (toon, plastilina, lowpoly).
 // Identidad (no cambiar en ningún estilo): silueta de bombilla, € verde, ojos grandes, casquillo de rosca, zapatillas verdes.
@@ -78,7 +78,7 @@
     millonario: ['corona', 'gafas', 'cadena', 'billetes'],
     arruinado: ['gorroRoto', 'parche', 'bufandaRota', 'bolsillos', 'mosca'],
   };
-  const ACCESORIOS = ['gafas', 'monoculo', 'chistera', 'corona', 'cadena', 'pajarita', 'billetes', 'mando', 'gorroRoto', 'parche', 'bufandaRota', 'bolsillos', 'mosca'];
+  const ACCESORIOS = ['gafas', 'monoculo', 'chistera', 'corona', 'cadena', 'pajarita', 'billetes', 'mando', 'decimo', 'gorroRoto', 'parche', 'bufandaRota', 'bolsillos', 'mosca'];
   const kA = (n) => (ACCK[n] == null ? 1 : Math.max(0, Math.min(1, ACCK[n]))); // progreso de entrada (0..1) de cada accesorio
   const LINEA = () => ST.soloLinea;
   function relleno(c, col) { if (LINEA()) { c.strokeStyle = ST.borde; c.lineWidth = 3; c.stroke(); } else { c.fillStyle = col; c.fill(); } }
@@ -150,6 +150,18 @@
         c.fillStyle = '#cfd6e6'; c.fillRect(-66, -6, 30, 10); c.fillRect(-56, -16, 10, 30); // cruceta
         [[50, -10, '#ff3d8b'], [66, 4, '#34e5ff'], [34, 4, '#FFC547'], [50, 18, '#4ADE80']].forEach(([bx, by, col]) => { c.fillStyle = col; c.beginPath(); c.arc(bx, by, 7, 0, 7); c.fill(); });
         c.fillStyle = '#4b3d66'; c.beginPath(); c.arc(-16, 14, 9, 0, 7); c.fill(); c.beginPath(); c.arc(16, 14, 9, 0, 7); c.fill();
+      }
+      c.restore();
+    }
+    if (ACC.has('decimo')) { // NUEVO 22-nov: décimo de lotería genérico (sin logos ni marcas), la mano redonda lo sujeta por abajo
+      const k = kA('decimo'); c.save(); c.globalAlpha *= k; c.translate(hx + 4, hy - 30); c.rotate(-0.22 + Math.sin(t * 4) * 0.05); c.scale(0.5 + 0.5 * k, 0.5 + 0.5 * k);
+      c.beginPath(); c.roundRect(-70, -92, 140, 96, 8); relleno(c, '#fdf3d0'); contorno(c, LINEA() ? (ST.borde || '#4ADE80') : '#7c5a10', 4);
+      if (!LINEA()) {
+        c.strokeStyle = '#d9b44a'; c.lineWidth = 3; c.setLineDash([6, 5]); c.beginPath(); c.moveTo(38, -88); c.lineTo(38, 0); c.stroke(); c.setLineDash([]);
+        c.fillStyle = '#b45309'; c.font = '800 15px Poppins, sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('LOTERÍA', -16, -74);
+        c.fillStyle = '#1f2937'; c.font = '800 27px Poppins, sans-serif'; c.fillText('00000', -16, -44);
+        c.fillStyle = '#16a34a'; c.font = '800 17px Poppins, sans-serif'; c.fillText('20 €', -16, -16);
+        c.fillStyle = '#f59e0b'; c.beginPath(); c.arc(56, -46, 10, 0, 7); c.fill();
       }
       c.restore();
     }

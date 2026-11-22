@@ -1,0 +1,32 @@
+{
+ "fecha": "2026-11-23",
+ "hora": "13:30",
+ "titulo": "El Gordo no son 400.000 €: lo que se queda Hacienda (Lotería de Navidad, parte 1)",
+ "pilar": "Dinero y ley (fiscalidad de premios) · temporada",
+ "look": "R9 · Cómic (PRIMERA VEZ en un reel; del laboratorio del 18-nov) + Listo 'comic'",
+ "formato": "HTML/canvas 2D renderizado con motor.mjs: página de cómic sobre papel FIJO, 6 viñetas pastel con contorno negro y trama que entran con empuje lateral (sonido de pasar página): 1) EL GORDO / NO SON / estallido 400.000 € tachado en rojo + ¿ENTONCES?; 2) garra de HACIENDA que baja y se lleva 2 fajos de 10 + ¡ZAS! + −72.000 €; 3) barra vertical 400.000 €: 40.000 € libres (verde), 360.000 € el resto (gris), × 20 % = 72.000 € (rojo); 4) TE QUEDAN + odómetro hasta 328.000 € con golpe; 5) zoom out desde TU DÉCIMO hasta la cuadrícula de 100.000 décimos + 1 ENTRE 100.000; 6) ¿TÚ JUEGAS ESTE AÑO? con botones 1 · SÍ, JUEGO / 2 · PASO, COMENTA 1 O 2 y botón + SEGUIR (parte 2 muy pronto). Subtítulos en cartela de narrador de cómic (palabra actual en rojo), cabecera ESPECIAL LOTERÍA · PARTE 1. Brillo medio 199–214, salto máximo 3,9 entre fotogramas.",
+ "gancho": "El Gordo no son cuatrocientos mil euros (en pantalla, desde el fotograma 0: EL GORDO / NO SON / 400.000 € + Listo con el décimo)",
+ "ganchos_candidatos": [
+  "El Gordo no son 400.000 € (elegido: desmonta una creencia + cifra + tema de temporada; afirmación, que puntúa algo más que la pregunta en el ranking)",
+  "Hacienda se queda 72.000 € de tu Gordo",
+  "¿Cuánto te queda si te toca el Gordo?",
+  "De cada 20 € de lotería, 6 no vuelven nunca",
+  "Te toca el Gordo… y llega Hacienda"
+ ],
+ "voz": "ElevenLabs · Juanjo Viral (30jLfQdV8RTduXvosh02, eleven_v4); 315 caracteres; transcripción Scribe idéntica al guion; pausas recortadas y atempo 1,10 → 19.5 s",
+ "etiqueta_ia": true,
+ "guion": "El Gordo no son cuatrocientos mil euros. Hacienda se queda setenta y dos mil. Los primeros cuarenta mil son libres; del resto, se lleva el veinte por ciento. A ti te quedan trescientos veintiocho mil. Y ojo: la probabilidad de que te toque es de una entre cien mil. ¿Tú juegas este año? Comenta: uno, sí; dos, paso.",
+ "datos": "Lotería de Navidad 2026 (sorteo 22-dic): décimo 20 €, 205 series, emisión 4.100 M€ (205 × 10 × 100.000 números × 20 €, comprobado con Python), 70 % a premios (2.870 M€) — Merca2 21-oct-2026; El Español 1-jul-2026. Gordo 400.000 € por décimo; exentos los primeros 40.000 € y el resto al 20 % (gravamen especial, retención definitiva) → 72.000 € y neto 328.000 € (Python) — El Español, Merca2, El Debate. Probabilidad del Gordo con un décimo: 1 entre 100.000 (100.000 números, del 00000 al 99999). Media de premios por cada 20 €: 14 € (70 %).",
+ "fuentes": [
+  "https://www.elespanol.com/sociedad/20260701/loteria-navidad-venta-espana-precio-decimo-premios-fecha-limite-comprar/1003744306016_0.html",
+  "https://www.merca2.es/2026/10/21/loteria-el-gordo-navidad-2026-2477950/",
+  "https://www.democrata.es/actualidad/loteria-navidad-2026-venta-decimos/",
+  "https://www.eldebate.com/loteria-de-navidad/20251222/loteria-navidad-2025-cuantos-premios-hay-cuanto-retiene-hacienda-otros-datos-clave-cns_367333.html"
+ ],
+ "origen": "plan semanal (lunes 13:30: Lotería de Navidad) + viral de la noche (outlier @enplata.tv «Si te toca el Gordo, ¿cuánto te queda de verdad?» 308 K en TikTok y @gcmasesores Pasapalabra/Hacienda ×74,7 en IG) + regla de crecimiento (temporada, Hacienda, serie con partes)",
+ "listo": "Modelado 'comic' presentador que rompe la viñeta por abajo: con el décimo en la mano (ACCESORIO NUEVO 'decimo') y rebote en el gancho; sorpresa → preocupado al tachar los 400.000 €; temblor + desinfla con la garra de Hacienda; piensa con idea y señala la barra; salto con gafas y cadena (vacilón) al llegar a 328.000 €; tiembla y le cae el gorro roto con «1 entre 100.000»; giro, firma (guiño + mano redonda en alto) y señala el botón + SEGUIR.",
+ "musica": "upbeat 116 bpm (seed 23), baja; 52 efectos de la biblioteca (pasar página, rotulador, ¡zas!, garra, contador, zoom)",
+ "duracion": 19.52,
+ "caption": "Lotería de Navidad: si te toca el Gordo, no son 400.000 € 🎄 Los primeros 40.000 € del décimo están exentos y Hacienda se queda el 20 % del resto: 72.000 €. Te quedan 328.000 €. Y la probabilidad de que te toque es de 1 entre 100.000 (de cada 20 € que se juegan, en premios vuelven de media 14 €: el 70 % de la emisión).\n¿Tú juegas este año? Comenta 1 (sí) o 2 (paso) 👇 y mándaselo a quien ya se está gastando el Gordo.\nParte 2 muy pronto. Fuentes: SELAE vía El Español y Merca2 (2026); gravamen especial de la AEAT.\n#loteriadenavidad #elgordo #hacienda #finanzaspersonales #eleurolisto\n🎙 elevenlabs.io",
+ "estado": "pendiente de aprobación (enviado 22-nov por la noche)"
+}
