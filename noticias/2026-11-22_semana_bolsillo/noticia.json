@@ -1,0 +1,67 @@
+{
+ "fecha": "Datos a 22 nov 2026",
+ "fuente": "Calendario del INE · El Confidencial Digital · Valencia Extra · Rankia · EuriborDiario · TradingKey · Ley 7/1996, art. 20 (Demócrata, CaixaBank)",
+ "etiqueta": "TU SEMANA",
+ "slides": [
+  {
+   "tipo": "portada",
+   "titular": "La semana que toca tu <em>bolsillo</em>",
+   "bajada": "Pensiones, hipoteca, la inflación de EE. UU. y Black Friday. Del lunes 23 al lunes 30 de noviembre: qué pasa y qué significa para ti."
+  },
+  {
+   "tipo": "puntos",
+   "etiqueta": "APÚNTALO",
+   "titulo": "4 fechas clave",
+   "puntos": [
+    "<em>Miér. 25 · 14:30</em> · EE. UU. publica su inflación (PCE) y su PIB",
+    "<em>Vie. 27</em> · El INE adelanta el IPC de noviembre: con él ya se sabe cuánto suben las pensiones",
+    "<em>Vie. 27</em> · Black Friday",
+    "<em>Lun. 30</em> · Se cierra el euríbor de noviembre"
+   ]
+  },
+  {
+   "tipo": "cifra",
+   "etiqueta": "PENSIONES 2027",
+   "cifra": "3,5–3,6 %",
+   "cifraTam": 170,
+   "texto": "es lo que apuntan a subir las pensiones contributivas en 2027",
+   "nota": "Es la media del IPC de dic-2025 a nov-2026: hasta octubre va en <em>3,47 %</em>. Pensión media de jubilación (1.577,60 €): de <em>+55 a +57 € al mes</em>. Mínimas y no contributivas van aparte. Dato oficial: 15 de diciembre."
+  },
+  {
+   "tipo": "cifra",
+   "etiqueta": "EURÍBOR",
+   "cifra": "≈3,30 %",
+   "cifraTam": 200,
+   "texto": "media de noviembre hasta ahora. Hace un año: <em>2,22 %</em>",
+   "nota": "Si tu hipoteca variable se revisa en diciembre (revisión anual): unos <em>+98 € al mes</em> en una de 167.000 € a 25 años (ejemplo de Rankia)."
+  },
+  {
+   "tipo": "puntos",
+   "etiqueta": "EE. UU.",
+   "titulo": "Por qué mirar a EE. UU.",
+   "puntos": [
+    "El PCE es la inflación que más mira la <em>Fed</em>. En septiembre: 3,6 % (subyacente 3,1 %)",
+    "La Fed decide el <em>9 de diciembre</em> y el mercado da casi por hecha una subida de 0,25",
+    "Jueves 26, Wall Street cerrada (Acción de Gracias). Viernes 27, cierra a las <em>19:00</em> (hora española)"
+   ]
+  },
+  {
+   "tipo": "mito",
+   "etiqueta": "BLACK FRIDAY",
+   "mito": "Si pone −50 %, cuesta la mitad de lo que costaba",
+   "realidad": "Por ley, el «precio anterior» tiene que ser el <em>más bajo</em> que esa tienda aplicó en los <em>30 días</em> previos. Subirlo estos días para luego «rebajarlo» no vale.",
+   "nota": "Art. 20 de la Ley de Ordenación del Comercio Minorista. Si no cuadra: reclama a la tienda y luego a la OMIC o a Consumo de tu comunidad."
+  },
+  {
+   "tipo": "cierre",
+   "etiqueta": "TU CHECKLIST",
+   "titulo": "Antes del viernes",
+   "puntos": [
+    "¿Pensionista en casa? El viernes ya sabréis su <em>subida</em> aproximada",
+    "¿Hipoteca variable? Mira en qué mes te toca la <em>revisión</em>",
+    "¿Vas a comprar algo? Haz hoy una <em>captura</em> de su precio"
+   ],
+   "cta": "Guárdalo y pásalo a tu familia 📌"
+  }
+ ]
+}
