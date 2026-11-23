@@ -453,6 +453,24 @@
     "comp": 0,
     "guard": 0
    }
+  },
+  {
+   "id": "2026-11-23_1330_loteria_gordo",
+   "fecha": "2026-11-23",
+   "hora": "13:30",
+   "tema": "El Gordo no son 400.000 € (Lotería, parte 1)",
+   "pilar": "Dinero y ley",
+   "look": "R9 cómic",
+   "voz": "ElevenLabs Juanjo",
+   "dur": 19.6,
+   "gancho": "El Gordo no son 400.000 €",
+   "ig": {
+    "code": "DgFYavwjbN0",
+    "mediaId": "18110561222337718"
+   },
+   "tt": {
+    "id": "7711342835227692321"
+   }
   }
  ],
  "posts": [
