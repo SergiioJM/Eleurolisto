@@ -1,0 +1,37 @@
+{
+ "fecha": "2026-11-24",
+ "hora": "13:30",
+ "titulo": "Black Friday: ese −40 % puede ser mentira (3 trampas)",
+ "pilar": "Dinero y ley / consumo · temporada (Black Friday, viernes 27-nov)",
+ "look": "R10 · Papel recortado / collage de tiques (PRIMERA VEZ en un reel; del laboratorio del 18-nov) + Listo 'papel'",
+ "formato": "HTML/canvas 2D con motor.mjs: mesa de kraft FIJA; letras de «nota de rescate» recortadas (ESE −40 % / ¿MENTIRA?) desde el fotograma 0, etiqueta colgante 199,99 € → 119,99 € con pegatina −40 % y sello de goma ¿FALSO?; TRAMPA 1 (notas ANTES 626,99 € / AYER 759,99 € con flecha, etiqueta HOY −133 € y sello MISMO PRECIO); hoja de libreta LA LEY DICE con 30 días de precios en tiras de papel y el más bajo rodeado con rotulador; TRAMPA 2 (reloj de cuenta atrás en fichas de papel, pegatina ¡SOLO QUEDAN 2!, telón de papel y sello TEATRO); TRAMPA 3 (tique que se imprime con ENVÍO y GESTIÓN en rojo, rodeados, pegatina +20 %); final ¿COMPRARÁS ALGO EL VIERNES? en letras recortadas con etiquetas 1 · SÍ / 2 · PASO y + SEGUIR. Cabecera de cinta de carrocero BLACK FRIDAY · 3 TRAMPAS con progreso 1-2-3; subtítulos impresos en tira de tique con la palabra actual subrayada con fluorescente. Empujes laterales de 0,5 s entre papeles.",
+ "gancho": "Ese menos cuarenta por ciento del Black Friday… puede ser mentira (en pantalla desde el fotograma 0: ESE −40 % / ¿MENTIRA? en letras recortadas + etiqueta rebajada + Listo cayendo)",
+ "ganchos_candidatos": [
+  "Ese −40 % puede ser mentira (elegido: cifra que todos ven estos días + desmonta una creencia, afirmación corta como los ganadores)",
+  "1 de cada 3 tiendas online te lía con el descuento",
+  "Black Friday: así te suben el precio para «bajártelo»",
+  "Este portátil «bajó» 133 €… y costaba lo mismo",
+  "3 trampas del Black Friday que caen cada año"
+ ],
+ "voz": "local v1 (Hombre 1, Piper davefx), length_scale 0.80, pausas extra antes de la ley (+0,3 s) y del final (+0,4 s), atempo 1,06 → 20,0 s",
+ "etiqueta_ia": true,
+ "guion": "Ese menos cuarenta por ciento del Black Friday... puede ser mentira. Trampa uno: te suben el precio antes, para bajártelo. Por ley, el tachado debe ser el precio más bajo de los últimos treinta días. Trampa dos: cuentas atrás y «solo quedan dos». Muchas veces, teatro. Trampa tres: gastos que aparecen al pagar. ¿Comprarás algo el viernes? Comenta: uno, sí; dos, paso.",
+ "datos": "Art. 20.1 de la Ley 7/1996 de Ordenación del Comercio Minorista (redacción del RDL 24/2021, Directiva Ómnibus, en vigor desde el 28-may-2022): el precio anterior de un anuncio de reducción es el más bajo de los 30 días previos (wwwhatsnew 5-nov-2026, CaixaBank 16-nov-2026, OCU 28-nov-2025). Barrido de la Comisión Europea y la red CPC (23 países, incluida España) publicado por Consumo el 26-mar-2026: 314 tiendas online; 30 % mostraba mal los descuentos; 18 % usaba tácticas de presión (falsas existencias, cuentas atrás) y más de la mitad de esas eran engañosas; 10 % añadía costes al final. Ejemplo de Consumo (vía CaixaBank): portátil 626,99 € → 759,99 € un día antes → «rebaja» de 133 € → 626,99 €. Tique ilustrativo: 49,99 + 6,99 + 2,99 = 59,97 € (+20 %, Python). Etiqueta ilustrativa 199,99 € × 0,6 = 119,99 €.",
+ "fuentes": [
+  "https://www.dsca.gob.es/es/comunicacion/notas-prensa/uno-cada-tres-operadores-online-europeos-muestra-incorrectamente",
+  "https://www.caixabank.com/es/esfera/content/black-friday-comprobar-descuento-ley",
+  "https://wwwhatsnew.com/2026/11/05/descuentos-black-friday-rebaja-real-precio-anterior-30-dias/",
+  "https://www.ocu.org/organizacion/prensa/notas-de-prensa/2025/bf281125",
+  "https://www.democrata.es/economia/black-friday-2026-falsas-rebajas/"
+ ],
+ "origen": "plan semanal (martes 13:30: Black Friday, look collage de tiques) + regla de crecimiento (temporada con mucha búsqueda, gancho corto con cifra) + experimento de interacción (pregunta personal y fácil 1 sí / 2 paso)",
+ "listo": "Modelado 'papel' (recortable con sombra): cae del cielo (entrada) en el gancho y señala la etiqueta sorprendido; tiembla preocupado con «mentira»; en la trampa 1 señala, se pone gafas y cadena (vacilón, «te pillé») y hace la ANIMACIÓN NUEVA 'sellazo' (salta y cae como un sello de goma) con el sello MISMO PRECIO; piensa con la bombilla encendida (idea) en la ley y salta con «treinta días»; tiembla con la cuenta atrás y se cruza de brazos con «teatro»; se desinfla y le salen los bolsillos vacíos con los gastos; al final, giro con el ACCESORIO NUEVO 'bolsa' (bolsa de la compra genérica), firma (guiño + mano redonda en alto) y señala + SEGUIR.",
+ "nuevo_listo": "animación 'sellazo' y accesorio 'bolsa' (2D en listo2d.js; pixel y 3D pendientes)",
+ "musica": "upbeat 124 bpm (seed 11), baja; 66 efectos de la biblioteca (papel que se desliza, tijeras, grapadora y golpe en los sellos, rotulador, tic-tac, máquina de escribir del tique, botones)",
+ "duracion": 20.0,
+ "brillo": "medio por fotograma (54x96 gris) 139–189, salto máximo 7,1 (0 saltos > 8)",
+ "loudness": "−13,9 LUFS",
+ "caption": "Black Friday: ese −40 % puede ser mentira 🏷️ Por ley, el precio tachado tiene que ser el más bajo de los últimos 30 días (art. 20 de la Ley 7/1996 de Comercio Minorista). Las 3 trampas: 1) te suben el precio antes para «rebajarlo» (Consumo pilló un portátil que pasó de 626,99 € a 759,99 € y luego «bajó» 133 €… al mismo precio), 2) cuentas atrás y «solo quedan 2» de pega, 3) gastos que aparecen al pagar. En el último barrido europeo, 3 de cada 10 tiendas online mostraban mal sus descuentos.\n¿Vas a comprar algo el viernes? Comenta 1 (sí) o 2 (paso) 👇 y mándaselo a quien ya tiene el carrito lleno.\nFuentes: Ministerio de Consumo y red CPC de la UE (mar-2026); Ley 7/1996, art. 20.\n#blackfriday #blackfriday2026 #rebajas #finanzaspersonales #eleurolisto",
+ "portada": "portada/portada.jpg (kicker BLACK FRIDAY, «¿Ese −40 % es MENTIRA?», etiqueta 3 trampas; fondo: etiqueta con pegatina −40 % y sello ¿FALSO? + Listo sorprendido con la bolsa)",
+ "estado": "pendiente de aprobación (enviado 23-nov noche)"
+}

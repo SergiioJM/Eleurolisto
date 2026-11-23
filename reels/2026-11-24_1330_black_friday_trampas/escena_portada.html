@@ -1,0 +1,303 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<script>window.PORTADA = true;</script>
+<script src="../../toolkit/mascota/listo2d.js"></script>
+<style>
+@font-face{font-family:"Archivo Black";src:url("../../toolkit/fuentes/archivo-black-latin-400-normal.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Archivo Black";src:url("../../toolkit/fuentes/archivo-black-latin-ext-400-normal.woff2") format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Anton";src:url("../../toolkit/fuentes/anton-latin-400-normal.woff2") format("woff2")}
+@font-face{font-family:"JBM";font-weight:800;src:url("../../toolkit/fuentes/jetbrains-mono-latin-800-normal.woff2") format("woff2")}
+@font-face{font-family:"JBM";font-weight:700;src:url("../../toolkit/fuentes/jetbrains-mono-latin-700-normal.woff2") format("woff2")}
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#c8a576}
+canvas{position:absolute;inset:0}
+</style></head>
+<body><canvas id="cv" width="1080" height="1920"></canvas>
+<script>
+// Look R10 · PAPEL RECORTADO / COLLAGE DE TIQUES (primera vez en un reel; del laboratorio del 18-nov).
+// Mesa de papel kraft FIJA; etiquetas de precio, tiques, notas y pegatinas recortadas que entran deslizándose como
+// papeles sobre la mesa (empuje lateral entre trampas), letras de «nota de rescate» recortadas de revistas, sellos de goma
+// y cinta de carrocero. Subtítulos impresos en una tira de tique con la palabra actual subrayada con rotulador.
+// Listo en modelado 'papel' (recortable con sombra). Sin cambios de luz: el kraft no cambia y el color va en los recortes.
+const TIM = window.TIM, S = TIM.segments, DUR = TIM.total;
+const P = !!window.PORTADA;
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x)), lerp = (a, b, k) => a + (b - a) * k, prog = (t, a, d) => clamp((t - a) / d);
+const eout = (k) => 1 - Math.pow(1 - clamp(k), 3), eio = (k) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
+const eback = (k, s = 1.7) => { k = clamp(k); return k <= 0 ? 0 : 1 + (s + 1) * Math.pow(k - 1, 3) + s * Math.pow(k - 1, 2); };
+const limpia = (w) => w.toLowerCase().replace(/[¿?¡!.,:;…«»]/g, "");
+const pal = (i, f, n = 0) => { const ws = S[i].words.filter((w) => limpia(w.w) === f); const w = ws[n] || ws[0]; if (!w) console.warn("falta", f); return w ? w.start : S[i].start; };
+const T = {
+  menos: pal(0, "menos"), puede: pal(0, "puede"), mentira: pal(0, "mentira"),
+  s1: S[1].start, suben: pal(1, "suben"), precio1: pal(1, "precio"), antes: pal(1, "antes"), bajartelo: pal(1, "bajártelo"),
+  s2: S[2].start, tachado: pal(2, "tachado"), precio2: pal(2, "precio"), bajo: pal(2, "bajo"), treinta: pal(2, "treinta"), dias: pal(2, "días"),
+  s3: S[3].start, cuentas: pal(3, "cuentas"), solo: pal(3, "solo"), muchas: pal(3, "muchas"), teatro: pal(3, "teatro"),
+  s4: S[4].start, gastos: pal(4, "gastos"), aparecen: pal(4, "aparecen"), pagar: pal(4, "pagar"),
+  s5: S[5].start, viernes: pal(5, "viernes"), comenta: pal(5, "comenta"), uno: pal(5, "uno"), dos: pal(5, "dos"), paso: pal(5, "paso"),
+};
+const FIN = S[5].start + S[5].dur;
+const cv = document.getElementById("cv"), X = cv.getContext("2d"), W = 1080, H = 1920;
+const AB = (px) => `${px}px "Archivo Black"`, PP = (peso, px) => `${peso} ${px}px Poppins`, MONO = (px, p = 800) => `${p} ${px}px JBM`;
+const C = { tinta: "#1b1712", rojo: "#d62828", verde: "#16a34a", ambar: "#F59E0B", azul: "#2563eb", papel: "#fffaf0", crema: "#fff3d6", kraft: "#c8a576" };
+const rnd = (i) => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+const INI = [0, T.s1 - 0.14, T.s2 - 0.14, T.s3 - 0.14, T.s4 - 0.14, T.s5 - 0.14];
+const TR = 0.5;
+
+// ---------- mesa de kraft (fija) ----------
+const mesa = document.createElement("canvas"); mesa.width = W; mesa.height = H;
+(function () { const g = mesa.getContext("2d"); g.fillStyle = C.kraft; g.fillRect(0, 0, W, H);
+  for (let i = 0; i < 5200; i++) { const x = rnd(i) * W, y = rnd(i + 9000) * H, l = 4 + rnd(i + 300) * 22; g.strokeStyle = i % 3 ? "rgba(110,78,40,0.10)" : "rgba(255,240,210,0.13)"; g.lineWidth = 1.2; g.beginPath(); g.moveTo(x, y); g.lineTo(x + l * Math.cos(rnd(i + 7) * 6), y + l * Math.sin(rnd(i + 7) * 6)); g.stroke(); }
+  const vg = g.createRadialGradient(W / 2, H / 2, 300, W / 2, H / 2, 1250); vg.addColorStop(0, "rgba(0,0,0,0)"); vg.addColorStop(1, "rgba(60,35,10,0.22)"); g.fillStyle = vg; g.fillRect(0, 0, W, H);
+})();
+
+// ---------- utilidades de papel ----------
+function rr(x, y, w, h, r) { X.beginPath(); X.roundRect(x, y, w, h, r); }
+function tornPath(x, y, w, h, seed, amp = 7) { // rectángulo con bordes rasgados (arriba y abajo) deterministas
+  X.beginPath(); const n = Math.max(6, Math.round(w / 26));
+  X.moveTo(x, y + rnd(seed) * amp);
+  for (let i = 1; i <= n; i++) X.lineTo(x + (w * i) / n, y + rnd(seed + i) * amp);
+  X.lineTo(x + w, y + h - rnd(seed + 50) * amp);
+  for (let i = n - 1; i >= 0; i--) X.lineTo(x + (w * i) / n, y + h - rnd(seed + 60 + i) * amp);
+  X.closePath();
+}
+function recorte(x, y, w, h, fill, seed = 1, amp = 7, sombra = true) {
+  if (sombra) { X.save(); X.translate(9, 12); tornPath(x, y, w, h, seed, amp); X.fillStyle = "rgba(60,38,12,0.32)"; X.fill(); X.restore(); }
+  tornPath(x, y, w, h, seed, amp); X.fillStyle = fill; X.fill();
+}
+function cinta(cx, cy, w, rot, txt = null, px = 34) { // cinta de carrocero
+  X.save(); X.translate(cx, cy); X.rotate(rot); const h = txt ? 74 : 46;
+  X.beginPath(); X.moveTo(-w / 2, -h / 2); for (let i = 0; i <= 6; i++) X.lineTo(-w / 2 + (i % 2) * 7, -h / 2 + (h * i) / 6);
+  X.lineTo(w / 2, h / 2); for (let i = 6; i >= 0; i--) X.lineTo(w / 2 - (i % 2) * 7, -h / 2 + (h * i) / 6); X.closePath();
+  X.fillStyle = "rgba(248,238,205,0.93)"; X.fill(); X.strokeStyle = "rgba(150,120,70,0.25)"; X.lineWidth = 2; X.stroke();
+  if (txt) { X.font = AB(px); X.fillStyle = C.tinta; X.textAlign = "center"; X.textBaseline = "middle"; X.fillText(txt, 0, 3); }
+  X.restore();
+}
+function texto(s, x, y, font, color, align = "center", alpha = 1) { if (alpha <= 0) return; X.save(); X.globalAlpha *= alpha; X.font = font; X.fillStyle = color; X.textAlign = align; X.textBaseline = "middle"; X.fillText(s, x, y); X.restore(); }
+// letras de «nota de rescate»: cada letra en un recorte de revista distinto
+const FUENTES = [(px) => AB(px), (px) => `${px * 1.12}px Anton`, (px) => `bold ${px}px "DejaVu Serif"`, (px) => MONO(px * 0.95), (px) => PP(800, px)];
+const PAPELES = [["#fffaf0", C.tinta], [C.rojo, "#fff"], ["#1b1712", "#fff"], ["#fde68a", C.tinta], ["#bfdbfe", "#1e3a8a"], ["#bbf7d0", "#14532d"], ["#fecaca", "#7f1d1d"]];
+function rescate(s, cx, cy, px, seed, k0 = 1, kStep = null, tt = 0, pad = 0.34) {
+  X.save(); const chars = [...s]; const ws = chars.map((ch, i) => { X.font = FUENTES[Math.floor(rnd(seed + i * 3) * FUENTES.length)](px); return ch === " " ? px * 0.32 : X.measureText(ch).width + px * pad; });
+  const tot = ws.reduce((a, b) => a + b, 0); let x = cx - tot / 2;
+  chars.forEach((ch, i) => { const w = ws[i]; if (ch !== " ") {
+    const k = kStep == null ? k0 : eback(prog(tt, k0 + i * kStep, 0.22), 2.4);
+    if (k > 0) { const pi = Math.floor(rnd(seed + i * 5) * PAPELES.length), [bg, fg] = PAPELES[pi]; const rot = (rnd(seed + i * 7) - 0.5) * 0.24, dy = (rnd(seed + i * 11) - 0.5) * px * 0.18;
+      X.save(); X.translate(x + w / 2, cy + dy); X.rotate(rot); X.scale(k, k);
+      const hh = px * 1.28, ww = w - px * 0.06;
+      X.save(); X.translate(5, 7); tornPath(-ww / 2, -hh / 2, ww, hh, seed + i * 13, 4); X.fillStyle = "rgba(60,38,12,0.3)"; X.fill(); X.restore();
+      tornPath(-ww / 2, -hh / 2, ww, hh, seed + i * 13, 4); X.fillStyle = bg; X.fill();
+      X.font = FUENTES[Math.floor(rnd(seed + i * 3) * FUENTES.length)](px); X.fillStyle = fg; X.textAlign = "center"; X.textBaseline = "middle"; X.fillText(ch, 0, px * 0.05); X.restore(); } }
+    x += w; });
+  X.restore();
+}
+function sello(s, cx, cy, rot, k, px = 64, col = C.rojo, s2 = null) { // sello de goma: cae grande y se queda
+  if (k <= 0) return; const e = lerp(1.7, 1, eout(k)); X.save(); X.translate(cx, cy); X.rotate(rot); X.scale(e, e); X.globalAlpha *= clamp(k * 3) * 0.92;
+  X.font = AB(px); const w = X.measureText(s).width + px * 0.9, h = px * (s2 ? 2.05 : 1.45);
+  X.strokeStyle = col; X.lineWidth = px * 0.11; rr(-w / 2, -h / 2, w, h, px * 0.18); X.stroke(); X.lineWidth = px * 0.04; rr(-w / 2 + px * 0.16, -h / 2 + px * 0.16, w - px * 0.32, h - px * 0.32, px * 0.1); X.stroke();
+  X.fillStyle = col; X.textAlign = "center"; X.textBaseline = "middle"; X.fillText(s, 0, s2 ? -px * 0.3 : px * 0.04); if (s2) { X.font = AB(px * 0.5); X.fillText(s2, 0, px * 0.5); }
+  X.restore();
+}
+function etiqueta(cx, cy, w, h, rot, fill = C.papel, cuerda = true) { // etiqueta de precio colgante (deja el origen en su centro)
+  X.save(); X.translate(cx, cy); X.rotate(rot);
+  const path = () => { X.beginPath(); X.moveTo(-w / 2 + 70, -h / 2); X.lineTo(w / 2, -h / 2); X.lineTo(w / 2, h / 2); X.lineTo(-w / 2 + 70, h / 2); X.lineTo(-w / 2, 0); X.closePath(); };
+  X.save(); X.translate(10, 13); path(); X.fillStyle = "rgba(60,38,12,0.32)"; X.fill(); X.restore();
+  path(); X.fillStyle = fill; X.fill(); X.lineWidth = 5; X.strokeStyle = "rgba(27,23,18,0.85)"; X.stroke();
+  X.beginPath(); X.arc(-w / 2 + 52, 0, 16, 0, 7); X.fillStyle = C.kraft; X.fill(); X.lineWidth = 4; X.stroke();
+  if (cuerda) { X.strokeStyle = "#7c5a2a"; X.lineWidth = 5; X.beginPath(); X.moveTo(-w / 2 + 52, 0); X.quadraticCurveTo(-w / 2 - 40, -h / 2 - 40, -w / 2 - 10, -h / 2 - 120); X.stroke(); }
+}
+function pegatina(s, cx, cy, r, rot, k, fill = C.rojo, px = 64, col = "#fff") { // pegatina redonda con borde blanco
+  if (k <= 0) return; const e = eback(k, 2.2); X.save(); X.translate(cx, cy); X.rotate(rot); X.scale(e, e);
+  X.beginPath(); X.arc(6, 9, r + 10, 0, 7); X.fillStyle = "rgba(60,38,12,0.3)"; X.fill();
+  X.beginPath(); X.arc(0, 0, r + 10, 0, 7); X.fillStyle = "#fff"; X.fill(); X.beginPath(); X.arc(0, 0, r, 0, 7); X.fillStyle = fill; X.fill();
+  X.font = AB(px); X.fillStyle = col; X.textAlign = "center"; X.textBaseline = "middle"; X.fillText(s, 0, 4); X.restore();
+}
+function tachar(x1, y1, x2, y2, k, col = C.rojo, lw = 10) { if (k <= 0) return; X.save(); X.lineCap = "round"; X.strokeStyle = col; X.lineWidth = lw; X.beginPath(); X.moveTo(x1, y1); X.lineTo(lerp(x1, x2, k), lerp(y1, y2, k)); X.stroke(); X.restore(); }
+function rotulador(cx, cy, rx, ry, k, col = C.rojo, lw = 9) { if (k <= 0) return; X.save(); X.strokeStyle = col; X.lineWidth = lw; X.lineCap = "round"; X.beginPath();
+  const n = 60, tot = Math.PI * 2.15 * k; for (let i = 0; i <= n; i++) { const a = -2.2 + (tot * i) / n, wob = 1 + 0.04 * Math.sin(i * 0.9); X.lineTo(cx + Math.cos(a) * rx * wob, cy + Math.sin(a) * ry * wob); } X.stroke(); X.restore(); }
+function pestana(num, sub, k) { // «TRAMPA N · …» en un recorte con cinta
+  if (k <= 0) return; X.save(); X.translate(lerp(-700, 0, eout(k)), 0); X.translate(470, 400); X.rotate(-0.025);
+  recorte(-390, -58, 780, 116, "#1b1712", 40 + num, 6); X.font = AB(54); const wN = X.measureText("TRAMPA " + num).width;
+  X.fillStyle = C.ambar; X.textAlign = "left"; X.textBaseline = "middle"; X.fillText("TRAMPA " + num, -360, -2);
+  X.font = AB(32); X.fillStyle = "#fff"; X.fillText(sub, -360 + wN + 26, 2); X.restore();
+  X.save(); X.translate(lerp(-700, 0, eout(k)), 0); cinta(98, 352, 120, -0.6); X.restore();
+}
+
+// ---------- contenido de cada escena ----------
+function escena(i, t) {
+  if (i === 0) { // ESE −40 % … ¿MENTIRA?
+    const kh = P ? 1 : 0.9 + 0.1 * eback(prog(t, 0, 0.35), 2.5);
+    if (P) X.translate(0, 330); // portada: todo más abajo (el titular lo pone portada.mjs arriba)
+    if (!P) { X.save(); X.translate(540, 410); X.scale(kh, kh); rescate("ESE −40 %", 0, 0, 112, 7); X.restore();
+    rescate("¿MENTIRA?", 540, 570, 104, 31); }
+    // etiqueta colgante con el precio "rebajado"
+    const sw = P ? 0 : Math.sin(t * 2.6) * 0.05;
+    etiqueta(470, 900, 640, 330, -0.08 + sw);
+    texto("199,99 €", 0, -78, AB(60), "rgba(27,23,18,0.55)");
+    tachar(-150, -74, 150, -82, 1, C.tinta, 8);
+    texto("119,99 €", 20, 40, AB(112), C.tinta);
+    X.restore();
+    pegatina("−40 %", 215, 735, 104, -0.2 + sw, P ? 1 : 0.95 + 0.05 * Math.sin(t * 5), C.rojo, 62);
+    const ks = P ? 1 : prog(t, T.mentira - 0.05, 0.28);
+    sello("¿FALSO?", 500, 935, -0.16, ks, 92);
+  }
+  if (i === 1) { // TRAMPA 1: precio inflado
+    pestana(1, "PRECIO INFLADO", prog(t, INI[1], 0.45));
+    // nota "ANTES" y nota "AYER ↑"
+    const kn1 = eout(prog(t, T.precio1 - 0.25, 0.4)), kn2 = eout(prog(t, T.antes - 0.25, 0.4));
+    if (kn1 > 0) { X.save(); X.translate(lerp(-300, 0, kn1), 0); X.translate(250, 600); X.rotate(-0.05); recorte(-170, -95, 340, 190, "#fde68a", 71, 6);
+      texto("ANTES", 0, -45, AB(40), C.tinta); texto("626,99 €", 0, 25, AB(56), C.verde); X.restore(); cinta(250, 515, 110, 0.12); }
+    if (kn2 > 0) { X.save(); X.translate(lerp(1400, 0, kn2), 0); X.translate(750, 590); X.rotate(0.05); recorte(-170, -95, 340, 190, "#fecaca", 72, 6);
+      texto("AYER", 0, -45, AB(40), C.tinta); texto("759,99 €", 0, 25, AB(56), C.rojo); X.restore(); cinta(760, 505, 110, -0.1);
+      // flecha que sube
+      const ka = prog(t, T.antes - 0.05, 0.35); if (ka > 0) { X.save(); X.strokeStyle = C.rojo; X.lineWidth = 12; X.lineCap = "round"; X.beginPath(); X.moveTo(440, 640); X.quadraticCurveTo(500, 470, lerp(440, 560, ka), lerp(640, 560, ka)); X.stroke(); X.restore(); } }
+    // etiqueta de HOY: −133 €
+    const ke = eback(prog(t, T.suben - 0.1, 0.45), 1.8);
+    if (ke > 0) { X.save(); X.translate(0, (1 - ke) * 500); etiqueta(450, 950, 560, 270, 0.04 + Math.sin(t * 2.4) * 0.03);
+      texto("HOY", -150, -78, AB(36), "rgba(27,23,18,0.6)"); texto("759,99 €", 90, -78, AB(46), "rgba(27,23,18,0.55)"); tachar(-10, -76, 190, -82, 1, C.tinta, 6);
+      texto("626,99 €", 20, 30, AB(96), C.tinta); X.restore();
+      pegatina("−133 €", 700, 820, 90, -0.15, prog(t, T.bajartelo - 0.3, 0.3), C.rojo, 44); X.restore(); }
+    sello("MISMO PRECIO", 450, 1060, -0.1, prog(t, T.bajartelo + 0.08, 0.26), 50);
+    texto("Ejemplo real detectado por Consumo", 450, 1170, PP(700, 28), "rgba(27,23,18,0.7)", "center", prog(t, T.bajartelo, 0.3));
+  }
+  if (i === 2) { // LA LEY: el tachado = el más bajo de 30 días
+    X.save(); X.translate(540, 760); X.rotate(-0.015);
+    recorte(-450, -380, 900, 760, "#fffdf6", 91, 7);
+    X.strokeStyle = "rgba(37,99,235,0.18)"; X.lineWidth = 2; for (let y = -300; y < 370; y += 46) { X.beginPath(); X.moveTo(-440, y); X.lineTo(440, y); X.stroke(); }
+    X.strokeStyle = "rgba(214,40,40,0.35)"; X.beginPath(); X.moveTo(-370, -375); X.lineTo(-370, 375); X.stroke();
+    texto("LA LEY DICE:", -330, -310, AB(42), C.rojo, "left");
+    texto("PRECIO TACHADO =", -330, -235, AB(58), C.tinta, "left", eout(prog(t, T.tachado - 0.2, 0.3)));
+    const kb = eout(prog(t, T.bajo - 0.2, 0.3));
+    texto("EL MÁS BAJO", -330, -158, AB(66), C.verde, "left", kb);
+    texto("DE LOS ÚLTIMOS 30 DÍAS", -330, -86, AB(44), C.tinta, "left", eout(prog(t, T.treinta - 0.15, 0.3)));
+    // 30 días de precios (tiras de papel)
+    const base = 250, x0 = -330, bw = 22, gap = 3.3, lowI = 9;
+    for (let d = 0; d < 30; d++) { const k = eout(prog(t, T.precio2 - 0.3 + d * 0.025, 0.3)); if (k <= 0) continue;
+      const hgt = d === lowI ? 90 : 120 + 90 * rnd(d + 400) + (d > 26 ? 70 : 0);
+      X.fillStyle = d === lowI && t > T.bajo - 0.1 ? C.verde : d > 26 ? "#f87171" : "#94a3b8"; X.fillRect(x0 + d * (bw + gap), base - hgt * k, bw, hgt * k); }
+    rotulador(x0 + lowI * (bw + gap) + bw / 2, base - 90, 40, 62, prog(t, T.bajo, 0.35), C.rojo, 7);
+    const kd = prog(t, T.treinta - 0.1, 0.4); if (kd > 0) { X.save(); X.strokeStyle = C.tinta; X.lineWidth = 4; X.beginPath(); X.moveTo(x0, base + 22); X.lineTo(x0 + lerp(0, 30 * (bw + gap), eout(kd)), base + 22); X.stroke(); X.restore();
+      texto("← 30 DÍAS →", x0 + 15 * (bw + gap), base + 52, AB(30), C.tinta, "center", kd); }
+    texto("Ley 7/1996 de Comercio Minorista, art. 20", 0, 340, PP(600, 24), "rgba(27,23,18,0.65)");
+    X.restore();
+    cinta(160, 400, 150, -0.5); cinta(930, 410, 150, 0.45);
+  }
+  if (i === 3) { // TRAMPA 2: prisa falsa
+    pestana(2, "PRISA FALSA", prog(t, INI[3], 0.45));
+    // reloj de cuenta atrás con fichas de papel
+    const restante = Math.max(0, 9 * 60 + 59 - Math.floor(Math.max(0, t - T.s3) * 1.0)), mm = String(Math.floor(restante / 60)).padStart(2, "0"), ss = String(restante % 60).padStart(2, "0");
+    const dig = ("00:" + mm + ":" + ss).split(""); const cx = 540, cy = 720;
+    X.save(); X.translate(cx, cy); X.rotate(0.02); recorte(-430, -150, 860, 300, "#1b1712", 101, 6);
+    texto("LA OFERTA TERMINA EN", 0, -100, AB(30), "#fde68a");
+    let x = -370; dig.forEach((ch, j) => { const ancho = ch === ":" ? 34 : 88; if (ch !== ":") { rr(x, -60, ancho - 8, 150, 12); X.fillStyle = "#fffaf0"; X.fill(); X.fillStyle = "rgba(0,0,0,0.12)"; X.fillRect(x, 13, ancho - 8, 3); }
+      texto(ch, x + (ancho - 8) / 2, 18, MONO(104), ch === ":" ? "#fde68a" : C.tinta); x += ancho; });
+    X.restore();
+    // pegatina "¡SOLO QUEDAN 2!"
+    const kp = prog(t, T.solo - 0.12, 0.3); if (kp > 0) { const e = eback(kp, 2.4) * (1 + 0.03 * Math.sin(t * 12)); X.save(); X.translate(700, 975); X.rotate(-0.1); X.scale(e, e);
+      recorte(-250, -70, 500, 140, C.rojo, 111, 5); texto("¡SOLO QUEDAN 2!", 0, 4, AB(50), "#fff"); X.restore(); }
+    // telón de papel que se cierra en "teatro"
+    const kt = eio(prog(t, T.teatro - 0.25, 0.45));
+    if (kt > 0) for (const sg of [-1, 1]) { X.save(); const xx = sg < 0 ? lerp(-60, 330, kt) : lerp(1140, 750, kt); X.translate(xx, 0);
+      X.beginPath(); X.moveTo(sg * 320, 545); X.lineTo(0, 545); for (let j = 0; j <= 7; j++) X.lineTo(-sg * 18 * (j % 2), 545 + j * 50); X.lineTo(sg * 320, 895); X.closePath();
+      X.fillStyle = "#b91c1c"; X.fill(); X.strokeStyle = "rgba(0,0,0,0.25)"; X.lineWidth = 3; for (let j = 1; j < 5; j++) { X.beginPath(); X.moveTo(sg * 64 * j, 545); X.lineTo(sg * 64 * j, 895); X.stroke(); } X.restore(); }
+    sello("TEATRO", 540, 725, -0.12, prog(t, T.teatro, 0.26), 96);
+    { const ka = prog(t, T.muchas - 0.3, 0.3); texto("18 % de 314 tiendas online usaba prisas", 470, 1100, PP(700, 26), "rgba(27,23,18,0.85)", "center", ka);
+      texto("o cuentas atrás; más de la mitad, engañosas", 470, 1136, PP(700, 26), "rgba(27,23,18,0.85)", "center", ka);
+      texto("(Consumo y red CPC de la UE, 2026)", 470, 1172, PP(600, 23), "rgba(27,23,18,0.7)", "center", ka); }
+  }
+  if (i === 4) { // TRAMPA 3: gastos al final (tique)
+    pestana(3, "GASTOS AL FINAL", prog(t, INI[4], 0.45));
+    const kp = eout(prog(t, T.s4 + 0.05, 0.45)), kx = prog(t, T.aparecen - 0.2, 0.6);
+    const lineas = [["AURICULARES", "49,99", C.tinta, 0], ["ENVÍO", "6,99", C.rojo, 0.0], ["GESTIÓN", "2,99", C.rojo, 0.2], ["TOTAL", "59,97 €", C.tinta, 0.4]];
+    const alto = 190 + 92 * (1 + 3 * kx);
+    X.save(); X.translate(540, 520);
+    rr(-360, -26, 720, 40, 12); X.fillStyle = "#3f3a33"; X.fill();
+    X.save(); X.beginPath(); X.rect(-330, 0, 660, 900); X.clip(); X.translate(0, -(1 - kp) * alto);
+    X.save(); X.translate(8, 10); X.fillStyle = "rgba(60,38,12,0.3)"; X.fillRect(-300, 0, 600, alto); X.restore();
+    X.beginPath(); X.moveTo(-300, 0); X.lineTo(300, 0); X.lineTo(300, alto); for (let j = 0; j <= 20; j++) X.lineTo(300 - j * 30, alto + (j % 2 ? 14 : 0)); X.closePath(); X.fillStyle = "#fffdf7"; X.fill();
+    texto("TIENDA ONLINE", 0, 52, MONO(34), C.tinta); X.setLineDash([10, 8]); X.strokeStyle = "rgba(27,23,18,0.35)"; X.lineWidth = 3; X.beginPath(); X.moveTo(-260, 92); X.lineTo(260, 92); X.stroke(); X.setLineDash([]);
+    lineas.forEach(([a, b, col, d], j) => { const kk = j === 0 ? 1 : prog(t, T.aparecen - 0.15 + d, 0.25); if (kk <= 0) return; const y = 140 + j * 92 + (j === 3 ? 14 : 0);
+      if (j === 3) { X.strokeStyle = C.tinta; X.lineWidth = 4; X.beginPath(); X.moveTo(-260, y - 50); X.lineTo(260, y - 50); X.stroke(); }
+      X.save(); X.globalAlpha = clamp(kk * 2); texto(a, -260, y, MONO(j === 3 ? 46 : 40), col, "left"); texto(b, 260, y, MONO(j === 3 ? 46 : 40), col, "right"); X.restore(); });
+    rotulador(0, 140 + 92 * 1.5, 300, 92, prog(t, T.aparecen + 0.45, 0.4), C.rojo, 8);
+    X.restore(); X.restore();
+    const kq = prog(t, T.aparecen + 0.6, 0.3); if (kq > 0) pegatina("+20 %", 880, 700, 92, 0.16, kq, C.ambar, 44, C.tinta);
+  }
+  if (i === 5) { // ¿COMPRARÁS ALGO EL VIERNES?
+    rescate("¿COMPRARÁS ALGO", 540, 440, 62, 201, P ? 1 : T.s5 - 0.05, P ? null : 0.035, t, 0.16);
+    rescate("EL VIERNES?", 540, 570, 86, 233, P ? 1 : T.viernes - 0.25, P ? null : 0.04, t, 0.2);
+    const boton = (cy, s, fill, k, on) => { if (k <= 0) return; const e = eback(k, 2); X.save(); X.translate(0, (on ? 8 : 0)); X.scale(1, 1);
+      X.translate(430, cy); X.scale(e, e); X.translate(-430, -cy); etiqueta(430, cy, 560, 136, -0.02, fill, false);
+      texto(s, 30, 4, AB(62), "#fff"); X.restore(); X.restore(); };
+    boton(740, "1 · SÍ", C.verde, P ? 1 : prog(t, T.uno - 0.18, 0.35), t > T.uno && t < T.dos);
+    boton(905, "2 · PASO", C.rojo, P ? 1 : prog(t, T.dos - 0.18, 0.35), t > T.dos);
+    X.save(); X.translate(430, 1060); X.rotate(-0.03); texto("COMENTA 1 O 2", 0, 0, AB(52), C.tinta, "center", P ? 1 : prog(t, T.comenta - 0.1, 0.3));
+    const ku = prog(t, T.comenta + 0.1, 0.4); if (ku > 0) { X.strokeStyle = C.ambar; X.lineWidth = 12; X.lineCap = "round"; X.beginPath(); X.moveTo(-230, 40); X.lineTo(lerp(-230, 230, ku), 36); X.stroke(); } X.restore();
+  }
+}
+
+// ---------- subtítulos: tira de tique impresa con rotulador fluorescente ----------
+const MOSTRAR = { "blac": "BLACK", "fráidei...": "FRIDAY..." };
+function subtitulos(t) {
+  if (P) return; let si = S.findIndex((s, k) => t >= s.start - 0.05 && (k === S.length - 1 || t < S[k + 1].start - 0.05)); if (si < 0) return;
+  const ws = S[si].words; let wi = ws.findIndex((w, k) => t >= w.start - 0.03 && (k === ws.length - 1 || t < ws[k + 1].start - 0.03)); if (wi < 0) wi = 0;
+  const lab = (w) => (MOSTRAR[w.toLowerCase()] || w).toUpperCase();
+  const trozos = []; let cur = [];
+  ws.forEach((w, k) => { const len = cur.map((x) => lab(ws[x].w)).join(" ").length; if (cur.length && len + lab(w.w).length > 19) { trozos.push(cur); cur = []; } cur.push(k); }); if (cur.length) trozos.push(cur);
+  const tr = trozos.find((g) => g.includes(wi)) || trozos[0];
+  X.font = MONO(50); const partes = tr.map((k) => lab(ws[k].w)); const sp = 26;
+  const anchos = partes.map((p) => X.measureText(p).width), total = anchos.reduce((a, b) => a + b, 0) + sp * (partes.length - 1);
+  const y = 1322, bw = Math.max(560, total + 90), bh = 110;
+  X.save(); X.translate(W / 2, y); X.rotate(0.01);
+  X.save(); X.translate(7, 9); X.fillStyle = "rgba(60,38,12,0.3)"; X.fillRect(-bw / 2, -bh / 2, bw, bh); X.restore();
+  X.beginPath(); X.moveTo(-bw / 2, -bh / 2); for (let j = 0; j <= Math.ceil(bw / 22); j++) X.lineTo(-bw / 2 + j * 22, -bh / 2 + (j % 2 ? 8 : 0)); X.lineTo(bw / 2, bh / 2);
+  for (let j = Math.ceil(bw / 22); j >= 0; j--) X.lineTo(-bw / 2 + j * 22, bh / 2 - (j % 2 ? 8 : 0)); X.closePath(); X.fillStyle = "#fffdf7"; X.fill();
+  let x = -total / 2; partes.forEach((p, j) => { const k = tr[j]; const act = k === wi, pas = k < wi;
+    if (act) { const kk = eout(prog(t, ws[k].start - 0.03, 0.12)); X.fillStyle = "rgba(250,204,21,0.85)"; X.save(); X.translate(x - 6, -30); X.rotate(-0.02); X.fillRect(0, 0, (anchos[j] + 12) * kk, 58); X.restore(); }
+    X.textAlign = "left"; X.textBaseline = "middle"; X.font = MONO(50); X.fillStyle = act ? C.tinta : pas ? "#3f3a33" : "rgba(27,23,18,0.32)"; X.fillText(p, x, 2); x += anchos[j] + sp; });
+  X.restore();
+}
+
+function renderAt(t) {
+  X.setTransform(1, 0, 0, 1, 0, 0); X.globalAlpha = 1; X.drawImage(mesa, 0, 0);
+  // cabecera fija: cinta "BLACK FRIDAY · 3 TRAMPAS" + progreso 1-2-3
+  if (!P) { cinta(430, 262, 560, -0.03, "BLACK FRIDAY · 3 TRAMPAS", 36);
+    const hechos = [T.s1, T.s3, T.s4]; hechos.forEach((h, j) => { const k = eback(prog(t, h - 0.1, 0.3), 2.5); const cx = 800 + j * 84, cy = 262;
+      X.beginPath(); X.arc(cx + 4, cy + 6, 32, 0, 7); X.fillStyle = "rgba(60,38,12,0.3)"; X.fill(); X.beginPath(); X.arc(cx, cy, 32, 0, 7); X.fillStyle = "#fffaf0"; X.fill();
+      if (k > 0) { X.save(); X.translate(cx, cy); X.scale(k, k); X.beginPath(); X.arc(0, 0, 32, 0, 7); X.fillStyle = C.rojo; X.fill(); X.restore(); }
+      texto(String(j + 1), cx, cy + 3, AB(34), k > 0.5 ? "#fff" : C.tinta); }); }
+  // escena actual y anterior (empuje lateral, como deslizar papeles sobre la mesa)
+  let cur = 0; for (let k = 0; k < INI.length; k++) if (t >= INI[k]) cur = k;
+  const kt = P || cur === 0 ? 1 : eio(prog(t, INI[cur], TR));
+  const dib = (k, off, rot) => { X.save(); X.translate(540 + off, 800); X.rotate(rot); X.translate(-540, -800); escena(k, t); X.restore(); };
+  if (cur > 0 && kt < 1) dib(cur - 1, -kt * (W + 120), -0.04 * kt);
+  dib(cur, (1 - kt) * (W + 120), 0.04 * (1 - kt));
+
+  // --- LISTO (modelado 'papel', recortable con sombra) ---
+  const o = { x: 880, y: 1205, s: 0.66, t, estilo: "papel", expr: "normal", pose: "reposo", mira: [-0.6, -0.2] };
+  if (cur === 0) { o.s = 0.84; o.y = 1250; o.x = 870; if (t < 0.4) { o.anim = "entrada"; o.animT = t + 0.3; } else { o.pose = "senalaIzq"; o.expr = "sorpresa"; }
+    if (t > T.mentira - 0.05) { o.anim = "temblor"; o.animT = t - T.mentira; o.expr = "preocupado"; o.pose = "brazosAbiertos"; } }
+  else if (cur === 1) { o.pose = "senalaIzq"; o.expr = "normal";
+    if (t > T.antes - 0.2) { o.modo = "vacilon"; o.accK = { gafas: eout(prog(t, T.antes - 0.2, 0.4)), cadena: eout(prog(t, T.antes, 0.4)) }; o.expr = "guino"; o.pose = "manosCadera"; }
+    if (t > T.bajartelo + 0.02) { o.anim = "sellazo"; o.animT = t - T.bajartelo - 0.02; } }
+  else if (cur === 2) { o.pose = t < T.bajo - 0.1 ? "piensa" : "senalaIzq"; o.expr = t < T.bajo - 0.1 ? "idea" : "feliz"; o.x = 900;
+    if (t > T.treinta - 0.1) { o.anim = "salto"; o.animT = t - T.treinta + 0.1; } }
+  else if (cur === 3) { o.pose = "brazosAbiertos"; o.expr = "sorpresa"; o.anim = "temblor"; o.animT = t - T.s3;
+    if (t > T.teatro - 0.1) { o.anim = null; o.pose = "brazosCruzados"; o.expr = "normal"; } }
+  else if (cur === 4) { o.pose = "brazosAbiertos"; o.expr = "sorpresa";
+    if (t > T.pagar - 0.1) { o.anim = "desinfla"; o.animT = t - T.pagar + 0.1; o.acc = ["bolsillos"]; o.accK = { bolsillos: eout(prog(t, T.pagar, 0.4)) }; } }
+  else { o.x = 880; o.y = 1085; o.s = 0.72; o.acc = ["bolsa"]; o.accK = { bolsa: eout(prog(t, T.s5, 0.4)) };
+    if (t < T.s5 + 0.8) { o.anim = "giro"; o.animT = t - T.s5 + 0.05; }
+    else if (t < FIN - 1.0) { o.pose = "pulgar"; o.expr = "guino"; o.acc = []; }
+    else { o.pose = "senalaIzq"; o.expr = "feliz"; o.acc = []; } }
+  if (P) { o.anim = null; o.modo = null; o.acc = ["bolsa"]; o.accK = { bolsa: 1 }; o.x = 800; o.y = 1650; o.s = 1.05; o.pose = "brazosAbiertos"; o.expr = "sorpresa"; }
+  Listo2D.dibujar(X, o);
+  // botón + SEGUIR al final
+  if (!P) { const ks = prog(t, FIN - 1.1, 0.35); if (ks > 0) { const press = prog(t, FIN - 0.45, 0.12) * (1 - prog(t, FIN - 0.2, 0.15));
+    X.save(); X.translate(850, 1160); X.rotate(0.04); const e = eback(ks, 2) * (1 - 0.08 * press); X.scale(e, e); recorte(-170, -62, 340, 124, "#fffaf0", 301, 5);
+    texto("+ SEGUIR", 0, -12, AB(44), C.tinta); texto("más trampas antes del viernes", 0, 30, PP(700, 18), C.rojo); X.restore(); cinta(850, 1100, 90, -0.2); } }
+  subtitulos(t);
+  if (!P) { texto("Ley 7/1996 (art. 20) · Consumo y red CPC de la UE (mar-2026) · educativo", W / 2, 1436, PP(600, 21), "rgba(40,26,8,0.75)");
+    texto("@eleurolisto", W / 2, 1482, AB(30), "rgba(27,23,18,0.62)"); }
+}
+window.DURACION = DUR;
+window.renderAt = renderAt;
+Promise.all([document.fonts.load('40px "Archivo Black"'), document.fonts.load('40px Anton'), document.fonts.load('800 40px JBM'), document.fonts.load("800 40px Poppins"), document.fonts.load("700 40px Poppins"), document.fonts.load("bold 40px 'DejaVu Serif'")]).then(() => document.fonts.ready).then(() => { renderAt(0); window.listo = true; });
+</script></body></html>

@@ -14,9 +14,9 @@
 //            'tropical' (R8 neón tropical / mundo abierto al atardecer: contorno grueso de cómic, reflejo rosa)
 //   estilo += 'comic' (contorno grueso + trama), 'papel' (recortable con sombra), 'plano_tecnico' (líneas de plano), 'vaporwave'
 //   pegatina = { color: '#fff', grosor: 10 } añade contorno de pegatina a CUALQUIER estilo (ideal sobre vídeo real)
-//   anim   = 'entrada'|'salto'|'giro'|'baile'|'temblor'|'cohete'|'desinfla'|'rebote'|'asoma'|'mirarAtras' con animT = s desde que empieza
+//   anim   = 'entrada'|'salto'|'giro'|'baile'|'temblor'|'cohete'|'desinfla'|'rebote'|'asoma'|'mirarAtras'|'sellazo' (23-nov) con animT = s desde que empieza
 //   dx, dy, sqx, sqy, rot = transformación manual (squash & stretch)
-//   acc    = ['gafas','monoculo','chistera','corona','cadena','pajarita','billetes','decimo' (22-nov),'gorroRoto','parche','bufandaRota','bolsillos','mosca']
+//   acc    = ['gafas','monoculo','chistera','corona','cadena','pajarita','billetes','decimo' (22-nov),'bolsa' (23-nov),'gorroRoto','parche','bufandaRota','bolsillos','mosca']
 //   modo   = 'vacilon' | 'rico' | 'millonario' | 'arruinado' (atajos de acc). accK = { gafas: 0..1 } anima la entrada.
 //   Listo2D.pixel(ctx, {…, px}) = versión pixel art (R6). En 3D: toolkit/mascota/listo3d.js (toon, plastilina, lowpoly).
 // Identidad (no cambiar en ningún estilo): silueta de bombilla, € verde, ojos grandes, casquillo de rosca, zapatillas verdes.
@@ -78,7 +78,7 @@
     millonario: ['corona', 'gafas', 'cadena', 'billetes'],
     arruinado: ['gorroRoto', 'parche', 'bufandaRota', 'bolsillos', 'mosca'],
   };
-  const ACCESORIOS = ['gafas', 'monoculo', 'chistera', 'corona', 'cadena', 'pajarita', 'billetes', 'mando', 'decimo', 'gorroRoto', 'parche', 'bufandaRota', 'bolsillos', 'mosca'];
+  const ACCESORIOS = ['gafas', 'monoculo', 'chistera', 'corona', 'cadena', 'pajarita', 'billetes', 'mando', 'decimo', 'bolsa', 'gorroRoto', 'parche', 'bufandaRota', 'bolsillos', 'mosca'];
   const kA = (n) => (ACCK[n] == null ? 1 : Math.max(0, Math.min(1, ACCK[n]))); // progreso de entrada (0..1) de cada accesorio
   const LINEA = () => ST.soloLinea;
   function relleno(c, col) { if (LINEA()) { c.strokeStyle = ST.borde; c.lineWidth = 3; c.stroke(); } else { c.fillStyle = col; c.fill(); } }
@@ -163,6 +163,15 @@
         c.fillStyle = '#16a34a'; c.font = '800 17px Poppins, sans-serif'; c.fillText('20 €', -16, -16);
         c.fillStyle = '#f59e0b'; c.beginPath(); c.arc(56, -46, 10, 0, 7); c.fill();
       }
+      c.restore();
+    }
+    if (ACC.has('bolsa')) { // NUEVO 23-nov (Black Friday, compras): bolsa de la compra genérica de papel (sin logos ni marcas) colgando de la mano redonda
+      const k = kA('bolsa'); c.save(); c.globalAlpha *= k; c.translate(hx + 2, hy + 6); c.rotate(Math.sin(t * 3.2) * 0.07); c.scale(0.5 + 0.5 * k, 0.5 + 0.5 * k);
+      const LC = LINEA() ? (ST.borde || '#4ADE80') : '#7f1d1d';
+      c.lineWidth = 6; c.strokeStyle = LC; c.beginPath(); c.moveTo(-26, 52); c.quadraticCurveTo(-24, -6, 0, -8); c.quadraticCurveTo(24, -6, 26, 52); c.stroke();
+      c.beginPath(); c.moveTo(-62, 46); c.lineTo(62, 46); c.lineTo(74, 168); c.lineTo(-74, 168); c.closePath(); relleno(c, '#ef4444'); contorno(c, LC, 4);
+      if (!LINEA()) { c.fillStyle = 'rgba(0,0,0,0.12)'; c.beginPath(); c.moveTo(-62, 46); c.lineTo(62, 46); c.lineTo(63, 58); c.lineTo(-63, 58); c.closePath(); c.fill();
+        c.fillStyle = '#fff'; c.font = '800 54px Poppins, sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('%', 0, 112); }
       c.restore();
     }
     if (!ACC.has('billetes')) return; const k = kA('billetes'); c.save(); c.globalAlpha *= k; c.translate(hx, hy);
@@ -418,6 +427,13 @@
       const ida = ease(u / 0.35), vuelta = ease((u - 1.3) / 0.4), k = ida * (1 - vuelta);
       T.rot = -0.2 * k; T.dx = -30 * k; T.sqx = 1 - 0.1 * k; T.dy = -12 * Math.sin(Math.min(1, u / 0.35) * Math.PI);
       pose = 'piensa'; expr = u < 1.3 ? 'sorpresa' : 'idea'; }
+    else if (nombre === 'sellazo') { // NUEVO 23-nov: salta y cae como un sello de goma (¡PUM!), se aplasta y rebota (para los sellos «FALSO», «MISMO PRECIO»…)
+      if (u < 0.18) { const k = u / 0.18; sq(0.16 * Math.sin(k * Math.PI / 2)); pose = 'brazosCruzados'; }
+      else if (u < 0.46) { const k = (u - 0.18) / 0.28; T.dy = -220 * Math.sin(k * Math.PI / 2); sq(-0.16 * k); pose = 'celebra'; }
+      else if (u < 0.56) { const k = (u - 0.46) / 0.1; T.dy = -220 * (1 - k * k); sq(-0.16 * (1 - k)); pose = 'celebra'; }
+      else if (u < 0.9) { const k = (u - 0.56) / 0.34; sq(0.34 * Math.exp(-4 * k) * Math.cos(k * 9)); T.dy = 0; pose = 'manosCadera'; }
+      else pose = 'manosCadera';
+      expr = u < 0.56 ? 'sorpresa' : 'guino'; }
     else if (nombre === 'asoma') { const k = ease(u / 0.5); T.dx = (1 - k) * -420; T.rot = (1 - k) * -0.5; pose = 'saludo'; expr = 'guino'; }
     return { trans: T, pose, expr };
   }
@@ -435,5 +451,5 @@
     c.save(); c.imageSmoothingEnabled = false; c.drawImage(off, x - W * px / 2 + ox, y - (H - Math.ceil(60 * s / px)) * px + oy, W * px, H * px); c.restore();
   }
 
-  window.Listo2D = { dibujar, pixel, anim, POSES, ESTILOS: Object.keys(ESTILOS).concat(['pixel']), MODOS, ACCESORIOS, ANIMACIONES: ['entrada', 'salto', 'giro', 'baile', 'temblor', 'cohete', 'desinfla', 'rebote', 'asoma', 'mirarAtras'] };
+  window.Listo2D = { dibujar, pixel, anim, POSES, ESTILOS: Object.keys(ESTILOS).concat(['pixel']), MODOS, ACCESORIOS, ANIMACIONES: ['entrada', 'salto', 'giro', 'baile', 'temblor', 'cohete', 'desinfla', 'rebote', 'asoma', 'mirarAtras', 'sellazo'] };
 })();

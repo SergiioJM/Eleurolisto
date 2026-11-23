@@ -1,6 +1,6 @@
 {
  "_nota": "Métricas de TODOS los vídeos (IG + TikTok). La tarea nocturna las actualiza cada noche (IG: vidiq_instagram_owner_insights mode reels/media, 0 créditos; TikTok: vidiq_tiktok_profile_videos, 5 créditos) y ejecuta `python3 toolkit/ranking.py` para regenerar content/ranking.md. Campos: ig_* de Instagram (vistas, % visto, skip, likes, comentarios, compartidos, guardados), tt_* de TikTok.",
- "actualizado": "2026-11-22 21:25 (Madrid)",
+ "actualizado": "2026-11-23 21:20 (Madrid)",
  "cuenta": {
   "ig_seguidores": 2,
   "ig_5dias": {
@@ -12,11 +12,11 @@
   },
   "tt_seguidores": null,
   "ig_14dias": {
-   "alcance": 2538,
-   "vistas": 3318,
+   "alcance": 2772,
+   "vistas": 3595,
    "visitas_perfil": 14,
-   "cuentas_que_interactuan": 46,
-   "interacciones": 67
+   "cuentas_que_interactuan": 47,
+   "interacciones": 69
   }
  },
  "videos": [
@@ -416,8 +416,8 @@
    },
    "tt": {
     "id": "7711041362786798880",
-    "vistas": 267,
-    "likes": 3,
+    "vistas": 733,
+    "likes": 10,
     "coment": 0,
     "comp": 0,
     "guard": 0
@@ -436,22 +436,21 @@
    "ig": {
     "code": "DgDjwFWkplG",
     "mediaId": "17961039174256694",
-    "vistas": 9,
-    "visto": null,
-    "skip": null,
-    "likes": 0,
-    "coment": 0,
-    "comp": 0,
-    "guard": 0,
-    "nota": "métricas de solo ~50 min (22-nov 21:20): skip/visto aún sin datos"
-   },
-   "tt": {
-    "id": "7711080059188071713",
-    "vistas": 70,
-    "likes": 0,
+    "vistas": 134,
+    "visto": 30.9,
+    "skip": 52.2,
+    "likes": 1,
     "coment": 0,
     "comp": 0,
     "guard": 0
+   },
+   "tt": {
+    "id": "7711080059188071713",
+    "vistas": 695,
+    "likes": 8,
+    "coment": 0,
+    "comp": 0,
+    "guard": 2
    }
   },
   {
@@ -466,10 +465,23 @@
    "gancho": "El Gordo no son 400.000 €",
    "ig": {
     "code": "DgFYavwjbN0",
-    "mediaId": "18110561222337718"
+    "mediaId": "18110561222337718",
+    "vistas": 140,
+    "visto": 42.8,
+    "skip": 52.9,
+    "likes": 0,
+    "coment": 0,
+    "comp": 0,
+    "guard": 1
    },
    "tt": {
-    "id": "7711342835227692321"
+    "id": "7711342835227692321",
+    "vistas": 0,
+    "likes": 0,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0,
+    "nota": "0 vistas en TikTok a las ~8,5 h: posible «no apto para Para ti» (tema de juegos de azar). Avisado a Sergio el 23-nov"
    }
   },
   {
@@ -484,10 +496,23 @@
    "gancho": "Hacienda te devuelve 450 €… y luego te los cobra",
    "ig": {
     "code": "DgGIfToEekN",
-    "mediaId": "18094986734207241"
+    "mediaId": "18094986734207241",
+    "vistas": 67,
+    "visto": null,
+    "skip": null,
+    "likes": 0,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0,
+    "nota": "métricas de ~1,5 h (23-nov 21:15): visto/skip aún sin datos"
    },
    "tt": {
-    "id": "7711450948660448545"
+    "id": "7711450948660448545",
+    "vistas": 161,
+    "likes": 2,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0
    }
   }
  ],
@@ -574,6 +599,38 @@
    },
    "tt": {
     "vistas": 0,
+    "likes": 0
+   }
+  },
+  {
+   "id": "2026-11-23_semana_bolsillo",
+   "tipo": "carrusel agenda",
+   "tema": "Tu semana: pensiones, euríbor y Black Friday",
+   "ig": {
+    "code": "DgE5moKljQn",
+    "vistas": 4,
+    "alcance": 1,
+    "likes": 0
+   },
+   "tt": {
+    "id": "7711273364970802434",
+    "vistas": 19,
+    "likes": 1
+   }
+  },
+  {
+   "id": "2026-11-23_rebote_wall_street",
+   "tipo": "carrusel noticia",
+   "tema": "Del pánico al rebote (Wall Street)",
+   "ig": {
+    "code": "DgF-RjtCcIy",
+    "vistas": 0,
+    "alcance": 0,
+    "likes": 0
+   },
+   "tt": {
+    "id": "7711428041368472854",
+    "vistas": 10,
     "likes": 0
    }
   }

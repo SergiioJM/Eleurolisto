@@ -1,0 +1,364 @@
+{
+ "total": 20.016327,
+ "voz": "v1",
+ "segments": [
+  {
+   "i": 0,
+   "start": 0.236,
+   "dur": 3.12,
+   "text": "Ese menos cuarenta por ciento del Blac Fráidei... puede ser mentira.",
+   "words": [
+    {
+     "w": "Ese",
+     "start": 0.236,
+     "end": 0.442
+    },
+    {
+     "w": "menos",
+     "start": 0.442,
+     "end": 0.782
+    },
+    {
+     "w": "cuarenta",
+     "start": 0.782,
+     "end": 1.137
+    },
+    {
+     "w": "por",
+     "start": 1.137,
+     "end": 1.305
+    },
+    {
+     "w": "ciento",
+     "start": 1.305,
+     "end": 1.706
+    },
+    {
+     "w": "del",
+     "start": 1.706,
+     "end": 1.923
+    },
+    {
+     "w": "Blac",
+     "start": 1.923,
+     "end": 2.149
+    },
+    {
+     "w": "Fráidei...",
+     "start": 2.149,
+     "end": 2.487
+    },
+    {
+     "w": "puede",
+     "start": 2.487,
+     "end": 2.718
+    },
+    {
+     "w": "ser",
+     "start": 2.718,
+     "end": 2.963
+    },
+    {
+     "w": "mentira.",
+     "start": 2.963,
+     "end": 3.356
+    }
+   ]
+  },
+  {
+   "i": 1,
+   "start": 3.507,
+   "dur": 2.585,
+   "text": "Trampa uno: te suben el precio antes, para bajártelo.",
+   "words": [
+    {
+     "w": "Trampa",
+     "start": 3.507,
+     "end": 3.863
+    },
+    {
+     "w": "uno:",
+     "start": 3.863,
+     "end": 4.065
+    },
+    {
+     "w": "te",
+     "start": 4.065,
+     "end": 4.164
+    },
+    {
+     "w": "suben",
+     "start": 4.164,
+     "end": 4.517
+    },
+    {
+     "w": "el",
+     "start": 4.517,
+     "end": 4.678
+    },
+    {
+     "w": "precio",
+     "start": 4.678,
+     "end": 5.025
+    },
+    {
+     "w": "antes,",
+     "start": 5.025,
+     "end": 5.384
+    },
+    {
+     "w": "para",
+     "start": 5.384,
+     "end": 5.633
+    },
+    {
+     "w": "bajártelo.",
+     "start": 5.633,
+     "end": 6.092
+    }
+   ]
+  },
+  {
+   "i": 2,
+   "start": 6.525,
+   "dur": 3.422,
+   "text": "Por ley, el tachado debe ser el precio más bajo de los últimos treinta días.",
+   "words": [
+    {
+     "w": "Por",
+     "start": 6.525,
+     "end": 6.657
+    },
+    {
+     "w": "ley,",
+     "start": 6.657,
+     "end": 6.858
+    },
+    {
+     "w": "el",
+     "start": 6.858,
+     "end": 6.975
+    },
+    {
+     "w": "tachado",
+     "start": 6.975,
+     "end": 7.304
+    },
+    {
+     "w": "debe",
+     "start": 7.304,
+     "end": 7.541
+    },
+    {
+     "w": "ser",
+     "start": 7.541,
+     "end": 7.752
+    },
+    {
+     "w": "el",
+     "start": 7.752,
+     "end": 7.86
+    },
+    {
+     "w": "precio",
+     "start": 7.86,
+     "end": 8.154
+    },
+    {
+     "w": "más",
+     "start": 8.154,
+     "end": 8.378
+    },
+    {
+     "w": "bajo",
+     "start": 8.378,
+     "end": 8.645
+    },
+    {
+     "w": "de",
+     "start": 8.645,
+     "end": 8.783
+    },
+    {
+     "w": "los",
+     "start": 8.783,
+     "end": 8.968
+    },
+    {
+     "w": "últimos",
+     "start": 8.968,
+     "end": 9.357
+    },
+    {
+     "w": "treinta",
+     "start": 9.357,
+     "end": 9.7
+    },
+    {
+     "w": "días.",
+     "start": 9.7,
+     "end": 9.947
+    }
+   ]
+  },
+  {
+   "i": 3,
+   "start": 10.098,
+   "dur": 3.538,
+   "text": "Trampa dos: cuentas atrás y «solo quedan dos». Muchas veces, teatro.",
+   "words": [
+    {
+     "w": "Trampa",
+     "start": 10.098,
+     "end": 10.493
+    },
+    {
+     "w": "dos:",
+     "start": 10.493,
+     "end": 10.727
+    },
+    {
+     "w": "cuentas",
+     "start": 10.727,
+     "end": 11.185
+    },
+    {
+     "w": "atrás",
+     "start": 11.185,
+     "end": 11.588
+    },
+    {
+     "w": "y",
+     "start": 11.588,
+     "end": 11.687
+    },
+    {
+     "w": "«solo",
+     "start": 11.687,
+     "end": 12.033
+    },
+    {
+     "w": "quedan",
+     "start": 12.033,
+     "end": 12.342
+    },
+    {
+     "w": "dos».",
+     "start": 12.342,
+     "end": 12.545
+    },
+    {
+     "w": "Muchas",
+     "start": 12.545,
+     "end": 12.957
+    },
+    {
+     "w": "veces,",
+     "start": 12.957,
+     "end": 13.284
+    },
+    {
+     "w": "teatro.",
+     "start": 13.284,
+     "end": 13.635
+    }
+   ]
+  },
+  {
+   "i": 4,
+   "start": 13.786,
+   "dur": 2.056,
+   "text": "Trampa tres: gastos que aparecen al pagar.",
+   "words": [
+    {
+     "w": "Trampa",
+     "start": 13.786,
+     "end": 14.142
+    },
+    {
+     "w": "tres:",
+     "start": 14.142,
+     "end": 14.408
+    },
+    {
+     "w": "gastos",
+     "start": 14.408,
+     "end": 14.791
+    },
+    {
+     "w": "que",
+     "start": 14.791,
+     "end": 14.908
+    },
+    {
+     "w": "aparecen",
+     "start": 14.908,
+     "end": 15.376
+    },
+    {
+     "w": "al",
+     "start": 15.376,
+     "end": 15.555
+    },
+    {
+     "w": "pagar.",
+     "start": 15.555,
+     "end": 15.842
+    }
+   ]
+  },
+  {
+   "i": 5,
+   "start": 16.37,
+   "dur": 2.819,
+   "text": "¿Comprarás algo el viernes? Comenta: uno, sí; dos, paso.",
+   "words": [
+    {
+     "w": "¿Comprarás",
+     "start": 16.37,
+     "end": 16.872
+    },
+    {
+     "w": "algo",
+     "start": 16.872,
+     "end": 17.125
+    },
+    {
+     "w": "el",
+     "start": 17.125,
+     "end": 17.297
+    },
+    {
+     "w": "viernes?",
+     "start": 17.297,
+     "end": 17.746
+    },
+    {
+     "w": "Comenta:",
+     "start": 17.746,
+     "end": 18.202
+    },
+    {
+     "w": "uno,",
+     "start": 18.202,
+     "end": 18.429
+    },
+    {
+     "w": "sí;",
+     "start": 18.429,
+     "end": 18.72
+    },
+    {
+     "w": "dos,",
+     "start": 18.72,
+     "end": 18.932
+    },
+    {
+     "w": "paso.",
+     "start": 18.932,
+     "end": 19.189
+    }
+   ]
+  }
+ ]
+}
