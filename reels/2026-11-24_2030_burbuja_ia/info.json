@@ -28,5 +28,15 @@
  "listo": "Modelado 'neon': desde el fotograma 0 va en la vagoneta de la montaña rusa (sorpresa con los brazos abiertos en la caída, celebra con gafas en el rebote, piensa y tiembla con «puntocom»); luego presentador en la esquina (asoma, piensa, señala y tiembla con el 35 %, salta con «ganan dinero» y se pone gafas y cadena con LA MITAD DE CARO, piensa con el matiz y le cae el gorro roto con el −78 %, se desinfla y tiembla con los 15 años); al final va al centro en grande: giro, firma (guiño + mano redonda en alto) y señala + SEGUIR.",
  "musica": "chill 92 bpm (seed 4), baja; efectos de la biblioteca (traqueteo de la vagoneta, golpes graves en −43 % y −78 %, transiciones tech, datos, sello, votos)",
  "portada": "portada/portada.jpg (kicker POLÉMICA · BOLSA, «¿Burbuja de la IA?», etiqueta Nvidia −43 %; fondo: montaña rusa de Nvidia con Listo en la vagoneta cayendo)",
- "estado": "pendiente de aprobación (enviado 23-nov noche)"
+ "estado": "pendiente de aprobación (enviado 23-nov noche)",
+ "vidiq": {
+  "uploadId_con_portada": "8c6960bf-0d81-4a93-8247-5465bd9b0d83",
+  "uploadId_sin_portada": "19e7ad9d-da07-437b-8bad-e52a5e4f0318",
+  "commit": "2ba83a695782ba597243f9b314f2923d596e0998"
+ },
+ "duracion": 32.7,
+ "brillo": "medio por fotograma (54x96 gris) 12–21, salto máximo 1,6 (0 saltos > 8)",
+ "loudness": "−14,7 LUFS",
+ "creditos": "ElevenLabs 538 caracteres (gancho 117 + resto 421) → quedan ~4.600 hasta el 18-dic; vidIQ 5 (TikTok); Creative Claw 0",
+ "elevenlabs_flow": "7AnofMsbgm4TLV4l2HR5 (voz B nodo nCeEhI0VskU5IhDVGc8w, voz A nodo 1hw3rbjUsrTOu5hzgK8m)"
 }
