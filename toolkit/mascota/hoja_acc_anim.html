@@ -1,0 +1,21 @@
+<!doctype html><html><head><meta charset="utf-8"><script src="listo2d.js"></script>
+<style>html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#0b1328}canvas{position:absolute;inset:0}</style></head>
+<body><canvas id="c" width="1080" height="1920"></canvas><script>
+// Hoja de Listo: ?modo=acc (todos los accesorios) o ?modo=anim (todas las animaciones en 4 instantes). Se regenera con:
+//   node ../escena3d/motor.mjs hoja_acc_anim.html --stills 0 --out <carpeta>   (con ?modo en window.MODO_HOJA)
+const X = document.getElementById('c').getContext('2d'); const MODO = window.MODO_HOJA || 'acc';
+function txt(s, x, y, px, col) { X.font = `800 ${px}px Poppins`; X.fillStyle = col; X.textAlign = 'center'; X.textBaseline = 'middle'; X.fillText(s, x, y); }
+window.DURACION = 1;
+window.renderAt = () => {
+  X.fillStyle = '#0b1328'; X.fillRect(0, 0, 1080, 1920);
+  if (MODO === 'acc') { txt('LISTO · ACCESORIOS', 540, 80, 54, '#FFC547'); const A = Listo2D.ACCESORIOS; const cols = 4;
+    A.forEach((a, i) => { const cx = 135 + (i % cols) * 270, cy = 330 + Math.floor(i / cols) * 400; X.fillStyle = 'rgba(255,255,255,0.05)'; X.beginPath(); X.roundRect(cx - 125, cy - 190, 250, 370, 20); X.fill();
+      Listo2D.dibujar(X, { x: cx, y: cy + 120, s: 0.55, t: 0.5, estilo: 'vector', acc: [a], accK: { [a]: 1 }, pose: ['billetes', 'mando', 'decimo', 'bolsa'].includes(a) ? 'saludo' : 'reposo', expr: 'feliz' });
+      txt(a + (['decimo', 'bolsa'].includes(a) ? ' ★' : ''), cx, cy + 160, 30, '#ffffff'); }); txt('★ nuevos de esta semana', 540, 1860, 28, '#9fb0c3'); }
+  else { txt('LISTO · ANIMACIONES', 540, 70, 54, '#FFC547'); const N = Listo2D.ANIMACIONES, fases = [0.1, 0.35, 0.6, 1.0];
+    N.forEach((n, i) => { const y = 200 + i * 158; txt(n + (n === 'sellazo' ? ' ★' : ''), 150, y, 28, '#ffffff');
+      fases.forEach((u, j) => { Listo2D.dibujar(X, { x: 380 + j * 190, y: y + 70, s: 0.28, t: u, estilo: 'vector', anim: n, animT: u }); }); });
+    txt('★ nueva de esta semana · instantes 0,1 · 0,35 · 0,6 · 1,0 s', 540, 1880, 26, '#9fb0c3'); }
+};
+Promise.all([document.fonts.load('800 40px Poppins')]).then(() => { window.listo = true; });
+</script></body></html>
