@@ -3,6 +3,11 @@
 Investigación semanal con vidIQ (`vidiq_instagram_tiktok_outlier_search`, 5 créditos). Aquí se guardan los patrones, no se copian vídeos:
 cada recreación usa guion, cifras, diseño y voz propios de El Euro Listo.
 
+## 23-nov-2026 · noche alterna (sin búsqueda de outliers: vidIQ 30 créditos; la siguiente, la noche del 24)
+- Lo que funciona en NUESTRA cuenta esta semana: **polémicas de inversión en TikTok** (comprar o alquilar 695, GTA 3 733, indexados 723, pensiones 161 en 1,5 h) y **cultura pop + inversión en IG** (GTA). La lotería, 0 en TikTok (filtro de juegos de azar): ojo con décimos, bombos o «premio» en el primer fotograma.
+- Tema del día con mucha búsqueda: **Black Friday** (viernes 27) y **la montaña rusa de Nvidia** (−43 % en un mes, rebote de más del 30 % el lunes 23 con la vuelta de su consejero delegado). Los dos van en los reels del martes 24.
+- **Edición recreada esta noche**: estética de **collage / nota de rescate** (letras recortadas de revista, cinta de carrocero, sellos de goma, tiques), muy usada en reels de consumo y de «te están timando»: nuestra versión R10 papel recortado. Y la **gráfica convertida en montaña rusa** (los raíles son la cotización y el personaje va en la vagoneta), un recurso de explicadores de bolsa en TikTok, llevado al look terminal con Listo neón.
+
 ## 22-nov-2026 · búsqueda nocturna (pilar: DINERO Y LEY / temporada — Lotería de Navidad y Hacienda; español, audiencia España, desde el 8-nov, ≥ 5.000 vistas)
 | Cuenta | Vistas (x su mediana) | Gancho (0–3 s) | Formato / edición |
 |---|---|---|---|

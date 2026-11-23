@@ -4,361 +4,362 @@
  "segments": [
   {
    "i": 0,
-   "start": 0.236,
-   "dur": 3.12,
+   "start": 0.24,
+   "dur": 3.06,
    "text": "Ese menos cuarenta por ciento del Blac Fráidei... puede ser mentira.",
    "words": [
     {
      "w": "Ese",
-     "start": 0.236,
-     "end": 0.442
+     "start": 0.24,
+     "end": 0.4
     },
     {
      "w": "menos",
-     "start": 0.442,
-     "end": 0.782
+     "start": 0.44,
+     "end": 0.66
     },
     {
      "w": "cuarenta",
-     "start": 0.782,
-     "end": 1.137
+     "start": 0.72,
+     "end": 1.02
     },
     {
      "w": "por",
-     "start": 1.137,
-     "end": 1.305
+     "start": 1.08,
+     "end": 1.18
     },
     {
      "w": "ciento",
-     "start": 1.305,
-     "end": 1.706
+     "start": 1.24,
+     "end": 1.5
     },
     {
      "w": "del",
-     "start": 1.706,
-     "end": 1.923
+     "start": 1.54,
+     "end": 1.64
     },
     {
      "w": "Blac",
-     "start": 1.923,
-     "end": 2.149
+     "start": 1.68,
+     "end": 1.84
     },
     {
      "w": "Fráidei...",
-     "start": 2.149,
-     "end": 2.487
+     "start": 1.88,
+     "end": 2.18
     },
     {
      "w": "puede",
-     "start": 2.487,
-     "end": 2.718
+     "start": 2.56,
+     "end": 2.74
     },
     {
      "w": "ser",
-     "start": 2.718,
-     "end": 2.963
+     "start": 2.8,
+     "end": 2.92
     },
     {
      "w": "mentira.",
-     "start": 2.963,
-     "end": 3.356
+     "start": 2.96,
+     "end": 3.3
     }
    ]
   },
   {
    "i": 1,
-   "start": 3.507,
-   "dur": 2.585,
+   "start": 3.52,
+   "dur": 2.56,
    "text": "Trampa uno: te suben el precio antes, para bajártelo.",
    "words": [
     {
      "w": "Trampa",
-     "start": 3.507,
-     "end": 3.863
+     "start": 3.52,
+     "end": 3.8
     },
     {
      "w": "uno:",
-     "start": 3.863,
-     "end": 4.065
+     "start": 3.86,
+     "end": 4
     },
     {
      "w": "te",
-     "start": 4.065,
-     "end": 4.164
+     "start": 4.22,
+     "end": 4.28
     },
     {
      "w": "suben",
-     "start": 4.164,
-     "end": 4.517
+     "start": 4.34,
+     "end": 4.54
     },
     {
      "w": "el",
-     "start": 4.517,
-     "end": 4.678
+     "start": 4.58,
+     "end": 4.64
     },
     {
      "w": "precio",
-     "start": 4.678,
-     "end": 5.025
+     "start": 4.68,
+     "end": 4.98
     },
     {
      "w": "antes,",
-     "start": 5.025,
-     "end": 5.384
+     "start": 5.1,
+     "end": 5.4
     },
     {
      "w": "para",
-     "start": 5.384,
-     "end": 5.633
+     "start": 5.46,
+     "end": 5.6
     },
     {
      "w": "bajártelo.",
-     "start": 5.633,
-     "end": 6.092
+     "start": 5.64,
+     "end": 6.08
     }
    ]
   },
   {
    "i": 2,
-   "start": 6.525,
-   "dur": 3.422,
+   "start": 6.52,
+   "dur": 3.38,
    "text": "Por ley, el tachado debe ser el precio más bajo de los últimos treinta días.",
    "words": [
     {
      "w": "Por",
-     "start": 6.525,
-     "end": 6.657
+     "start": 6.52,
+     "end": 6.66
     },
     {
      "w": "ley,",
-     "start": 6.657,
-     "end": 6.858
+     "start": 6.7,
+     "end": 6.84
     },
     {
      "w": "el",
-     "start": 6.858,
-     "end": 6.975
+     "start": 7.02,
+     "end": 7.08
     },
     {
      "w": "tachado",
-     "start": 6.975,
-     "end": 7.304
+     "start": 7.14,
+     "end": 7.44
     },
     {
      "w": "debe",
-     "start": 7.304,
-     "end": 7.541
+     "start": 7.48,
+     "end": 7.62
     },
     {
      "w": "ser",
-     "start": 7.541,
-     "end": 7.752
+     "start": 7.66,
+     "end": 7.78
     },
     {
      "w": "el",
-     "start": 7.752,
-     "end": 7.86
+     "start": 7.8,
+     "end": 7.9
     },
     {
      "w": "precio",
-     "start": 7.86,
-     "end": 8.154
+     "start": 7.94,
+     "end": 8.2
     },
     {
      "w": "más",
-     "start": 8.154,
-     "end": 8.378
+     "start": 8.24,
+     "end": 8.38
     },
     {
      "w": "bajo",
-     "start": 8.378,
-     "end": 8.645
+     "start": 8.42,
+     "end": 8.62
     },
     {
      "w": "de",
-     "start": 8.645,
-     "end": 8.783
+     "start": 8.66,
+     "end": 8.7
     },
     {
      "w": "los",
-     "start": 8.783,
-     "end": 8.968
+     "start": 8.74,
+     "end": 8.84
     },
     {
      "w": "últimos",
-     "start": 8.968,
-     "end": 9.357
+     "start": 8.9,
+     "end": 9.2
     },
     {
      "w": "treinta",
-     "start": 9.357,
-     "end": 9.7
+     "start": 9.24,
+     "end": 9.54
     },
     {
      "w": "días.",
-     "start": 9.7,
-     "end": 9.947
+     "start": 9.6,
+     "end": 9.9
     }
    ]
   },
   {
    "i": 3,
-   "start": 10.098,
-   "dur": 3.538,
+   "start": 10.1,
+   "dur": 3.5,
    "text": "Trampa dos: cuentas atrás y «solo quedan dos». Muchas veces, teatro.",
    "words": [
     {
      "w": "Trampa",
-     "start": 10.098,
-     "end": 10.493
+     "start": 10.1,
+     "end": 10.4
     },
     {
      "w": "dos:",
-     "start": 10.493,
-     "end": 10.727
+     "start": 10.46,
+     "end": 10.64
     },
     {
      "w": "cuentas",
-     "start": 10.727,
-     "end": 11.185
+     "start": 10.94,
+     "end": 11.26
     },
     {
      "w": "atrás",
-     "start": 11.185,
-     "end": 11.588
+     "start": 11.32,
+     "end": 11.56
     },
     {
      "w": "y",
-     "start": 11.588,
-     "end": 11.687
+     "start": 11.6,
+     "end": 11.64
     },
     {
      "w": "«solo",
-     "start": 11.687,
-     "end": 12.033
+     "start": 11.72,
+     "end": 11.9
     },
     {
      "w": "quedan",
-     "start": 12.033,
-     "end": 12.342
+     "start": 11.96,
+     "end": 12.16
     },
     {
      "w": "dos».",
-     "start": 12.342,
-     "end": 12.545
+     "start": 12.2,
+     "end": 12.4
     },
     {
      "w": "Muchas",
-     "start": 12.545,
-     "end": 12.957
+     "start": 12.6,
+     "end": 12.86
     },
     {
      "w": "veces,",
-     "start": 12.957,
-     "end": 13.284
+     "start": 12.9,
+     "end": 13.14
     },
     {
      "w": "teatro.",
-     "start": 13.284,
-     "end": 13.635
+     "start": 13.28,
+     "end": 13.6
     }
    ]
   },
   {
    "i": 4,
-   "start": 13.786,
-   "dur": 2.056,
+   "start": 13.78,
+   "dur": 2.06,
    "text": "Trampa tres: gastos que aparecen al pagar.",
    "words": [
     {
      "w": "Trampa",
-     "start": 13.786,
-     "end": 14.142
+     "start": 13.78,
+     "end": 14.04
     },
     {
      "w": "tres:",
-     "start": 14.142,
-     "end": 14.408
+     "start": 14.12,
+     "end": 14.38
     },
     {
      "w": "gastos",
-     "start": 14.408,
-     "end": 14.791
+     "start": 14.58,
+     "end": 14.92
     },
     {
      "w": "que",
-     "start": 14.791,
-     "end": 14.908
+     "start": 14.96,
+     "end": 15.04
     },
     {
      "w": "aparecen",
-     "start": 14.908,
-     "end": 15.376
+     "start": 15.08,
+     "end": 15.4
     },
     {
      "w": "al",
-     "start": 15.376,
-     "end": 15.555
+     "start": 15.42,
+     "end": 15.5
     },
     {
      "w": "pagar.",
-     "start": 15.555,
-     "end": 15.842
+     "start": 15.56,
+     "end": 15.84
     }
    ]
   },
   {
    "i": 5,
-   "start": 16.37,
-   "dur": 2.819,
+   "start": 16.36,
+   "dur": 2.78,
    "text": "¿Comprarás algo el viernes? Comenta: uno, sí; dos, paso.",
    "words": [
     {
      "w": "¿Comprarás",
-     "start": 16.37,
-     "end": 16.872
+     "start": 16.36,
+     "end": 16.78
     },
     {
      "w": "algo",
-     "start": 16.872,
-     "end": 17.125
+     "start": 16.84,
+     "end": 16.98
     },
     {
      "w": "el",
-     "start": 17.125,
-     "end": 17.297
+     "start": 17.02,
+     "end": 17.08
     },
     {
      "w": "viernes?",
-     "start": 17.297,
-     "end": 17.746
+     "start": 17.12,
+     "end": 17.46
     },
     {
      "w": "Comenta:",
-     "start": 17.746,
-     "end": 18.202
+     "start": 17.58,
+     "end": 17.92
     },
     {
      "w": "uno,",
-     "start": 18.202,
-     "end": 18.429
+     "start": 18.16,
+     "end": 18.3
     },
     {
      "w": "sí;",
-     "start": 18.429,
-     "end": 18.72
+     "start": 18.4,
+     "end": 18.5
     },
     {
      "w": "dos,",
-     "start": 18.72,
-     "end": 18.932
+     "start": 18.6,
+     "end": 18.76
     },
     {
      "w": "paso.",
-     "start": 18.932,
-     "end": 19.189
+     "start": 18.9,
+     "end": 19.14
     }
    ]
   }
- ]
+ ],
+ "fuente_tiempos": "ElevenLabs Scribe (transcripción de voz_local.mp3, tiempos exactos por palabra)"
 }
