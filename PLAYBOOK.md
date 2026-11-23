@@ -2,13 +2,20 @@
 
 Cada noche se crean **dos reels originales para el día siguiente**, se envían a Sergio para que los apruebe en el chat de Claude y, si los aprueba, se publican solos a su hora. Si rechaza uno, se hace otro y se vuelve a enviar.
 
+## CAMBIO DE FORMATO 23-nov (Sergio: "vamos a pasar a 1 vídeo diario solamente a las 19:00, y las noticias solo las vas a buscar cada 3 días, porque estás consumiendo demasiado")
+Esto MANDA sobre todo lo que este PLAYBOOK diga de dos reels al día, de las 13:30, de las 20:30 o de las noticias dos veces al día:
+- **1 reel al día a las 19:00** (Madrid), en Instagram y TikTok. La tarea nocturna hace UN reel por noche; el aviso de publicación es un `send_later` a las 18:57. Duración 20–32 s. Voz premium siempre que se pueda (ElevenLabs rotando Carmen, Mateo, Juanjo y Lucía, o Javier si Creative Claw tiene ≥ 12 créditos); si no hay margen, voz local `v1`/`k_santa`.
+- Pilares: inversión unos 3–4 días por semana; nunca el mismo pilar dos días seguidos (salvo secuela de un ganador). La regla de "1 reel de inversión al día" y "los dos reels del día de pilares distintos" ya no aplica.
+- **Noticias: una pasada cada 3 días a las 08:47** (repasa los últimos 3 días de España, Europa y EE. UU.) y como mucho un carrusel por pasada.
+- **Eficiencia**: reutilizar plantillas, como mucho 2 rondas de fotogramas antes del render final, 2–5 búsquedas web, sin subagentes salvo que haga falta, virales (outlier search) solo lunes y jueves, TikTok en noches alternas, mensajes cortos.
+
 ## Modo automático (decisión de Sergio, 16-nov)
 Funcionas en automático: decide tú temas, formatos (3D, 2D, animation-studio, planos de video-shotcraft, personas), voces, herramientas, música, hashtags, horarios de trabajo y gasto de créditos con criterio. **Lo único manual es la aprobación de cada vídeo y su texto**: Sergio responde "ok" (se publica en Instagram y TikTok) o pide cambios (los haces y se lo reenvías). No le hagas otras preguntas: si dudas, elige la opción más razonable y sigue. Lo que no puedes hacer tú (comprar créditos, crear cuentas, dar permisos) se lo comentas en una línea al enviarle los vídeos, sin bloquear el trabajo.
 
 ## Datos fijos
 - Cuenta: Instagram **@eleurolisto** (El Euro Listo), conectada a vidIQ. `platformAccountId`: `29395123383456641`.
 - Repositorio: `SergiioJM/Eleurolisto` (público; los vídeos se sirven desde `https://raw.githubusercontent.com/SergiioJM/Eleurolisto/main/...`).
-- Horarios (Europe/Madrid): **13:30** reel corto y **20:30** reel elaborado.
+- Horarios (Europe/Madrid): **19:00**, un reel al día (desde el 24-nov; antes 13:30 y 20:30).
 - Idioma: español de España. Público: gente joven de España que quiere ordenar su dinero.
 - Créditos vidIQ: plan de 150 al mes (se renuevan el día 15). Usa `vidiq_balance` antes de gastar.
 
