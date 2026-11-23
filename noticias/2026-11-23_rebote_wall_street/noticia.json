@@ -1,0 +1,72 @@
+{
+ "fecha": "23 nov 2026 · EE. UU. a las 18:30 h (España)",
+ "fuente": "Yahoo Finance · Motley Fool · Fox Business · Europa Press · J.P. Morgan AM",
+ "etiqueta": "DEL PÁNICO AL REBOTE",
+ "slides": [
+  {
+   "tipo": "portada",
+   "titular": "Tres días después del pánico, el Nasdaq llega a subir casi un <em>7&nbsp;%</em>",
+   "bajada": "El viernes se hundía un 5,3&nbsp;%. Hoy, lunes, Wall Street se dispara y el Ibex sube un 1,6&nbsp;%. Qué ha pasado y la lección para tu dinero."
+  },
+  {
+   "tipo": "vs",
+   "etiqueta": "NASDAQ, EN 2 SESIONES",
+   "titulo": "La montaña rusa",
+   "izq": {
+    "lab": "VIERNES 20",
+    "icono": "📉",
+    "nombre": "Nasdaq al cierre",
+    "cifra": "−5,3&nbsp;%",
+    "texto": "y −10&nbsp;% en toda la semana",
+    "color": "rojo"
+   },
+   "der": {
+    "lab": "LUNES 23",
+    "icono": "📈",
+    "nombre": "Nasdaq a media sesión",
+    "cifra": "+6,9&nbsp;%",
+    "texto": "recupera lo del viernes, no toda la semana",
+    "color": "verde"
+   },
+   "nota": "S&P 500, cerca de +5&nbsp;%, y Dow Jones, +3,2&nbsp;%, a las 18:30 h (hora de España). Wall Street cierra a las 22:00 h: datos provisionales."
+  },
+  {
+   "tipo": "puntos",
+   "etiqueta": "POR QUÉ SUBE",
+   "titulo": "Qué ha pasado",
+   "puntos": [
+    "<em>Nvidia</em>, el gigante de los chips para inteligencia artificial, vuelve a nombrar consejero delegado a Jensen Huang, que dimitió el 12 de noviembre",
+    "Su acción se dispara <em>más de un 30&nbsp;%</em> y arrastra a las tecnológicas",
+    "Europa también sube: Ibex 35 <em>+1,63&nbsp;%</em> (19.181 puntos) y Alemania +2,15&nbsp;%. El petróleo baja más de un 3&nbsp;%"
+   ]
+  },
+  {
+   "tipo": "puntos",
+   "etiqueta": "QUÉ SIGNIFICA PARA TI",
+   "titulo": "¿Y mi dinero?",
+   "puntos": [
+    "Si tienes un <em>fondo indexado</em> o un plan de pensiones con bolsa, hoy recupera parte de lo que cayó la semana pasada",
+    "Pero el S&P 500 sigue <em>por debajo</em> de su récord de octubre: el susto no está borrado",
+    "Ojo al <em>miércoles 25</em>: dato de inflación PCE en EE. UU. (14:30 h). El mercado da por hecha (más del 90&nbsp;%) una subida de tipos de la Fed en diciembre"
+   ]
+  },
+  {
+   "tipo": "mito",
+   "etiqueta": "MITO VS REALIDAD",
+   "mito": "Si vendo cuando cae y vuelvo a entrar cuando se calme, me ahorro lo malo",
+   "realidad": "Los peores días y los mejores suelen ir pegados: viernes −5,3&nbsp;%, lunes casi +7&nbsp;%. Según J.P. Morgan, perderse los 10 mejores días de la bolsa de EE. UU. en 20 años dejó la rentabilidad en menos de la mitad.",
+   "nota": "Datos históricos: no garantizan nada. No es una recomendación de comprar ni de vender."
+  },
+  {
+   "tipo": "cierre",
+   "etiqueta": "LA LECCIÓN DEL LUNES",
+   "titulo": "Antes de tocar nada",
+   "puntos": [
+    "¿Cuándo voy a necesitar este dinero? El <em>plazo</em> pesa más que un día",
+    "¿Sé cuánta <em>bolsa</em> lleva mi fondo? Está en su ficha",
+    "¿Duermo con estos sustos? Si no, revisa tu <em>perfil de riesgo</em>"
+   ],
+   "cta": "Pásaselo a quien se asustó 📈"
+  }
+ ]
+}
