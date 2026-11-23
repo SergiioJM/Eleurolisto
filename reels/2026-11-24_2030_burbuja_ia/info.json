@@ -1,0 +1,32 @@
+{
+ "fecha": "2026-11-24",
+ "hora": "20:30",
+ "titulo": "¿Burbuja de la IA? (polémica con datos, tras la montaña rusa de Nvidia)",
+ "pilar": "Inversión (bolsa, polémica) · actualidad",
+ "look": "Datos tipo terminal de bolsa — variante NUEVA «montaña rusa» (la cotización de Nvidia convertida en raíles con traviesas y pilares, Listo en una vagoneta) + Listo 'neon'",
+ "formato": "HTML/canvas 2D con motor.mjs: fondo casi negro FIJO con rejilla y líneas CRT estáticas, cabecera EUROLISTO_TERMINAL, cinta de cotizaciones; titular ¿BURBUJA DE LA IA? desde el fotograma 0; gráfica de Nvidia oct–nov (simplificada, puntos clave reales) como montaña rusa de neón por la que baja la vagoneta con Listo (−43 %) y sube con el rebote del lunes; pestañas BURBUJA vs FUTURO que se activan por turnos; barras del peso de las 7 mayores en el S&P 500 (2000: 17,5 % vs fin de 2025: >35 %) y del PER futuro (59 vs ~30) con sello LA MITAD DE CARO; empuje a la gráfica del Nasdaq 1995–2016 con caja −78 % y llave de 15 AÑOS; final ¿BURBUJA O FUTURO? con las pestañas convertidas en votación 1 · BURBUJA / 2 · FUTURO y botón + SEGUIR. Subtítulos de terminal escritos letra a letra.",
+ "gancho": "Nvidia: −43 % en un mes… y el lunes llegó a subir más de un 30 % en un día (en pantalla desde el fotograma 0: ¿BURBUJA DE LA IA? + Listo en la vagoneta en lo alto de la montaña rusa a punto de caer)",
+ "ganchos_candidatos": [
+  "Nvidia: −43 % en un mes… y +30 % en un día (elegido: actualidad del día + cifra que duele + personaje en conflicto)",
+  "¿Ha explotado la burbuja de la IA?",
+  "7 empresas = 35 % de la bolsa de EE. UU.",
+  "En el 2000 esto acabó con un −78 %",
+  "La bolsa se ha vuelto loca: −10 % en una semana y +7 % en un día"
+ ],
+ "voz": "ElevenLabs · Carmen (iHGx33VgO2KQ1Fdw6noG, eleven_v4) en dos tomas (gancho grabado aparte tras las cifras del lunes + resto); transcripción Scribe idéntica al guion; pausas > 0,30 s acortadas a 0,20 s y atempo 1,12",
+ "etiqueta_ia": true,
+ "caption": "¿Burbuja de la IA? ⚔️ Nvidia cayó un 43 % en menos de un mes (de 219,99 $ el 28-oct a unos 125,5 $ el viernes 20) y el lunes 23 llegó a subir más de un 30 % en una sola sesión (hasta un 36 % en su máximo). Los del «sí»: las 7 mayores empresas ya pesaban más del 35 % del S&P 500 a finales de 2025; en el pico del 2000, el 17,5 %. Los del «no»: hoy ganan dinero de verdad y cotizan a unas 30 veces sus beneficios esperados, frente a 59 en el 2000. El matiz: tras el 2000, el Nasdaq cayó un 78 % y tardó 15 años en recuperar su máximo.\n¿Tú qué dices? Comenta 1 (burbuja) o 2 (futuro) 👇 y mándaselo a quien solo habla de Nvidia.\nContenido educativo, no es asesoramiento financiero.\nFuentes: CaixaBank Research (feb-2026), EFE, Investing y Rankia (23-nov), Nasdaq.\n#nvidia #bolsa #inteligenciaartificial #finanzaspersonales #eleurolisto\n🎙 elevenlabs.io",
+ "datos": "Ver content/noticias.md (23-nov, tarea nocturna). Nvidia: máx. 219,99 $ (28-oct, EFE), cierre del vie 20 ≈ 125,5 $ (Investing/Rankia, recalculado) → −43 % (Python); lun 23: por encima del 30 % desde la apertura hasta al menos las 13:42 ET (≈ +31 % a las 13:42 ET, 164,38 $, FinanceFeeds; +32,7 % a mediodía, AP vía Fomoera) y máximo de 171,50 $ (+36,6 %); a la hora de cerrar el reel no había cierre oficial en dos fuentes, por eso la voz dice «llegó a subir más de un 30 %» y la pantalla «hasta +36 %». CaixaBank Research (9-feb-2026): 7 mayores >35 % del S&P 500 a fin de 2025 vs 17,5 % en el pico de 2000; PER futuro ~30 vs 59. Nasdaq 5.048,62 (10-mar-2000) → 1.114,11 (9-oct-2002) = −77,9 %; recupera el máximo en abril de 2015 (AP, Kiplinger). Gráficas simplificadas (puntos clave reales, tramos intermedios aproximados), así se indica en pantalla.",
+ "fuentes": [
+  "https://www.caixabankresearch.com/es/economia-y-mercados/mercados-financieros/innovacion-expectativas-y-vertigo-redefine-concentracion",
+  "https://www.yucatan.com.mx/economia-2/2026/11/23/wall-street-rebota-con-fuerza-y-nvidia-se-dispara-un-30-tras-restitucion-de-huang.html",
+  "https://es.investing.com/news/stock-market-news/acciones-de-nvidia-se-disparan-34-con-el-regreso-de-huang-podria-volver-a-caer-3940693",
+  "https://www.rankia.com/blog/bolsa-al-dia/7563215-nasdaq-dispara-vuelta-huang-nvidia-acabado-caida",
+  "https://phys.org/news/2015-04-years-nasdaq-recoups-losses-dot-com.pdf"
+ ],
+ "origen": "plan semanal (martes 20:30: ¿burbuja de la IA?) + noticia del día (rebote histórico de Nvidia y del Nasdaq) + regla de crecimiento (polémica de inversión, que en TikTok ya hace ~700 vistas)",
+ "listo": "Modelado 'neon': desde el fotograma 0 va en la vagoneta de la montaña rusa (sorpresa con los brazos abiertos en la caída, celebra con gafas en el rebote, piensa y tiembla con «puntocom»); luego presentador en la esquina (asoma, piensa, señala y tiembla con el 35 %, salta con «ganan dinero» y se pone gafas y cadena con LA MITAD DE CARO, piensa con el matiz y le cae el gorro roto con el −78 %, se desinfla y tiembla con los 15 años); al final va al centro en grande: giro, firma (guiño + mano redonda en alto) y señala + SEGUIR.",
+ "musica": "chill 92 bpm (seed 4), baja; efectos de la biblioteca (traqueteo de la vagoneta, golpes graves en −43 % y −78 %, transiciones tech, datos, sello, votos)",
+ "portada": "portada/portada.jpg (kicker POLÉMICA · BOLSA, «¿Burbuja de la IA?», etiqueta Nvidia −43 %; fondo: montaña rusa de Nvidia con Listo en la vagoneta cayendo)",
+ "estado": "pendiente de aprobación (enviado 23-nov noche)"
+}
