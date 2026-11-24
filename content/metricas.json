@@ -514,6 +514,24 @@
     "comp": 0,
     "guard": 0
    }
+  },
+  {
+   "id": "2026-11-24_1900_burbuja_ia",
+   "fecha": "2026-11-24",
+   "hora": "19:00",
+   "tema": "¿Burbuja de la IA? (polémica, actualidad Nvidia)",
+   "pilar": "Inversión",
+   "look": "Terminal + montaña rusa",
+   "voz": "ElevenLabs Carmen",
+   "dur": 32.7,
+   "gancho": "Nvidia: −43 % en un mes… y el lunes llegó a subir más de un 30 %",
+   "ig": {
+    "code": "DgIi_9MGRlr",
+    "mediaId": "18381600178214805"
+   },
+   "tt": {
+    "id": "7711798946884046113"
+   }
   }
  ],
  "posts": [
