@@ -1,0 +1,525 @@
+{
+ "total": 31.747,
+ "voz": "ElevenLabs · Mateo (gpMzl7dbkfC9dIxAqQZT, eleven_v4)",
+ "fuente_tiempos": "ElevenLabs Scribe (tiempos exactos por palabra)",
+ "segments": [
+  {
+   "i": 0,
+   "start": 0.12,
+   "dur": 3.831,
+   "text": "Mil quinientos euros al año: ¿plan de pensiones, o fondo indexado?",
+   "words": [
+    {
+     "w": "Mil",
+     "start": 0.12,
+     "end": 0.323
+    },
+    {
+     "w": "quinientos",
+     "start": 0.391,
+     "end": 0.798
+    },
+    {
+     "w": "euros",
+     "start": 0.866,
+     "end": 1.069
+    },
+    {
+     "w": "al",
+     "start": 1.137,
+     "end": 1.205
+    },
+    {
+     "w": "año:",
+     "start": 1.273,
+     "end": 1.815
+    },
+    {
+     "w": "¿plan",
+     "start": 1.883,
+     "end": 2.018
+    },
+    {
+     "w": "de",
+     "start": 2.052,
+     "end": 2.086
+    },
+    {
+     "w": "pensiones,",
+     "start": 2.154,
+     "end": 2.764
+    },
+    {
+     "w": "o",
+     "start": 2.832,
+     "end": 2.9
+    },
+    {
+     "w": "fondo",
+     "start": 2.967,
+     "end": 3.171
+    },
+    {
+     "w": "indexado?",
+     "start": 3.239,
+     "end": 3.951
+    }
+   ]
+  },
+  {
+   "i": 1,
+   "start": 4.086,
+   "dur": 5.153,
+   "text": "El plan: hoy Hacienda te devuelve tu tramo. Con un treinta por ciento, cuatrocientos cincuenta euros.",
+   "words": [
+    {
+     "w": "El",
+     "start": 4.086,
+     "end": 4.154
+    },
+    {
+     "w": "plan:",
+     "start": 4.222,
+     "end": 4.764
+    },
+    {
+     "w": "hoy",
+     "start": 4.798,
+     "end": 4.9
+    },
+    {
+     "w": "Hacienda",
+     "start": 4.934,
+     "end": 5.306
+    },
+    {
+     "w": "te",
+     "start": 5.374,
+     "end": 5.442
+    },
+    {
+     "w": "devuelve",
+     "start": 5.51,
+     "end": 5.849
+    },
+    {
+     "w": "tu",
+     "start": 5.917,
+     "end": 5.984
+    },
+    {
+     "w": "tramo.",
+     "start": 6.018,
+     "end": 6.527
+    },
+    {
+     "w": "Con",
+     "start": 6.561,
+     "end": 6.595
+    },
+    {
+     "w": "un",
+     "start": 6.662,
+     "end": 6.73
+    },
+    {
+     "w": "treinta",
+     "start": 6.798,
+     "end": 7.001
+    },
+    {
+     "w": "por",
+     "start": 7.069,
+     "end": 7.137
+    },
+    {
+     "w": "ciento,",
+     "start": 7.205,
+     "end": 7.612
+    },
+    {
+     "w": "cuatrocientos",
+     "start": 7.679,
+     "end": 8.289
+    },
+    {
+     "w": "cincuenta",
+     "start": 8.334,
+     "end": 8.628
+    },
+    {
+     "w": "euros.",
+     "start": 8.764,
+     "end": 9.239
+    }
+   ]
+  },
+  {
+   "i": 2,
+   "start": 9.284,
+   "dur": 6.463,
+   "text": "Pero al sacarlo, tributa todo, lo que metiste y lo que ganó, como sueldo. Y cada euro queda bloqueado diez años.",
+   "words": [
+    {
+     "w": "Pero",
+     "start": 9.284,
+     "end": 9.374
+    },
+    {
+     "w": "al",
+     "start": 9.408,
+     "end": 9.442
+    },
+    {
+     "w": "sacarlo,",
+     "start": 9.51,
+     "end": 10.052
+    },
+    {
+     "w": "tributa",
+     "start": 10.154,
+     "end": 10.459
+    },
+    {
+     "w": "todo,",
+     "start": 10.595,
+     "end": 11.069
+    },
+    {
+     "w": "lo",
+     "start": 11.137,
+     "end": 11.205
+    },
+    {
+     "w": "que",
+     "start": 11.273,
+     "end": 11.34
+    },
+    {
+     "w": "metiste",
+     "start": 11.408,
+     "end": 11.747
+    },
+    {
+     "w": "y",
+     "start": 11.883,
+     "end": 11.951
+    },
+    {
+     "w": "lo",
+     "start": 12.018,
+     "end": 12.086
+    },
+    {
+     "w": "que",
+     "start": 12.154,
+     "end": 12.222
+    },
+    {
+     "w": "ganó,",
+     "start": 12.289,
+     "end": 12.628
+    },
+    {
+     "w": "como",
+     "start": 12.73,
+     "end": 12.832
+    },
+    {
+     "w": "sueldo.",
+     "start": 12.866,
+     "end": 13.374
+    },
+    {
+     "w": "Y",
+     "start": 13.408,
+     "end": 13.442
+    },
+    {
+     "w": "cada",
+     "start": 13.578,
+     "end": 13.781
+    },
+    {
+     "w": "euro",
+     "start": 13.849,
+     "end": 14.052
+    },
+    {
+     "w": "queda",
+     "start": 14.12,
+     "end": 14.323
+    },
+    {
+     "w": "bloqueado",
+     "start": 14.391,
+     "end": 14.798
+    },
+    {
+     "w": "diez",
+     "start": 14.934,
+     "end": 15.137
+    },
+    {
+     "w": "años.",
+     "start": 15.205,
+     "end": 15.747
+    }
+   ]
+  },
+  {
+   "i": 3,
+   "start": 15.883,
+   "dur": 7.051,
+   "text": "El fondo: hoy no te devuelven nada… pero lo sacas cuando quieras, y solo tributa la ganancia, del diecinueve al treinta por ciento.",
+   "words": [
+    {
+     "w": "El",
+     "start": 15.883,
+     "end": 15.951
+    },
+    {
+     "w": "fondo:",
+     "start": 16.018,
+     "end": 16.628
+    },
+    {
+     "w": "hoy",
+     "start": 16.662,
+     "end": 16.9
+    },
+    {
+     "w": "no",
+     "start": 17.035,
+     "end": 17.171
+    },
+    {
+     "w": "te",
+     "start": 17.239,
+     "end": 17.306
+    },
+    {
+     "w": "devuelven",
+     "start": 17.374,
+     "end": 17.645
+    },
+    {
+     "w": "nada…",
+     "start": 17.713,
+     "end": 18.12
+    },
+    {
+     "w": "pero",
+     "start": 18.188,
+     "end": 18.289
+    },
+    {
+     "w": "lo",
+     "start": 18.323,
+     "end": 18.391
+    },
+    {
+     "w": "sacas",
+     "start": 18.459,
+     "end": 18.73
+    },
+    {
+     "w": "cuando",
+     "start": 18.798,
+     "end": 19.001
+    },
+    {
+     "w": "quieras,",
+     "start": 19.069,
+     "end": 19.544
+    },
+    {
+     "w": "y",
+     "start": 19.578,
+     "end": 19.612
+    },
+    {
+     "w": "solo",
+     "start": 19.679,
+     "end": 19.815
+    },
+    {
+     "w": "tributa",
+     "start": 19.883,
+     "end": 20.222
+    },
+    {
+     "w": "la",
+     "start": 20.256,
+     "end": 20.289
+    },
+    {
+     "w": "ganancia,",
+     "start": 20.357,
+     "end": 20.9
+    },
+    {
+     "w": "del",
+     "start": 20.967,
+     "end": 21.035
+    },
+    {
+     "w": "diecinueve",
+     "start": 21.103,
+     "end": 21.578
+    },
+    {
+     "w": "al",
+     "start": 21.713,
+     "end": 21.849
+    },
+    {
+     "w": "treinta",
+     "start": 21.917,
+     "end": 22.12
+    },
+    {
+     "w": "por",
+     "start": 22.188,
+     "end": 22.256
+    },
+    {
+     "w": "ciento.",
+     "start": 22.323,
+     "end": 22.934
+    }
+   ]
+  },
+  {
+   "i": 4,
+   "start": 22.978,
+   "dur": 5.04,
+   "text": "¿Tramo alto hoy, y bajo al jubilarte? Ventaja para el plan. ¿Quieres libertad? El fondo.",
+   "words": [
+    {
+     "w": "¿Tramo",
+     "start": 22.978,
+     "end": 23.205
+    },
+    {
+     "w": "alto",
+     "start": 23.273,
+     "end": 23.476
+    },
+    {
+     "w": "hoy,",
+     "start": 23.544,
+     "end": 23.815
+    },
+    {
+     "w": "y",
+     "start": 23.849,
+     "end": 23.883
+    },
+    {
+     "w": "bajo",
+     "start": 23.951,
+     "end": 24.154
+    },
+    {
+     "w": "al",
+     "start": 24.188,
+     "end": 24.222
+    },
+    {
+     "w": "jubilarte?",
+     "start": 24.289,
+     "end": 24.967
+    },
+    {
+     "w": "Ventaja",
+     "start": 25.103,
+     "end": 25.442
+    },
+    {
+     "w": "para",
+     "start": 25.51,
+     "end": 25.578
+    },
+    {
+     "w": "el",
+     "start": 25.645,
+     "end": 25.679
+    },
+    {
+     "w": "plan.",
+     "start": 25.713,
+     "end": 26.256
+    },
+    {
+     "w": "¿Quieres",
+     "start": 26.278,
+     "end": 26.527
+    },
+    {
+     "w": "libertad?",
+     "start": 26.595,
+     "end": 27.205
+    },
+    {
+     "w": "El",
+     "start": 27.273,
+     "end": 27.34
+    },
+    {
+     "w": "fondo.",
+     "start": 27.408,
+     "end": 28.018
+    }
+   ]
+  },
+  {
+   "i": 5,
+   "start": 28.052,
+   "dur": 2.882,
+   "text": "¿Y tú, cuál eliges? Comenta: uno, o dos.",
+   "words": [
+    {
+     "w": "¿Y",
+     "start": 28.052,
+     "end": 28.12
+    },
+    {
+     "w": "tú,",
+     "start": 28.154,
+     "end": 28.493
+    },
+    {
+     "w": "cuál",
+     "start": 28.527,
+     "end": 28.628
+    },
+    {
+     "w": "eliges?",
+     "start": 28.696,
+     "end": 29.306
+    },
+    {
+     "w": "Comenta:",
+     "start": 29.374,
+     "end": 29.917
+    },
+    {
+     "w": "uno,",
+     "start": 30.018,
+     "end": 30.323
+    },
+    {
+     "w": "o",
+     "start": 30.357,
+     "end": 30.391
+    },
+    {
+     "w": "dos.",
+     "start": 30.459,
+     "end": 30.934
+    }
+   ]
+  }
+ ]
+}

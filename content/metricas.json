@@ -1,22 +1,22 @@
 {
  "_nota": "Métricas de TODOS los vídeos (IG + TikTok). La tarea nocturna las actualiza cada noche (IG: vidiq_instagram_owner_insights mode reels/media, 0 créditos; TikTok: vidiq_tiktok_profile_videos, 5 créditos) y ejecuta `python3 toolkit/ranking.py` para regenerar content/ranking.md. Campos: ig_* de Instagram (vistas, % visto, skip, likes, comentarios, compartidos, guardados), tt_* de TikTok.",
- "actualizado": "2026-11-23 21:20 (Madrid)",
+ "actualizado": "2026-11-24 21:35 (Madrid)",
  "cuenta": {
   "ig_seguidores": 2,
   "ig_5dias": {
-   "alcance": 2538,
-   "vistas": 3318,
+   "alcance": 3770,
+   "vistas": 4855,
    "visitas_perfil": 14,
-   "cuentas_que_interactuan": 46,
-   "interacciones": 67
+   "cuentas_que_interactuan": 56,
+   "interacciones": 78
   },
   "tt_seguidores": null,
   "ig_14dias": {
-   "alcance": 2772,
-   "vistas": 3595,
+   "alcance": 3770,
+   "vistas": 4855,
    "visitas_perfil": 14,
-   "cuentas_que_interactuan": 47,
-   "interacciones": 69
+   "cuentas_que_interactuan": 56,
+   "interacciones": 78
   }
  },
  "videos": [
@@ -466,9 +466,9 @@
    "ig": {
     "code": "DgFYavwjbN0",
     "mediaId": "18110561222337718",
-    "vistas": 140,
-    "visto": 42.8,
-    "skip": 52.9,
+    "vistas": 141,
+    "visto": 41.9,
+    "skip": 53.3,
     "likes": 0,
     "coment": 0,
     "comp": 0,
@@ -497,14 +497,13 @@
    "ig": {
     "code": "DgGIfToEekN",
     "mediaId": "18094986734207241",
-    "vistas": 67,
-    "visto": null,
-    "skip": null,
-    "likes": 0,
+    "vistas": 1121,
+    "visto": 40.8,
+    "skip": 36.4,
+    "likes": 7,
     "coment": 0,
     "comp": 0,
-    "guard": 0,
-    "nota": "métricas de ~1,5 h (23-nov 21:15): visto/skip aún sin datos"
+    "guard": 0
    },
    "tt": {
     "id": "7711450948660448545",
@@ -527,7 +526,15 @@
    "gancho": "Nvidia: −43 % en un mes… y el lunes llegó a subir más de un 30 %",
    "ig": {
     "code": "DgIi_9MGRlr",
-    "mediaId": "18381600178214805"
+    "mediaId": "18381600178214805",
+    "vistas": 132,
+    "visto": 29.2,
+    "skip": 43.0,
+    "likes": 1,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0,
+    "nota": "métricas de ~2 h (24-nov 21:15)"
    },
    "tt": {
     "id": "7711798946884046113"

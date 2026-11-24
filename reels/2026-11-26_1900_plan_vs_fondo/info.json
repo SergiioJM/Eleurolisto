@@ -1,0 +1,44 @@
+{
+ "fecha": "2026-11-26",
+ "hora": "19:00",
+ "titulo": "Plan de pensiones o fondo indexado (parte 2 de «Plan de pensiones: ¿chollo o trampa?»)",
+ "pilar": "Inversión (pensiones privadas y fondos indexados, polémica) · secuela de un ganador",
+ "look": "R5 · 3D tipo plastilina, comparativa con corona (plantilla 2026-11-20_2030_indexados_vs_gestores) + Listo 'plastilina'",
+ "formato": "escena3d con motor.mjs: plataforma redonda con foco FIJO, personajes nuestros: «Plan» (caja fuerte azul con rueda de combinación; personaje nuevo) y «Fondo» (la cesta mostaza de indexados), cada uno sobre su pila de monedas (doradas = lo que metiste, verdes = lo que ganó). Titular ¿PLAN DE PENSIONES O FONDO INDEXADO? + 1.500 € al año + VS desde el fotograma 0; +450 € HOY con monedas que vuelven a Listo; llave roja en TODA la pila del plan (IRPF sobre TODO → TODO, como sueldo); candado que cae (BLOQUEADO 10 AÑOS); 0 € HOY y LO SACAS CUANDO QUIERAS con monedas que saltan de la cesta; llave roja SOLO en las verdes del fondo (SOLO LA GANANCIA al 19–30 %); la corona cae en el plan («ventaja») y salta al fondo («libertad») y al final flota en medio (no hay ganador); votación 1 · PLAN / 2 · FONDO y botón + SEGUIR (parte 3: cómo rescatarlo pagando menos). Subtítulos en trozos con la palabra activa en píldora amarilla.",
+ "gancho": "Mil quinientos euros al año: ¿plan de pensiones o fondo indexado? (en pantalla desde el fotograma 0: ¿PLAN DE PENSIONES O FONDO INDEXADO? + 1.500 € al año + los dos personajes con VS)",
+ "ganchos_candidatos": [
+  "1.500 € al año: ¿plan de pensiones o fondo indexado? (elegido: cifra + las dos palabras de los ganadores: pensiones 1.121 en IG e indexados 723 en TikTok)",
+  "Hacienda te devuelve 450 €… el fondo indexado, 0 €. ¿Y aun así puede ganar?",
+  "Plan de pensiones parte 2: el rival que nadie te cuenta",
+  "450 € hoy o libertad mañana",
+  "El plan de pensiones contra el fondo indexado"
+ ],
+ "guion": [
+  "Mil quinientos euros al año: ¿plan de pensiones, o fondo indexado?",
+  "El plan: hoy Hacienda te devuelve tu tramo. Con un treinta por ciento, cuatrocientos cincuenta euros.",
+  "Pero al sacarlo, tributa todo, lo que metiste y lo que ganó, como sueldo. Y cada euro queda bloqueado diez años.",
+  "El fondo: hoy no te devuelven nada… pero lo sacas cuando quieras, y solo tributa la ganancia, del diecinueve al treinta por ciento.",
+  "¿Tramo alto hoy, y bajo al jubilarte? Ventaja para el plan. ¿Quieres libertad? El fondo.",
+  "¿Y tú, cuál eliges? Comenta: uno, o dos."
+ ],
+ "voz": "ElevenLabs · Mateo (gpMzl7dbkfC9dIxAqQZT, eleven_v4), una toma de 543 caracteres; transcripción Scribe idéntica al guion; 2 pausas > 0,22 s acortadas y atempo 1,18",
+ "etiqueta_ia": true,
+ "caption": "Plan de pensiones o fondo indexado: ¿dónde metes 1.500 € al año? ⚔️ Plan: hoy Hacienda te devuelve tu tipo marginal (con un 30 %, 450 €), pero al rescatarlo tributa TODO —lo aportado y lo ganado— como rendimiento del trabajo, y cada aportación queda bloqueada 10 años (salvo jubilación y casos tasados). Fondo indexado: hoy no desgrava nada, pero lo sacas cuando quieras, puedes traspasar entre fondos sin tributar y al vender solo tributa la ganancia, al 19–30 % (base del ahorro). La clave: tu tramo hoy frente al de cuando lo saques, y cuándo vas a necesitar el dinero.\n¿Tú cuál eliges? Comenta 1 (plan) o 2 (fondo) 👇 y mándaselo a quien está pensando en abrir un plan antes del 31 de diciembre.\nContenido educativo, no es asesoramiento financiero.\nFuentes: Ley del IRPF (AEAT), OCU y CNMV (Guía de fiscalidad de los fondos de inversión 2026).\n#plandepensiones #fondosindexados #irpf #finanzaspersonales #eleurolisto\n🎙 elevenlabs.io",
+ "datos": "Plan (verificado el 23-nov para la parte 1: OCU 13-nov-2026, Raisin, Taxdown): límite 1.500 €/año en planes individuales; la aportación reduce la base imponible general → ahorro = aportación × tipo marginal (1.500 × 30 % = 450 €, Python); el rescate tributa íntegro (aportaciones + rentabilidad) como rendimiento del trabajo; liquidez: aportaciones con 10 años de antigüedad (desde 2025), jubilación y supuestos tasados. Fondo de inversión: sin reducción al aportar; las ganancias tributan en la base del ahorro al 19 %–30 % (escala de 2026: 19/21/23/27/30 %) solo al vender (reembolso), y los traspasos entre fondos no tributan (art. 94 LIRPF); liquidez en días. Conclusión general (no recomendación): el plan tiene ventaja si el tipo al rescatar es menor que al aportar; el fondo, si se valora la liquidez.",
+ "fuentes": [
+  "https://internet.cnmv.es/DocPortal/Publicaciones/Guias/GuiaFiscalidadFondosInversion2026.pdf",
+  "https://www.ocu.org/inversiones/fiscalidad-y-derechos/impuestos/articulos/2026/02/peaje-fiscal-de-sus-inversiones-y-ahorros",
+  "https://www.ocu.org/inversiones/ahorrar/planes-de-pensiones/articulos/2026/03/que-hacer-con-sus-planes-de-pensiones-con-mas-de-10-anos",
+  "https://taxdown.es/inversion-acciones-bolsa/fondos-inversion-indexados-etf-declaracion-renta",
+  "https://www.raisin.com/es-es/pensiones/planes-de-pensiones/rescate-plan-pensiones/"
+ ],
+ "origen": "secuela del reel que despegó (Plan de pensiones parte 1: 67 → 1.121 visualizaciones en IG en 24 h, ×8 la media) cruzado con el n.º 1 de TikTok de las polémicas (indexados, 723) + temporada (aportar antes del 31-dic)",
+ "listo": "Modelado 'plastilina' en el centro, delante: saludo con sorpresa en el fotograma 0, salto en «quinientos», señala al plan y al fondo, salto + gafas (accK) con +450 € y monedas que le llegan, se quita las gafas, tiembla con «todo», señala preocupado, se desinfla con el candado y brazos cruzados; camina a la izquierda, brazos cruzados con «nada», salto y celebra con «cuando quieras», piensa con idea en «ganancia»; vuelve al centro: piensa, señala la corona en el plan y en el fondo; abrazo sorprendido en «¿y tú?», giro en «comenta», guiño + mano redonda en alto (firma) y señala el botón + SEGUIR, que se pulsa (SIGUIENDO).",
+ "musica": "chill 96 bpm (seed 7), baja; efectos de la biblioteca (monedas que caen y se apilan, sellos en TODO y GANANCIA, golpe del candado, viento y golpe de la corona, votos, chime final)",
+ "portada": "portada/portada.jpg (kicker PARTE 2 · PENSIONES, «1.500 €: ¿plan o fondo?», «Hacienda los trata distinto», etiquetas +450 € hoy / libre; fondo: los dos personajes sobre sus pilas, candado en el plan y Listo sorprendido)",
+ "estado": "ENVIADO a Sergio para aprobar (24-nov noche) para el JUEVES 26 a las 19:00",
+ "duracion": 31.8,
+ "brillo": "medio por fotograma (54x96 gris) 79,5–89,9; salto máximo 3,2 (0 saltos > 8)",
+ "creditos": "ElevenLabs 543 caracteres (quedan ~3.790 hasta el 18-dic); Scribe 0; vidIQ 0 hasta ahora",
+ "nuevo": "personaje nuevo «Plan» (caja fuerte con rueda de combinación) y candado 3D; llaves rojas sobre las pilas para comparar qué tributa"
+}

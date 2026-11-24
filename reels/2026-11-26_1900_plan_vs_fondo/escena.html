@@ -1,0 +1,399 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<script type="importmap">{"imports":{"three":"../../toolkit/escena3d/node_modules/three/build/three.module.js","lib3d":"../../toolkit/escena3d/lib3d.js","listo3d":"../../toolkit/mascota/listo3d.js","rbox":"../../toolkit/escena3d/node_modules/three/examples/jsm/geometries/RoundedBoxGeometry.js"}}</script>
+<style>
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#1d120e;font-family:Poppins,sans-serif}
+canvas{position:absolute;inset:0}
+.ov{position:absolute;pointer-events:none}
+#barra{left:64px;right:64px;top:118px;height:10px;display:flex;gap:12px}
+#barra i{flex:1;background:rgba(255,236,220,.22);border-radius:6px;overflow:hidden;position:relative}
+#barra i b{position:absolute;left:0;top:0;bottom:0;background:#fff3e6;border-radius:6px}
+#kick{left:0;right:0;top:160px;text-align:center}
+#kick span{display:inline-block;font:700 30px Poppins;letter-spacing:4px;color:#ffe2c4;background:rgba(120,50,30,.55);border:3px solid rgba(255,190,140,.55);padding:8px 26px 6px;border-radius:40px}
+#titulo{left:30px;right:30px;top:250px;text-align:center;font:800 92px/1.04 Poppins;color:#fff;letter-spacing:-2px;text-shadow:0 6px 20px rgba(0,0,0,.55)}
+#titulo em{font-style:normal;color:#ffd34d}
+#subs{left:50px;right:50px;top:262px;height:200px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;text-align:center;font:700 78px/1.15 Poppins;color:#fff;letter-spacing:-1px;
+  text-shadow:0 4px 16px rgba(0,0,0,.55)}
+#subs .w{display:inline-block;padding:2px 14px 0;margin:0 2px;border-radius:22px;position:relative}
+#subs .w.fut{opacity:.0}
+#subs .w.on{background:#ffd34d;color:#2a1708;text-shadow:none;box-shadow:0 8px 20px rgba(0,0,0,.35)}
+#subs .w.cl{color:#ffd34d}
+#subs .w.cl.on{color:#2a1708}
+.pill{transform:translate(-50%,-50%);white-space:nowrap;font:700 38px Poppins;padding:10px 28px 6px;border-radius:50px;box-shadow:0 10px 26px rgba(0,0,0,.4)}
+.pill.b{background:#5d7fd0;color:#fff}.pill.y{background:#f5c542;color:#2a1708}
+.tagp{transform:translate(-50%,-50%);white-space:nowrap;font:800 46px Poppins;padding:8px 24px 4px;border-radius:16px;background:#fff;box-shadow:0 10px 24px rgba(0,0,0,.4)}
+#hcard{left:0;right:0;top:462px;text-align:center}
+#hcard b{display:inline-block;font:800 124px/1 Poppins;letter-spacing:-5px;color:#2a1708;background:#f5c542;padding:22px 50px 4px;border-radius:56px;box-shadow:0 16px 0 rgba(0,0,0,.25),0 28px 56px rgba(0,0,0,.45)}
+#hcard span{display:inline-block;margin-left:14px;font:800 64px Poppins;color:#fff;text-shadow:0 4px 14px rgba(0,0,0,.6);vertical-align:middle}
+#vs{transform:translate(-50%,-50%);width:150px;height:150px;border-radius:50%;background:#d9573f;color:#fff;font:800 66px/150px Poppins;text-align:center;box-shadow:0 0 0 8px #fff3e6,0 18px 40px rgba(0,0,0,.45)}
+.llave{border:7px solid;border-radius:16px;width:30px}
+.llave.izq{border-right:none;border-radius:16px 0 0 16px}
+.llave.der{border-left:none;border-radius:0 16px 16px 0}
+.lab{transform:translate(-50%,-50%);white-space:nowrap;text-align:center;font:800 40px/1.1 Poppins;padding:10px 24px 6px;border-radius:18px;box-shadow:0 10px 24px rgba(0,0,0,.4)}
+.lab small{display:block;font:700 28px Poppins;opacity:.9}
+#nota{left:0;right:0;top:1452px;text-align:center;font:600 27px Poppins;color:rgba(255,226,196,.88)}
+#vota{left:0;top:0}
+#vota div{position:absolute;white-space:nowrap;font:800 52px Poppins;padding:14px 34px 8px;border-radius:30px;box-shadow:0 12px 30px rgba(0,0,0,.45)}
+#seguir{transform:translate(-50%,-50%);white-space:nowrap;font:800 46px Poppins;color:#0b0f1c;background:#fff;border:4px solid #0b0f1c;padding:12px 40px 8px;border-radius:52px;box-shadow:0 12px 28px rgba(0,0,0,.45)}
+#seguir small{display:block;text-align:center;font:700 24px Poppins;color:#5d3a2a}
+#fuente{left:0;right:0;top:1494px;text-align:center;font:600 24px Poppins;color:rgba(255,226,196,.7)}
+#marca{left:0;right:0;top:1532px;text-align:center;font:600 28px Poppins;color:rgba(255,255,255,.5)}
+</style></head>
+<body>
+<div id="barra" class="ov"></div>
+<div id="kick" class="ov"><span>⚔ PLAN DE PENSIONES · PARTE 2</span></div>
+<div id="titulo" class="ov">¿<em>PLAN DE PENSIONES</em><br>O <em>FONDO INDEXADO</em>?</div>
+<div id="subs" class="ov"></div>
+<div id="hcard" class="ov"><b>1.500 €</b><span>al año</span></div>
+<div id="vs" class="ov">VS</div>
+<div id="pp" class="ov pill b">PLAN DE PENSIONES</div>
+<div id="pf" class="ov pill y">FONDO INDEXADO</div>
+<div id="t450" class="ov tagp" style="color:#15803d">+450 € HOY</div>
+<div id="llP" class="ov llave izq" style="border-color:#ef4444"></div>
+<div id="lbP" class="ov lab" style="background:#ef4444;color:#fff">IRPF sobre TODO<small>lo que metiste + lo que ganó</small></div>
+<div id="t10" class="ov tagp" style="color:#c2410c">BLOQUEADO 10 AÑOS</div>
+<div id="t0" class="ov tagp" style="color:#6b6460">0 € HOY</div>
+<div id="tlib" class="ov tagp" style="color:#15803d">LO SACAS CUANDO QUIERAS</div>
+<div id="llF" class="ov llave der" style="border-color:#ef4444"></div>
+<div id="lbF" class="ov lab" style="background:#ef4444;color:#fff">SOLO LA GANANCIA<small>al 19–30 %</small></div>
+<div id="nota" class="ov"></div>
+<div id="vota" class="ov"><div style="background:#5d7fd0;color:#fff">1 · PLAN</div><div style="background:#f5c542;color:#2a1708">2 · FONDO</div></div>
+<div id="seguir" class="ov">+ SEGUIR<small>parte 3: cómo rescatarlo pagando menos</small></div>
+<div id="fuente" class="ov">Fuentes: Ley del IRPF (AEAT), OCU y CNMV · Contenido educativo</div>
+<div id="marca" class="ov">@eleurolisto</div>
+<script type="module">
+// Look R5 · 3D TIPO PLASTILINA, COMPARATIVA (plantilla: 2026-11-20_2030_indexados_vs_gestores), parte 2 de «Plan de pensiones».
+// Personajes NUESTROS: «Plan» (caja fuerte azul con rueda de combinación, le cae un candado) y «Fondo» (la cesta mostaza de
+// indexados = cientos de empresas). Cada uno sobre su pila de monedas: doradas = lo que metiste, verdes = lo que ganó.
+// Llaves rojas: en el plan tributa TODA la pila; en el fondo, solo las verdes. La corona va y viene: no hay ganador (depende).
+// Todo depende solo de t y de timings.json (voz de ElevenLabs · Mateo) -> render determinista. Sin cambios de luz.
+import * as THREE from "three";
+import * as L from "lib3d";
+import { crearListo } from "listo3d";
+import { RoundedBoxGeometry } from "rbox";
+const { clamp, lerp, prog, easeOut, easeInOut, easeBack, easeIn, smooth } = L;
+const hash = (i) => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+const TIM = window.TIM, S = TIM.segments, DUR = TIM.total;
+const limpia = (w) => w.toLowerCase().replace(/[¿?¡!.,:;…]/g, "");
+const pal = (i, f, n = 0) => { const ws = S[i].words.filter((w) => limpia(w.w) === f); const w = ws[n] || ws[0]; if (!w) console.warn("falta", f); return w ? w.start : S[i].start; };
+const FIN = S[5].words[S[5].words.length - 1].end;
+const T = {
+  quinientos: pal(0, "quinientos"), anio: pal(0, "año"), plan0: pal(0, "plan"), fondo0: pal(0, "fondo"), indexado: pal(0, "indexado"),
+  s1: S[1].start, hoy: pal(1, "hoy"), devuelve: pal(1, "devuelve"), tramo: pal(1, "tramo"), treinta: pal(1, "treinta"), cuatro: pal(1, "cuatrocientos"), euros: pal(1, "euros"),
+  s2: S[2].start, tributa: pal(2, "tributa"), todo: pal(2, "todo"), metiste: pal(2, "metiste"), gano: pal(2, "ganó"), sueldo: pal(2, "sueldo"), bloqueado: pal(2, "bloqueado"), diez: pal(2, "diez"),
+  s3: S[3].start, nada: pal(3, "nada"), sacas: pal(3, "sacas"), quieras: pal(3, "quieras"), ganancia: pal(3, "ganancia"), diecinueve: pal(3, "diecinueve"),
+  s4: S[4].start, alto: pal(4, "alto"), jubilarte: pal(4, "jubilarte"), ventaja: pal(4, "ventaja"), plan4: pal(4, "plan"), libertad: pal(4, "libertad"), fondo4: pal(4, "fondo"),
+  s5: S[5].start, cual: pal(5, "cuál"), comenta: pal(5, "comenta"), uno: pal(5, "uno"), dos: pal(5, "dos"),
+};
+const $ = (id) => document.getElementById(id);
+
+// ---------- render ----------
+const W = 1080, H = 1920;
+const r = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+r.setSize(W, H); r.setPixelRatio(1);
+r.outputColorSpace = THREE.SRGBColorSpace;
+r.toneMapping = THREE.NeutralToneMapping; r.toneMappingExposure = 1.0;
+r.shadowMap.enabled = true; r.shadowMap.type = THREE.PCFSoftShadowMap;
+document.body.prepend(r.domElement);
+const esc = new THREE.Scene();
+{ // fondo fijo: degradado cálido oscuro
+  const c = document.createElement("canvas"); c.width = 4; c.height = 256; const x = c.getContext("2d");
+  const g = x.createLinearGradient(0, 0, 0, 256); g.addColorStop(0, "#160d0a"); g.addColorStop(0.55, "#3a2219"); g.addColorStop(1, "#4a2c24");
+  x.fillStyle = g; x.fillRect(0, 0, 4, 256); const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; esc.background = tx;
+}
+const cam = new THREE.PerspectiveCamera(38, W / H, 0.1, 200);
+esc.add(new THREE.HemisphereLight(0xffe6d0, 0x5a3a30, 1.25));
+const sol = new THREE.DirectionalLight(0xfff1e0, 2.1); sol.position.set(-4, 11, 7); sol.castShadow = true;
+sol.shadow.mapSize.set(1024, 1024); Object.assign(sol.shadow.camera, { left: -7, right: 7, top: 7, bottom: -7, near: 1, far: 30 }); sol.shadow.radius = 4;
+esc.add(sol);
+const relleno = new THREE.DirectionalLight(0xffc89a, 0.55); relleno.position.set(6, 4, -3); esc.add(relleno);
+const plas = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.93, metalness: 0, ...o });
+const mesh = (geo, m, pos = [0, 0, 0], sombra = true) => { const k = new THREE.Mesh(geo, m); k.position.set(...pos); k.castShadow = sombra; k.receiveShadow = true; return k; };
+
+// suelo, plataforma y aros
+const suelo = mesh(new THREE.CircleGeometry(40, 64), plas(0x6b4038), [0, 0, 0], false); suelo.rotation.x = -Math.PI / 2; esc.add(suelo);
+const plat = mesh(new THREE.CylinderGeometry(4.6, 4.75, 0.3, 72), plas(0xa9776d), [0, 0.15, 0], false); esc.add(plat);
+for (const [rr, y] of [[3.3, 0.31], [4.45, 0.31]]) { const a = mesh(new THREE.TorusGeometry(rr, 0.045, 10, 120), plas(0x7a4c3e), [0, y, 0], false); a.rotation.x = Math.PI / 2; esc.add(a); }
+{ // haz de foco FIJO (transparente, sin parpadeo)
+  const g = new THREE.ConeGeometry(3.4, 14, 48, 1, true); g.translate(0, -7, 0);
+  const m = new THREE.MeshBasicMaterial({ color: 0xffd9a8, transparent: true, opacity: 0.055, depthWrite: false, side: THREE.DoubleSide });
+  const cono = new THREE.Mesh(g, m); cono.position.set(0.6, 14.2, -1.2); cono.rotation.z = -0.05; esc.add(cono);
+}
+const texEstrella = (() => { const c = document.createElement("canvas"); c.width = c.height = 64; const x = c.getContext("2d"); x.fillStyle = "#ffe7a8";
+  x.beginPath(); for (let i = 0; i < 8; i++) { const a = i * Math.PI / 4, rr = i % 2 ? 6 : 30; x.lineTo(32 + Math.cos(a) * rr, 32 + Math.sin(a) * rr); } x.fill();
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; })();
+const estrellas = [];
+for (let i = 0; i < 14; i++) { const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: texEstrella, transparent: true, depthWrite: false, opacity: 0.9 }));
+  s.userData = { x: (hash(i) - 0.5) * 9, y: 3 + hash(i + 9) * 6, z: -3 - hash(i + 3) * 3, f: 0.6 + hash(i + 5) * 0.8 }; esc.add(s); estrellas.push(s); }
+
+// ---------- personajes ----------
+function crearPlan() {
+  const g = new THREE.Group(), cuerpo = new THREE.Group(); g.add(cuerpo);
+  const azul = plas(0x5d7fd0), oscuro = plas(0x4a68b4), negro = plas(0x16110e, { roughness: 0.3 }), gris = plas(0xe2dbd0), oro = plas(0xf2b705, { roughness: 0.7 });
+  cuerpo.add(mesh(new RoundedBoxGeometry(1.2, 1.25, 0.82, 5, 0.22), azul, [0, 0.78, 0]));
+  cuerpo.add(mesh(new RoundedBoxGeometry(0.98, 1.02, 0.08, 3, 0.06), oscuro, [0, 0.78, 0.39]));
+  for (const sx of [-1, 1]) {
+    const o = mesh(new THREE.CapsuleGeometry(0.065, 0.11, 6, 12), negro, [sx * 0.2, 1.06, 0.45]); o.scale.z = 0.5; cuerpo.add(o);
+    cuerpo.add(mesh(new THREE.SphereGeometry(0.065, 10, 8), plas(0xf28b74), [sx * 0.36, 0.9, 0.44]));
+    cuerpo.add(mesh(new THREE.SphereGeometry(0.14, 14, 10), azul, [sx * 0.26, 0.09, 0.08]));
+    const brazo = mesh(new THREE.CapsuleGeometry(0.08, 0.32, 6, 10), azul, [sx * 0.7, 0.78, 0.05]); brazo.rotation.z = sx * 0.35; cuerpo.add(brazo);
+    { const rm = mesh(new THREE.CylinderGeometry(0.035, 0.035, 0.08, 10), oro, [sx * 0.4, 1.22, 0.45]); rm.rotation.x = Math.PI / 2; cuerpo.add(rm); }   // remaches
+  }
+  const boca = mesh(new THREE.TorusGeometry(0.085, 0.024, 6, 16, Math.PI), negro, [0, 0.9, 0.45]); boca.rotation.z = Math.PI; cuerpo.add(boca);
+  const rueda = new THREE.Group(); rueda.position.set(0, 0.52, 0.46); cuerpo.add(rueda);
+  const disco = mesh(new THREE.CylinderGeometry(0.16, 0.16, 0.06, 28), gris); disco.rotation.x = Math.PI / 2; rueda.add(disco);
+  for (let i = 0; i < 8; i++) { const a = i / 8 * Math.PI * 2; rueda.add(mesh(new THREE.BoxGeometry(0.025, 0.06, 0.03), negro, [Math.cos(a) * 0.12, Math.sin(a) * 0.12, 0.03])); }
+  const pomo = mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.08, 14), oro, [0, 0, 0.05]); pomo.rotation.x = Math.PI / 2; rueda.add(pomo);
+  return { root: g, cuerpo, rueda };
+}
+function crearFondo() { // la cesta de "indexados" (cientos de empresas dentro)
+  const g = new THREE.Group(), cuerpo = new THREE.Group(); g.add(cuerpo);
+  const mostaza = plas(0xeab13d), banda = plas(0xc98d25), negro = plas(0x16110e, { roughness: 0.3 });
+  cuerpo.add(mesh(new THREE.CylinderGeometry(0.66, 0.52, 1.0, 36), mostaza, [0, 0.75, 0]));
+  for (const y of [0.4, 0.62, 0.84, 1.06]) { const b = mesh(new THREE.TorusGeometry(0.56 + (y - 0.25) * 0.14, 0.035, 8, 48), banda, [0, y, 0]); b.rotation.x = Math.PI / 2; cuerpo.add(b); }
+  const borde = mesh(new THREE.TorusGeometry(0.66, 0.07, 10, 48), banda, [0, 1.25, 0]); borde.rotation.x = Math.PI / 2; cuerpo.add(borde);
+  const cols = [0x22c55e, 0x3b82f6, 0xef4444, 0xf59e0b, 0x8b5cf6, 0x14b8a6, 0xec4899, 0xf8fafc];
+  for (let i = 0; i < 46; i++) {
+    const a = hash(i + 100) * Math.PI * 2, rr = Math.sqrt(hash(i + 200)) * 0.55, h = 1.3 + (0.55 - rr) * 0.45 + hash(i + 300) * 0.08;
+    cuerpo.add(mesh(new THREE.SphereGeometry(0.1 + hash(i) * 0.03, 12, 10), plas(cols[i % cols.length]), [Math.cos(a) * rr, h, Math.sin(a) * rr]));
+  }
+  for (const sx of [-1, 1]) {
+    const o = mesh(new THREE.CapsuleGeometry(0.065, 0.11, 6, 12), negro, [sx * 0.19, 0.86, 0.6]); o.scale.z = 0.5; cuerpo.add(o);
+    cuerpo.add(mesh(new THREE.SphereGeometry(0.13, 14, 10), mostaza, [sx * 0.22, 0.09, 0.08]));
+    cuerpo.add(mesh(new THREE.SphereGeometry(0.07, 10, 8), plas(0xf28b74), [sx * 0.36, 0.7, 0.55]));
+  }
+  const boca = mesh(new THREE.TorusGeometry(0.09, 0.025, 6, 16, Math.PI), negro, [0, 0.68, 0.6]); boca.rotation.z = Math.PI; cuerpo.add(boca);
+  return { root: g, cuerpo };
+}
+function crearCorona() {
+  const g = new THREE.Group(), oro = plas(0xf2b705, { roughness: 0.7 }), gema = plas(0xe0457b, { roughness: 0.4 });
+  const base = mesh(new THREE.TorusGeometry(0.36, 0.08, 10, 40), oro); base.rotation.x = Math.PI / 2; g.add(base);
+  for (let i = 0; i < 6; i++) { const a = i / 6 * Math.PI * 2; g.add(mesh(new THREE.ConeGeometry(0.09, 0.34, 10), oro, [Math.cos(a) * 0.36, 0.2, Math.sin(a) * 0.36]));
+    g.add(mesh(new THREE.SphereGeometry(0.045, 10, 8), gema, [Math.cos(a) * 0.4, 0.02, Math.sin(a) * 0.4])); }
+  return g;
+}
+function crearCandado() {
+  const g = new THREE.Group();
+  g.add(mesh(new RoundedBoxGeometry(0.5, 0.4, 0.18, 3, 0.07), plas(0xd9573f), [0, 0, 0]));
+  g.add(mesh(new THREE.TorusGeometry(0.15, 0.048, 10, 24, Math.PI), plas(0xcfc8bd, { roughness: 0.5 }), [0, 0.2, 0]));
+  const ojo = mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.03, 12), plas(0x16110e), [0, 0.03, 0.095]); ojo.rotation.x = Math.PI / 2; g.add(ojo);
+  g.add(mesh(new THREE.BoxGeometry(0.03, 0.08, 0.03), plas(0x16110e), [0, -0.04, 0.095]));
+  return g;
+}
+const PLA = crearPlan(), FON = crearFondo(), COR = crearCorona(), CAN = crearCandado();
+esc.add(PLA.root, FON.root, COR, CAN);
+// pilas de monedas: doradas = lo aportado (4 al principio = 1.500 €; 7 tras años aportando), verdes = lo ganado (3)
+const gM = new THREE.CylinderGeometry(0.55, 0.55, 0.09, 32);
+const matM = plas(0xffffff, { roughness: 0.75 });
+const pilaP = new THREE.InstancedMesh(gM, matM, 10), pilaF = new THREE.InstancedMesh(gM, matM, 10);
+pilaP.castShadow = pilaF.castShadow = true; esc.add(pilaP, pilaF);
+const MON_H = 0.09, cOro = new THREE.Color(0xe9b949), cVerde = new THREE.Color(0x5cc96e);
+const dm = new THREE.Object3D();
+function pila(im, x, nOro, nVerde, seed, t, ola) {
+  for (let k = 0; k < 10; k++) {
+    const vis = k < 7 ? clamp(nOro - k) : clamp(nVerde - (k - 7));
+    dm.position.set(x + (hash(k + seed) - 0.5) * 0.05, 0.3 + MON_H * (k + 0.5) + (1 - easeOut(vis)) * 0.5, (hash(k + seed + 7) - 0.5) * 0.05);
+    dm.rotation.set(0, hash(k) * 3, 0); const bump = ola ? ola(k, t) : 0; dm.scale.set(vis > 0 ? 1 + bump : 0.0001, vis > 0 ? 1 : 0.0001, vis > 0 ? 1 + bump : 0.0001); dm.updateMatrix(); im.setMatrixAt(k, dm.matrix);
+    im.setColorAt(k, k < 7 ? cOro : cVerde);
+  }
+  im.instanceMatrix.needsUpdate = true; im.instanceColor.needsUpdate = true;
+}
+// monedas que vuelan (450 € que devuelve Hacienda; dinero que sacas del fondo)
+const vuelan = [0, 1, 2].map(() => { const m = mesh(gM, plas(0xe9b949, { roughness: 0.75 })); m.scale.setScalar(0.55); esc.add(m); return m; });
+// Listo
+const LIS = crearListo({ estilo: "plastilina", escala: 0.62 }); esc.add(LIS.root);
+LIS.root.traverse((o) => { if (o.isMesh) { o.castShadow = true; } });
+
+// ---------- cámara ----------
+const camK = L.camaraSuave([
+  { t: 0, p: [0, 3.7, 12.4], m: [0, 1.8, 0], fov: 38 },
+  { t: T.s1 - 0.3, p: [0, 3.6, 12.0], m: [0, 1.8, 0], fov: 38 },
+  { t: T.s1 + 0.4, p: [-0.95, 3.0, 9.9], m: [-0.75, 1.95, 0], fov: 38 },
+  { t: T.s2 - 0.2, p: [-0.8, 3.0, 9.7], m: [-0.7, 1.95, 0], fov: 38 },
+  { t: T.metiste, p: [-0.45, 3.2, 10.9], m: [-0.45, 2.0, 0], fov: 38 },
+  { t: T.s3 - 0.3, p: [-0.4, 3.2, 10.8], m: [-0.4, 2.0, 0], fov: 38 },
+  { t: T.s3 + 0.4, p: [0.95, 3.0, 9.9], m: [0.75, 2.0, 0], fov: 38 },
+  { t: T.s4 - 0.3, p: [0.8, 3.0, 10.0], m: [0.7, 2.0, 0], fov: 38 },
+  { t: T.s4 + 0.4, p: [0, 3.6, 12.2], m: [0, 1.95, 0], fov: 38 },
+  { t: T.s5, p: [0, 3.6, 12.0], m: [0, 1.95, 0], fov: 38 },
+  { t: DUR, p: [0, 3.5, 11.5], m: [0, 1.95, 0], fov: 38 },
+], 0.5);
+
+// ---------- barra de progreso y subtítulos (desde la frase 2: el gancho va como titular) ----------
+const barra = $("barra"); barra.innerHTML = S.map(() => "<i><b></b></i>").join("");
+const CL = ["plan", "fondo", "hacienda", "cuatrocientos", "cincuenta", "todo", "sueldo", "bloqueado", "diez", "nada", "quieras", "ganancia", "diecinueve", "treinta", "libertad", "ventaja", "uno", "dos"];
+const trozos = [];
+S.slice(1).forEach((s) => { let cur = []; s.words.forEach((w, j) => { cur.push(w); const fin = /[.?:;,…]$/.test(w.w) || cur.length >= 3 || j === s.words.length - 1; if (fin) { trozos.push(cur); cur = []; } }); });
+trozos.forEach((c, i) => { c.a = c[0].start - 0.06; c.b = i < trozos.length - 1 ? trozos[i + 1][0].start - 0.06 : DUR; });
+let ultimo = -1;
+function subs(t) {
+  const i = trozos.findIndex((c) => t >= c.a && t < c.b), el = $("subs");
+  if (i !== ultimo) { el.innerHTML = i < 0 ? "" : trozos[i].map((w) => `<span class="w${CL.includes(limpia(w.w)) ? " cl" : ""}">${w.w}</span>`).join(""); ultimo = i; }
+  const segs = barra.children;
+  S.forEach((s, j) => { segs[j].firstChild.style.width = (100 * clamp((t - s.start) / Math.max(s.dur, 0.1))) + "%"; });
+  if (i < 0) return;
+  const c = trozos[i], k = easeOut(prog(t, c.a, 0.16));
+  el.style.transform = `translateY(${(1 - k) * 22}px) scale(${0.95 + 0.05 * k})`;
+  [...el.children].forEach((sp, j) => {
+    const w = c[j], dicha = t >= w.start - 0.05, act = dicha && (t < w.end + 0.05 || j === c.length - 1);
+    sp.className = "w" + (CL.includes(limpia(w.w)) ? " cl" : "") + (dicha ? "" : " fut") + (act ? " on" : "");
+    sp.style.transform = act ? `scale(${1 + 0.08 * Math.sin(clamp((t - w.start) / 0.2) * Math.PI)})` : "";
+  });
+}
+const v = new THREE.Vector3();
+const aPantalla = (x, y, z) => { v.set(x, y, z).project(cam); return [(v.x + 1) / 2 * W, (1 - v.y) / 2 * H]; };
+const coloca = (el, x, y, z, op = 1, sc = 1, extra = "") => { const [px, py] = aPantalla(x, y, z); el.style.left = px + "px"; el.style.top = py + "px"; el.style.opacity = op; el.style.transform = `translate(-50%,-50%) ${extra} scale(${sc})`; el.style.display = op > 0.001 ? "block" : "none"; };
+const limita = (el, ymin = 600) => { el.style.top = Math.max(ymin, parseFloat(el.style.top)) + "px"; el.style.left = clamp(parseFloat(el.style.left), 175, 905) + "px"; };
+const pulso = (t, t0, a = 0.12) => 1 + a * Math.sin(clamp((t - t0) / 0.3) * Math.PI);
+// llave roja junto a un tramo de la pila (de y0 a y1), a la izquierda o a la derecha
+function llave(el, lab, x, y0, y1, lado, k, labY) {
+  const [px0, py0] = aPantalla(x + lado * 0.74, y0, 0.3), [, py1] = aPantalla(x + lado * 0.74, y1, 0.3);
+  el.style.display = lab.style.display = k > 0.001 ? "block" : "none"; if (k <= 0.001) return;
+  const h = Math.abs(py0 - py1) * easeOut(clamp(k * 1.6));
+  el.style.left = (lado < 0 ? px0 - 20 : px0 - 10) + "px"; el.style.top = (py0 - h) + "px"; el.style.height = h + "px"; el.style.opacity = Math.min(1, k * 3);
+  const [lx] = aPantalla(x, 0.3, 0.6); lab.style.left = lx + "px"; lab.style.top = labY + "px";
+  lab.style.opacity = Math.min(1, k * 3); lab.style.transform = `translate(-50%,-50%) scale(${Math.max(0.01, easeBack(clamp(k * 2.2)))})`;
+}
+const arco = (m, a, b, k, alto = 1.2) => { m.visible = k > 0 && k < 1; m.position.set(lerp(a[0], b[0], k), lerp(a[1], b[1], k) + Math.sin(k * Math.PI) * alto, lerp(a[2], b[2], k)); m.rotation.set(k * 9, k * 4, 0); };
+
+// ---------- escena por tiempo ----------
+function renderAt(t) {
+  const c = camK(t); cam.position.set(...c.p); cam.lookAt(...c.m); cam.fov = c.fov; cam.updateProjectionMatrix(); cam.updateMatrixWorld(true);
+  estrellas.forEach((s, i) => { const u = s.userData; s.position.set(u.x + Math.sin(t * 0.3 + i) * 0.2, u.y + Math.sin(t * 0.5 + i) * 0.15, u.z); s.scale.setScalar(0.18 + 0.1 * Math.sin(t * u.f * 2 + i)); s.material.rotation = t * 0.4 + i; });
+
+  // pilas: 4 doradas (1.500 €) -> 7 doradas al "metiste" -> +3 verdes al "ganó"
+  const nOro = 4 + 3 * smooth(prog(t, T.metiste - 0.15, 0.6)), nVerde = 3 * smooth(prog(t, T.gano - 0.15, 0.5));
+  const xp = -1.2, xf = 1.2;
+  const olaP = (k, t) => 0.16 * Math.sin(clamp((t - T.todo + 0.1 - k * 0.05) / 0.3) * Math.PI) + 0.1 * Math.sin(clamp((t - T.sueldo + 0.1 - k * 0.04) / 0.3) * Math.PI);
+  const olaF = (k, t) => k >= 7 ? 0.18 * Math.sin(clamp((t - T.ganancia + 0.05 - (k - 7) * 0.06) / 0.3) * Math.PI) + 0.12 * Math.sin(clamp((t - T.diecinueve - (k - 7) * 0.06) / 0.3) * Math.PI) : 0;
+  pila(pilaP, xp, nOro, nVerde, 1, t, olaP); pila(pilaF, xf, nOro, nVerde, 50, t, olaF);
+  const hTop = 0.3 + MON_H * (nOro + nVerde);
+  const bot = Math.sin(t * 3.1) * 0.03;
+  // plan
+  PLA.root.position.set(xp, hTop, 0);
+  const choque = t > T.bloqueado - 0.1 ? Math.sin(clamp((t - T.bloqueado + 0.1) / 0.35) * Math.PI) * 0.14 : 0;
+  PLA.cuerpo.scale.set(1 + choque * 0.6, 1 - choque + bot, 1 + choque * 0.6);
+  PLA.cuerpo.rotation.z = Math.sin(t * 1.7) * 0.04 + (t > T.todo - 0.1 && t < T.todo + 0.9 ? Math.sin((t - T.todo) * 30) * 0.03 : 0);
+  PLA.cuerpo.rotation.y = -0.12;
+  PLA.rueda.rotation.z = t * 0.6 + (t > T.bloqueado ? -easeInOut(prog(t, T.bloqueado + 0.1, 0.6)) * 4 : 0);
+  // fondo
+  const salta = t > T.sacas - 0.1 && t < T.quieras + 0.7 ? Math.abs(Math.sin((t - T.sacas) * 7)) * 0.16 : 0;
+  FON.root.position.set(xf, hTop, 0); FON.cuerpo.position.y = salta; FON.cuerpo.rotation.z = Math.sin(t * 1.5 + 1) * 0.04; FON.cuerpo.rotation.y = 0.12;
+  // candado: cae en "bloqueado" y se queda colgado delante de la caja fuerte
+  const kc = prog(t, T.bloqueado - 0.18, 0.4);
+  CAN.visible = kc > 0;
+  CAN.position.set(xp + 0.02, hTop + lerp(3.2, 0.42, easeIn(kc)) + (kc >= 1 ? Math.max(0, Math.sin((t - T.bloqueado - 0.22) * 11) * 0.1 * (1 - prog(t, T.bloqueado + 0.22, 0.6))) : 0), 0.6);
+  CAN.rotation.set(0, -0.12, Math.sin(t * 2.2) * 0.12 * (kc >= 1 ? 1 : 0.3));
+  // corona: plan en "ventaja", fondo en "libertad", luego flota en medio girando (no hay ganador: depende de ti)
+  const kc1 = prog(t, T.ventaja - 0.1, 0.5), kc2 = smooth(prog(t, T.libertad - 0.05, 0.55)), kc3 = smooth(prog(t, T.s5 - 0.1, 0.6));
+  COR.visible = kc1 > 0;
+  const cyP = hTop + 1.58, cyF = hTop + 1.72;
+  const cx = lerp(lerp(xp, xf, kc2), 0, kc3), cyb = lerp(lerp(cyP, cyF, kc2), hTop + 1.9, kc3);
+  const hopC = Math.sin(kc2 * Math.PI) * 0.9;
+  COR.position.set(cx, (kc1 < 1 ? lerp(cyP + 3.2, cyP, easeIn(kc1)) : cyb + hopC) + (kc3 > 0.99 ? Math.sin(t * 2.4) * 0.08 : 0), 0);
+  COR.rotation.set(0.15, t * (kc3 > 0 ? 1.6 : 0.8), 0.1);
+  // monedas que vuelan
+  const posL = [-0.1 + 0.55 * smooth(prog(t, T.s2 - 0.1, 0.7)) - 1.05 * smooth(prog(t, T.s3 - 0.1, 0.8)), 1.1, 2.2];
+  const k450 = prog(t, T.devuelve, 0.9);
+  vuelan.forEach((m, j) => arco(m, [xp, hTop + 0.9, 0.3], posL, prog(t, T.devuelve + j * 0.18, 0.7), 1.6));
+  if (t > T.sacas - 0.2) vuelan.forEach((m, j) => arco(m, [xf, hTop + 1.0, 0.3], posL, prog(t, T.sacas - 0.05 + j * 0.15, 0.65), 1.4));
+
+  // Listo (centro, delante)
+  let lo = { expr: "normal", pose: "reposo", mira: [0, 0.2] };
+  const lx = -0.1 + 0.55 * smooth(prog(t, T.s2 - 0.1, 0.7)) - 1.05 * smooth(prog(t, T.s3 - 0.1, 0.8)) + 0.5 * smooth(prog(t, T.s4 - 0.1, 0.7));
+  const lp = [lx, 0.3 + Math.abs(Math.sin(t * 9)) * 0.05 * ((prog(t, T.s2 - 0.1, 0.7) % 1 > 0) || (prog(t, T.s3 - 0.1, 0.8) % 1 > 0) || (prog(t, T.s4 - 0.1, 0.7) % 1 > 0) ? 1 : 0), 2.2], lsc = 0.42;
+  if (t < T.s1) {
+    if (t < T.quinientos - 0.05) { lo.pose = "saludo"; lo.expr = "sorpresa"; }
+    else if (t < T.quinientos + 0.95) { lo.anim = "salto"; lo.animT = t - T.quinientos + 0.05; }
+    else if (t < T.plan0) { lo.pose = "celebra"; lo.expr = "feliz"; }
+    else if (t < T.fondo0) { lo.pose = "senalaIzq"; lo.expr = "normal"; lo.mira = [-0.6, 0.2]; }
+    else { lo.pose = "senala"; lo.expr = "idea"; lo.mira = [0.6, 0.2]; }
+  } else if (t < T.s2) {
+    lo.pose = t < T.cuatro - 0.1 ? "senalaIzq" : "celebra"; lo.expr = t < T.cuatro - 0.1 ? "normal" : "feliz"; lo.mira = [-0.5, 0.3];
+    if (t > T.cuatro - 0.15 && t < T.cuatro + 0.85) { lo.anim = "salto"; lo.animT = t - T.cuatro + 0.15; }
+    if (t > T.cuatro - 0.1) { lo.acc = ["gafas"]; lo.accK = { gafas: prog(t, T.cuatro + 0.1, 0.4) }; }
+  } else if (t < T.s3) {
+    if (t < T.todo - 0.1) { lo.pose = "piensa"; lo.expr = "normal"; lo.acc = ["gafas"]; lo.accK = { gafas: 1 - prog(t, T.tributa, 0.3) }; }
+    else if (t < T.todo + 1.0) { lo.anim = "temblor"; lo.animT = t - T.todo + 0.1; }
+    else if (t < T.bloqueado - 0.1) { lo.pose = "senalaIzq"; lo.expr = "preocupado"; lo.mira = [-0.5, 0.3]; }
+    else if (t < T.bloqueado + 1.1) { lo.anim = "desinfla"; lo.animT = t - T.bloqueado + 0.1; }
+    else { lo.pose = "brazosCruzados"; lo.expr = "preocupado"; }
+  } else if (t < T.s4) {
+    if (t < T.nada - 0.1) { lo.pose = "senala"; lo.expr = "normal"; lo.mira = [0.5, 0.3]; }
+    else if (t < T.sacas - 0.1) { lo.pose = "brazosCruzados"; lo.expr = "normal"; }
+    else if (t < T.sacas + 0.9) { lo.anim = "salto"; lo.animT = t - T.sacas + 0.1; }
+    else if (t < T.ganancia - 0.1) { lo.pose = "celebra"; lo.expr = "feliz"; }
+    else { lo.pose = "piensa"; lo.expr = "idea"; }
+  } else if (t < T.s5) {
+    if (t < T.ventaja - 0.1) { lo.pose = "piensa"; lo.expr = "normal"; }
+    else if (t < T.libertad - 0.1) { lo.pose = "senalaIzq"; lo.expr = "feliz"; lo.mira = [-0.6, 0.3]; }
+    else { lo.pose = "senala"; lo.expr = "feliz"; lo.mira = [0.6, 0.3]; }
+  } else {
+    if (t < T.comenta - 0.1) { lo.pose = "abrazo"; lo.expr = "sorpresa"; }
+    else if (t < T.comenta + 0.6) { lo.anim = "giro"; lo.animT = t - T.comenta + 0.1; }
+    else if (t < FIN - 0.55) { lo.pose = "pulgar"; lo.expr = "guino"; }
+    else { lo.pose = "senala"; lo.expr = "feliz"; lo.mira = [0.6, 0.0]; }
+  }
+  if (window.PORTADA) { lo = { expr: "sorpresa", pose: "abrazo", mira: [0, 0.3] }; }
+  LIS.root.position.set(...lp); LIS.root.scale.setScalar(lsc);
+  LIS.actualizar(t, lo);
+
+  // ---------- capas HTML ----------
+  const oT = 1 - prog(t, T.s1 - 0.25, 0.25);
+  $("titulo").style.display = oT > 0 ? "block" : "none"; $("titulo").style.opacity = oT;
+  $("titulo").style.transform = `scale(${pulso(t, T.plan0 - 0.05, 0.03) * pulso(t, T.fondo0 - 0.05, 0.03)})`;
+  const kh = 1 - prog(t, T.s1 - 0.25, 0.25);
+  $("hcard").style.display = kh > 0 ? "block" : "none"; $("hcard").style.opacity = kh;
+  $("hcard").style.transform = `scale(${pulso(t, T.quinientos - 0.05, 0.1)})`;
+  const kvs = 1 - prog(t, T.s1 - 0.3, 0.3);
+  coloca($("vs"), 0, hTop + 1.0, 0, kvs, (0.92 + 0.08 * Math.sin(t * 5)) * pulso(t, T.indexado, 0.12));
+  // píldoras con el nombre
+  const pOut = 1 - prog(t, T.s5 - 0.2, 0.3);
+  coloca($("pp"), xp, hTop + 2.3, 0, pOut, pulso(t, T.plan0 - 0.05) * pulso(t, T.plan4 - 0.05)); limita($("pp"));
+  coloca($("pf"), xf, hTop + 2.3, 0, pOut, pulso(t, T.fondo0 - 0.05) * pulso(t, T.fondo4 - 0.05)); limita($("pf"));
+  // +450 € HOY
+  const k4 = easeBack(prog(t, T.cuatro - 0.1, 0.35)), o4 = 1 - prog(t, T.tributa - 0.2, 0.3);
+  coloca($("t450"), xp, hTop + 1.45, 0.7, k4 > 0 ? o4 : 0, Math.max(k4, 0.01) * pulso(t, T.euros - 0.1, 0.08), "rotate(-5deg)");
+  // llave del plan: TODA la pila
+  const kP = prog(t, T.todo - 0.15, 0.5) * (1 - prog(t, T.s3 - 0.3, 0.3));
+  llave($("llP"), $("lbP"), xp, 0.3, hTop, -1, kP, 1380);
+  $("lbP").firstChild.textContent = t < T.sueldo - 0.1 ? "IRPF sobre TODO" : "TODO, como sueldo";
+  // bloqueado 10 años
+  const k10 = easeBack(prog(t, T.diez - 0.15, 0.35)), o10 = 1 - prog(t, T.s3 - 0.3, 0.3);
+  coloca($("t10"), xp + 0.1, hTop + 1.45, 0.8, k10 > 0 ? o10 : 0, Math.max(k10, 0.01), "rotate(4deg)");
+  // fondo: 0 € hoy, lo sacas cuando quieras, solo la ganancia
+  const k0 = easeBack(prog(t, T.nada - 0.15, 0.35)), o0 = 1 - prog(t, T.sacas - 0.2, 0.25);
+  coloca($("t0"), xf, hTop + 1.45, 0.7, k0 > 0 ? o0 : 0, Math.max(k0, 0.01), "rotate(-4deg)");
+  const kl = easeBack(prog(t, T.sacas - 0.05, 0.35)), ol = 1 - prog(t, T.ganancia - 0.2, 0.25);
+  coloca($("tlib"), xf - 0.25, hTop + 1.45, 0.7, kl > 0 ? ol : 0, Math.max(kl, 0.01) * pulso(t, T.quieras, 0.06), "rotate(3deg)");
+  const kF = prog(t, T.ganancia - 0.15, 0.5) * (1 - prog(t, T.s4 + 0.2, 0.3));
+  llave($("llF"), $("lbF"), xf, 0.3 + MON_H * 7, hTop, 1, kF, 1380);
+  $("lbF").style.transform += ` scale(${pulso(t, T.diecinueve - 0.05, 0.08)})`;
+  // nota (letra pequeña)
+  let nota = "";
+  if (t > T.cuatro && t < T.s2) nota = "Ahorro = aportación × tu tipo marginal (ejemplo: 1.500 € × 30 %)";
+  else if (t > T.bloqueado - 0.2 && t < T.s3 - 0.2) nota = "Cada aportación: 10 años (antes, jubilación y casos tasados)";
+  else if (t > T.ganancia - 0.2 && t < T.s4) nota = "Base del ahorro: 19–30 % · traspasos entre fondos sin tributar";
+  else if (t > T.s4 && t < T.s5) nota = "Depende de tu caso: no es una recomendación";
+  $("nota").textContent = nota;
+  // votación y + SEGUIR
+  const kvt = easeBack(prog(t, T.s5 + 0.1, 0.4));
+  [...$("vota").children].forEach((d, j) => { const tt = j ? T.dos : T.uno; const [px, py] = aPantalla(j ? xf : xp, hTop + 2.3, 0);
+    d.style.left = clamp(px, 175, 905) + "px"; d.style.top = Math.max(600, py) + "px"; d.style.opacity = kvt > 0 ? 1 : 0;
+    d.style.transform = `translate(-50%,-50%) scale(${Math.max(kvt, 0.01) * pulso(t, tt - 0.05, 0.14)})`; });
+  const ks = easeBack(prog(t, FIN - 1.2, 0.4)), press = prog(t, FIN - 0.5, 0.12) * (1 - prog(t, FIN - 0.25, 0.15));
+  $("seguir").style.left = "735px"; $("seguir").style.top = "1425px"; $("seguir").style.display = ks > 0 ? "block" : "none";
+  $("seguir").style.transform = `translate(-50%,-50%) scale(${Math.max(ks, 0.01) * (1 - 0.1 * press)})`;
+  $("seguir").firstChild.textContent = t > FIN - 0.45 ? "SIGUIENDO" : "+ SEGUIR";
+  $("fuente").style.opacity = 0.9;
+  $("kick").style.transform = `translateY(${(1 - easeOut(prog(t, 0, 0.4))) * -30}px)`;
+  $("kick").style.opacity = 1;
+  subs(t);
+  if (window.PORTADA) document.querySelectorAll(".ov").forEach((e) => { e.style.display = "none"; });
+  r.render(esc, cam);
+}
+window.DURACION = DUR;
+window.renderAt = renderAt;
+document.fonts.ready.then(() => { renderAt(0); window.listo = true; });
+</script>
+</body></html>
