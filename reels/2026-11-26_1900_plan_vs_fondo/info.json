@@ -40,5 +40,10 @@
  "duracion": 31.8,
  "brillo": "medio por fotograma (54x96 gris) 79,5–89,9; salto máximo 3,2 (0 saltos > 8)",
  "creditos": "ElevenLabs 543 caracteres (quedan ~3.790 hasta el 18-dic); Scribe 0; vidIQ 0 hasta ahora",
- "nuevo": "personaje nuevo «Plan» (caja fuerte con rueda de combinación) y candado 3D; llaves rojas sobre las pilas para comparar qué tributa"
+ "nuevo": "personaje nuevo «Plan» (caja fuerte con rueda de combinación) y candado 3D; llaves rojas sobre las pilas para comparar qué tributa",
+ "vidiq": {
+  "uploadId_con_portada": "5bd8242f-9b23-4cef-b5c8-eab209e16ffb",
+  "uploadId_sin_portada": "aebfd3de-67c9-4e1e-8957-773d04b29436",
+  "commit": "99f32780a18e12f4de474ba5ffaea15a77fc680c"
+ }
 }
