@@ -34,6 +34,10 @@
  "listo": "Modelado 'plano_tecnico' (contornos de plano): entra cayendo (entrada) sorprendido señalando la caja; brazos cruzados en «regalo»; sellazo con guiño en «empresa»; pequeño abajo a la derecha en el gráfico: señala, enseña la moneda en «setecientos», se desinfla preocupado en «quitan», salta en «devuelven», celebra en «diciembre», piensa con idea en «a plazos», rebota feliz en «limpia», señala el IRPF; en las fichas, gafas y cadena (vacilón) con los 1.320 €; al final giro, firma (guiño + mano redonda en alto) y señala el botón + SEGUIR, que se pulsa.",
  "musica": "upbeat 108 bpm (seed 11), baja; efectos de la biblioteca (lápiz/grapas del plano, barras que se dibujan, trozos que aterrizan, sellos, tonos de la Seguridad Social, contadores, votos, chime final)",
  "portada": "portada/portada.jpg (kicker NÓMINA · DICIEMBRE, «Paga extra: ¿un regalo?», «Te la quitan cada mes», etiquetas −250 €/mes y 12 → 14; fondo: el plano con las 14 barras y las 2 PAGAS EXTRA en ámbar + Listo sorprendido)",
- "estado": "ENVIADO a Sergio el 25-nov ~22:00 para el VIERNES 27 a las 19:00",
- "duracion": 31.1
+ "estado": "APROBADO (Sergio, 25-nov ~21:25, «✅»; CON portada por defecto) para el VIERNES 27 a las 19:00 · aviso trig_014zgySSxTVMeGAW3dTdmom1",
+ "duracion": 31.1,
+ "vidiq": {
+  "con_portada": "7e8a8979-20f5-42b7-a27a-436104ab9b34",
+  "sin_portada": "4c184013-e52d-4ba5-a2da-53ec6005b8b2"
+ }
 }
