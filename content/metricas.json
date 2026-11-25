@@ -539,6 +539,25 @@
    "tt": {
     "id": "7711798946884046113"
    }
+  },
+  {
+   "id": "2026-11-25_1900_black_friday",
+   "fecha": "2026-11-25",
+   "hora": "19:00",
+   "tema": "Black Friday: ese −40 % puede ser mentira (3 trampas)",
+   "pilar": "Dinero y ley / consumo",
+   "look": "R10 papel recortado",
+   "voz": "local v1",
+   "dur": 20.0,
+   "gancho": "Ese −40 % del Black Friday… puede ser mentira",
+   "ig": {
+    "code": "DgLHspnIe-w",
+    "mediaId": "18078627761479709"
+   },
+   "tt": {
+    "id": null,
+    "nota": "entregado 25-nov ~18:59 (post vidIQ b2e81849-0689-4cb6-9c2c-e0b20e16a6fd); vidIQ no devolvió el enlace: apuntarlo en la próxima revisión de métricas"
+   }
   }
  ],
  "posts": [
