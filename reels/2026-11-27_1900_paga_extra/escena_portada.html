@@ -1,0 +1,316 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<script>window.PORTADA = true;</script>
+<script src="../../toolkit/mascota/listo2d.js"></script>
+<style>
+@font-face{font-family:"Archivo Black";src:url("../../toolkit/fuentes/archivo-black-latin-400-normal.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Archivo Black";src:url("../../toolkit/fuentes/archivo-black-latin-ext-400-normal.woff2") format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"JBM";font-weight:800;src:url("../../toolkit/fuentes/jetbrains-mono-latin-800-normal.woff2") format("woff2")}
+@font-face{font-family:"JBM";font-weight:700;src:url("../../toolkit/fuentes/jetbrains-mono-latin-700-normal.woff2") format("woff2")}
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#0c3b69}
+canvas{position:absolute;inset:0}
+</style></head>
+<body><canvas id="cv" width="1080" height="1920"></canvas>
+<script>
+// Look R11 · PLANO TÉCNICO (primera vez en un reel; del laboratorio del 18-nov).
+// Papel de plano azul FIJO con cuadrícula, marco y cajetín; todo se dibuja con líneas blancas/cian, cotas con flechas,
+// líneas de corte y trayectorias discontinuas. Tema: «La paga extra no es un regalo»: 12 barras de 1.750 € → línea de
+// corte a 1.500 → los trozos de 250 € vuelan por trayectorias discontinuas y forman las 2 pagas extra (12 → 14 barras).
+// Listo en modelado 'plano_tecnico'. Sin cambios de luz: el fondo no cambia; el color va en líneas, tramas y etiquetas.
+const TIM = window.TIM, S = TIM.segments, DUR = TIM.total;
+const P = !!window.PORTADA;
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x)), lerp = (a, b, k) => a + (b - a) * k, prog = (t, a, d) => clamp((t - a) / d);
+const eout = (k) => 1 - Math.pow(1 - clamp(k), 3), eio = (k) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
+const eback = (k, s = 1.7) => { k = clamp(k); return k <= 0 ? 0 : 1 + (s + 1) * Math.pow(k - 1, 3) + s * Math.pow(k - 1, 2); };
+const limpia = (w) => w.toLowerCase().replace(/[¿?¡!.,:;…«»]/g, "");
+const pal = (i, f, n = 0) => { const ws = S[i].words.filter((w) => limpia(w.w) === f); const w = ws[n] || ws[0]; if (!w) console.warn("falta", f); return w ? w.start : S[i].start; };
+const T = {
+  extra: pal(0, "extra"), regalo: pal(0, "regalo"), empresa: pal(0, "empresa"),
+  s1: S[1].start, veintiun: pal(1, "veintiún"), doce1: pal(1, "doce"), setecientos: pal(1, "setecientos"),
+  s2: S[2].start, catorce: pal(2, "catorce"), quitan: pal(2, "quitan"), doscientos: pal(2, "doscientos"), devuelven: pal(2, "devuelven"), junio: pal(2, "junio"), diciembre: pal(2, "diciembre"),
+  s3: S[3].start, plazos: pal(3, "plazos"), limpia: pal(3, "limpia"), seguridad: pal(3, "seguridad"), mes: pal(3, "mes"), pagaste: pal(3, "pagaste"), retienen: pal(3, "retienen"), irpf: pal(3, "irpf"), siempre: pal(3, "siempre"),
+  s4: S[4].start, ciento: pal(4, "ciento"), trescientos: pal(4, "trescientos"), frente: pal(4, "frente"), doscientos4: pal(4, "doscientos"), nomina: pal(4, "nómina"),
+  s5: S[5].start, prefieres: pal(5, "prefieres"), doce5: pal(5, "doce"), catorce5: pal(5, "catorce"), comenta: pal(5, "comenta"), uno: pal(5, "uno"), dos: pal(5, "dos"),
+};
+const FIN = S[5].start + S[5].dur;
+const cv = document.getElementById("cv"), X = cv.getContext("2d"), W = 1080, H = 1920;
+const AB = (px) => `${px}px "Archivo Black"`, PP = (peso, px) => `${peso} ${px}px Poppins`, MONO = (px, p = 800) => `${p} ${px}px JBM`;
+const C = { fondo: "#0c3b69", linea: "#e0f2fe", cian: "#7dd3fc", ambar: "#F59E0B", rojo: "#f87171", verde: "#4ade80", tinta: "#0b2545" };
+const rnd = (i) => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+const INI = [0, T.s1 - 0.14, T.s4 - 0.14, T.s5 - 0.14];
+const TR = 0.5;
+
+// ---------- papel de plano (fijo) ----------
+const papel = document.createElement("canvas"); papel.width = W; papel.height = H;
+(function () { const g = papel.getContext("2d"); g.fillStyle = C.fondo; g.fillRect(0, 0, W, H);
+  for (let i = 0; i < 2600; i++) { g.fillStyle = i % 2 ? "rgba(255,255,255,0.025)" : "rgba(0,0,0,0.05)"; g.fillRect(rnd(i) * W, rnd(i + 5000) * H, 2, 2); }
+  for (let x = 0; x <= W; x += 30) { g.strokeStyle = x % 150 === 0 ? "rgba(224,242,254,0.13)" : "rgba(224,242,254,0.055)"; g.lineWidth = x % 150 === 0 ? 1.6 : 1; g.beginPath(); g.moveTo(x + 0.5, 0); g.lineTo(x + 0.5, H); g.stroke(); }
+  for (let y = 0; y <= H; y += 30) { g.strokeStyle = y % 150 === 0 ? "rgba(224,242,254,0.13)" : "rgba(224,242,254,0.055)"; g.lineWidth = y % 150 === 0 ? 1.6 : 1; g.beginPath(); g.moveTo(0, y + 0.5); g.lineTo(W, y + 0.5); g.stroke(); }
+  g.strokeStyle = "rgba(224,242,254,0.55)"; g.lineWidth = 3; g.strokeRect(34, 34, W - 68, H - 68); g.lineWidth = 1.2; g.strokeRect(46, 46, W - 92, H - 92);
+  const vg = g.createRadialGradient(W / 2, H / 2, 380, W / 2, H / 2, 1250); vg.addColorStop(0, "rgba(0,0,0,0)"); vg.addColorStop(1, "rgba(2,12,30,0.32)"); g.fillStyle = vg; g.fillRect(0, 0, W, H);
+})();
+
+// ---------- utilidades de plano ----------
+function texto(s, x, y, font, color, align = "center", alpha = 1) { if (alpha <= 0) return; X.save(); X.globalAlpha *= alpha; X.font = font; X.fillStyle = color; X.textAlign = align; X.textBaseline = "middle"; X.fillText(s, x, y); X.restore(); }
+function linea(x1, y1, x2, y2, k = 1, col = C.linea, lw = 3, dash = null) { if (k <= 0) return; X.save(); X.strokeStyle = col; X.lineWidth = lw; X.lineCap = "round"; if (dash) X.setLineDash(dash); X.beginPath(); X.moveTo(x1, y1); X.lineTo(lerp(x1, x2, k), lerp(y1, y2, k)); X.stroke(); X.restore(); }
+function flecha(x, y, ang, col = C.linea, L = 16) { X.save(); X.translate(x, y); X.rotate(ang); X.fillStyle = col; X.beginPath(); X.moveTo(0, 0); X.lineTo(-L, -L * 0.45); X.lineTo(-L, L * 0.45); X.closePath(); X.fill(); X.restore(); }
+function cotaV(x, y1, y2, label, k = 1, col = C.ambar, ladoTexto = -1, px = 34) { // cota vertical con flechas y texto girado
+  if (k <= 0) return; X.save(); X.globalAlpha *= clamp(k * 2); const yy2 = lerp(y1, y2, eout(k));
+  linea(x - 16, y1, x + 16, y1, 1, col, 2); linea(x - 16, y2, x + 16, y2, eout(k), col, 2); linea(x, y1, x, yy2, 1, col, 3);
+  flecha(x, y1, y2 > y1 ? -Math.PI / 2 : Math.PI / 2, col); if (k > 0.9) flecha(x, y2, y2 > y1 ? Math.PI / 2 : -Math.PI / 2, col);
+  X.save(); X.translate(x + ladoTexto * 30, (y1 + y2) / 2); X.rotate(-Math.PI / 2); X.font = MONO(px); X.textAlign = "center"; X.textBaseline = "middle";
+  const w = X.measureText(label).width + 22; X.fillStyle = C.fondo; X.fillRect(-w / 2, -px * 0.62, w, px * 1.24); X.fillStyle = col; X.fillText(label, 0, 2); X.restore();
+  X.restore();
+}
+function trama(x, y, w, h, col, paso = 14, lw = 2) { // rayado a 45° dentro de un rectángulo
+  X.save(); X.beginPath(); X.rect(x, y, w, h); X.clip(); X.strokeStyle = col; X.lineWidth = lw;
+  for (let d = -h; d < w; d += paso) { X.beginPath(); X.moveTo(x + d, y + h); X.lineTo(x + d + h, y); X.stroke(); } X.restore();
+}
+function rr(x, y, w, h, r) { X.beginPath(); X.roundRect(x, y, w, h, r); }
+function sello(s, cx, cy, rot, k, px = 64, col = C.ambar, s2 = null) { // sello de revisión del plano: cae grande y se queda
+  if (k <= 0) return; const e = lerp(1.6, 1, eout(k)); X.save(); X.translate(cx, cy); X.rotate(rot); X.scale(e, e); X.globalAlpha *= clamp(k * 3);
+  X.font = AB(px); const w = X.measureText(s).width + px * 0.9, h = px * (s2 ? 2.1 : 1.45);
+  X.fillStyle = "rgba(12,59,105,0.92)"; rr(-w / 2, -h / 2, w, h, 8); X.fill();
+  X.strokeStyle = col; X.lineWidth = px * 0.09; rr(-w / 2, -h / 2, w, h, 8); X.stroke(); X.lineWidth = 2; rr(-w / 2 + 10, -h / 2 + 10, w - 20, h - 20, 4); X.stroke();
+  X.fillStyle = col; X.textAlign = "center"; X.textBaseline = "middle"; X.fillText(s, 0, s2 ? -px * 0.32 : px * 0.04);
+  if (s2) { X.font = MONO(px * 0.46); X.fillStyle = C.linea; X.fillText(s2, 0, px * 0.52); }
+  X.restore();
+}
+function trazo(pts, k, col = C.linea, lw = 4, dash = null) { // polilínea que se dibuja con k (0→1)
+  if (k <= 0) return; let L = 0; const seg = []; for (let i = 1; i < pts.length; i++) { const d = Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]); seg.push(d); L += d; }
+  let rest = L * clamp(k); X.save(); X.strokeStyle = col; X.lineWidth = lw; X.lineJoin = "round"; X.lineCap = "round"; if (dash) X.setLineDash(dash); X.beginPath(); X.moveTo(pts[0][0], pts[0][1]);
+  for (let i = 1; i < pts.length && rest > 0; i++) { const f = Math.min(1, rest / seg[i - 1]); X.lineTo(lerp(pts[i - 1][0], pts[i][0], f), lerp(pts[i - 1][1], pts[i][1], f)); rest -= seg[i - 1]; }
+  X.stroke(); X.restore();
+}
+const eur = (n) => Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " €";
+
+// ---------- caja de regalo en isométrico (vista explosionada) ----------
+function regalo(cx, cy, s, t) {
+  const kd = P ? 1 : eout(prog(t, -0.3, 0.6));                  // se termina de dibujar en 0,3 s (en el fotograma 0 ya se ve)
+  const kx = P ? 1 : eio(prog(t, T.regalo - 0.15, 0.55));        // la tapa sube: vista explosionada
+  const iso = (x, y, z) => [cx + (x - y) * 0.866 * s, cy + (x + y) * 0.5 * s - z * s];
+  const caja = (z0, z1, k, col, lw) => { const a = iso(-1, -1, z0), b = iso(1, -1, z0), c = iso(1, 1, z0), d = iso(-1, 1, z0), a2 = iso(-1, -1, z1), b2 = iso(1, -1, z1), c2 = iso(1, 1, z1), d2 = iso(-1, 1, z1);
+    X.save(); X.globalAlpha *= 1; X.fillStyle = "rgba(125,211,252,0.10)"; X.beginPath(); [d, c, b, b2, a2, d2].forEach((p, i) => (i ? X.lineTo(...p) : X.moveTo(...p))); X.closePath(); X.fill(); X.restore();
+    trazo([d, c, b, b2, a2, d2, d], k, col, lw); trazo([c, c2, b2], k, col, lw); trazo([c2, d2], k, col, lw); trazo([a, b], k * 0.8, col, 1.5, [8, 8]); trazo([a, d], k * 0.8, col, 1.5, [8, 8]); trazo([a, a2], k * 0.8, col, 1.5, [8, 8]); };
+  const lid = 0.55 + kx * 0.95;
+  // cuerpo
+  caja(0, 1.4, kd, C.linea, 4);
+  // cinta del cuerpo
+  trazo([iso(0, 1, 0), iso(0, 1, 1.4)], kd, C.ambar, 6); trazo([iso(1, 0, 0), iso(1, 0, 1.4)], kd, C.ambar, 6);
+  // líneas guía de la vista explosionada
+  if (kx > 0) for (const [x, y] of [[-1.1, 1.1], [1.1, 1.1], [1.1, -1.1]]) trazo([iso(x, y, 1.4), iso(x, y, 1.4 + lid)], kx, "rgba(224,242,254,0.6)", 2, [6, 9]);
+  // tapa
+  X.save(); X.translate(0, 0);
+  const zt = 1.4 + kx * 0.95; const tapa = (x, y, z) => iso(x * 1.1, y * 1.1, z);
+  const ta = tapa(-1, -1, zt), tb = tapa(1, -1, zt), tc = tapa(1, 1, zt), td = tapa(-1, 1, zt), ta2 = tapa(-1, -1, zt + 0.35), tb2 = tapa(1, -1, zt + 0.35), tc2 = tapa(1, 1, zt + 0.35), td2 = tapa(-1, 1, zt + 0.35);
+  X.fillStyle = "rgba(125,211,252,0.14)"; X.beginPath(); [td, tc, tb, tb2, ta2, td2].forEach((p, i) => (i ? X.lineTo(...p) : X.moveTo(...p))); X.closePath(); X.fill();
+  trazo([td, tc, tb, tb2, ta2, td2, td], kd, C.linea, 4); trazo([tc, tc2, tb2], kd, C.linea, 4); trazo([tc2, td2], kd, C.linea, 4);
+  // lazo
+  const top = tapa(0, 0, zt + 0.35); trazo([tapa(0, 1, zt + 0.35), top, tapa(1, 0, zt + 0.35)], kd, C.ambar, 6);
+  if (kd > 0.6) { X.save(); X.strokeStyle = C.ambar; X.lineWidth = 6; for (const sg of [-1, 1]) { X.beginPath(); X.ellipse(top[0] + sg * 46 * s / 120, top[1] - 34 * s / 120, 50 * s / 120, 26 * s / 120, sg * 0.5, 0, 7); X.stroke(); } X.restore(); }
+  X.restore();
+  // dentro: la nómina (papel que sube)
+  const kn = P ? 1 : eout(prog(t, T.regalo + 0.05, 0.5));
+  if (kn > 0) { const p = iso(0, 0, 1.4 + kn * 0.62); X.save(); X.translate(p[0], p[1]); X.rotate(-0.04); const w = 300, h = 170;
+    X.fillStyle = C.fondo; X.fillRect(-w / 2, -h / 2, w, h); X.strokeStyle = C.linea; X.lineWidth = 3; X.strokeRect(-w / 2, -h / 2, w, h); X.lineWidth = 1.5; X.strokeRect(-w / 2 + 8, -h / 2 + 8, w - 16, h - 16);
+    texto("TU SUELDO", 0, -36, AB(38), C.ambar); texto("= 21.000 € / AÑO", 0, 22, MONO(28), C.linea); X.restore(); }
+  // cota de la caja
+  cotaV(iso(-1, 1, 0)[0] - 70, iso(-1, 1, 0)[1], iso(-1, 1, 1.4)[1], "PAGA EXTRA", P ? 1 : prog(t, 0.15, 0.4), C.cian, -1, 26);
+}
+
+// ---------- gráfico de 12 → 14 barras ----------
+const BASE = 1040, SC = 0.25, X0 = 130, X1 = 990;
+const slotX = (i, n) => X0 + ((X1 - X0) / n) * (i + 0.5), bwN = (n) => ((X1 - X0) / n) * 0.7;
+const MESES = ["E", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
+function grafico(t) {
+  const tt = P ? T.diciembre + 0.9 : t;
+  const kr = eio(prog(tt, T.devuelven - 0.3, 0.7));               // 12 → 14 huecos
+  const kc = eout(prog(tt, T.catorce - 0.15, 0.5));               // línea de corte
+  const kq = eout(prog(tt, T.quitan - 0.1, 0.35));                // los trozos se separan
+  const kss = (m) => eout(prog(tt, T.mes - 0.35 + m * 0.045, 0.3)); // Seguridad Social mes a mes
+  const kir = (j) => eout(prog(tt, T.irpf - 0.2 + j * 0.035, 0.3));  // IRPF en las 14
+  const bw = lerp(bwN(12), bwN(14), kr);
+  const h1750 = 1750 * SC, h1500 = 1500 * SC, h250 = 250 * SC;
+  const xMes = (m) => lerp(slotX(m, 12), slotX(m < 6 ? m : m + 1, 14), kr);
+  const xExtra = (g) => slotX(g ? 13 : 6, 14);
+  // eje base
+  linea(X0 - 40, BASE, X1 + 30, BASE, 1, C.linea, 3);
+  // huecos de las pagas extra (discontinuos)
+  for (const g of [0, 1]) if (kr > 0) { X.save(); X.globalAlpha *= kr; X.setLineDash([8, 8]); X.strokeStyle = C.ambar; X.lineWidth = 2.5; X.strokeRect(xExtra(g) - bw / 2, BASE - h1500, bw, h1500); X.restore(); }
+  // barras de los meses
+  MESES.forEach((ml, m) => {
+    const kb = P ? 1 : eout(prog(tt, T.doce1 - 0.25 + m * 0.045, 0.4)); if (kb <= 0) return;
+    const x = xMes(m) - bw / 2, hh = h1750 * kb, top = BASE - hh;
+    const cuerpo = Math.min(hh, h1500);
+    X.fillStyle = "rgba(125,211,252,0.16)"; X.fillRect(x, BASE - cuerpo, bw, cuerpo); trama(x, BASE - cuerpo, bw, cuerpo, "rgba(224,242,254,0.16)", 16, 1.5);
+    X.strokeStyle = C.linea; X.lineWidth = 3; X.strokeRect(x, BASE - cuerpo, bw, cuerpo);
+    // Seguridad Social (abajo) e IRPF (encima)
+    const ss = 113.75 * SC * kss(m); if (ss > 0) { X.fillStyle = "rgba(248,113,113,0.9)"; X.fillRect(x + 3, BASE - ss, bw - 6, ss); }
+    const ir = 180 * SC * kir(m < 6 ? m : m + 1); if (ir > 0) { X.fillStyle = "rgba(224,242,254,0.85)"; X.fillRect(x + 3, BASE - 113.75 * SC - ir, bw - 6, ir); trama(x + 3, BASE - 113.75 * SC - ir, bw - 6, ir, "rgba(12,59,105,0.6)", 9, 2); }
+    // el trozo de 250 € (arriba): mientras no vuela, va pegado a su barra
+    if (hh > h1500) { const g = m < 6 ? 0 : 1, k = m % 6; const tv = (g ? T.diciembre : T.junio) - 0.4 + k * 0.08, kv = P ? 1 : eio(prog(tt, tv, 0.55));
+      const ox = xMes(m) - bw / 2, oy = top - kq * 12, ex = xExtra(g) - bw / 2, ey = BASE - (k + 1) * h250;
+      const arco = 70 + 24 * k, px = lerp(ox, ex, kv), py = lerp(oy, ey, kv) - Math.sin(Math.PI * kv) * arco, hs = hh - h1500;
+      const kf = 1 - prog(tt, T.plazos - 0.3, 0.5);
+      if ((kv > 0 && kv < 1 || kv >= 1) && !P && kf > 0) { // trayectoria discontinua (se queda tenue y se va al llegar «a plazos»)
+        X.save(); X.globalAlpha *= (kv >= 1 ? 0.35 : 0.8) * kf; X.setLineDash([7, 9]); X.strokeStyle = C.ambar; X.lineWidth = 2; X.beginPath();
+        for (let q = 0; q <= 24; q++) { const u = (q / 24) * kv; const qx = lerp(ox, ex, u) + bw / 2, qy = lerp(oy, ey, u) - Math.sin(Math.PI * u) * arco + h250 / 2; q ? X.lineTo(qx, qy) : X.moveTo(qx, qy); } X.stroke(); X.restore(); }
+      const col = kv > 0.98 ? "rgba(245,158,11,0.85)" : kq > 0 ? "rgba(245,158,11,0.35)" : "rgba(125,211,252,0.16)";
+      X.fillStyle = col; X.fillRect(px, py, bw, hs); X.strokeStyle = kq > 0 ? C.ambar : C.linea; X.lineWidth = 3; X.strokeRect(px, py, bw, hs); }
+    texto(ml, xMes(m), BASE + 30, MONO(28), C.linea);
+  });
+  // etiquetas de las pagas extra
+  for (const g of [0, 1]) { const ke = P ? 1 : prog(tt, (g ? T.diciembre : T.junio) + 0.12, 0.3); if (ke <= 0) continue;
+    X.save(); X.globalAlpha *= ke; X.translate(xExtra(g), BASE - h1500 / 2); X.rotate(-Math.PI / 2); X.font = AB(30); X.fillStyle = C.tinta; X.textAlign = "center"; X.textBaseline = "middle"; X.fillText("PAGA EXTRA", 0, 2); X.restore();
+    texto("+", xExtra(g), BASE + 30, AB(34), C.ambar, "center", ke);
+    const kz = P ? 0 : prog(tt, T.pagaste + 0.25 + g * 0.12, 0.3);
+    if (kz > 0) { X.save(); X.translate(xExtra(g), BASE - h1500 - 46); const e = eback(kz, 2.2); X.scale(e, e); rr(-46, -24, 92, 48, 24); X.fillStyle = C.verde; X.fill(); texto("SS 0", 0, 2, MONO(24), C.tinta); X.restore(); } }
+  // línea de corte a 1.500
+  if (kc > 0) { linea(X0 - 30, BASE - h1500 - 6, X1 + 20, BASE - h1500 - 6, kc, C.rojo, 3, [18, 8, 4, 8]);
+    const kl = kc * (1 - prog(tt, T.devuelven - 0.2, 0.3)); if (kl > 0) { X.save(); X.globalAlpha *= kl; X.fillStyle = C.fondo; X.fillRect(540 - 130, BASE - h1500 + 14, 260, 40); X.strokeStyle = C.rojo; X.lineWidth = 2; X.strokeRect(540 - 130, BASE - h1500 + 14, 260, 40); X.restore();
+      texto("LÍNEA DE CORTE", 540, BASE - h1500 + 35, MONO(24), C.rojo, "center", kl); } }
+  // cotas
+  if (!P) { cotaV(X0 - 62, BASE, BASE - h1750, "1.750 €", prog(tt, T.setecientos - 0.2, 0.45), C.ambar, -1, 30);
+    const kq2 = prog(tt, T.doscientos - 0.15, 0.35) * (1 - prog(tt, T.devuelven - 0.2, 0.3));
+    if (kq2 > 0) { X.save(); X.globalAlpha *= kq2; const xx = X1 + 34; linea(xx, BASE - h1750 - 12, xx, BASE - h1500 - 12, 1, C.ambar, 3); flecha(xx, BASE - h1750 - 12, -Math.PI / 2, C.ambar, 12); flecha(xx, BASE - h1500 - 12, Math.PI / 2, C.ambar, 12);
+      X.restore(); texto("−250 €/MES", X1 + 20, BASE - h1750 - 50, AB(40), C.ambar, "right", kq2); } }
+  // leyenda de retenciones
+  if (!P) { const kl1 = prog(tt, T.seguridad - 0.1, 0.3), kl2 = prog(tt, T.irpf - 0.1, 0.3);
+    if (kl1 > 0) { X.save(); X.globalAlpha *= kl1; X.fillStyle = "rgba(248,113,113,0.9)"; X.fillRect(X0, BASE + 70, 30, 30); X.restore(); texto("SEG. SOCIAL: CADA MES", X0 + 44, BASE + 86, MONO(26), C.linea, "left", kl1); }
+    if (kl2 > 0) { X.save(); X.globalAlpha *= kl2; X.fillStyle = "rgba(224,242,254,0.85)"; X.fillRect(X0 + 470, BASE + 70, 30, 30); trama(X0 + 470, BASE + 70, 30, 30, "rgba(12,59,105,0.6)", 9, 2); X.restore(); texto("IRPF: EL MISMO %", X0 + 514, BASE + 86, MONO(26), C.linea, "left", kl2); } }
+}
+
+// ---------- contenido de cada escena ----------
+function escena(i, t) {
+  if (i === 0) { // LA PAGA EXTRA NO ES UN REGALO
+    const kh = 0.92 + 0.08 * eback(prog(t, 0, 0.35), 2.5);
+    X.save(); X.translate(540, 432); X.scale(kh, kh); texto("LA PAGA EXTRA", 0, 0, AB(98), C.linea); X.restore();
+    X.save(); X.translate(540, 548); X.scale(kh, kh); X.font = AB(98); const w1 = X.measureText("NO ES UN ").width, w2 = X.measureText("REGALO").width; X.restore();
+    X.save(); X.translate(540, 548); X.scale(kh, kh); texto("NO ES UN ", -(w1 + w2) / 2, 0, AB(98), C.linea, "left"); texto("REGALO", -(w1 + w2) / 2 + w1, 0, AB(98), C.ambar, "left");
+    const ku = prog(t, T.regalo - 0.05, 0.3); if (ku > 0) linea(-(w1 + w2) / 2 + w1, 62, -(w1 + w2) / 2 + w1 + w2 * eout(ku), 62, 1, C.ambar, 9); X.restore();
+    regalo(470, 1000, 120, t);
+    sello("ES TU SUELDO", 560, 1195, -0.07, prog(t, T.empresa - 0.05, 0.28), 52, C.ambar, "PARTIDO EN 14 PAGAS");
+  }
+  if (i === 1) { // EL PLANO DE TU SUELDO (12 → 14 barras)
+    const k0 = eout(prog(t, T.s1 - 0.1, 0.4));
+    texto("21.000 € / AÑO", 540, 420, AB(72), C.linea, "center", k0);
+    // contador de pagas: 12 → 14
+    const k14 = eback(prog(t, T.catorce - 0.12, 0.35), 2.2), k12 = eout(prog(t, T.doce1 - 0.15, 0.3));
+    X.save(); X.translate(540, 512);
+    if (k14 <= 0) { X.save(); X.scale(lerp(0.6, 1, k12), lerp(0.6, 1, k12)); texto("12 PAGAS", 0, 0, AB(58), C.cian, "center", k12); X.restore(); }
+    else { X.save(); X.scale(k14, k14); texto("14 PAGAS", 0, 0, AB(58), C.ambar); X.restore(); }
+    X.restore();
+    grafico(t);
+    sello("TU SUELDO, A PLAZOS", 540, 760, -0.06, prog(t, T.plazos - 0.12, 0.26) * (1 - prog(t, T.limpia - 0.05, 0.3)), 54, C.ambar);
+  }
+  if (i === 2) { // ¿POR QUÉ LLEGA MÁS LIMPIA? Nómina vs paga extra
+    texto("NETO CON 1.500 € BRUTOS", 540, 420, AB(50), C.linea, "center", eout(prog(t, INI[2], 0.35)));
+    const ficha = (cx, titulo, ssTxt, neto, tCount, col, retraso) => {
+      const k = eout(prog(t, INI[2] + retraso, 0.45)); if (k <= 0) return; X.save(); X.translate(cx, 790 + (1 - k) * 60); X.globalAlpha *= clamp(k * 1.5);
+      const w = 450, h = 600; X.fillStyle = "rgba(12,59,105,0.9)"; X.fillRect(-w / 2, -h / 2, w, h); X.strokeStyle = C.linea; X.lineWidth = 3; X.strokeRect(-w / 2, -h / 2, w, h); X.lineWidth = 1.2; X.strokeRect(-w / 2 + 10, -h / 2 + 10, w - 20, h - 20);
+      X.fillStyle = col; X.fillRect(-w / 2 + 10, -h / 2 + 10, w - 20, 84); texto(titulo, 0, -h / 2 + 54, AB(44), C.tinta);
+      const fila = (y, a, b, cA, cB, kk) => { texto(a, -w / 2 + 34, y, MONO(30), cA, "left", kk); texto(b, w / 2 - 34, y, MONO(30), cB, "right", kk); };
+      fila(-150, "BRUTO", "1.500", C.linea, C.linea, prog(t, INI[2] + retraso + 0.2, 0.3));
+      const kc = prog(t, T.ciento - 0.25, 0.3); fila(-90, "IRPF 12 %", "−180", C.linea, C.linea, kc);
+      if (kc > 0 && t < T.ciento + 0.9) { X.save(); X.globalAlpha *= kc * (1 - prog(t, T.ciento + 0.6, 0.3)); X.strokeStyle = C.ambar; X.lineWidth = 3; X.strokeRect(-w / 2 + 22, -118, w - 44, 56); X.restore(); }
+      fila(-30, "SEG. SOC.", ssTxt, C.linea, ssTxt === "0" ? C.verde : C.rojo, prog(t, T.ciento + 0.1, 0.3));
+      linea(-w / 2 + 30, 26, w / 2 - 30, 26, prog(t, T.ciento + 0.3, 0.3), C.linea, 3);
+      texto("NETO", 0, 76, MONO(30), C.cian, "center", prog(t, T.ciento + 0.3, 0.3));
+      const kn = prog(t, tCount - 0.15, 0.7); if (kn > 0) { const v = lerp(1500, neto, eout(kn)); X.save(); X.translate(0, 168); const e = 1 + 0.12 * Math.sin(Math.PI * prog(t, tCount + 0.55, 0.3)); X.scale(e, e); texto(eur(v), 0, 0, AB(84), col); X.restore(); }
+      X.restore(); };
+    ficha(290, "NÓMINA", "−114", 1206.25, T.doscientos4, C.linea, 0.1);
+    ficha(790, "PAGA EXTRA", "0", 1320, T.trescientos, C.ambar, 0.25);
+    const kd = prog(t, T.nomina - 0.05, 0.3); if (kd > 0) { X.save(); X.translate(540, 1145); const e = eback(kd, 2.3); X.scale(e, e); rr(-150, -40, 300, 80, 40); X.fillStyle = C.verde; X.fill(); texto("+114 € MÁS", 0, 3, AB(40), C.tinta); X.restore(); }
+  }
+  if (i === 3) { // ¿12 PAGAS O 14?
+    const ka = eback(prog(t, T.s5 - 0.05, 0.35), 2.2), kb = eback(prog(t, T.catorce5 - 0.2, 0.35), 2.2);
+    X.save(); X.translate(540, 440); X.scale(ka, ka); texto("¿12 PAGAS", 0, 0, AB(112), C.cian); X.restore();
+    X.save(); X.translate(540, 570); X.scale(kb, kb); texto("O 14?", 0, 0, AB(112), C.ambar); X.restore();
+    const boton = (cy, s, fill, k, on) => { if (k <= 0) return; const e = eback(k, 2); X.save(); X.translate(430, cy + (on ? 6 : 0)); X.scale(e, e);
+      rr(-290, -66, 580, 132, 18); X.fillStyle = fill; X.fill(); X.strokeStyle = C.linea; X.lineWidth = 4; rr(-290, -66, 580, 132, 18); X.stroke(); X.lineWidth = 1.5; rr(-280, -56, 560, 112, 12); X.stroke();
+      texto(s, 0, 4, AB(58), C.tinta); if (on) { X.strokeStyle = C.linea; X.lineWidth = 3; X.setLineDash([8, 8]); rr(-306, -82, 612, 164, 24); X.stroke(); } X.restore(); };
+    boton(760, "1 · DOCE", C.cian, prog(t, T.uno - 0.18, 0.35), t > T.uno && t < T.dos);
+    boton(925, "2 · CATORCE", C.ambar, prog(t, T.dos - 0.18, 0.35), t > T.dos);
+    X.save(); X.translate(430, 1075); texto("COMENTA 1 O 2", 0, 0, AB(52), C.linea, "center", prog(t, T.comenta - 0.1, 0.3));
+    const ku = prog(t, T.comenta + 0.1, 0.4); if (ku > 0) { X.strokeStyle = C.ambar; X.lineWidth = 10; X.lineCap = "round"; X.beginPath(); X.moveTo(-230, 40); X.lineTo(lerp(-230, 230, ku), 40); X.stroke(); } X.restore();
+  }
+}
+
+// ---------- subtítulos: etiqueta de cota (marco técnico con esquinas) ----------
+const MOSTRAR = {};
+function subtitulos(t) {
+  if (P) return; let si = S.findIndex((s, k) => t >= s.start - 0.05 && (k === S.length - 1 || t < S[k + 1].start - 0.05)); if (si < 0) return;
+  const ws = S[si].words; let wi = ws.findIndex((w, k) => t >= w.start - 0.03 && (k === ws.length - 1 || t < ws[k + 1].start - 0.03)); if (wi < 0) wi = 0;
+  const lab = (w) => (MOSTRAR[w.toLowerCase()] || w).toUpperCase();
+  const trozos = []; let cur = [];
+  ws.forEach((w, k) => { const len = cur.map((x) => lab(ws[x].w)).join(" ").length; if (cur.length && len + lab(w.w).length > 18) { trozos.push(cur); cur = []; } cur.push(k); }); if (cur.length) trozos.push(cur);
+  const tr = trozos.find((g) => g.includes(wi)) || trozos[0];
+  X.font = MONO(48); const partes = tr.map((k) => lab(ws[k].w)); const sp = 24;
+  const anchos = partes.map((p) => X.measureText(p).width), total = anchos.reduce((a, b) => a + b, 0) + sp * (partes.length - 1);
+  const y = 1338, bw = Math.max(520, total + 80), bh = 100;
+  X.save(); X.translate(W / 2 - 40, y);
+  X.fillStyle = "rgba(8,40,74,0.94)"; X.fillRect(-bw / 2, -bh / 2, bw, bh); X.strokeStyle = C.linea; X.lineWidth = 2; X.strokeRect(-bw / 2, -bh / 2, bw, bh);
+  X.strokeStyle = C.cian; X.lineWidth = 5; for (const [sx, sy] of [[-1, -1], [1, -1], [1, 1], [-1, 1]]) { X.beginPath(); X.moveTo(sx * bw / 2, sy * bh / 2 - sy * 22); X.lineTo(sx * bw / 2, sy * bh / 2); X.lineTo(sx * bw / 2 - sx * 22, sy * bh / 2); X.stroke(); }
+  let x = -total / 2; partes.forEach((p, j) => { const k = tr[j]; const act = k === wi, pas = k < wi;
+    if (act) { const kk = eout(prog(t, ws[k].start - 0.03, 0.12)); X.fillStyle = C.ambar; X.fillRect(x - 8, -32, (anchos[j] + 16) * kk, 64); }
+    X.textAlign = "left"; X.textBaseline = "middle"; X.font = MONO(48); X.fillStyle = act ? C.tinta : pas ? C.linea : "rgba(224,242,254,0.4)"; X.fillText(p, x, 2); x += anchos[j] + sp; });
+  X.restore();
+}
+
+// ---------- cajetín (fijo) ----------
+function cajetin() {
+  const y = 250, h = 76, x0 = 64, x1 = 1016; X.save(); X.fillStyle = "rgba(8,40,74,0.9)"; X.fillRect(x0, y, x1 - x0, h); X.strokeStyle = C.linea; X.lineWidth = 2.5; X.strokeRect(x0, y, x1 - x0, h);
+  const cortes = [x0 + 270, x0 + 700, x0 + 840]; cortes.forEach((cx) => { X.beginPath(); X.moveTo(cx, y); X.lineTo(cx, y + h); X.stroke(); });
+  texto("EL EURO LISTO", x0 + 135, y + h / 2 + 2, MONO(26), C.linea); texto("PLANO: TU PAGA EXTRA", x0 + 485, y + h / 2 + 2, MONO(28, 800), C.ambar);
+  texto("NÓMINA", x0 + 770, y + h / 2 + 2, MONO(24), C.linea); texto("1:1 €", x0 + 896, y + h / 2 + 2, MONO(24), C.linea); X.restore();
+}
+
+function renderAt(t) {
+  X.setTransform(1, 0, 0, 1, 0, 0); X.globalAlpha = 1; X.drawImage(papel, 0, 0);
+  if (P) { X.save(); X.translate(0, 300); grafico(t); X.restore(); }
+  else {
+    cajetin();
+    let cur = 0; for (let k = 0; k < INI.length; k++) if (t >= INI[k]) cur = k;
+    const kt = cur === 0 ? 1 : eio(prog(t, INI[cur], TR));
+    const dib = (k, off) => { X.save(); X.translate(off, 0); escena(k, t); X.restore(); };
+    if (cur > 0 && kt < 1) dib(cur - 1, -kt * (W + 60));
+    dib(cur, (1 - kt) * (W + 60));
+  }
+  // --- LISTO (modelado 'plano_tecnico') ---
+  let cur = 0; for (let k = 0; k < INI.length; k++) if (t >= INI[k]) cur = k;
+  const o = { x: 945, y: 1262, s: 0.5, t, estilo: "plano_tecnico", expr: "normal", pose: "reposo", mira: [-0.6, -0.2] };
+  if (P) { Object.assign(o, { x: 870, y: 1610, s: 0.92, pose: "brazosAbiertos", expr: "sorpresa" }); }
+  else if (cur === 0) { o.s = 0.82; o.y = 1262; o.x = 860;
+    if (t < 0.45) { o.anim = "entrada"; o.animT = t + 0.3; } else { o.pose = "senalaIzq"; o.expr = "sorpresa"; }
+    if (t > T.regalo - 0.05) { o.pose = "brazosCruzados"; o.expr = "normal"; }
+    if (t > T.empresa - 0.05) { o.anim = "sellazo"; o.animT = t - T.empresa + 0.05; o.pose = "manosCadera"; o.expr = "guino"; } }
+  else if (cur === 1) { o.pose = "senalaIzq"; o.expr = "normal";
+    if (t > T.setecientos - 0.1) { o.pose = "moneda"; o.expr = "feliz"; }
+    if (t > T.quitan - 0.1) { o.anim = "desinfla"; o.animT = t - T.quitan + 0.1; o.expr = "preocupado"; o.pose = "brazosAbiertos"; }
+    if (t > T.devuelven - 0.1) { o.anim = "salto"; o.animT = t - T.devuelven + 0.1; o.expr = "sorpresa"; o.pose = "senalaIzq"; }
+    if (t > T.diciembre + 0.2) { o.anim = null; o.pose = "celebra"; o.expr = "feliz"; }
+    if (t > T.plazos - 0.15) { o.pose = "piensa"; o.expr = "idea"; }
+    if (t > T.limpia - 0.1) { o.anim = "rebote"; o.animT = t - T.limpia; o.pose = "brazosAbiertos"; o.expr = "feliz"; }
+    if (t > T.irpf - 0.15) { o.anim = null; o.pose = "senalaIzq"; o.expr = "normal"; } }
+  else if (cur === 2) { o.x = 540; o.y = 1262; o.s = 0.0; }
+  else { o.x = 905; o.y = 1100; o.s = 0.66;
+    if (t < T.s5 + 0.8) { o.anim = "giro"; o.animT = t - T.s5 + 0.05; }
+    else if (t < FIN - 1.0) { o.pose = "pulgar"; o.expr = "guino"; }
+    else { o.pose = "senalaIzq"; o.expr = "feliz"; } }
+  if (cur === 2 && !P) { // en las fichas, Listo abajo a la derecha, con gafas al llegar los 1.320 €
+    Object.assign(o, { x: 985, y: 1272, s: 0.44, pose: "senalaIzq", expr: "normal" });
+    if (t > T.trescientos - 0.1) { o.modo = "vacilon"; o.accK = { gafas: eout(prog(t, T.trescientos - 0.1, 0.4)), cadena: eout(prog(t, T.trescientos + 0.1, 0.4)) }; o.expr = "guino"; o.pose = "manosCadera"; }
+  }
+  Listo2D.dibujar(X, o);
+  // botón + SEGUIR al final
+  if (!P) { const ks = prog(t, FIN - 1.1, 0.35); if (ks > 0) { const press = prog(t, FIN - 0.45, 0.12) * (1 - prog(t, FIN - 0.2, 0.15));
+    X.save(); X.translate(820, 1205); const e = eback(ks, 2) * (1 - 0.08 * press); X.scale(e, e); rr(-165, -56, 330, 112, 16); X.fillStyle = C.ambar; X.fill(); X.strokeStyle = C.linea; X.lineWidth = 4; rr(-165, -56, 330, 112, 16); X.stroke();
+    texto("+ SEGUIR", 0, -12, AB(44), C.tinta); texto("más nómina, sin humo", 0, 30, MONO(20), C.tinta); X.restore(); } }
+  subtitulos(t);
+  if (!P) { texto("Ejemplo: 21.000 €/año · IRPF 12 % · SS trabajador 6,5 % (2026) · educativo", W / 2, 1436, MONO(19, 700), "rgba(224,242,254,0.72)");
+    texto("@eleurolisto", W / 2, 1478, AB(30), "rgba(224,242,254,0.6)"); }
+}
+window.DURACION = DUR;
+window.renderAt = renderAt;
+Promise.all([document.fonts.load('40px "Archivo Black"'), document.fonts.load('800 40px JBM'), document.fonts.load('700 40px JBM')]).then(() => document.fonts.ready).then(() => { renderAt(0); window.listo = true; });
+</script></body></html>

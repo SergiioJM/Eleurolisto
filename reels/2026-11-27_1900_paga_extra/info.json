@@ -1,0 +1,39 @@
+{
+ "fecha": "2026-11-27",
+ "hora": "19:00",
+ "titulo": "La paga extra no es un regalo (12 → 14 pagas)",
+ "pilar": "Trabajo y nómina (temporada: paga extra de diciembre)",
+ "look": "R11 · Plano técnico (PRIMERA VEZ en un reel; del laboratorio del 18-nov) + Listo 'plano_tecnico'",
+ "formato": "HTML/canvas con motor.mjs: papel de plano azul FIJO con cuadrícula, marco y cajetín («PLANO: TU PAGA EXTRA»); caja de regalo isométrica en líneas que se abre en vista explosionada y deja ver «TU SUELDO = 21.000 €/AÑO»; sello «ES TU SUELDO · PARTIDO EN 14 PAGAS»; 12 barras de 1.750 € con cota, contador 12 PAGAS → 14 PAGAS, línea de corte a 1.500 €, los 12 trozos de 250 € vuelan por trayectorias discontinuas y forman las 2 pagas extra mientras las barras se reordenan de 12 a 14 huecos; sello «TU SUELDO, A PLAZOS»; Seguridad Social (rojo) que barre mes a mes y «SS 0» en las extra; IRPF rayado en las 14 («EL MISMO %»); dos fichas NÓMINA vs PAGA EXTRA con contadores 1.206 € / 1.320 € y píldora +114 € MÁS; votación 1 · DOCE / 2 · CATORCE y botón + SEGUIR. Subtítulos en etiqueta técnica con esquinas cian y la palabra activa en ámbar.",
+ "gancho": "La paga extra no es un regalo de tu empresa (en pantalla desde el fotograma 0: LA PAGA EXTRA / NO ES UN REGALO + la caja de regalo en plano + Listo entrando sorprendido)",
+ "ganchos_candidatos": [
+  "La paga extra no es un regalo de tu empresa (elegido: afirmación corta que desmonta una creencia, como los mejores ganchos del ranking —«Hacienda te devuelve 450 €… y luego te los cobra» 64, «Hay un ladrón en tu casa» 68— + búsqueda de temporada)",
+  "Tu paga extra ya la has pagado tú",
+  "Tu paga extra llega con 114 € más que tu nómina. ¿Por qué?",
+  "¿Cuánto te quitan de la paga extra? Menos de lo que crees",
+  "1.750 € al mes o 1.500 + 2 pagas: es el mismo dinero"
+ ],
+ "guion": [
+  "La paga extra no es un regalo de tu empresa.",
+  "Si cobras veintiún mil al año, en doce pagas serían mil setecientos cincuenta al mes.",
+  "En catorce, te quitan doscientos cincuenta cada mes… y te los devuelven en junio y en diciembre.",
+  "Es tu sueldo, a plazos. Eso sí, llega más limpia: la Seguridad Social ya la pagaste mes a mes, y solo te retienen el IRPF de siempre.",
+  "Con un doce por ciento: mil trescientos veinte euros… frente a los mil doscientos seis de tu nómina.",
+  "¿Tú qué prefieres: doce pagas o catorce? Comenta uno o dos."
+ ],
+ "voz": "ElevenLabs · Lucía (s4NXWwstm4IwAI2dMQ6M, eleven_v4), una toma de 522 caracteres; transcripción Scribe idéntica al guion; 6 pausas > 0,22 s acortadas y atempo 1,17",
+ "etiqueta_ia": true,
+ "caption": "La paga extra no es un regalo de tu empresa 🎁 Es tu sueldo anual partido en 14. Con 21.000 € brutos al año: en 12 pagas serían 1.750 € al mes; en 14, 1.500 € al mes + 2 pagas extra de 1.500 € (junio y diciembre). El mismo dinero al año.\n¿Y por qué la paga extra llega con más neto? Porque la Seguridad Social ya la pagas cada mes (tu base de cotización incluye la parte proporcional de las pagas) y en la paga extra solo te retienen IRPF, con el mismo porcentaje de siempre. Ejemplo con un 12 % de IRPF y un 6,5 % de cotización del trabajador (2026): paga extra 1.320 € netos frente a 1.206 € de una nómina normal. Si en diciembre ves más IRPF del habitual, suele ser una regularización por un cambio de sueldo.\n¿Tú qué prefieres: 12 pagas o 14? Comenta 1 o 2 👇 y mándaselo a quien cree que la paga extra es un regalo.\nEjemplo orientativo: tu IRPF depende de tu sueldo y tu situación, y tu convenio fija cuándo se cobran las pagas. Contenido educativo.\nFuentes: Ley General de la Seguridad Social (art. 147.1), Orden de cotización de 2026 y normativa del IRPF (retenciones).\n#pagaextra #nomina #irpf #finanzaspersonales #eleurolisto\n🎙 elevenlabs.io",
+ "datos": "Cifras recalculadas con Python: 21.000/12 = 1.750; 21.000/14 = 1.500; 1.750 − 1.500 = 250 €/mes; 250 × 6 = 1.500 (una paga); cotización del trabajador 2026 = 4,70 + 1,55 + 0,10 + 0,15 (MEI) = 6,50 % sobre 1.750 (base con prorrata) = 113,75 €/mes (× 12 = 1.365 = 6,5 % de 21.000); IRPF 12 % (ejemplo) de 1.500 = 180; nómina neta 1.500 − 180 − 113,75 = 1.206,25; paga extra neta 1.500 − 180 = 1.320; diferencia 113,75 ≈ 114 €. Verificado el 25-nov: la paga extra no lleva cotización en su mes porque se prorratea en la base mensual (art. 147.1 LGSS, guiafiscal.es act. 10-nov-2026); el IRPF es el mismo tipo de retención que la nómina (salvo regularización); con 12 o 14 pagas el bruto anual es el mismo (loentiendo.com, guiafiscal.es); tipos 2026 (Sage, 20-mar-2026).",
+ "fuentes": [
+  "https://guiafiscal.es/laboral/paga-extra-irpf/",
+  "https://loentiendo.com/las-pagas-extra-prorrateadas/",
+  "https://www.sage.com/es-es/blog/las-cotizaciones-a-la-seguridad-social-conceptos-bases-y-porcentajes/"
+ ],
+ "origen": "plan semanal (paga extra, temporada con mucha búsqueda en noviembre-diciembre) + fórmula del ranking (gancho corto que desmonta una creencia, voz premium, ≤ 31 s, pregunta personal 1/2)",
+ "listo": "Modelado 'plano_tecnico' (contornos de plano): entra cayendo (entrada) sorprendido señalando la caja; brazos cruzados en «regalo»; sellazo con guiño en «empresa»; pequeño abajo a la derecha en el gráfico: señala, enseña la moneda en «setecientos», se desinfla preocupado en «quitan», salta en «devuelven», celebra en «diciembre», piensa con idea en «a plazos», rebota feliz en «limpia», señala el IRPF; en las fichas, gafas y cadena (vacilón) con los 1.320 €; al final giro, firma (guiño + mano redonda en alto) y señala el botón + SEGUIR, que se pulsa.",
+ "musica": "upbeat 108 bpm (seed 11), baja; efectos de la biblioteca (lápiz/grapas del plano, barras que se dibujan, trozos que aterrizan, sellos, tonos de la Seguridad Social, contadores, votos, chime final)",
+ "portada": "portada/portada.jpg (kicker NÓMINA · DICIEMBRE, «Paga extra: ¿un regalo?», «Te la quitan cada mes», etiquetas −250 €/mes y 12 → 14; fondo: el plano con las 14 barras y las 2 PAGAS EXTRA en ámbar + Listo sorprendido)",
+ "estado": "ENVIADO a Sergio el 25-nov ~22:00 para el VIERNES 27 a las 19:00",
+ "duracion": 31.1
+}

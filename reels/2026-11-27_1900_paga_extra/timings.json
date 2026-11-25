@@ -1,0 +1,545 @@
+{
+ "total": 31.02,
+ "voz": "ElevenLabs · Lucía (s4NXWwstm4IwAI2dMQ6M, eleven_v4)",
+ "fuente_tiempos": "ElevenLabs Scribe (tiempos exactos por palabra)",
+ "segments": [
+  {
+   "i": 0,
+   "start": 0.12,
+   "dur": 2.393,
+   "text": "La paga extra no es un regalo de tu empresa.",
+   "words": [
+    {
+     "w": "La",
+     "start": 0.12,
+     "end": 0.257
+    },
+    {
+     "w": "paga",
+     "start": 0.291,
+     "end": 0.462
+    },
+    {
+     "w": "extra",
+     "start": 0.53,
+     "end": 0.872
+    },
+    {
+     "w": "no",
+     "start": 1.009,
+     "end": 1.146
+    },
+    {
+     "w": "es",
+     "start": 1.214,
+     "end": 1.351
+    },
+    {
+     "w": "un",
+     "start": 1.385,
+     "end": 1.419
+    },
+    {
+     "w": "regalo",
+     "start": 1.488,
+     "end": 1.761
+    },
+    {
+     "w": "de",
+     "start": 1.795,
+     "end": 1.829
+    },
+    {
+     "w": "tu",
+     "start": 1.898,
+     "end": 1.966
+    },
+    {
+     "w": "empresa.",
+     "start": 2.103,
+     "end": 2.513
+    }
+   ]
+  },
+  {
+   "i": 1,
+   "start": 2.65,
+   "dur": 4.649,
+   "text": "Si cobras veintiún mil al año, en doce pagas serían mil setecientos cincuenta al mes.",
+   "words": [
+    {
+     "w": "Si",
+     "start": 2.65,
+     "end": 2.718
+    },
+    {
+     "w": "cobras",
+     "start": 2.787,
+     "end": 3.06
+    },
+    {
+     "w": "veintiún",
+     "start": 3.094,
+     "end": 3.334
+    },
+    {
+     "w": "mil",
+     "start": 3.47,
+     "end": 3.539
+    },
+    {
+     "w": "al",
+     "start": 3.607,
+     "end": 3.676
+    },
+    {
+     "w": "año,",
+     "start": 3.71,
+     "end": 4.086
+    },
+    {
+     "w": "en",
+     "start": 4.154,
+     "end": 4.223
+    },
+    {
+     "w": "doce",
+     "start": 4.291,
+     "end": 4.496
+    },
+    {
+     "w": "pagas",
+     "start": 4.564,
+     "end": 4.838
+    },
+    {
+     "w": "serían",
+     "start": 4.906,
+     "end": 5.248
+    },
+    {
+     "w": "mil",
+     "start": 5.385,
+     "end": 5.453
+    },
+    {
+     "w": "setecientos",
+     "start": 5.522,
+     "end": 6.069
+    },
+    {
+     "w": "cincuenta",
+     "start": 6.103,
+     "end": 6.411
+    },
+    {
+     "w": "al",
+     "start": 6.479,
+     "end": 6.547
+    },
+    {
+     "w": "mes.",
+     "start": 6.616,
+     "end": 7.299
+    }
+   ]
+  },
+  {
+   "i": 2,
+   "start": 7.368,
+   "dur": 4.923,
+   "text": "En catorce, te quitan doscientos cincuenta cada mes… y te los devuelven en junio y en diciembre.",
+   "words": [
+    {
+     "w": "En",
+     "start": 7.368,
+     "end": 7.436
+    },
+    {
+     "w": "catorce,",
+     "start": 7.47,
+     "end": 7.983
+    },
+    {
+     "w": "te",
+     "start": 8.017,
+     "end": 8.052
+    },
+    {
+     "w": "quitan",
+     "start": 8.12,
+     "end": 8.394
+    },
+    {
+     "w": "doscientos",
+     "start": 8.496,
+     "end": 8.804
+    },
+    {
+     "w": "cincuenta",
+     "start": 8.872,
+     "end": 9.146
+    },
+    {
+     "w": "cada",
+     "start": 9.282,
+     "end": 9.419
+    },
+    {
+     "w": "mes…",
+     "start": 9.488,
+     "end": 10.103
+    },
+    {
+     "w": "y",
+     "start": 10.171,
+     "end": 10.205
+    },
+    {
+     "w": "te",
+     "start": 10.24,
+     "end": 10.308
+    },
+    {
+     "w": "los",
+     "start": 10.376,
+     "end": 10.445
+    },
+    {
+     "w": "devuelven",
+     "start": 10.513,
+     "end": 10.855
+    },
+    {
+     "w": "en",
+     "start": 10.992,
+     "end": 11.129
+    },
+    {
+     "w": "junio",
+     "start": 11.197,
+     "end": 11.47
+    },
+    {
+     "w": "y",
+     "start": 11.607,
+     "end": 11.676
+    },
+    {
+     "w": "en",
+     "start": 11.71,
+     "end": 11.744
+    },
+    {
+     "w": "diciembre.",
+     "start": 11.812,
+     "end": 12.291
+    }
+   ]
+  },
+  {
+   "i": 3,
+   "start": 12.428,
+   "dur": 8.0,
+   "text": "Es tu sueldo, a plazos. Eso sí, llega más limpia: la Seguridad Social ya la pagaste mes a mes, y solo te retienen el IRPF de siempre.",
+   "words": [
+    {
+     "w": "Es",
+     "start": 12.428,
+     "end": 12.496
+    },
+    {
+     "w": "tu",
+     "start": 12.564,
+     "end": 12.633
+    },
+    {
+     "w": "sueldo,",
+     "start": 12.701,
+     "end": 13.248
+    },
+    {
+     "w": "a",
+     "start": 13.282,
+     "end": 13.317
+    },
+    {
+     "w": "plazos.",
+     "start": 13.385,
+     "end": 14.0
+    },
+    {
+     "w": "Eso",
+     "start": 14.137,
+     "end": 14.342
+    },
+    {
+     "w": "sí,",
+     "start": 14.411,
+     "end": 14.821
+    },
+    {
+     "w": "llega",
+     "start": 14.855,
+     "end": 15.026
+    },
+    {
+     "w": "más",
+     "start": 15.094,
+     "end": 15.231
+    },
+    {
+     "w": "limpia:",
+     "start": 15.299,
+     "end": 15.915
+    },
+    {
+     "w": "la",
+     "start": 15.983,
+     "end": 16.017
+    },
+    {
+     "w": "Seguridad",
+     "start": 16.052,
+     "end": 16.394
+    },
+    {
+     "w": "Social",
+     "start": 16.462,
+     "end": 16.804
+    },
+    {
+     "w": "ya",
+     "start": 16.872,
+     "end": 16.941
+    },
+    {
+     "w": "la",
+     "start": 16.975,
+     "end": 17.009
+    },
+    {
+     "w": "pagaste",
+     "start": 17.077,
+     "end": 17.419
+    },
+    {
+     "w": "mes",
+     "start": 17.522,
+     "end": 17.624
+    },
+    {
+     "w": "a",
+     "start": 17.658,
+     "end": 17.693
+    },
+    {
+     "w": "mes,",
+     "start": 17.795,
+     "end": 18.171
+    },
+    {
+     "w": "y",
+     "start": 18.205,
+     "end": 18.24
+    },
+    {
+     "w": "solo",
+     "start": 18.308,
+     "end": 18.513
+    },
+    {
+     "w": "te",
+     "start": 18.547,
+     "end": 18.582
+    },
+    {
+     "w": "retienen",
+     "start": 18.65,
+     "end": 18.992
+    },
+    {
+     "w": "el",
+     "start": 19.129,
+     "end": 19.265
+    },
+    {
+     "w": "IRPF",
+     "start": 19.299,
+     "end": 19.881
+    },
+    {
+     "w": "de",
+     "start": 19.915,
+     "end": 19.949
+    },
+    {
+     "w": "siempre.",
+     "start": 20.017,
+     "end": 20.428
+    }
+   ]
+  },
+  {
+   "i": 4,
+   "start": 20.564,
+   "dur": 5.471,
+   "text": "Con un doce por ciento: mil trescientos veinte euros… frente a los mil doscientos seis de tu nómina.",
+   "words": [
+    {
+     "w": "Con",
+     "start": 20.564,
+     "end": 20.701
+    },
+    {
+     "w": "un",
+     "start": 20.77,
+     "end": 20.838
+    },
+    {
+     "w": "doce",
+     "start": 20.906,
+     "end": 21.111
+    },
+    {
+     "w": "por",
+     "start": 21.18,
+     "end": 21.248
+    },
+    {
+     "w": "ciento:",
+     "start": 21.317,
+     "end": 22.0
+    },
+    {
+     "w": "mil",
+     "start": 22.069,
+     "end": 22.205
+    },
+    {
+     "w": "trescientos",
+     "start": 22.274,
+     "end": 22.752
+    },
+    {
+     "w": "veinte",
+     "start": 22.821,
+     "end": 23.026
+    },
+    {
+     "w": "euros…",
+     "start": 23.094,
+     "end": 23.778
+    },
+    {
+     "w": "frente",
+     "start": 23.846,
+     "end": 23.983
+    },
+    {
+     "w": "a",
+     "start": 24.017,
+     "end": 24.052
+    },
+    {
+     "w": "los",
+     "start": 24.12,
+     "end": 24.188
+    },
+    {
+     "w": "mil",
+     "start": 24.257,
+     "end": 24.325
+    },
+    {
+     "w": "doscientos",
+     "start": 24.394,
+     "end": 24.804
+    },
+    {
+     "w": "seis",
+     "start": 24.872,
+     "end": 25.009
+    },
+    {
+     "w": "de",
+     "start": 25.077,
+     "end": 25.111
+    },
+    {
+     "w": "tu",
+     "start": 25.146,
+     "end": 25.214
+    },
+    {
+     "w": "nómina.",
+     "start": 25.282,
+     "end": 26.035
+    }
+   ]
+  },
+  {
+   "i": 5,
+   "start": 26.058,
+   "dur": 4.079,
+   "text": "¿Tú qué prefieres: doce pagas o catorce? Comenta uno o dos.",
+   "words": [
+    {
+     "w": "¿Tú",
+     "start": 26.058,
+     "end": 26.137
+    },
+    {
+     "w": "qué",
+     "start": 26.171,
+     "end": 26.24
+    },
+    {
+     "w": "prefieres:",
+     "start": 26.308,
+     "end": 27.129
+    },
+    {
+     "w": "doce",
+     "start": 27.197,
+     "end": 27.334
+    },
+    {
+     "w": "pagas",
+     "start": 27.402,
+     "end": 27.744
+    },
+    {
+     "w": "o",
+     "start": 27.881,
+     "end": 27.949
+    },
+    {
+     "w": "catorce?",
+     "start": 28.017,
+     "end": 28.838
+    },
+    {
+     "w": "Comenta",
+     "start": 28.906,
+     "end": 29.248
+    },
+    {
+     "w": "uno",
+     "start": 29.317,
+     "end": 29.453
+    },
+    {
+     "w": "o",
+     "start": 29.59,
+     "end": 29.658
+    },
+    {
+     "w": "dos.",
+     "start": 29.795,
+     "end": 30.137
+    }
+   ]
+  }
+ ]
+}

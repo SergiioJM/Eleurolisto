@@ -1,22 +1,22 @@
 {
  "_nota": "Métricas de TODOS los vídeos (IG + TikTok). La tarea nocturna las actualiza cada noche (IG: vidiq_instagram_owner_insights mode reels/media, 0 créditos; TikTok: vidiq_tiktok_profile_videos, 5 créditos) y ejecuta `python3 toolkit/ranking.py` para regenerar content/ranking.md. Campos: ig_* de Instagram (vistas, % visto, skip, likes, comentarios, compartidos, guardados), tt_* de TikTok.",
- "actualizado": "2026-11-24 21:35 (Madrid)",
+ "actualizado": "2026-11-25 21:20 (Madrid)",
  "cuenta": {
   "ig_seguidores": 2,
   "ig_5dias": {
-   "alcance": 3770,
-   "vistas": 4855,
-   "visitas_perfil": 14,
+   "alcance": 3802,
+   "vistas": 4916,
+   "visitas_perfil": 15,
    "cuentas_que_interactuan": 56,
-   "interacciones": 78
+   "interacciones": 86
   },
   "tt_seguidores": null,
   "ig_14dias": {
-   "alcance": 3770,
-   "vistas": 4855,
-   "visitas_perfil": 14,
+   "alcance": 3802,
+   "vistas": 4916,
+   "visitas_perfil": 15,
    "cuentas_que_interactuan": 56,
-   "interacciones": 78
+   "interacciones": 86
   }
  },
  "videos": [
@@ -437,16 +437,16 @@
     "code": "DgDjwFWkplG",
     "mediaId": "17961039174256694",
     "vistas": 134,
-    "visto": 30.9,
+    "visto": 30.7,
     "skip": 52.2,
-    "likes": 1,
+    "likes": 2,
     "coment": 0,
     "comp": 0,
     "guard": 0
    },
    "tt": {
     "id": "7711080059188071713",
-    "vistas": 695,
+    "vistas": 696,
     "likes": 8,
     "coment": 0,
     "comp": 0,
@@ -467,9 +467,9 @@
     "code": "DgFYavwjbN0",
     "mediaId": "18110561222337718",
     "vistas": 141,
-    "visto": 41.9,
+    "visto": 41.7,
     "skip": 53.3,
-    "likes": 0,
+    "likes": 1,
     "coment": 0,
     "comp": 0,
     "guard": 1
@@ -481,7 +481,7 @@
     "coment": 0,
     "comp": 0,
     "guard": 0,
-    "nota": "0 vistas en TikTok a las ~8,5 h: posible «no apto para Para ti» (tema de juegos de azar). Avisado a Sergio el 23-nov"
+    "nota": "0 vistas a las 2,5 días: filtro de juegos de azar (no apto para Para ti)"
    }
   },
   {
@@ -497,21 +497,21 @@
    "ig": {
     "code": "DgGIfToEekN",
     "mediaId": "18094986734207241",
-    "vistas": 1121,
+    "vistas": 1125,
     "visto": 40.8,
-    "skip": 36.4,
-    "likes": 7,
+    "skip": 36.5,
+    "likes": 8,
     "coment": 0,
     "comp": 0,
     "guard": 0
    },
    "tt": {
     "id": "7711450948660448545",
-    "vistas": 161,
-    "likes": 2,
+    "vistas": 712,
+    "likes": 5,
     "coment": 0,
     "comp": 0,
-    "guard": 0
+    "guard": 2
    }
   },
   {
@@ -527,17 +527,21 @@
    "ig": {
     "code": "DgIi_9MGRlr",
     "mediaId": "18381600178214805",
-    "vistas": 132,
-    "visto": 29.2,
-    "skip": 43.0,
-    "likes": 1,
+    "vistas": 134,
+    "visto": 29.5,
+    "skip": 42.2,
+    "likes": 2,
     "coment": 0,
     "comp": 0,
-    "guard": 0,
-    "nota": "métricas de ~2 h (24-nov 21:15)"
+    "guard": 0
    },
    "tt": {
-    "id": "7711798946884046113"
+    "id": "7711798946884046113",
+    "vistas": 1800,
+    "likes": 10,
+    "coment": 0,
+    "comp": 1,
+    "guard": 0
    }
   },
   {
@@ -552,11 +556,24 @@
    "gancho": "Ese −40 % del Black Friday… puede ser mentira",
    "ig": {
     "code": "DgLHspnIe-w",
-    "mediaId": "18078627761479709"
+    "mediaId": "18078627761479709",
+    "vistas": 57,
+    "visto": 28.0,
+    "skip": 60.4,
+    "likes": 1,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0,
+    "nota": "métricas de ~2 h (25-nov 21:15)"
    },
    "tt": {
-    "id": null,
-    "nota": "entregado 25-nov ~18:59 (post vidIQ b2e81849-0689-4cb6-9c2c-e0b20e16a6fd); vidIQ no devolvió el enlace: apuntarlo en la próxima revisión de métricas"
+    "id": "7712169967264795943",
+    "vistas": 4,
+    "likes": 0,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0,
+    "nota": "~2 h (25-nov 21:15)"
    }
   }
  ],
