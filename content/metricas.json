@@ -1,22 +1,22 @@
 {
  "_nota": "Métricas de TODOS los vídeos (IG + TikTok). La tarea nocturna las actualiza cada noche (IG: vidiq_instagram_owner_insights mode reels/media, 0 créditos; TikTok: vidiq_tiktok_profile_videos, 5 créditos) y ejecuta `python3 toolkit/ranking.py` para regenerar content/ranking.md. Campos: ig_* de Instagram (vistas, % visto, skip, likes, comentarios, compartidos, guardados), tt_* de TikTok.",
- "actualizado": "2026-11-25 21:20 (Madrid)",
+ "actualizado": "2026-11-26 21:20 (Madrid; IG; TikTok del 25-nov)",
  "cuenta": {
   "ig_seguidores": 2,
   "ig_5dias": {
-   "alcance": 3802,
-   "vistas": 4916,
+   "alcance": 3847,
+   "vistas": 5044,
    "visitas_perfil": 15,
    "cuentas_que_interactuan": 56,
-   "interacciones": 86
+   "interacciones": 87
   },
   "tt_seguidores": null,
   "ig_14dias": {
-   "alcance": 3802,
-   "vistas": 4916,
+   "alcance": 3847,
+   "vistas": 5044,
    "visitas_perfil": 15,
    "cuentas_que_interactuan": 56,
-   "interacciones": 86
+   "interacciones": 87
   }
  },
  "videos": [
@@ -322,9 +322,9 @@
    "gancho": "¿GTA 5 o acciones de Take-Two en 2013?",
    "ig": {
     "code": "Df-I1tGGtn7",
-    "vistas": 1293,
+    "vistas": 1295,
     "visto": 49.8,
-    "skip": 32.6,
+    "skip": 32.5,
     "likes": 19,
     "coment": 0,
     "comp": 0,
@@ -349,7 +349,7 @@
    "ig": {
     "code": "Df-aFKInJ04",
     "vistas": 128,
-    "visto": 26.8,
+    "visto": 26.7,
     "skip": 35.8,
     "likes": 2,
     "coment": 0,
@@ -378,9 +378,9 @@
    "ig": {
     "code": "DgAOvhOk-qm",
     "vistas": 126,
-    "visto": 28.1,
+    "visto": 28.0,
     "skip": 58.2,
-    "likes": 1,
+    "likes": 2,
     "coment": 0,
     "comp": 0,
     "guard": 0
@@ -406,10 +406,10 @@
    "gancho": "¿1 empresa o 500? (GTA, parte tres)",
    "ig": {
     "code": "DgDSeSHk-x8",
-    "vistas": 148,
-    "visto": 36.6,
-    "skip": 47.5,
-    "likes": 2,
+    "vistas": 149,
+    "visto": 36.1,
+    "skip": 47.9,
+    "likes": 3,
     "coment": 0,
     "comp": 1,
     "guard": 0
@@ -557,9 +557,9 @@
    "ig": {
     "code": "DgLHspnIe-w",
     "mediaId": "18078627761479709",
-    "vistas": 57,
-    "visto": 28.0,
-    "skip": 60.4,
+    "vistas": 115,
+    "visto": 26.9,
+    "skip": 65.0,
     "likes": 1,
     "coment": 0,
     "comp": 0,
@@ -588,7 +588,14 @@
    "gancho": "1.500 € al año: ¿plan de pensiones o fondo indexado?",
    "ig": {
     "code": "DgNslI6oQHO",
-    "mediaId": "17976293202189808"
+    "mediaId": "17976293202189808",
+    "vistas": 78,
+    "visto": 26.2,
+    "skip": 40.8,
+    "likes": 1,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0
    },
    "tt": {
     "id": "7712541299374689569",

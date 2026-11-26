@@ -1,0 +1,45 @@
+{
+ "fecha": "2026-11-28",
+ "hora": "19:00",
+ "titulo": "Black Friday: ¿la tele de 2016 o más de 1.500 € en bolsa?",
+ "pilar": "Inversión (cultura pop / temporada: fin de semana del Black Friday) — fórmula del n.º 1 del ranking («¿GTA 5 o acciones?»)",
+ "look": "R3 · Ilustración plana en plano de corte (3.ª vez; top 3 del ranking, último uso el 23-nov con 4 reels de por medio) con decorado NUEVO: salón 2016 + rascacielos «ÍNDICE · 500 EMPRESAS» + silo de cristal en el sótano; Listo 'ilustrado'",
+ "formato": "HTML/canvas 2D con motor.mjs: salón en sección (calendario que pasa de 2016 a 2026, sofá, mueble y la tele del Black Friday con «−30 % OFERTA» que envejece: polvo, grieta, telaraña y etiqueta de 500 €), rascacielos en sección cuyas 70 oficinas se llenan de «empresas» (iconos genéricos) en «quinientas», tubo de cristal por el que bajan las monedas de la tele al silo del sótano, que se llena con contador 500 € → 1.500 €+. Tarjetas: gancho gigante «¿LA TELE DE 2016… / …O 1.500 € HOY?» desde el fotograma 0; «2016 · PAGASTE 500 €» + sello «HOY: CASI 0 €»; «ÍNDICE: 500 MAYORES EMPRESAS / DE EE. UU. (S&P 500)»; tarjeta «LOS 500 € DE LA TELE, HOY: MÁS DE 1.500 €» + sello «×3 · MÁS DEL TRIPLE»; «⚠ NO ESTÁ GARANTIZADO» con gráfica aproximada del S&P 500 2016→2026 que se dibuja (−34 % en 2020, −25 % en 2022 marcado en rojo); «EL TRUCO: ¿ME LO COMPRARÍA SIN DESCUENTO?»; final «¿Y TÚ, ESTE BLACK FRIDAY?» con botones 1 · LO NECESITABA / 2 · CAPRICHO, «COMENTA 1 O 2» y Listo pulsando «+ SEGUIR». Cámara que recorre el corte (paneos y zooms suaves). Subtítulos en recuadro palabra a palabra con claves en ámbar. Kicker «BLACK FRIDAY · ¿Y SI…?».",
+ "gancho": "¿La tele del Black Friday de 2016… o más de 1.500 € hoy? (en pantalla desde el fotograma 0: ¿LA TELE DE 2016… / …O 1.500 € HOY? + la tele con −30 % y Listo asomando con la bolsa de la compra)",
+ "ganchos_candidatos": [
+  "¿La tele del Black Friday de 2016… o más de 1.500 € hoy? (ELEGIDO: misma fórmula «¿X o acciones?» que el n.º 1 del ranking, GTA parte 2, 68 de gancho; palabra clave al principio y cifra en el primer segundo)",
+  "Esa tele de 500 € del Black Friday hoy vale cero (afirmación corta; sin cifra de ganancia)",
+  "El Black Friday de 2016 te costó 1.500 € (provoca, pero roza el gancho engañoso)",
+  "¿Tele o bolsa? Black Friday de 2016 (corto pero sin cifra)",
+  "Black Friday: ¿y si en vez de la tele hubieras comprado bolsa? (demasiadas palabras antes de la cifra, como el de criptos/Hacienda, 58 % de skip)"
+ ],
+ "guion": [
+  "¿La tele del Black Friday de dos mil dieciséis… o más de mil quinientos euros hoy?",
+  "Aquel año pagaste quinientos euros por ella. Hoy vale casi nada.",
+  "Si los hubieras metido en un índice de las quinientas mayores empresas de Estados Unidos, hoy serían más de mil quinientos: más del triple.",
+  "Ojo, no está garantizado: en dos mil veintidós llegó a caer un veinticinco por ciento.",
+  "El truco no es no comprar nada. Es preguntarte: ¿me lo compraría sin descuento?",
+  "¿Y tú? Comenta uno si lo necesitabas, o dos si fue capricho."
+ ],
+ "voz": "ElevenLabs · Juanjo Viral (30jLfQdV8RTduXvosh02, eleven_v4), una toma de 515 caracteres (35,0 s); transcripción Scribe idéntica al guion; 7 pausas > 0,22 s acortadas y atempo 1,15 → 30,2 s",
+ "etiqueta_ia": true,
+ "datos": "S&P 500: cierre del 25-nov-2016 (Black Friday) 2.213,35 (Reuters vía TIME) y del 25-nov-2026 7.182,78 (−0,25 %; El Financiero). 7.182,78 / 2.213,35 = 3.2452 → 500 € × 3.245 = 1622.6 (en dólares, sin dividendos); con el cambio euro-dólar (≈1,0595 el 25-nov-2016 y 1,0966 el 19-nov-2026, Bolsamanía) ≈ 1568 € → «más de 1.500 €» y «más del triple» valen en los dos casos. Caída de 2022: 4.796,56 (3-ene) → 3.577,03 (12-oct) = −25,4 %; de 2020: 3.386 → 2.237 = −33,9 % (≈ −34 %). La gráfica es aproximada (fin de mes) y lo dice en pantalla.",
+ "fuentes": [
+  "https://time.com/4582340/stock-market-dow-black-friday-record-high",
+  "https://www.elfinanciero.com.mx/mercados/2026/11/25/bmv-wall-street-hoy-25-de-noviembre-de-2026/"
+ ],
+ "listo": "Listo 'ilustrado': asoma sorprendido con la bolsa de la compra junto a la tele, señala y salta en «mil quinientos», enseña la moneda en «pagaste», se desinfla en «casi nada», presentador en la esquina (señala, piensa con idea), salto en modo vacilón (gafas + cadena que caen) en «triple», brazos cruzados y temblor con el −25 %, piensa → idea en «descuento», giro, firma (guiño + mano redonda en alto) y señala + SEGUIR",
+ "musica": "chill 96 bpm (seed 28), baja; 56 efectos sincronizados de la biblioteca (ticks del calendario, monedas al tubo, oficinas que se llenan, contador, sello, chime final)",
+ "mezcla": "sonido.py: audio.mezclar (música + efectos) + voice.wav con amix y loudnorm −14 LUFS (−14,4 medido)",
+ "brillo": "54x96 gris: 59–97 en todo el vídeo, salto máximo entre fotogramas 6,2 (< 8)",
+ "duracion": 30.2,
+ "caption": "Black Friday: ¿la tele o la bolsa? 📺📈 Si los 500 € de una tele del Black Friday de 2016 hubieran ido a un índice con las 500 mayores empresas de EE. UU. (S&P 500: 2.213 puntos el 25-nov-2016 → 7.183 el 25-nov-2026), hoy serían más de 1.500 €: más del triple (en dólares, sin dividendos, comisiones ni impuestos). La tele hoy vale casi nada. Pero no está garantizado: en 2022 llegó a caer un 25 %. El truco: ¿te lo comprarías sin descuento?\n¿Y tú, este Black Friday? Comenta 1 (lo necesitaba) o 2 (capricho) y mándaselo a quien ya tiene el carrito lleno 🛒\nDatos históricos: no garantizan rentabilidades futuras. Contenido educativo, no es asesoramiento financiero.\n#blackfriday #invertir #bolsa #finanzaspersonales #eleurolisto\n🎙 elevenlabs.io",
+ "hashtags": [
+  "#blackfriday",
+  "#invertir",
+  "#bolsa",
+  "#finanzaspersonales",
+  "#eleurolisto"
+ ],
+ "estado": "pendiente de aprobación"
+}

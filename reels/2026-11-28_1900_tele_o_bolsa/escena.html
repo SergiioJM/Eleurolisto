@@ -1,0 +1,446 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<script src="../../toolkit/mascota/listo2d.js"></script>
+<style>
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#0b0f1c}
+canvas{position:absolute;inset:0}
+</style></head>
+<body><canvas id="c" width="1080" height="1920"></canvas>
+<script>
+// R3 · ILUSTRACIÓN PLANA EN PLANO DE CORTE (3.ª vez, decorado nuevo): a la izquierda TU SALÓN con la tele del Black Friday
+// de 2016 (envejece: polvo, grieta, telaraña), a la derecha un rascacielos en sección «ÍNDICE · 500 EMPRESAS» y bajo
+// tierra un silo de cristal donde caen los 500 € y suben hasta «más de 1.500 €». Fórmula del n.º 1 del ranking
+// («¿GTA 5 o acciones?») llevada al Black Friday. Todo depende solo de t y de timings.json (ElevenLabs · Juanjo Viral).
+// Sin cambios de luz: decorado y lámparas fijos; el dinamismo va con la cámara, monedas, carteles y tarjetas.
+const C = document.getElementById('c'), X = C.getContext('2d');
+const TIM = window.TIM, S = TIM.segments;
+const DUR = (window.DURACION = TIM.total);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, k) => a + (b - a) * k;
+const prog = (t, a, d) => clamp((t - a) / d);
+const eio = (k) => k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+const eout = (k) => 1 - Math.pow(1 - k, 3);
+const eback = (k, s = 1.7) => { k = clamp(k); return 1 + (s + 1) * Math.pow(k - 1, 3) + s * Math.pow(k - 1, 2); };
+const st = (i) => S[i].start;
+const limpia = (w) => w.toLowerCase().replace(/[¿?¡!.,:;…]/g, '');
+const pal = (i, f, n = 0) => { const ws = S[i].words.filter((w) => limpia(w.w) === f); const w = ws[n] || ws[0]; if (!w) console.warn('falta', f); return w ? w.start : S[i].start; };
+const fmt = (v) => Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+// ---------- tiempos clave (de la voz) ----------
+const T = {
+  s0: st(0), tele: pal(0, 'tele'), friday: pal(0, 'friday'), dieciseis: pal(0, 'dieciséis'), mas0: pal(0, 'más'), mil0: pal(0, 'mil', 1), hoy0: pal(0, 'hoy'),
+  s1: st(1), ano: pal(1, 'año'), pagaste: pal(1, 'pagaste'), quin1: pal(1, 'quinientos'), hoy1: pal(1, 'hoy'), casi: pal(1, 'casi'), nada1: pal(1, 'nada'),
+  s2: st(2), metido: pal(2, 'metido'), indice: pal(2, 'índice'), quinientas: pal(2, 'quinientas'), empresas: pal(2, 'empresas'), estados: pal(2, 'estados'),
+  serian: pal(2, 'serían'), mil2: pal(2, 'mil'), quin2: pal(2, 'quinientos'), triple: pal(2, 'triple'),
+  s3: st(3), ojo: pal(3, 'ojo'), garantizado: pal(3, 'garantizado'), veintidos: pal(3, 'veintidós'), caer: pal(3, 'caer'), veinticinco: pal(3, 'veinticinco'),
+  s4: st(4), truco: pal(4, 'truco'), comprar: pal(4, 'comprar'), preguntarte: pal(4, 'preguntarte'), compraria: pal(4, 'compraría'), descuento: pal(4, 'descuento'),
+  s5: st(5), comenta: pal(5, 'comenta'), uno: pal(5, 'uno'), necesitabas: pal(5, 'necesitabas'), dos: pal(5, 'dos'), capricho: pal(5, 'capricho'),
+};
+const FIN = S[5].start + S[5].dur;
+
+// ---------- paleta ----------
+const P = {
+  cielo1: '#0f1a33', cielo2: '#1b2d55', oro: '#F59E0B', oro2: '#B45309', oroL: '#FCD34D', verde: '#22C55E', rojo: '#EF4444',
+  azul: '#3B82F6', blanco: '#F8FAFC', tinta: '#141a26', marron: '#3b2a20',
+};
+
+// ---------- texturas (una vez) ----------
+function textura(base, manchas, n, seed) {
+  const o = document.createElement('canvas'); o.width = o.height = 256; const c = o.getContext('2d');
+  c.fillStyle = base; c.fillRect(0, 0, 256, 256);
+  let s = seed; const r = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  for (let i = 0; i < n; i++) {
+    const x = r() * 256, y = r() * 256, rad = 6 + r() * 26;
+    c.fillStyle = manchas[i % manchas.length];
+    c.beginPath();
+    for (let k = 0; k < 9; k++) { const a = k / 9 * 6.283, rr = rad * (0.6 + r() * 0.5); c.lineTo(x + Math.cos(a) * rr, y + Math.sin(a) * rr); }
+    c.closePath(); c.fill();
+    for (const [dx, dy] of [[256, 0], [-256, 0], [0, 256], [0, -256]]) { c.save(); c.translate(dx, dy); c.fill(); c.restore(); }
+  }
+  return X.createPattern(o, 'repeat');
+}
+const TX = {
+  casa: textura('#d6b08a', ['rgba(130,90,50,.05)', 'rgba(255,240,220,.06)'], 40, 5),
+  torre: textura('#7f8fa8', ['rgba(40,50,70,.07)', 'rgba(255,255,255,.05)'], 40, 11),
+  tierra: textura('#2c2019', ['rgba(15,10,6,.18)', 'rgba(70,50,36,.14)', 'rgba(50,34,24,.16)'], 70, 3),
+  sotano: textura('#8f8a80', ['rgba(40,40,40,.06)', 'rgba(255,255,255,.05)'], 40, 9),
+  madera: textura('#8a5a3a', ['rgba(60,35,20,.12)', 'rgba(255,220,180,.06)'], 30, 17),
+};
+
+// ---------- geometría del mundo ----------
+const SUELO = 1000;
+const CASA = { x0: 60, x1: 640, y0: 520 };
+const TORRE = { x0: 730, x1: 1300, y0: 170 };
+const VAULT = { x0: 330, x1: 1320, y0: 1070, y1: 1640 };
+const SILO = { x0: 830, x1: 1170, y0: 1150, y1: 1590 };
+const TV = { x: 470, y: 852, w: 250, h: 150 };
+const LISTO_W = [215, 990];
+const CHUTE = [[560, 1000], [560, 1110], [1000, 1110], [1000, 1180]];
+const VENT = []; for (let r = 0; r < 10; r++) for (let c = 0; c < 7; c++) VENT.push([768 + c * 74, 250 + r * 70, (r * 7 + c * 13) % 70]);
+
+// ---------- cámara ----------
+const K = [
+  [0.0, 470, 800, 1.05], [T.s1 - 0.1, 470, 805, 1.07], [T.s1 + 0.7, 465, 860, 1.4], [T.s2 - 0.15, 468, 862, 1.42],
+  [T.s2 + 0.9, 900, 760, 0.74], [T.empresas, 960, 700, 0.76], [T.serian - 0.1, 990, 1290, 0.95], [T.s3 - 0.1, 990, 1300, 0.97],
+  [T.s3 + 0.7, 800, 950, 0.72], [T.s4 - 0.1, 790, 960, 0.73], [T.s4 + 0.7, 470, 700, 1.12], [T.s5 - 0.1, 472, 698, 1.13],
+  [T.s5 + 0.8, 600, 640, 0.9], [DUR + 1, 590, 630, 0.92],
+];
+function camara(t) {
+  let i = 0; while (i < K.length - 2 && t > K[i + 1][0]) i++;
+  const [t0, x0, y0, z0] = K[i], [t1, x1, y1, z1] = K[i + 1];
+  const k = eio(prog(t, t0, Math.max(0.001, t1 - t0)));
+  const z = Math.exp(lerp(Math.log(z0), Math.log(z1), k));
+  return { x: lerp(x0, x1, k) + Math.sin(t * 0.7) * 5, y: lerp(y0, y1, k) + Math.cos(t * 0.55) * 4, z: z * (1 + 0.006 * Math.sin(t * 0.9)) };
+}
+const CY = 965;
+let CAM = { x: 470, y: 800, z: 1 };
+const w2s = (x, y) => [540 + (x - CAM.x) * CAM.z, CY + (y - CAM.y) * CAM.z];
+
+// ---------- primitivas ----------
+function rr(x, y, w, h, r, fill, stroke, lw) { X.beginPath(); X.roundRect(x, y, w, h, r); if (fill) { X.fillStyle = fill; X.fill(); } if (stroke) { X.strokeStyle = stroke; X.lineWidth = lw || 4; X.stroke(); } }
+function texto(s, x, y, size, color, peso = 800, align = 'center', fam = 'Poppins') { X.font = `${peso} ${size}px ${fam}`; X.textAlign = align; X.textBaseline = 'middle'; X.fillStyle = color; X.fillText(s, x, y); }
+function textoBorde(s, x, y, size, color, borde, w, peso = 800, fam = 'Poppins') { X.font = `${peso} ${size}px ${fam}`; X.textAlign = 'center'; X.textBaseline = 'middle'; X.lineJoin = 'round'; X.strokeStyle = borde; X.lineWidth = w; X.strokeText(s, x, y); X.fillStyle = color; X.fillText(s, x, y); }
+function moneda(x, y, r, ang = 0, alfa = 1) {
+  if (alfa <= 0) return;
+  X.save(); X.globalAlpha *= alfa; X.translate(x, y); X.scale(Math.max(0.25, Math.abs(Math.cos(ang))), 1);
+  X.fillStyle = P.oro2; X.beginPath(); X.arc(0, r * 0.12, r, 0, 7); X.fill();
+  X.fillStyle = P.oro; X.beginPath(); X.arc(0, 0, r, 0, 7); X.fill();
+  X.strokeStyle = P.oroL; X.lineWidth = r * 0.12; X.beginPath(); X.arc(0, 0, r * 0.74, 0, 7); X.stroke();
+  X.fillStyle = P.oro2; X.font = `800 ${r * 1.05}px Poppins`; X.textAlign = 'center'; X.textBaseline = 'middle'; X.fillText('€', 0, r * 0.06);
+  X.restore();
+}
+function lampara(x, y, rad) { // luz cálida FIJA (sin parpadeo)
+  const g = X.createRadialGradient(x, y + 40, 10, x, y + 40, rad);
+  g.addColorStop(0, 'rgba(255,214,150,0.36)'); g.addColorStop(1, 'rgba(255,214,150,0)');
+  X.fillStyle = g; X.beginPath(); X.arc(x, y + 40, rad, 0, 7); X.fill();
+  X.strokeStyle = '#2b2b2b'; X.lineWidth = 4; X.beginPath(); X.moveTo(x, y - 60); X.lineTo(x, y); X.stroke();
+  X.fillStyle = '#e35d3b'; X.beginPath(); X.moveTo(x - 46, y + 22); X.lineTo(x + 46, y + 22); X.lineTo(x + 24, y); X.lineTo(x - 24, y); X.fill();
+  X.fillStyle = '#fff3c4'; X.beginPath(); X.arc(x, y + 26, 11, 0, 7); X.fill();
+}
+function camino(pts, s) {
+  for (let i = 1; i < pts.length; i++) {
+    const L = Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
+    if (s <= L) return [lerp(pts[i - 1][0], pts[i][0], s / L), lerp(pts[i - 1][1], pts[i][1], s / L)];
+    s -= L;
+  }
+  return pts[pts.length - 1];
+}
+const largo = (pts) => pts.slice(1).reduce((a, p, i) => a + Math.hypot(p[0] - pts[i][0], p[1] - pts[i][1]), 0);
+function tubo(pts, w) {
+  X.save(); X.lineCap = 'round'; X.lineJoin = 'round';
+  X.strokeStyle = 'rgba(40,28,20,.9)'; X.lineWidth = w + 10; X.beginPath(); pts.forEach(([x, y], i) => (i ? X.lineTo(x, y) : X.moveTo(x, y))); X.stroke();
+  X.strokeStyle = 'rgba(190,230,240,.35)'; X.lineWidth = w; X.stroke();
+  X.restore();
+}
+
+// ---------- envejecimiento de la tele (2016 → hoy) ----------
+const viejo = (t) => eio(prog(t, T.hoy1 - 0.1, T.nada1 - T.hoy1 + 0.3));
+const anio = (t) => Math.round(lerp(2016, 2026, eio(prog(t, T.ano, T.hoy1 - T.ano + 0.1))));
+
+function dibujaTele(t) {
+  const a = viejo(t), x = TV.x, y = TV.y, w = TV.w, h = TV.h;
+  X.save(); X.translate(x, y); X.rotate(-0.05 * a);
+  rr(-w / 2 - 10, -h / 2 - 10, w + 20, h + 20, 12, '#1f2430', '#0f1219', 5);
+  // pantalla: 2016 enseña una «oferta» genérica; luego apagada con polvo
+  const g = X.createLinearGradient(-w / 2, -h / 2, w / 2, h / 2); g.addColorStop(0, '#1e3a8a'); g.addColorStop(1, '#0f172a');
+  X.fillStyle = g; X.fillRect(-w / 2, -h / 2, w, h);
+  X.save(); X.globalAlpha = 1 - a; texto('−30 %', 0, -8, 62, '#FCD34D'); texto('OFERTA', 0, 44, 26, '#e2e8f0', 700, 'center', 'Inter'); X.restore();
+  X.fillStyle = `rgba(150,140,120,${0.55 * a})`; X.fillRect(-w / 2, -h / 2, w, h); // polvo
+  if (a > 0.05) { // grieta
+    X.strokeStyle = `rgba(240,240,240,${0.85 * a})`; X.lineWidth = 3; X.beginPath();
+    X.moveTo(30, -h / 2); X.lineTo(10, -20); X.lineTo(40, 5); X.lineTo(5, 40); X.lineTo(22, h / 2);
+    X.moveTo(10, -20); X.lineTo(-40, -35); X.moveTo(40, 5); X.lineTo(90, 18); X.stroke();
+  }
+  if (a > 0.2) { // telaraña en la esquina
+    X.strokeStyle = `rgba(235,235,235,${0.7 * a})`; X.lineWidth = 2; const cx = -w / 2 - 6, cy = -h / 2 - 6;
+    for (let i = 0; i < 5; i++) { const ang = i / 4 * Math.PI / 2; X.beginPath(); X.moveTo(cx, cy); X.lineTo(cx + Math.cos(ang) * 70, cy + Math.sin(ang) * 70); X.stroke(); }
+    for (let r = 20; r <= 60; r += 20) { X.beginPath(); X.arc(cx, cy, r, 0.05, Math.PI / 2 - 0.05); X.stroke(); }
+  }
+  X.restore();
+  // pie de la tele
+  rr(x - 40, y + h / 2 + 10, 80, 14, 5, '#1f2430'); rr(x - 70, y + h / 2 + 22, 140, 10, 5, '#1f2430');
+  // etiqueta de precio colgando (500 €) y, en «descuento», tachada
+  const kp = eback(prog(t, T.quin1 - 0.15, 0.45));
+  if (kp > 0) {
+    const sw = Math.sin(t * 2.6) * 0.08;
+    X.save(); X.translate(x + w / 2 - 6, y - h / 2 + 18); X.rotate(0.25 + sw); X.scale(kp, kp);
+    X.strokeStyle = '#3b2a20'; X.lineWidth = 3; X.beginPath(); X.moveTo(0, 0); X.lineTo(0, 34); X.stroke();
+    X.beginPath(); X.moveTo(-46, 34); X.lineTo(46, 34); X.lineTo(46, 104); X.lineTo(-46, 104); X.lineTo(-58, 69); X.closePath();
+    X.fillStyle = '#ef4444'; X.fill(); X.strokeStyle = '#7f1d1d'; X.lineWidth = 3; X.stroke();
+    X.fillStyle = '#fff'; X.beginPath(); X.arc(-40, 69, 5, 0, 7); X.fill();
+    texto('500 €', 6, 70, 30, '#fff');
+    X.restore();
+  }
+}
+
+function dibujaMundo(t) {
+  const gc = X.createLinearGradient(0, -400, 0, SUELO); gc.addColorStop(0, P.cielo1); gc.addColorStop(1, P.cielo2);
+  X.fillStyle = gc; X.fillRect(-1600, -1400, 4400, SUELO + 1400);
+  X.fillStyle = 'rgba(255,255,255,.5)'; for (let i = 0; i < 50; i++) X.fillRect((i * 397) % 3000 - 900, -300 + (i * 211) % 700, 4, 4);
+  for (let i = 0; i < 16; i++) { const w = 120 + (i * 53) % 90, h = 180 + (i * 97) % 260, x = -900 + i * 190; X.fillStyle = '#16233f'; X.fillRect(x, SUELO - h, w, h); }
+  X.fillStyle = TX.tierra; X.fillRect(-1600, SUELO, 4400, 2000);
+  X.fillStyle = '#4a3527'; X.fillRect(-1600, SUELO, 4400, 16);
+
+  // --- TU SALÓN ---
+  X.fillStyle = TX.casa; X.fillRect(CASA.x0, CASA.y0, CASA.x1 - CASA.x0, SUELO - CASA.y0);
+  rr(CASA.x0 - 14, CASA.y0 - 30, CASA.x1 - CASA.x0 + 28, 34, 6, '#7a4b2e');
+  X.fillStyle = '#6b4a33'; X.fillRect(CASA.x0, SUELO - 12, CASA.x1 - CASA.x0, 14);
+  // ventana de noche
+  rr(100, 600, 160, 140, 10, '#1b2d55', '#5b3a24', 10); X.strokeStyle = '#5b3a24'; X.lineWidth = 6; X.beginPath(); X.moveTo(180, 600); X.lineTo(180, 740); X.moveTo(100, 670); X.lineTo(260, 670); X.stroke();
+  X.fillStyle = 'rgba(226,232,240,.8)'; X.beginPath(); X.arc(228, 630, 13, 0, 7); X.fill();
+  // calendario con el AÑO (2016 → 2026)
+  const ya = anio(t), flip = (t > T.ano && t < T.hoy1 + 0.1) ? Math.abs(Math.sin((t - T.ano) * 22)) : 1;
+  rr(330, 590, 130, 128, 10, '#fff8ec', '#5b3a24', 5); rr(330, 590, 130, 34, 8, ya === 2026 ? '#16a34a' : '#ef4444'); texto(ya === 2026 ? 'HOY' : 'AÑO', 395, 608, 22, '#fff');
+  X.save(); X.translate(395, 668); X.scale(1, Math.max(0.15, flip)); texto(String(ya), 0, 0, 44, '#3b2a20'); X.restore();
+  // sofá (izquierda)
+  rr(80, 880, 230, 70, 18, '#3B82F6'); rr(80, 840, 230, 56, 18, '#2563eb'); rr(70, 860, 34, 96, 12, '#1d4ed8'); rr(288, 860, 34, 96, 12, '#1d4ed8');
+  X.fillStyle = '#1e3a8a'; X.fillRect(96, 950, 12, 40); X.fillRect(282, 950, 12, 40);
+  // mueble de la tele
+  X.fillStyle = TX.madera; X.fillRect(330, 940, 290, 50); X.strokeStyle = '#5b3a24'; X.lineWidth = 4; X.strokeRect(330, 940, 290, 50);
+  X.beginPath(); X.moveTo(475, 940); X.lineTo(475, 990); X.stroke();
+  lampara(560, 580, 240);
+  dibujaTele(t);
+  // cartel del piso
+  rr(130, 440, 380, 58, 14, 'rgba(20,14,10,.85)', '#d9b48c', 4); texto(ya === 2026 ? 'TU SALÓN · HOY' : 'TU SALÓN · ' + ya, 320, 470, 30, '#fde68a');
+
+  // --- RASCACIELOS «ÍNDICE · 500 EMPRESAS» ---
+  X.fillStyle = TX.torre; X.fillRect(TORRE.x0, TORRE.y0, TORRE.x1 - TORRE.x0, SUELO - TORRE.y0);
+  rr(TORRE.x0 - 14, TORRE.y0 - 30, TORRE.x1 - TORRE.x0 + 28, 34, 6, '#334155');
+  X.fillStyle = '#475569'; X.fillRect(TORRE.x0, SUELO - 12, TORRE.x1 - TORRE.x0, 14);
+  rr(800, 60, 440, 84, 16, '#0f172a', '#94a3b8', 5); texto('ÍNDICE · 500 EMPRESAS', 1020, 102, 34, '#f8fafc');
+  // oficinas: se «llenan» de empresas (iconos genéricos de colores) en «quinientas»
+  const cols = ['#22C55E', '#3B82F6', '#F59E0B', '#EF4444', '#a855f7', '#14b8a6'];
+  VENT.forEach(([x, y, o], i) => {
+    rr(x, y, 58, 50, 6, '#1e293b');
+    const k = eback(prog(t, T.quinientas - 0.2 + o * 0.012, 0.3));
+    if (k > 0) {
+      X.save(); X.translate(x + 29, y + 25); X.scale(k, k); const c = cols[i % cols.length];
+      rr(-24, -20, 48, 40, 5, 'rgba(255,236,200,.85)');
+      X.fillStyle = c;
+      if (i % 3 === 0) { X.beginPath(); X.arc(0, 0, 11, 0, 7); X.fill(); } else if (i % 3 === 1) { X.fillRect(-11, -11, 22, 22); } else { X.beginPath(); X.moveTo(0, -12); X.lineTo(12, 10); X.lineTo(-12, 10); X.closePath(); X.fill(); }
+      X.restore();
+    }
+  });
+  // puerta
+  rr(985, 920, 70, 80, 6, '#0f172a', '#94a3b8', 4);
+
+  // --- SÓTANO con el silo de cristal ---
+  X.fillStyle = TX.sotano; X.fillRect(VAULT.x0, VAULT.y0, VAULT.x1 - VAULT.x0, VAULT.y1 - VAULT.y0);
+  X.strokeStyle = '#4b4640'; X.lineWidth = 12; X.strokeRect(VAULT.x0, VAULT.y0, VAULT.x1 - VAULT.x0, VAULT.y1 - VAULT.y0);
+  lampara(560, 1110, 240);
+  tubo(CHUTE, 44);
+  dibujaSilo(t);
+}
+
+// nivel del silo: 500 € al llegar las monedas → más de 1.500 € en «serían … quinientos»
+const valor = (t) => lerp(500, 1500, eio(prog(t, T.serian, T.quin2 - T.serian + 0.35)));
+function dibujaSilo(t) {
+  const { x0, x1, y0, y1 } = SILO, w = x1 - x0, h = y1 - y0;
+  const llegado = prog(t, T.metido + 0.9, 1.0); // primeras monedas en el fondo
+  const v = valor(t), nivel = llegado * (v / 1700);
+  // monedas apiladas (de abajo arriba)
+  X.save(); X.beginPath(); X.roundRect(x0, y0, w, h, 30); X.clip();
+  X.fillStyle = 'rgba(30,41,59,.55)'; X.fillRect(x0, y0, w, h);
+  const filas = Math.floor(nivel * 15.5);
+  for (let r = 0; r < filas; r++) for (let c = 0; c < 6; c++) moneda(x0 + 32 + c * 56 + (r % 2) * 22, y1 - 22 - r * 27, 24, 0);
+  X.restore();
+  // cristal
+  X.save(); rr(x0, y0, w, h, 30, 'rgba(190,230,240,.16)', '#1f2937', 8);
+  X.fillStyle = 'rgba(255,255,255,.22)'; X.fillRect(x0 + 22, y0 + 30, 14, h - 60); X.restore();
+  // placa con el contador
+  rr(x0 + 40, y0 - 70, w - 80, 66, 14, '#0f172a', '#22C55E', 4);
+  texto(llegado > 0 ? fmt(v) + (v >= 1499 ? ' €+' : ' €') : '0 €', (x0 + x1) / 2, y0 - 37, 42, '#86efac', 800, 'center', 'Inter');
+}
+
+function monedasMundo(t) {
+  // S2: los 500 € salen de la tele y caen por el tubo hasta el silo
+  const LC = largo(CHUTE), O = [[TV.x + 100, TV.y + 40], [CHUTE[0][0], CHUTE[0][1]]];
+  for (let i = 0; i < 5; i++) {
+    const k = prog(t, T.metido - 0.1 + i * 0.16, 1.1);
+    if (k <= 0 || k >= 1) continue;
+    const e = eio(k);
+    if (e < 0.25) { const q = e / 0.25; moneda(lerp(O[0][0], O[1][0], q), lerp(O[0][1], O[1][1], q) - Math.sin(Math.PI * q) * 70, 22, t * 8 + i); }
+    else { const [x, y] = camino(CHUTE, (e - 0.25) / 0.75 * (LC + 40)); moneda(x, y, 20, t * 8 + i); }
+  }
+}
+
+// ---------- capa de pantalla ----------
+const CLAVE = ['tele', 'black', 'friday', 'dieciséis', 'mil', 'quinientos', 'euros', 'hoy', 'nada', 'índice', 'quinientas', 'empresas', 'triple', 'garantizado', 'veintidós', 'veinticinco', 'ciento', 'truco', 'descuento', 'uno', 'dos', 'capricho', 'necesitabas'];
+const TROZOS = [];
+S.forEach((s) => { let cur = []; s.words.forEach((w) => { const len = cur.map((x) => x.w).join(' ').length + w.w.length; if (cur.length >= 3 || (cur.length && len > 19)) { TROZOS.push(cur); cur = []; } cur.push(w); }); if (cur.length) TROZOS.push(cur); });
+function subtitulos(t) {
+  let tr = null; for (const c of TROZOS) { if (t >= c[0].start - 0.08) tr = c; }
+  if (!tr || t > tr[tr.length - 1].end + 0.6) return;
+  const k = eout(prog(t, tr[0].start - 0.08, 0.16));
+  X.font = '800 66px Poppins'; X.textBaseline = 'middle';
+  const sp = 20, ws = tr.map((w) => X.measureText(w.w).width); const total = ws.reduce((a, b) => a + b, 0) + sp * (tr.length - 1);
+  rr(540 - total / 2 - 34, 1268, total + 68, 108, 26, 'rgba(12,16,30,.86)');
+  let x = 540 - total / 2;
+  tr.forEach((w, i) => {
+    const on = t >= w.start - 0.03, clave = CLAVE.includes(limpia(w.w));
+    if (on && t < w.end + 0.05) { X.fillStyle = clave ? 'rgba(255,197,71,.22)' : 'rgba(255,255,255,.14)'; X.beginPath(); X.roundRect(x - 8, 1286, ws[i] + 16, 72, 12); X.fill(); }
+    X.fillStyle = on ? (clave ? '#FFC547' : '#ffffff') : 'rgba(200,210,230,.45)';
+    X.textAlign = 'left'; X.save(); X.translate(0, (1 - k) * 14); X.fillText(w.w, x, 1324); X.restore();
+    x += ws[i] + sp;
+  });
+}
+function tarjeta(x, y, w, h, k, fondo = 'rgba(15,20,36,.93)', borde = null) {
+  X.save(); X.globalAlpha *= clamp(k * 2); X.translate(x, y + (1 - eback(k)) * 50); const e = 0.86 + 0.14 * eback(k); X.scale(e, e);
+  rr(-w / 2 + 6, -h / 2 + 10, w, h, 30, 'rgba(0,0,0,.35)'); rr(-w / 2, -h / 2, w, h, 30, fondo, borde, 5); return () => X.restore();
+}
+function sello(s, x, y, k, color, size = 72, rot = -7) {
+  if (k <= 0) return; X.save(); X.translate(x, y); X.rotate(rot * Math.PI / 180); const sc = lerp(2.0, 1, eout(k)); X.scale(sc, sc); X.globalAlpha *= clamp(k * 3);
+  X.font = `800 ${size}px Inter`; const w = X.measureText(s).width + 70;
+  rr(-w / 2, -size * 0.75, w, size * 1.5, 22, 'rgba(25,8,8,.86)', color, 10); texto(s, 0, 4, size, color, 800, 'center', 'Inter'); X.restore();
+}
+function pill(s, x, y, k, fondo, color, size = 40) {
+  if (k <= 0.01) return; X.save(); X.globalAlpha *= clamp(k * 2); X.translate(x, y); const e = eback(k, 2); X.scale(0.6 + 0.4 * e, 0.6 + 0.4 * e);
+  X.font = `800 ${size}px Poppins`; const w = X.measureText(s).width + 56; rr(-w / 2, -size * 0.78, w, size * 1.56, size * 0.78, fondo, 'rgba(0,0,0,.35)', 4); texto(s, 0, 3, size, color); X.restore();
+}
+
+// S&P 500 aproximado (fin de mes) para la gráfica: [año decimal, puntos]
+const SERIE = [[2016.9, 2213], [2017.5, 2440], [2018.05, 2830], [2018.98, 2350], [2019.9, 3150], [2020.15, 3380], [2020.22, 2240], [2020.9, 3640],
+  [2021.99, 4770], [2022.45, 3670], [2022.62, 4300], [2022.78, 3580], [2023.5, 4450], [2023.9, 4560], [2024.9, 6030], [2025.25, 4980], [2025.9, 6800],
+  [2026.78, 7800], [2026.88, 6910], [2026.9, 7183]];
+function grafica(t, k) {
+  const r = tarjeta(540, 770, 960, 600, k, 'rgba(125,100,80,.97)', '#3b2a20');
+  texto('S&P 500 · 2016 → 2026', 0, -248, 44, '#FFC547');
+  const gx0 = -360, gx1 = 410, gy0 = 190, gy1 = -180, vmin = 1800, vmax = 8200;
+  const px = (a) => lerp(gx0, gx1, (a - 2016.9) / (2026.9 - 2016.9)), py = (v) => lerp(gy0, gy1, (v - vmin) / (vmax - vmin));
+  X.strokeStyle = 'rgba(255,247,237,.25)'; X.lineWidth = 2;
+  for (const v of [3000, 5000, 7000]) { X.beginPath(); X.moveTo(gx0, py(v)); X.lineTo(gx1, py(v)); X.stroke(); texto(fmt(v), gx0 - 48, py(v), 22, 'rgba(255,247,237,.7)', 700, 'center', 'Inter'); }
+  for (const a of [2016, 2018, 2020, 2022, 2024, 2026]) texto(String(a), px(a + 0.9), gy0 + 34, 24, 'rgba(255,247,237,.85)', 700, 'center', 'Inter');
+  const dib = eio(prog(t, T.s3 - 0.05, T.veintidos - T.s3 + 0.6)); // la línea se dibuja hasta hoy
+  const n = SERIE.length; let last = null;
+  X.save(); X.lineJoin = 'round'; X.lineCap = 'round'; X.strokeStyle = '#86efac'; X.lineWidth = 9; X.beginPath();
+  for (let i = 0; i < n; i++) {
+    const f = i / (n - 1); if (f > dib) { if (i > 0) { const q = (dib - (i - 1) / (n - 1)) * (n - 1); const [a0, v0] = SERIE[i - 1], [a1, v1] = SERIE[i]; last = [px(lerp(a0, a1, q)), py(lerp(v0, v1, q))]; X.lineTo(...last); } break; }
+    last = [px(SERIE[i][0]), py(SERIE[i][1])]; i ? X.lineTo(...last) : X.moveTo(...last);
+  }
+  X.stroke(); X.restore();
+  if (last) { X.fillStyle = '#fff'; X.beginPath(); X.arc(last[0], last[1], 11, 0, 7); X.fill(); }
+  // caídas marcadas
+  const k20 = prog(t, T.garantizado, 0.4); if (k20 > 0 && dib > 0.35) { X.save(); X.globalAlpha *= k20; texto('−34 %', px(2020.22), py(2240) + 36, 26, '#fecaca', 800, 'center', 'Inter'); X.restore(); }
+  const k22 = eback(prog(t, T.veinticinco - 0.1, 0.35));
+  if (k22 > 0) {
+    X.save(); X.translate(px(2022.78), py(3580)); X.strokeStyle = '#EF4444'; X.lineWidth = 6; X.beginPath(); X.arc(0, 0, 34 * k22, 0, 7); X.stroke();
+    X.scale(k22, k22); rr(-92, 44, 184, 64, 32, '#dc2626'); texto('−25 %', 0, 77, 38, '#fff', 800, 'center', 'Inter'); X.restore();
+  }
+  texto('aproximado · en dólares · sin dividendos', 0, 268, 22, 'rgba(255,247,237,.8)', 600, 'center', 'Inter');
+  r();
+}
+
+function capa(t) {
+  // kicker
+  rr(540 - 250, 262, 500, 60, 30, '#ff4d3d'); texto('BLACK FRIDAY · ¿Y SI…?', 540, 293, 30, '#fff', 700);
+  // S0: gancho gigante desde el fotograma 0
+  if (t < T.s1 + 0.25) {
+    const f = 1 - prog(t, T.s1 - 0.05, 0.3);
+    const kb = 1 + 0.16 * Math.exp(-Math.max(0, t - T.mil0) * 6) * (t > T.mil0 ? 1 : 0);
+    X.save(); X.globalAlpha = f;
+    textoBorde('¿LA TELE DE 2016…', 540, 418, 88, '#ffffff', '#0b0f1c', 18);
+    X.save(); X.translate(540, 526); X.scale(kb, kb); textoBorde('…O 1.500 € HOY?', 0, 0, 104, '#FFC547', '#0b0f1c', 18); X.restore();
+    X.restore();
+  }
+  // S1: aquel año 500 € → hoy casi nada
+  if (t > T.s1 - 0.1 && t < T.s2 + 0.3) {
+    const f = 1 - prog(t, T.s2 - 0.15, 0.35);
+    X.save(); X.globalAlpha = f;
+    pill('2016 · PAGASTE 500 €', 540, 410, prog(t, T.pagaste - 0.1, 0.4) , '#ffffff', '#141a26', 44);
+    sello('HOY: CASI 0 €', 540, 540, prog(t, T.casi - 0.05, 0.28), '#ff4d3d', 70, -6);
+    X.restore();
+  }
+  // S2: el índice y el silo
+  if (t > T.s2 - 0.1 && t < T.s3 + 0.3) {
+    const f = 1 - prog(t, T.s3 - 0.15, 0.35);
+    X.save(); X.globalAlpha = f;
+    const ki = prog(t, T.indice - 0.15, 0.4) * (1 - prog(t, T.serian - 0.25, 0.3));
+    pill('ÍNDICE: 500 MAYORES EMPRESAS', 540, 400, ki, '#0f172a', '#f8fafc', 38);
+    pill('DE EE. UU. (S&P 500)', 540, 480, ki * prog(t, T.estados - 0.1, 0.3), '#ffffff', '#141a26', 34);
+    const kc = prog(t, T.serian - 0.2, 0.4);
+    if (kc > 0) {
+      const r = tarjeta(540, 480, 820, 250, kc, 'rgba(255,255,255,.97)');
+      texto('LOS 500 € DE LA TELE, HOY:', 0, -78, 34, '#64748b', 800, 'center', 'Inter');
+      const v = valor(t), bump = 1 + 0.2 * Math.exp(-Math.max(0, t - T.quin2 - 0.35) * 6) * (t > T.quin2 + 0.35 ? 1 : 0);
+      X.save(); X.translate(0, 4); X.scale(bump, bump); texto((v >= 1499 ? 'MÁS DE ' : '') + fmt(v) + ' €', 0, 0, 84, '#15803d', 800, 'center', 'Inter'); X.restore();
+      texto('25-nov-2016 → 25-nov-2026 · histórico, no garantizado', 0, 86, 22, '#64748b', 600, 'center', 'Inter');
+      r();
+    }
+    sello('×3 · MÁS DEL TRIPLE', 540, 690, prog(t, T.triple - 0.1, 0.28), '#22C55E', 60, -5);
+    X.restore();
+  }
+  // S3: no está garantizado (gráfica con caídas)
+  if (t > T.s3 - 0.1 && t < T.s4 + 0.3) {
+    const f = 1 - prog(t, T.s4 - 0.15, 0.35);
+    X.save(); X.globalAlpha = f;
+    pill('⚠ NO ESTÁ GARANTIZADO', 540, 395, prog(t, T.ojo - 0.1, 0.4), '#dc2626', '#fff', 42);
+    grafica(t, prog(t, T.s3 - 0.05, 0.45));
+    X.restore();
+  }
+  // S4: el truco
+  if (t > T.s4 - 0.1 && t < T.s5 + 0.3) {
+    const f = 1 - prog(t, T.s5 - 0.15, 0.35);
+    X.save(); X.globalAlpha = f;
+    pill('EL TRUCO', 540, 400, prog(t, T.truco - 0.15, 0.4), '#16a34a', '#fff', 46);
+    const kq = prog(t, T.preguntarte - 0.1, 0.4);
+    if (kq > 0) { const r = tarjeta(540, 555, 900, 200, kq, 'rgba(255,255,255,.97)'); texto('¿ME LO COMPRARÍA', 0, -40, 62, '#141a26'); texto('SIN DESCUENTO?', 0, 40, 62, '#B45309'); r(); }
+    X.restore();
+  }
+  // S5: pregunta final + botones
+  if (t > T.s5 - 0.1) {
+    const kq = eback(prog(t, T.s5 - 0.05, 0.4), 1.8);
+    { const r = tarjeta(540, 640, 900, 560, prog(t, T.s5 - 0.1, 0.4), 'rgba(12,16,30,.9)', 'rgba(255,255,255,.18)'); r(); }
+    X.save(); X.translate(540, 445); X.scale(Math.max(0.001, kq), Math.max(0.001, kq)); textoBorde('¿Y TÚ, ESTE BLACK FRIDAY?', 0, 0, 66, '#fff', '#0b0f1c', 16); X.restore();
+    const boton = (y, s, c, k, on) => { if (k <= 0) return; X.save(); X.translate(540, y); const e = eback(k, 2); X.scale(e, e); rr(-340, -62, 680, 124, 62, c); if (on) { X.lineWidth = 8; X.strokeStyle = '#fff'; X.stroke(); } texto(s, 0, 4, 54, '#fff'); X.restore(); };
+    boton(580, '1 · LO NECESITABA', '#16a34a', prog(t, T.uno - 0.15, 0.35), t > T.uno && t < T.dos);
+    boton(730, '2 · CAPRICHO', '#dc2626', prog(t, T.dos - 0.15, 0.35), t > T.dos);
+    X.save(); X.globalAlpha = eout(prog(t, T.comenta - 0.1, 0.4)); rr(540 - 230, 822, 460, 70, 35, 'rgba(12,16,30,.88)'); texto('COMENTA 1 O 2 ↓', 540, 858, 40, '#FFC547'); X.restore();
+  }
+  subtitulos(t);
+  dibujaListo(t);
+  const ks = prog(t, FIN - 1.2, 0.35);
+  if (ks > 0) { const press = prog(t, FIN - 0.5, 0.12) * (1 - prog(t, FIN - 0.25, 0.15)); X.save(); X.translate(700, 1150); const e = eback(ks, 2) * (1 - 0.1 * press); X.scale(e, e); rr(-170, -52, 340, 104, 52, '#ffffff', '#0b0f1c', 4); texto('+ SEGUIR', 0, 4, 46, '#0b0f1c'); X.restore(); }
+  texto('S&P 500 en dólares, sin dividendos, comisiones ni impuestos · histórico, no garantizado · educativo', 540, 1452, 19, 'rgba(226,232,240,.72)', 600, 'center', 'Inter');
+  texto('@eleurolisto', 540, 1490, 30, 'rgba(255,255,255,.6)', 700);
+}
+
+function dibujaListo(t) {
+  // en su salón al principio (con la bolsa del Black Friday) → presentador en la esquina → firma al final
+  const [wx, wy] = w2s(LISTO_W[0], LISTO_W[1]);
+  const aEsq = eio(prog(t, T.s2 - 0.05, 0.75)), aFin = eio(prog(t, T.s5 - 0.25, 0.6));
+  let x = lerp(lerp(wx, 140, aEsq), 250, aFin), y = lerp(lerp(wy, 1250, aEsq), 1250, aFin), s = lerp(lerp(0.62 * CAM.z, 0.44, aEsq), 0.72, aFin);
+  const o = { x, y, s, t, estilo: 'ilustrado', expr: 'normal', pose: 'reposo', mira: [0.6, -0.2] };
+  if (t < 1.1) { o.anim = 'asoma'; o.animT = t + 0.22; o.expr = 'sorpresa'; o.pose = 'brazosAbiertos'; o.acc = ['bolsa']; }
+  else if (t < T.mil0 - 0.1) { o.pose = 'senala'; o.expr = 'habla'; o.acc = ['bolsa']; }
+  else if (t < T.s1) { o.pose = 'celebra'; o.expr = 'sorpresa'; o.acc = ['bolsa']; o.anim = 'salto'; o.animT = t - T.mil0 + 0.1; }
+  else if (t < T.hoy1) { o.pose = 'moneda'; o.expr = 'feliz'; }
+  else if (t < T.s2) { o.pose = 'brazosAbiertos'; o.expr = 'preocupado'; if (t > T.casi - 0.1) { o.anim = 'desinfla'; o.animT = t - T.casi + 0.1; } }
+  else if (t < T.serian) { o.pose = 'senala'; o.expr = 'habla'; o.mira = [0.7, -0.3]; }
+  else if (t < T.triple - 0.2) { o.pose = 'piensa'; o.expr = 'idea'; }
+  else if (t < T.s3) { o.pose = 'celebra'; o.expr = 'feliz'; o.modo = 'vacilon'; o.accK = { gafas: eout(prog(t, T.triple - 0.2, 0.45)), cadena: eout(prog(t, T.triple, 0.45)) }; o.anim = 'salto'; o.animT = t - T.triple + 0.2; }
+  else if (t < T.veinticinco - 0.1) { o.pose = 'brazosCruzados'; o.expr = 'preocupado'; }
+  else if (t < T.s4) { o.pose = 'brazosAbiertos'; o.expr = 'preocupado'; o.anim = 'temblor'; o.animT = t - T.veinticinco + 0.1; }
+  else if (t < T.descuento - 0.1) { o.pose = 'piensa'; o.expr = 'normal'; }
+  else if (t < T.s5) { o.pose = 'piensa'; o.expr = 'idea'; }
+  else {
+    o.mira = [0.4, -0.3];
+    if (t < T.s5 + 0.7) { o.anim = 'giro'; o.animT = t - T.s5; o.pose = 'saludo'; o.expr = 'feliz'; }
+    else if (t < FIN - 1.0) { o.pose = 'pulgar'; o.expr = 'guino'; }
+    else { o.pose = 'senala'; o.expr = 'feliz'; }
+  }
+  Listo2D.dibujar(X, o);
+}
+
+window.renderAt = (t) => {
+  X.setTransform(1, 0, 0, 1, 0, 0); X.fillStyle = '#0b0f1c'; X.fillRect(0, 0, 1080, 1920);
+  CAM = window.PORTADA ? { x: 640, y: 1010, z: 0.86 } : camara(t);
+  X.setTransform(CAM.z, 0, 0, CAM.z, 540 - CAM.x * CAM.z, CY - CAM.y * CAM.z);
+  dibujaMundo(window.PORTADA ? T.triple + 0.5 : t); if (!window.PORTADA) monedasMundo(t);
+  X.setTransform(1, 0, 0, 1, 0, 0);
+  const v = X.createRadialGradient(540, 900, 520, 540, 900, 1280); v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(0,0,0,.45)');
+  X.fillStyle = v; X.fillRect(0, 0, 1080, 1920);
+  if (window.PORTADA) { const [lx, ly] = w2s(LISTO_W[0] - 10, LISTO_W[1]); Listo2D.dibujar(X, { x: lx, y: ly, s: 0.85, t: 2, expr: 'sorpresa', pose: 'senala', estilo: 'ilustrado', mira: [0.8, -0.2] }); return; }
+  capa(t);
+};
+document.fonts.load('800 70px Poppins').then(() => document.fonts.load('800 70px Inter')).then(() => document.fonts.load('600 20px Inter')).then(() => { window.listo = true; });
+</script></body></html>

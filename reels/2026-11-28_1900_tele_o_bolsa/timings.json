@@ -1,0 +1,515 @@
+{
+ "total": 30.185,
+ "voz": "ElevenLabs · Juanjo Viral (30jLfQdV8RTduXvosh02, eleven_v4)",
+ "fuente_tiempos": "ElevenLabs Scribe (tiempos exactos por palabra)",
+ "segments": [
+  {
+   "i": 0,
+   "start": 0.12,
+   "dur": 4.522,
+   "text": "¿La tele del Black Friday de dos mil dieciséis… o más de mil quinientos euros hoy?",
+   "words": [
+    {
+     "w": "¿La",
+     "start": 0.12,
+     "end": 0.259
+    },
+    {
+     "w": "tele",
+     "start": 0.329,
+     "end": 0.537
+    },
+    {
+     "w": "del",
+     "start": 0.607,
+     "end": 0.677
+    },
+    {
+     "w": "Black",
+     "start": 0.746,
+     "end": 0.885
+    },
+    {
+     "w": "Friday",
+     "start": 0.955,
+     "end": 1.303
+    },
+    {
+     "w": "de",
+     "start": 1.337,
+     "end": 1.372
+    },
+    {
+     "w": "dos",
+     "start": 1.442,
+     "end": 1.511
+    },
+    {
+     "w": "mil",
+     "start": 1.65,
+     "end": 1.72
+    },
+    {
+     "w": "dieciséis…",
+     "start": 1.79,
+     "end": 2.694
+    },
+    {
+     "w": "o",
+     "start": 2.763,
+     "end": 2.833
+    },
+    {
+     "w": "más",
+     "start": 2.972,
+     "end": 3.111
+    },
+    {
+     "w": "de",
+     "start": 3.181,
+     "end": 3.25
+    },
+    {
+     "w": "mil",
+     "start": 3.39,
+     "end": 3.459
+    },
+    {
+     "w": "quinientos",
+     "start": 3.598,
+     "end": 4.016
+    },
+    {
+     "w": "euros",
+     "start": 4.085,
+     "end": 4.363
+    },
+    {
+     "w": "hoy?",
+     "start": 4.398,
+     "end": 4.642
+    }
+   ]
+  },
+  {
+   "i": 1,
+   "start": 4.781,
+   "dur": 3.478,
+   "text": "Aquel año pagaste quinientos euros por ella. Hoy vale casi nada.",
+   "words": [
+    {
+     "w": "Aquel",
+     "start": 4.781,
+     "end": 4.99
+    },
+    {
+     "w": "año",
+     "start": 5.059,
+     "end": 5.268
+    },
+    {
+     "w": "pagaste",
+     "start": 5.337,
+     "end": 5.685
+    },
+    {
+     "w": "quinientos",
+     "start": 5.755,
+     "end": 6.242
+    },
+    {
+     "w": "euros",
+     "start": 6.311,
+     "end": 6.59
+    },
+    {
+     "w": "por",
+     "start": 6.659,
+     "end": 6.729
+    },
+    {
+     "w": "ella.",
+     "start": 6.798,
+     "end": 7.077
+    },
+    {
+     "w": "Hoy",
+     "start": 7.216,
+     "end": 7.424
+    },
+    {
+     "w": "vale",
+     "start": 7.529,
+     "end": 7.633
+    },
+    {
+     "w": "casi",
+     "start": 7.668,
+     "end": 7.911
+    },
+    {
+     "w": "nada.",
+     "start": 7.946,
+     "end": 8.259
+    }
+   ]
+  },
+  {
+   "i": 2,
+   "start": 8.398,
+   "dur": 7.235,
+   "text": "Si los hubieras metido en un índice de las quinientas mayores empresas de Estados Unidos, hoy serían más de mil quinientos: más del triple.",
+   "words": [
+    {
+     "w": "Si",
+     "start": 8.398,
+     "end": 8.468
+    },
+    {
+     "w": "los",
+     "start": 8.537,
+     "end": 8.607
+    },
+    {
+     "w": "hubieras",
+     "start": 8.677,
+     "end": 8.955
+    },
+    {
+     "w": "metido",
+     "start": 9.024,
+     "end": 9.233
+    },
+    {
+     "w": "en",
+     "start": 9.303,
+     "end": 9.372
+    },
+    {
+     "w": "un",
+     "start": 9.407,
+     "end": 9.442
+    },
+    {
+     "w": "índice",
+     "start": 9.511,
+     "end": 9.79
+    },
+    {
+     "w": "de",
+     "start": 9.859,
+     "end": 9.929
+    },
+    {
+     "w": "las",
+     "start": 9.998,
+     "end": 10.068
+    },
+    {
+     "w": "quinientas",
+     "start": 10.137,
+     "end": 10.555
+    },
+    {
+     "w": "mayores",
+     "start": 10.624,
+     "end": 10.903
+    },
+    {
+     "w": "empresas",
+     "start": 10.972,
+     "end": 11.39
+    },
+    {
+     "w": "de",
+     "start": 11.424,
+     "end": 11.459
+    },
+    {
+     "w": "Estados",
+     "start": 11.529,
+     "end": 11.807
+    },
+    {
+     "w": "Unidos,",
+     "start": 11.877,
+     "end": 12.363
+    },
+    {
+     "w": "hoy",
+     "start": 12.503,
+     "end": 12.711
+    },
+    {
+     "w": "serían",
+     "start": 12.781,
+     "end": 13.129
+    },
+    {
+     "w": "más",
+     "start": 13.163,
+     "end": 13.268
+    },
+    {
+     "w": "de",
+     "start": 13.337,
+     "end": 13.407
+    },
+    {
+     "w": "mil",
+     "start": 13.546,
+     "end": 13.685
+    },
+    {
+     "w": "quinientos:",
+     "start": 13.824,
+     "end": 14.729
+    },
+    {
+     "w": "más",
+     "start": 14.763,
+     "end": 14.937
+    },
+    {
+     "w": "del",
+     "start": 15.007,
+     "end": 15.077
+    },
+    {
+     "w": "triple.",
+     "start": 15.216,
+     "end": 15.633
+    }
+   ]
+  },
+  {
+   "i": 3,
+   "start": 15.772,
+   "dur": 5.009,
+   "text": "Ojo, no está garantizado: en dos mil veintidós llegó a caer un veinticinco por ciento.",
+   "words": [
+    {
+     "w": "Ojo,",
+     "start": 15.772,
+     "end": 16.19
+    },
+    {
+     "w": "no",
+     "start": 16.329,
+     "end": 16.398
+    },
+    {
+     "w": "está",
+     "start": 16.468,
+     "end": 16.607
+    },
+    {
+     "w": "garantizado:",
+     "start": 16.677,
+     "end": 17.442
+    },
+    {
+     "w": "en",
+     "start": 17.511,
+     "end": 17.581
+    },
+    {
+     "w": "dos",
+     "start": 17.65,
+     "end": 17.72
+    },
+    {
+     "w": "mil",
+     "start": 17.79,
+     "end": 17.859
+    },
+    {
+     "w": "veintidós",
+     "start": 17.894,
+     "end": 18.346
+    },
+    {
+     "w": "llegó",
+     "start": 18.416,
+     "end": 18.659
+    },
+    {
+     "w": "a",
+     "start": 18.694,
+     "end": 18.729
+    },
+    {
+     "w": "caer",
+     "start": 18.763,
+     "end": 18.972
+    },
+    {
+     "w": "un",
+     "start": 19.042,
+     "end": 19.111
+    },
+    {
+     "w": "veinticinco",
+     "start": 19.146,
+     "end": 19.737
+    },
+    {
+     "w": "por",
+     "start": 19.807,
+     "end": 19.946
+    },
+    {
+     "w": "ciento.",
+     "start": 19.981,
+     "end": 20.781
+    }
+   ]
+  },
+  {
+   "i": 4,
+   "start": 20.816,
+   "dur": 4.521,
+   "text": "El truco no es no comprar nada. Es preguntarte: ¿me lo compraría sin descuento?",
+   "words": [
+    {
+     "w": "El",
+     "start": 20.816,
+     "end": 20.85
+    },
+    {
+     "w": "truco",
+     "start": 20.92,
+     "end": 21.198
+    },
+    {
+     "w": "no",
+     "start": 21.337,
+     "end": 21.477
+    },
+    {
+     "w": "es",
+     "start": 21.546,
+     "end": 21.685
+    },
+    {
+     "w": "no",
+     "start": 21.755,
+     "end": 21.824
+    },
+    {
+     "w": "comprar",
+     "start": 21.894,
+     "end": 22.172
+    },
+    {
+     "w": "nada.",
+     "start": 22.242,
+     "end": 22.659
+    },
+    {
+     "w": "Es",
+     "start": 22.798,
+     "end": 22.937
+    },
+    {
+     "w": "preguntarte:",
+     "start": 23.007,
+     "end": 23.633
+    },
+    {
+     "w": "¿me",
+     "start": 23.772,
+     "end": 23.911
+    },
+    {
+     "w": "lo",
+     "start": 23.946,
+     "end": 23.981
+    },
+    {
+     "w": "compraría",
+     "start": 24.05,
+     "end": 24.468
+    },
+    {
+     "w": "sin",
+     "start": 24.537,
+     "end": 24.607
+    },
+    {
+     "w": "descuento?",
+     "start": 24.677,
+     "end": 25.337
+    }
+   ]
+  },
+  {
+   "i": 5,
+   "start": 25.477,
+   "dur": 3.895,
+   "text": "¿Y tú? Comenta uno si lo necesitabas, o dos si fue capricho.",
+   "words": [
+    {
+     "w": "¿Y",
+     "start": 25.477,
+     "end": 25.546
+    },
+    {
+     "w": "tú?",
+     "start": 25.616,
+     "end": 25.824
+    },
+    {
+     "w": "Comenta",
+     "start": 25.963,
+     "end": 26.381
+    },
+    {
+     "w": "uno",
+     "start": 26.45,
+     "end": 26.729
+    },
+    {
+     "w": "si",
+     "start": 26.798,
+     "end": 26.868
+    },
+    {
+     "w": "lo",
+     "start": 26.937,
+     "end": 27.007
+    },
+    {
+     "w": "necesitabas,",
+     "start": 27.042,
+     "end": 27.842
+    },
+    {
+     "w": "o",
+     "start": 27.877,
+     "end": 27.911
+    },
+    {
+     "w": "dos",
+     "start": 27.981,
+     "end": 28.259
+    },
+    {
+     "w": "si",
+     "start": 28.398,
+     "end": 28.468
+    },
+    {
+     "w": "fue",
+     "start": 28.537,
+     "end": 28.677
+    },
+    {
+     "w": "capricho.",
+     "start": 28.746,
+     "end": 29.372
+    }
+   ]
+  }
+ ]
+}
