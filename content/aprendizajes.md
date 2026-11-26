@@ -87,3 +87,8 @@ Qué funciona según los datos de Instagram (vidiq_instagram_owner_insights, mod
 - **Peores**: Black Friday (40; ~2 h: 57 IG con **60,4 % de skip**, 4 TT), estafas (40) y criptos/Hacienda (42). Común: **voz local** (los 3) y consejo de consumo/seguridad: la voz local queda la última otra vez → voz premium siempre que haya caracteres. Lotería: 0 en TikTok a los 2,5 días (filtro de azar confirmado).
 - **Decisión (reel del viernes 27)**: nómina de temporada (paga extra, mucha búsqueda) con gancho que desmonta una creencia («La paga extra no es un regalo de tu empresa»), ElevenLabs Lucía, 31 s, look nuevo R11 plano técnico con un mecanismo visual (los 12 trozos de 250 € que vuelan y forman las 2 pagas) y pregunta personal fácil (12 o 14 pagas) para probar si arranca comentarios. Si la Burbuja de la IA sigue subiendo en TikTok, parte 2 el fin de semana.
 
+
+## Fórmula del día · 26-nov noche (20 reels; IG 2 seguidores; 14 días: 5.044 vistas, alcance 3.847, 15 visitas al perfil, 87 interacciones)
+- **Top 3 sin cambios**: GTA parte 2 (67; 1.295 IG, 32,5 % skip), GTA parte 1 (67) y Pensiones parte 1 (63; 1.125 IG + 712 TT). **Pensiones parte 2** a las ~2 h: 78 IG, 40,8 % skip, 26 % visto — arranque parecido al de la parte 1 (67 a la 1,5 h, luego ×8): esperar a las 24 h antes de la parte 3.
+- **Peor**: Black Friday R10 (38; 115 IG, **65 % de skip**, voz local) → consejo de consumo + voz local sigue abajo; TikTok sin revisar hoy (noches alternas; vidIQ con 25 créditos hasta el 15-dic).
+- **Decisión (sáb 28)**: fórmula del n.º 1 («¿X o acciones?») + temporada → «¿La tele del Black Friday de 2016… o más de 1.500 € hoy?» (inversión, R3 del top 3, Juanjo como en los GTA, 30 s, cifra en el fotograma 0 y pregunta personal 1/2: «lo necesitaba / capricho»).

@@ -3,6 +3,9 @@
 Investigación semanal con vidIQ (`vidiq_instagram_tiktok_outlier_search`, 5 créditos). Aquí se guardan los patrones, no se copian vídeos:
 cada recreación usa guion, cifras, diseño y voz propios de El Euro Listo.
 
+## 26-nov-2026 · jueves sin búsqueda de outliers (vidIQ 25 créditos hasta el 15-dic: se guardan para TikTok en noches alternas)
+- Recreada esta noche la fórmula del n.º 1 de NUESTRA cuenta («¿GTA 5 o acciones?», 1.295 IG) con la temporada: «¿La tele del Black Friday de 2016… o 1.500 € hoy?» (coste de oportunidad con datos y matiz de riesgo).
+
 ## 23-nov-2026 · noche alterna (sin búsqueda de outliers: vidIQ 30 créditos; la siguiente, la noche del 24)
 - Lo que funciona en NUESTRA cuenta esta semana: **polémicas de inversión en TikTok** (comprar o alquilar 695, GTA 3 733, indexados 723, pensiones 161 en 1,5 h) y **cultura pop + inversión en IG** (GTA). La lotería, 0 en TikTok (filtro de juegos de azar): ojo con décimos, bombos o «premio» en el primer fotograma.
 - Tema del día con mucha búsqueda: **Black Friday** (viernes 27) y **la montaña rusa de Nvidia** (−43 % en un mes, rebote de más del 30 % el lunes 23 con la vuelta de su consejero delegado). Los dos van en los reels del martes 24.

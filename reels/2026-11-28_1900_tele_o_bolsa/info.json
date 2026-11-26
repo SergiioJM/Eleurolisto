@@ -41,5 +41,10 @@
   "#finanzaspersonales",
   "#eleurolisto"
  ],
- "estado": "pendiente de aprobación"
+ "estado": "enviado a Sergio el 26-nov ~21:30, pendiente de aprobación",
+ "vidiq": {
+  "con_portada": "10fd2029-dbe4-42cd-b384-4f281a39c8ad",
+  "sin_portada": "84b91a81-2fd5-4b69-a703-b3c564c9534e",
+  "commit": "c8c5fd0aa6f8752ce2109aa26dc80ec7234f1868"
+ }
 }
