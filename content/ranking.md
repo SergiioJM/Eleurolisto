@@ -25,16 +25,17 @@ Actualizado: 2026-11-25 21:20 (Madrid). Generado con `python3 toolkit/ranking.py
 | 17 | 11-21 13:30 | ¿Hacienda ve tus criptos? | R2 llamadas entrantes (3D toon) | local k_santa | ¿Crees que si no pasas tus criptos a euros, Hacienda no se entera? | 126+40 | 42 | 28 | 68 | 9 | **42** |
 | 18 | 11-20 13:30 | ¿Te piden pagar para sacar tu dinero? (estafa) | R4 móviles en abanico | local v1 | ¿Te piden pagar para sacar tu dinero? | 101+5 | 37 | 21 | 62 | 28 | **40** |
 | 19 | 11-25 19:00 | Black Friday: ese −40 % puede ser mentira (3 trampas) | R10 papel recortado | local v1 | Ese −40 % del Black Friday… puede ser mentira | 57+4 | 40 | 28 | 55 | 25 | **40** |
+| 20 | 11-26 19:00 | Plan de pensiones parte 2: ¿plan o fondo indexado? (polémica) | R5 3D plastilina | ElevenLabs Mateo | 1.500 € al año: ¿plan de pensiones o fondo indexado? | 0+0 | 50 | 0 | 0 | 0 | **18** |
 
 ## Comparativas automáticas (media de la puntuación TOTAL)
 
-- **Voz premium (Javier/ElevenLabs) vs local:** premium: 58 (n=14) · local: 45 (n=5)
-- **3D vs 2D:** 3D: 55 (n=4) · 2D/otros: 54 (n=15)
-- **Gancho en pregunta (¿…?) vs afirmación:** pregunta: 55 (n=8) · afirmación: 54 (n=11)
-- **Ahorro básico vs resto de pilares:** ahorro: 52 (n=4) · resto: 55 (n=15)
-- **13:30 vs 20:30 vs especiales:** 13:30: 49 (n=7) · 20:30: 57 (n=7) · otras horas: 58 (n=5)
+- **Voz premium (Javier/ElevenLabs) vs local:** premium: 55 (n=15) · local: 45 (n=5)
+- **3D vs 2D:** 3D: 47 (n=5) · 2D/otros: 54 (n=15)
+- **Gancho en pregunta (¿…?) vs afirmación:** pregunta: 51 (n=9) · afirmación: 54 (n=11)
+- **Ahorro básico vs resto de pilares:** ahorro: 52 (n=4) · resto: 52 (n=16)
+- **13:30 vs 20:30 vs especiales:** 13:30: 49 (n=7) · 20:30: 57 (n=7) · otras horas: 51 (n=6)
 
-- Comentarios totales: 2 · compartidos: 3 · guardados: 11 en 19 vídeos.
+- Comentarios totales: 2 · compartidos: 3 · guardados: 11 en 20 vídeos.
 
 ## Posts de imágenes (carruseles)
 
