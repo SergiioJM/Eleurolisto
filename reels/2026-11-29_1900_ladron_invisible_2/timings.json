@@ -1,0 +1,480 @@
+{
+ "total": 26.732,
+ "voz": "ElevenLabs · Mateo (gpMzl7dbkfC9dIxAqQZT, eleven_v4)",
+ "segments": [
+  {
+   "i": 0,
+   "start": 0.2,
+   "dur": 3.428,
+   "text": "El ladrón invisible ha vuelto… y dicen que ahora roba menos.",
+   "words": [
+    {
+     "w": "El",
+     "start": 0.2,
+     "end": 0.345
+    },
+    {
+     "w": "ladrón",
+     "start": 0.382,
+     "end": 0.636
+    },
+    {
+     "w": "invisible",
+     "start": 0.709,
+     "end": 1.218
+    },
+    {
+     "w": "ha",
+     "start": 1.364,
+     "end": 1.436
+    },
+    {
+     "w": "vuelto…",
+     "start": 1.509,
+     "end": 2.101
+    },
+    {
+     "w": "y",
+     "start": 2.173,
+     "end": 2.246
+    },
+    {
+     "w": "dicen",
+     "start": 2.355,
+     "end": 2.537
+    },
+    {
+     "w": "que",
+     "start": 2.61,
+     "end": 2.683
+    },
+    {
+     "w": "ahora",
+     "start": 2.755,
+     "end": 2.973
+    },
+    {
+     "w": "roba",
+     "start": 3.046,
+     "end": 3.192
+    },
+    {
+     "w": "menos.",
+     "start": 3.264,
+     "end": 3.628
+    }
+   ]
+  },
+  {
+   "i": 1,
+   "start": 3.791,
+   "dur": 2.575,
+   "text": "La inflación ha bajado al cuatro coma uno por ciento.",
+   "words": [
+    {
+     "w": "La",
+     "start": 3.791,
+     "end": 3.827
+    },
+    {
+     "w": "inflación",
+     "start": 3.864,
+     "end": 4.3
+    },
+    {
+     "w": "ha",
+     "start": 4.336,
+     "end": 4.373
+    },
+    {
+     "w": "bajado",
+     "start": 4.421,
+     "end": 4.664
+    },
+    {
+     "w": "al",
+     "start": 4.736,
+     "end": 4.809
+    },
+    {
+     "w": "cuatro",
+     "start": 4.882,
+     "end": 5.1
+    },
+    {
+     "w": "coma",
+     "start": 5.245,
+     "end": 5.391
+    },
+    {
+     "w": "uno",
+     "start": 5.464,
+     "end": 5.609
+    },
+    {
+     "w": "por",
+     "start": 5.682,
+     "end": 5.754
+    },
+    {
+     "w": "ciento.",
+     "start": 5.827,
+     "end": 6.366
+    }
+   ]
+  },
+  {
+   "i": 2,
+   "start": 6.414,
+   "dur": 5.301,
+   "text": "Pero que baje la inflación no significa que bajen los precios: siguen subiendo, solo que más despacio.",
+   "words": [
+    {
+     "w": "Pero",
+     "start": 6.414,
+     "end": 6.511
+    },
+    {
+     "w": "que",
+     "start": 6.584,
+     "end": 6.657
+    },
+    {
+     "w": "baje",
+     "start": 6.729,
+     "end": 6.875
+    },
+    {
+     "w": "la",
+     "start": 6.911,
+     "end": 6.947
+    },
+    {
+     "w": "inflación",
+     "start": 6.984,
+     "end": 7.457
+    },
+    {
+     "w": "no",
+     "start": 7.675,
+     "end": 7.747
+    },
+    {
+     "w": "significa",
+     "start": 7.82,
+     "end": 8.257
+    },
+    {
+     "w": "que",
+     "start": 8.329,
+     "end": 8.366
+    },
+    {
+     "w": "bajen",
+     "start": 8.402,
+     "end": 8.62
+    },
+    {
+     "w": "los",
+     "start": 8.693,
+     "end": 8.766
+    },
+    {
+     "w": "precios:",
+     "start": 8.838,
+     "end": 9.397
+    },
+    {
+     "w": "siguen",
+     "start": 9.469,
+     "end": 9.687
+    },
+    {
+     "w": "subiendo,",
+     "start": 9.76,
+     "end": 10.415
+    },
+    {
+     "w": "solo",
+     "start": 10.451,
+     "end": 10.706
+    },
+    {
+     "w": "que",
+     "start": 10.778,
+     "end": 10.924
+    },
+    {
+     "w": "más",
+     "start": 10.96,
+     "end": 11.069
+    },
+    {
+     "w": "despacio.",
+     "start": 11.142,
+     "end": 11.715
+    }
+   ]
+  },
+  {
+   "i": 3,
+   "start": 11.824,
+   "dur": 5.625,
+   "text": "Si sigue a este ritmo, lo que hoy compras con diez mil euros, dentro de un año costará diez mil cuatrocientos diez.",
+   "words": [
+    {
+     "w": "Si",
+     "start": 11.824,
+     "end": 11.897
+    },
+    {
+     "w": "sigue",
+     "start": 11.97,
+     "end": 12.188
+    },
+    {
+     "w": "a",
+     "start": 12.224,
+     "end": 12.261
+    },
+    {
+     "w": "este",
+     "start": 12.37,
+     "end": 12.479
+    },
+    {
+     "w": "ritmo,",
+     "start": 12.552,
+     "end": 12.988
+    },
+    {
+     "w": "lo",
+     "start": 13.024,
+     "end": 13.061
+    },
+    {
+     "w": "que",
+     "start": 13.133,
+     "end": 13.206
+    },
+    {
+     "w": "hoy",
+     "start": 13.242,
+     "end": 13.352
+    },
+    {
+     "w": "compras",
+     "start": 13.461,
+     "end": 13.715
+    },
+    {
+     "w": "con",
+     "start": 13.788,
+     "end": 13.861
+    },
+    {
+     "w": "diez",
+     "start": 13.933,
+     "end": 14.115
+    },
+    {
+     "w": "mil",
+     "start": 14.152,
+     "end": 14.297
+    },
+    {
+     "w": "euros,",
+     "start": 14.37,
+     "end": 14.806
+    },
+    {
+     "w": "dentro",
+     "start": 14.915,
+     "end": 15.097
+    },
+    {
+     "w": "de",
+     "start": 15.17,
+     "end": 15.206
+    },
+    {
+     "w": "un",
+     "start": 15.242,
+     "end": 15.315
+    },
+    {
+     "w": "año",
+     "start": 15.352,
+     "end": 15.533
+    },
+    {
+     "w": "costará",
+     "start": 15.642,
+     "end": 15.897
+    },
+    {
+     "w": "diez",
+     "start": 15.97,
+     "end": 16.188
+    },
+    {
+     "w": "mil",
+     "start": 16.333,
+     "end": 16.406
+    },
+    {
+     "w": "cuatrocientos",
+     "start": 16.552,
+     "end": 17.097
+    },
+    {
+     "w": "diez.",
+     "start": 17.133,
+     "end": 17.449
+    }
+   ]
+  },
+  {
+   "i": 4,
+   "start": 17.522,
+   "dur": 2.59,
+   "text": "Y en cinco años, más de doce mil doscientos.",
+   "words": [
+    {
+     "w": "Y",
+     "start": 17.522,
+     "end": 17.558
+    },
+    {
+     "w": "en",
+     "start": 17.595,
+     "end": 17.74
+    },
+    {
+     "w": "cinco",
+     "start": 17.777,
+     "end": 17.958
+    },
+    {
+     "w": "años,",
+     "start": 18.031,
+     "end": 18.467
+    },
+    {
+     "w": "más",
+     "start": 18.54,
+     "end": 18.686
+    },
+    {
+     "w": "de",
+     "start": 18.758,
+     "end": 18.831
+    },
+    {
+     "w": "doce",
+     "start": 18.904,
+     "end": 19.049
+    },
+    {
+     "w": "mil",
+     "start": 19.195,
+     "end": 19.267
+    },
+    {
+     "w": "doscientos.",
+     "start": 19.34,
+     "end": 20.112
+    }
+   ]
+  },
+  {
+   "i": 5,
+   "start": 20.137,
+   "dur": 0.63,
+   "text": "¿Y tu dinero?",
+   "words": [
+    {
+     "w": "¿Y",
+     "start": 20.137,
+     "end": 20.185
+    },
+    {
+     "w": "tu",
+     "start": 20.258,
+     "end": 20.33
+    },
+    {
+     "w": "dinero?",
+     "start": 20.403,
+     "end": 20.767
+    }
+   ]
+  },
+  {
+   "i": 6,
+   "start": 20.898,
+   "dur": 3.0,
+   "text": "Comenta: uno, quieto; dos, trabajando.",
+   "words": [
+    {
+     "w": "Comenta:",
+     "start": 20.898,
+     "end": 21.53
+    },
+    {
+     "w": "uno,",
+     "start": 21.675,
+     "end": 21.93
+    },
+    {
+     "w": "quieto;",
+     "start": 22.039,
+     "end": 22.612
+    },
+    {
+     "w": "dos,",
+     "start": 22.757,
+     "end": 23.121
+    },
+    {
+     "w": "trabajando.",
+     "start": 23.157,
+     "end": 23.898
+    }
+   ]
+  },
+  {
+   "i": 7,
+   "start": 24.007,
+   "dur": 2.0,
+   "text": "Porque el ladrón siempre vuelve.",
+   "words": [
+    {
+     "w": "Porque",
+     "start": 24.007,
+     "end": 24.189
+    },
+    {
+     "w": "el",
+     "start": 24.225,
+     "end": 24.261
+    },
+    {
+     "w": "ladrón",
+     "start": 24.298,
+     "end": 24.843
+    },
+    {
+     "w": "siempre",
+     "start": 24.916,
+     "end": 25.352
+    },
+    {
+     "w": "vuelve.",
+     "start": 25.425,
+     "end": 26.007
+    }
+   ]
+  }
+ ]
+}

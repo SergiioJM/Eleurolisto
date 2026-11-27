@@ -1,22 +1,22 @@
 {
  "_nota": "Métricas de TODOS los vídeos (IG + TikTok). La tarea nocturna las actualiza cada noche (IG: vidiq_instagram_owner_insights mode reels/media, 0 créditos; TikTok: vidiq_tiktok_profile_videos, 5 créditos) y ejecuta `python3 toolkit/ranking.py` para regenerar content/ranking.md. Campos: ig_* de Instagram (vistas, % visto, skip, likes, comentarios, compartidos, guardados), tt_* de TikTok.",
- "actualizado": "2026-11-26 21:20 (Madrid; IG; TikTok del 25-nov)",
+ "actualizado": "2026-11-27 21:15 (Madrid; IG y TikTok)",
  "cuenta": {
   "ig_seguidores": 2,
   "ig_5dias": {
-   "alcance": 3847,
-   "vistas": 5044,
-   "visitas_perfil": 15,
-   "cuentas_que_interactuan": 56,
-   "interacciones": 87
+   "alcance": 3954,
+   "vistas": 5232,
+   "visitas_perfil": 16,
+   "cuentas_que_interactuan": 58,
+   "interacciones": 92
   },
   "tt_seguidores": null,
   "ig_14dias": {
-   "alcance": 3847,
-   "vistas": 5044,
-   "visitas_perfil": 15,
-   "cuentas_que_interactuan": 56,
-   "interacciones": 87
+   "alcance": 3954,
+   "vistas": 5232,
+   "visitas_perfil": 16,
+   "cuentas_que_interactuan": 58,
+   "interacciones": 92
   }
  },
  "videos": [
@@ -442,15 +442,17 @@
     "likes": 2,
     "coment": 0,
     "comp": 0,
-    "guard": 0
+    "guard": 0,
+    "nota": "27-nov 21:15"
    },
    "tt": {
     "id": "7711080059188071713",
-    "vistas": 696,
+    "vistas": 697,
     "likes": 8,
     "coment": 0,
     "comp": 0,
-    "guard": 2
+    "guard": 2,
+    "nota": "27-nov 21:15"
    }
   },
   {
@@ -472,7 +474,8 @@
     "likes": 1,
     "coment": 0,
     "comp": 0,
-    "guard": 1
+    "guard": 1,
+    "nota": "27-nov 21:15"
    },
    "tt": {
     "id": "7711342835227692321",
@@ -481,7 +484,7 @@
     "coment": 0,
     "comp": 0,
     "guard": 0,
-    "nota": "0 vistas a las 2,5 días: filtro de juegos de azar (no apto para Para ti)"
+    "nota": "27-nov 21:15"
    }
   },
   {
@@ -503,7 +506,8 @@
     "likes": 8,
     "coment": 0,
     "comp": 0,
-    "guard": 0
+    "guard": 0,
+    "nota": "27-nov 21:15"
    },
    "tt": {
     "id": "7711450948660448545",
@@ -511,7 +515,8 @@
     "likes": 5,
     "coment": 0,
     "comp": 0,
-    "guard": 2
+    "guard": 2,
+    "nota": "27-nov 21:15"
    }
   },
   {
@@ -533,7 +538,8 @@
     "likes": 2,
     "coment": 0,
     "comp": 0,
-    "guard": 0
+    "guard": 0,
+    "nota": "27-nov 21:15"
    },
    "tt": {
     "id": "7711798946884046113",
@@ -541,7 +547,8 @@
     "likes": 10,
     "coment": 0,
     "comp": 1,
-    "guard": 0
+    "guard": 0,
+    "nota": "27-nov 21:15"
    }
   },
   {
@@ -564,7 +571,7 @@
     "coment": 0,
     "comp": 0,
     "guard": 0,
-    "nota": "métricas de ~2 h (25-nov 21:15)"
+    "nota": "27-nov 21:15"
    },
    "tt": {
     "id": "7712169967264795943",
@@ -573,7 +580,7 @@
     "coment": 0,
     "comp": 0,
     "guard": 0,
-    "nota": "~2 h (25-nov 21:15)"
+    "nota": "27-nov 21:15"
    }
   },
   {
@@ -589,17 +596,24 @@
    "ig": {
     "code": "DgNslI6oQHO",
     "mediaId": "17976293202189808",
-    "vistas": 78,
-    "visto": 26.2,
-    "skip": 40.8,
+    "vistas": 118,
+    "visto": 28.3,
+    "skip": 50.5,
     "likes": 1,
     "coment": 0,
     "comp": 0,
-    "guard": 0
+    "guard": 0,
+    "nota": "27-nov 21:15"
    },
    "tt": {
     "id": "7712541299374689569",
-    "post_vidiq": "e9d78338-e426-4a21-bcaf-31a1e4f0ff24"
+    "post_vidiq": "e9d78338-e426-4a21-bcaf-31a1e4f0ff24",
+    "vistas": 676,
+    "likes": 2,
+    "coment": 0,
+    "comp": 0,
+    "guard": 0,
+    "nota": "27-nov 21:15"
    }
   },
   {
@@ -614,10 +628,24 @@
    "gancho": "La paga extra no es un regalo de tu empresa",
    "ig": {
     "code": "DgQRXXxBy-q",
-    "mediaId": "18133484956846772"
+    "mediaId": "18133484956846772",
+    "vistas": 139,
+    "visto": 30.4,
+    "skip": 57.3,
+    "likes": 2,
+    "coment": 0,
+    "comp": 1,
+    "guard": 1,
+    "nota": "27-nov 21:15"
    },
    "tt": {
-    "id": "7712912312629349665"
+    "id": "7712912312629349665",
+    "vistas": 270,
+    "likes": 3,
+    "coment": 0,
+    "comp": 0,
+    "guard": 1,
+    "nota": "27-nov 21:15"
    }
   }
  ],

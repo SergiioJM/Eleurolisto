@@ -1,0 +1,38 @@
+{
+ "fecha": "2026-11-29",
+ "hora": "19:00",
+ "titulo": "El ladrón invisible 2: la inflación baja al 4,1 %… pero los precios no bajan (secuela del n.º 4 del ranking + noticia del día)",
+ "pilar": "Economía (inflación)",
+ "look": "R7 · 3D de bloques 'simulación' (look del ranking, secuela; no está en los 3 últimos: R5, R11, R3) con luz de tarde FIJA + Listo 'lowpoly'",
+ "formato": "escena3d (Three.js) con motor.mjs, rehecho desde la plantilla del 22-nov (que no llegó a publicarse) con el IPC adelantado de noviembre. Fotograma 0: 'PARTE 2 · EL LADRÓN HA VUELTO' gigante y el aceite saliendo por la ventana; píldora '…¿y ahora roba MENOS?'; sello verde '4,1 %' con 'octubre: 4,9 %' tachado; tarjeta nueva 'INFLACIÓN ↓ ≠ PRECIOS ↓' (se tacha) → 'PRECIOS ↑ más despacio' mientras roban los huevos; panel TIEMPO / LA MISMA COMPRA con odómetro 10.000 → 10.410 € (1 año) → 12.225 € (5 años); golpe '+22 %'; lección en pantalla; '¿Y TU DINERO?' con botones 1 QUIETO / 2 TRABAJANDO; Listo pulsa '+ SEGUIR · parte 3'. Subtítulos palabra a palabra con recuadro azul.",
+ "gancho": "El ladrón invisible ha vuelto… y dicen que ahora roba menos (pantalla: EL LADRÓN HA VUELTO + ¿y ahora roba MENOS?)",
+ "ganchos_candidatos": [
+  "El ladrón invisible ha vuelto… y dicen que ahora roba menos (elegido: secuela del n.º 4, personaje + robo en el fotograma 0, desmonta una creencia con la noticia del día)",
+  "La inflación baja al 4,1 %… y tu compra sigue subiendo",
+  "¿Baja la inflación? Tus precios, no",
+  "4,1 %: buena noticia… con trampa",
+  "10.000 € hoy = más de 12.200 € en 5 años"
+ ],
+ "voz": "ElevenLabs · Mateo (gpMzl7dbkfC9dIxAqQZT, eleven_v4); 464 caracteres; transcripción Scribe idéntica al guion; pausas > 0,27 s recortadas y atempo 1,10 → 26,7 s de voz",
+ "etiqueta_ia": true,
+ "guion": "El ladrón invisible ha vuelto… y dicen que ahora roba menos. La inflación ha bajado al cuatro coma uno por ciento. Pero que baje la inflación no significa que bajen los precios: siguen subiendo, solo que más despacio. Si sigue a este ritmo, lo que hoy compras con diez mil euros, dentro de un año costará diez mil cuatrocientos diez. Y en cinco años, más de doce mil doscientos. ¿Y tu dinero? Comenta: uno, quieto; dos, trabajando. Porque el ladrón siempre vuelve.",
+ "datos": "IPC adelantado de noviembre de 2026: 4,1 % interanual, ocho décimas menos que en octubre (4,9 %), por el abaratamiento de los carburantes (INE, 27-nov; El Español, Agencia de Noticias, Diario Crítico, Rankia). Proyección HIPOTÉTICA si se mantuviera: 10.000 × 1,041 = 10.410 €; 10.000 × 1,041^5 = 12.225 € (+22,3 %) (Python). En pantalla: 'proyección hipotética'.",
+ "fuentes": [
+  "https://www.elespanol.com/invertia/economia/20261127/inflacion-modera-noviembre-abaratamiento-combustibles/1003744474396_0.html",
+  "https://www.agenciadenoticias.es/2026/11/27/la-inflacion-interanual-modera-su-avance-ocho-decimas-en-noviembre-y-se-situa-en-el-41",
+  "https://www.diariocritico.com/economia/inflacion-ipca-dato-adelantado-noviembre-2026",
+  "https://www.rankia.com/blog/bolsa-al-dia/7491284-inflacion-noviembre-ahorros-protegerlos"
+ ],
+ "origen": "crecimiento: secuela del n.º 4 del ranking (El ladrón invisible, el que más retiene: 57 % visto) + noticia del día (IPC adelantado, 27-nov) + reutiliza el reel aprobado del 22-nov que no se publicó",
+ "caption": "Inflación: el ladrón invisible ha vuelto… ¿y ahora roba menos? 🕵️ El IPC baja al 4,1 % en noviembre (dato adelantado del INE, 27-nov; en octubre, 4,9 %). Pero que baje la inflación no significa que bajen los precios: siguen subiendo, solo que más despacio. Si se mantuviera, lo que hoy compras con 10.000 € costaría 10.410 € dentro de un año y más de 12.200 € en cinco (proyección hipotética). ¿Tu dinero está quieto o trabajando? Comenta 1 o 2 👇 y mándaselo a quien cree que ya bajan los precios.\nContenido educativo, no es asesoramiento financiero.\n#inflacion #ipc #costedevida #finanzaspersonales #eleurolisto\n🎙 elevenlabs.io",
+ "listo_papel": "Modelado 'lowpoly' en la mesa: cae del cielo (entrada) y señala sorprendido el robo; brazos cruzados (escéptico) con 'dicen que ahora roba menos'; celebra y salta con 'ha bajado'; en jarras y preocupado con 'Pero…'; señala y tiembla cuando roban los huevos ('siguen subiendo'); piensa y mira el móvil mientras sube el precio; con los 12.200 € le cae el gorro roto (arruinado) y se desinfla; se enciende con '¿Y tu dinero?' (idea), salta con la opción 2 y firma con giro + guiño + mano redonda en alto pulsando '+ SEGUIR'.",
+ "musica": "original sintetizada, style chill, 92 bpm, seed 11, baja (0.30 / ducking 0.09)",
+ "creditos": "ElevenLabs 464 caracteres (Scribe 0); Creative Claw 0; vidIQ 5 (TikTok)",
+ "elevenlabs_flow": "OtZNunTfV2BUyBxDdfKU (voz nodo JgZmpqX3kqueMsnW4k7u, generación 5KtLjepmqZuzA8fNocU7; transcripción YCNUJX5SuA0uHp5Lo6Bs)",
+ "estado": "ENVIADO a Sergio para aprobar (27-nov noche)",
+ "portada": "portada/portada.jpg (fondo reutilizado del 22-nov: la habitación con el aceite saliendo por la ventana y Listo 'lowpoly' señalándolo sorprendido; kicker PARTE 2 · INFLACIÓN, 'El LADRÓN ha vuelto', '¿y ahora roba menos?', etiqueta ámbar 'IPC 4,1 %')",
+ "duracion_s": 27.2,
+ "brillo": "brillo medio por fotograma (54x96 gris): 87–123 (luz fija); salto máximo 3,0 (0 saltos > 8)",
+ "loudness": "−14,5 LUFS",
+ "mezcla": "sonido.py: audio.mezclar (música chill 92 bpm + 45 efectos) + voice.wav con amix y loudnorm −14 LUFS"
+}

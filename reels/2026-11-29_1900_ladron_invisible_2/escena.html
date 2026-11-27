@@ -1,0 +1,400 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<script type="importmap">{"imports":{"three":"../../toolkit/escena3d/node_modules/three/build/three.module.js","lib3d":"../../toolkit/escena3d/lib3d.js","listo3d":"../../toolkit/mascota/listo3d.js"}}</script>
+<style id="base"></style>
+<style>
+#barra{left:60px;right:60px;top:92px;height:8px;display:flex;gap:10px}
+#barra i{flex:1;background:rgba(255,255,255,.28);border-radius:4px;overflow:hidden;position:relative}
+#barra i b{position:absolute;left:0;top:0;bottom:0;background:#fff;border-radius:4px}
+#label{left:62px;top:150px;font:600 30px 'DejaVu Sans Mono',monospace;letter-spacing:5px;color:rgba(235,240,255,.86);text-shadow:0 2px 8px rgba(0,0,0,.5)}
+#label b{color:#ff6b5e;font-weight:700}
+#hook{left:0;right:0;top:1112px;text-align:center}
+#hook .k{display:inline-block;font:700 38px 'Poppins';letter-spacing:5px;color:#fff;background:#ef4444;padding:8px 26px;border-radius:40px;margin-bottom:14px;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+#hook h1{margin:0;font:800 128px/1.0 'Inter';letter-spacing:-4px;color:#fff;text-transform:uppercase;text-shadow:0 8px 30px rgba(0,0,0,.75),0 2px 4px rgba(0,0,0,.6)}
+#hook h1 em{font-style:normal;color:#ffc547}
+#mas{left:0;right:0;top:560px;text-align:center}
+#mas span{display:inline-block;font:800 64px 'Inter';color:#fff;background:#ef4444;letter-spacing:-1px;padding:10px 34px;border-radius:22px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+#ipc{left:0;right:0;top:1000px;text-align:center}
+#ipc b{display:inline-block;font:700 190px/1 'Poppins';color:#ff4d3d;border:12px solid #ff4d3d;border-radius:30px;padding:24px 44px 10px;background:rgba(40,8,8,.22);box-shadow:0 0 30px rgba(255,77,61,.18)}
+#ipc div{font:700 44px 'Poppins';color:#fff;margin-top:22px;text-shadow:0 3px 14px rgba(0,0,0,.7)}
+#ipc .antes{display:block;font:700 54px 'Poppins';color:#dfe6ff;margin:0 0 14px;position:relative;text-shadow:0 3px 14px rgba(0,0,0,.7)}
+#ipc .antes s{text-decoration:none;position:relative}
+#ipc .antes s i{position:absolute;left:-6px;right:-6px;top:52%;height:7px;background:#ff4d3d;border-radius:4px;transform-origin:0 50%}
+#ipc b.verde{color:#4ade80;border-color:#4ade80;background:rgba(8,40,20,.22);box-shadow:0 0 30px rgba(74,222,128,.18)}
+#nobaja{left:70px;right:70px;top:1000px;display:flex;flex-direction:column;align-items:center;gap:10px}
+#nobaja .f{font:800 78px/1 'Inter';letter-spacing:-2px;color:#fff;background:rgba(10,14,28,.80);padding:16px 34px 14px;border-radius:26px;box-shadow:0 10px 30px rgba(0,0,0,.4);position:relative;white-space:nowrap}
+#nobaja .f b{font-weight:800}
+#nobaja .f1 b{color:#4ade80}
+#nobaja .f2 b{color:#4ade80}
+#nobaja .neq{font:800 170px/0.8 'Poppins';color:#ffc547;text-shadow:0 6px 24px rgba(0,0,0,.7)}
+#nobaja .f2 i{position:absolute;left:18px;right:18px;top:50%;height:10px;background:#ff4d3d;border-radius:5px;transform-origin:0 50%}
+#nobaja .f3{background:#ef4444;color:#fff}
+#nobaja .f3 small{font:700 44px 'Poppins';letter-spacing:0;margin-left:10px}
+#panel{left:62px;top:590px;border-left:5px solid rgba(255,255,255,.75);padding-left:28px;color:#fff;text-shadow:0 3px 14px rgba(0,0,0,.6)}
+#panel .lab{font:600 26px 'DejaVu Sans Mono',monospace;letter-spacing:5px;color:#c9d4ff}
+#panel .anyo{font:700 150px/1 'Poppins';display:flex;align-items:baseline;gap:14px;margin:4px 0 14px}
+#panel .anyo small{font:600 46px 'Poppins';color:#dfe6ff}
+#panel .val{font:700 84px/1.05 'Poppins';margin:2px 0 6px;transform-origin:0 50%}
+#panel .hoy{font:600 34px 'Poppins';color:#dfe6ff}
+#golpe{left:0;right:0;top:1030px;text-align:center}
+#golpe b{display:inline-block;font:700 120px/1 'Poppins';color:#1c1407;background:#ffc547;padding:14px 40px 8px;border-radius:26px;box-shadow:0 14px 40px rgba(0,0,0,.45)}
+#golpe div{font:700 42px 'Poppins';color:#fff;margin-top:20px;text-shadow:0 3px 14px rgba(0,0,0,.7)}
+#botones{left:0;right:0;top:1050px;display:flex;flex-direction:column;align-items:center;gap:22px}
+#botones .q{font:800 96px/1 'Inter';color:#fff;letter-spacing:-3px;text-shadow:0 6px 26px rgba(0,0,0,.75);margin-bottom:6px}
+#botones .b{display:flex;align-items:center;gap:20px;font:700 52px 'Poppins';color:#14181f;padding:16px 46px;border-radius:70px;box-shadow:0 12px 34px rgba(0,0,0,.4);min-width:600px;justify-content:center}
+#botones .b1{background:#ff6b5e}#botones .b2{background:#4ade80}
+#leccion{left:90px;right:90px;top:875px;text-align:center;font:700 36px/1.25 'Poppins';color:#fff;background:rgba(10,14,28,.78);padding:16px 26px;border-radius:24px;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+#leccion em{font-style:normal;color:#ffc547}
+#seguir{left:0;top:0;font:700 46px 'Poppins';color:#14181f;background:#fff;padding:14px 38px;border-radius:60px;box-shadow:0 10px 30px rgba(0,0,0,.45);white-space:nowrap}
+#fuente{left:40px;right:40px;top:1418px;text-align:center;font:600 22px 'Inter';color:rgba(255,255,255,.72);text-shadow:0 2px 8px rgba(0,0,0,.7)}
+#marca{left:0;right:0;top:1458px;text-align:center;font:600 32px 'Poppins';color:rgba(255,255,255,.85);text-shadow:0 2px 10px rgba(0,0,0,.6)}
+</style></head>
+<body>
+<div id="barra" class="ov"></div>
+<div id="label" class="ov"><b>●</b> PARTE 2 · EL LADRÓN INVISIBLE</div>
+<div id="subs" class="ov"></div>
+<div id="hook" class="ov"><div class="k">PARTE 2</div><h1>EL <em>LADRÓN</em><br>HA VUELTO</h1></div>
+<div id="mas" class="ov"><span>…¿y ahora roba MENOS?</span></div>
+<div id="ipc" class="ov"><div class="antes">octubre: <s>4,9 %<i></i></s></div><b class="verde">4,1 %</b><div>IPC adelantado de noviembre (INE)</div></div>
+<div id="nobaja" class="ov"><div class="f f1">INFLACIÓN <b>↓</b></div><div class="neq">≠</div><div class="f f2">PRECIOS <b>↓</b><i></i></div><div class="f f3">PRECIOS ↑<small>más despacio</small></div></div>
+<div id="panel" class="ov">
+  <div class="lab">TIEMPO</div>
+  <div class="anyo"><span id="n">0</span><small id="nlab">años</small></div>
+  <div class="lab">LA MISMA COMPRA</div><div class="val" id="compra">10.000 €</div>
+  <div class="hoy">hoy: 10.000 €</div>
+</div>
+<div id="golpe" class="ov"><b>+22 %</b><div>lo mismo, más caro (si sigue así)</div></div>
+<div id="leccion" class="ov">Lo que no vas a tocar en años tiene que <em>ganarle a la inflación</em></div>
+<div id="botones" class="ov"><div class="q">¿Y TU DINERO?</div><div class="b b1">1 · QUIETO EN LA CUENTA</div><div class="b b2">2 · TRABAJANDO</div></div>
+<div id="seguir" class="ov">+ SEGUIR · parte 3</div>
+<div id="fuente" class="ov">IPC adelantado nov. 2026: 4,1 % (INE, 27-nov) · proyección hipotética</div>
+<div id="marca" class="ov">@eleurolisto</div>
+<script type="module">
+import * as THREE from "three";
+import * as L from "lib3d";
+import { crearListo } from "listo3d";
+const { clamp, lerp, prog, easeOut, easeInOut, easeBack, easeIn, smooth, v3, caja, cil, bola, mat, malla } = L;
+document.getElementById("base").textContent = L.CSS_BASE;
+// Look R7 · 3D de bloques "simulación" (n.º 4 del ranking: secuela de "El ladrón invisible", con el IPC adelantado de noviembre), SIN cambios de luz: luz de
+// tarde FIJA (el original tenía día/noche; aquí el paso del tiempo va en el reloj, que gira, y en el contador). Listo 'lowpoly'.
+
+// ---------- tiempos (voz ElevenLabs · Mateo) ----------
+const TIM = window.TIM, S = TIM.segments;
+const st = (i) => S[i].start, en = (i) => S[i].start + S[i].dur;
+const limpia = (w) => w.toLowerCase().replace(/[¿?¡!.,:;…]/g, "");
+const pal = (i, f, n = 0) => { const ws = S[i].words.filter((w) => limpia(w.w) === f); const w = ws[n] || ws[0]; if (!w) console.warn("falta", f); return w ? w.start : S[i].start; };
+const DUR = (window.DURACION = +(TIM.total + 0.45).toFixed(2));
+const T = { dicen: pal(0, "dicen"), ahora: pal(0, "ahora"), roba: pal(0, "roba"), mas: pal(0, "menos"), s1: st(1), bajado: pal(1, "bajado"), cuatro: pal(1, "cuatro"),
+  s2: st(2), no: pal(2, "no"), bajen: pal(2, "bajen"), precios: pal(2, "precios"), siguen: pal(2, "siguen"), subiendo: pal(2, "subiendo"), despacio: pal(2, "despacio"),
+  s3: st(3), hoy: pal(3, "hoy"), diez: pal(3, "diez"), dentro: pal(3, "dentro"), costara: pal(3, "costará"), noventa: pal(3, "diez", 1),
+  s4: st(4), cinco: pal(4, "cinco"), doce: pal(4, "doce"), setecientos: pal(4, "doscientos"),
+  s5: st(5), tuyo: pal(5, "dinero"), s6: st(6), uno: pal(6, "uno"), dos: pal(6, "dos"), s7: st(7), ladron7: pal(7, "ladrón"), vuelve: pal(7, "vuelve") };
+const FINV = en(7);
+// años: 0 → 1 mientras dice "dentro de un año costará…", 1 → 5 con "en cinco años, unos doce mil setecientos"
+const anyos = (t) => t < T.dentro ? 0 : t < T.s4 ? smooth(prog(t, T.dentro, T.noventa - T.dentro)) : 1 + 4 * easeInOut(prog(t, T.cinco - 0.1, T.setecientos - T.cinco + 0.1));
+const precio = (y) => 10000 * Math.pow(1.041, y);
+
+// ---------- render ----------
+const W = 1080, H = 1920;
+const r = new THREE.WebGLRenderer({ antialias: true });
+r.setPixelRatio(1); r.setSize(W, H);
+r.shadowMap.enabled = true; r.shadowMap.type = THREE.PCFShadowMap;
+r.toneMapping = THREE.NeutralToneMapping; r.toneMappingExposure = 1.0;
+document.body.prepend(r.domElement);
+const esc = new THREE.Scene();
+const cam = new THREE.PerspectiveCamera(50, W / H, 0.05, 80);
+
+// ---------- habitación ----------
+const PARED = 0xb9a774, PARED2 = 0xa8955f;
+const suelo = new THREE.Mesh(new THREE.PlaneGeometry(9.2, 9), new THREE.MeshStandardMaterial({ map: L.texturaTablones("#a0623f"), roughness: 0.9 }));
+suelo.material.map.repeat.set(2, 2);
+suelo.rotation.x = -Math.PI / 2; suelo.position.set(0, 0, 0.6); suelo.receiveShadow = true; esc.add(suelo);
+const ZP = -3.5, WX0 = 0.7, WX1 = 2.9, WY0 = 1.25, WY1 = 3.35, HT = 4.2;
+esc.add(caja(WX0 + 4.6, HT, 0.2, PARED, [(-4.6 + WX0) / 2, HT / 2, ZP]));
+esc.add(caja(4.6 - WX1, HT, 0.2, PARED, [(WX1 + 4.6) / 2, HT / 2, ZP]));
+esc.add(caja(WX1 - WX0, WY0, 0.2, PARED, [(WX0 + WX1) / 2, WY0 / 2, ZP]));
+esc.add(caja(WX1 - WX0, HT - WY1, 0.2, PARED, [(WX0 + WX1) / 2, (HT + WY1) / 2, ZP]));
+esc.add(caja(0.2, HT, 9, PARED2, [-4.6, HT / 2, 1]));
+esc.add(caja(0.2, HT, 9, PARED2, [4.6, HT / 2, 1]));
+esc.add(caja(9.4, 0.2, 9, 0x6e5a3e, [0, HT + 0.1, 1]));
+esc.add(caja(9.2, 0.16, 0.06, 0x7a5236, [0, 0.08, ZP + 0.12])); // rodapié
+// ventana
+const MARCO = 0xf0e4c8, wx = (WX0 + WX1) / 2, wy = (WY0 + WY1) / 2;
+for (const [w, h, x, y] of [[WX1 - WX0 + 0.16, 0.1, wx, WY0], [WX1 - WX0 + 0.16, 0.1, wx, WY1], [0.1, WY1 - WY0, WX0, wy], [0.1, WY1 - WY0, WX1, wy], [0.07, WY1 - WY0, wx, wy], [WX1 - WX0, 0.07, wx, wy]])
+  esc.add(caja(w, h, 0.12, MARCO, [x, y, ZP + 0.02]));
+esc.add(caja(WX1 - WX0 + 0.5, 0.08, 0.34, MARCO, [wx, WY0 - 0.06, ZP + 0.17]));
+const cortina = (x) => esc.add(caja(0.38, 3.0, 0.1, 0xc8442b, [x, 2.45, ZP + 0.2]));
+cortina(WX0 - 0.3); cortina(WX1 + 0.3);
+esc.add(cil(0.025, 0.025, WX1 - WX0 + 1.4, 0x3a2a1e, [wx, 3.92, ZP + 0.2]).rotateZ(Math.PI / 2));
+// exterior: cielo, edificios y ventanitas
+const cielo = new THREE.Mesh(new THREE.PlaneGeometry(80, 40), new THREE.MeshBasicMaterial({ color: 0x8fc3f0 }));
+cielo.position.set(2, 6, -16); esc.add(cielo);
+const edifMat = new THREE.MeshBasicMaterial({ color: 0x8aa0b8 }), luzMat = new THREE.MeshBasicMaterial({ color: 0xffd27a, transparent: true, opacity: 0 });
+for (const [x, h, z, w] of [[-1.5, 3.0, -11, 2.6], [0.6, 3.6, -12.5, 2.2], [2.5, 2.2, -10, 1.8], [4.4, 3.9, -13, 2.8], [6.6, 2.6, -11.5, 2.4], [-4, 3.4, -12, 3]]) {
+  const b = new THREE.Mesh(new THREE.BoxGeometry(w, h, 1.5), edifMat); b.position.set(x, h / 2 - 0.5, z); esc.add(b);
+  for (let i = 0; i < 9; i++) {
+    const fx = x - w / 2 + 0.35 + ((i * 0.61) % (w - 0.6)), fy = 0.8 + ((i * 1.37) % (h - 1.6));
+    const v = new THREE.Mesh(new THREE.PlaneGeometry(0.28, 0.36), luzMat); v.position.set(fx, fy, z + 0.76); esc.add(v);
+  }
+}
+// alfombra, mesa y sillas
+esc.add(caja(3.6, 0.02, 2.5, 0xd9774a, [0, 0.01, -0.4]));
+const MESA = 0xb06a3b;
+esc.add(caja(2.35, 0.1, 1.3, MESA, [0, 0.86, -0.45]));
+for (const [x, z] of [[-1.05, -1.0], [1.05, -1.0], [-1.05, 0.1], [1.05, 0.1]]) esc.add(caja(0.1, 0.82, 0.1, 0x8a4f2a, [x, 0.41, z]));
+for (const x of [-0.6, 0.6]) {
+  esc.add(caja(0.5, 0.06, 0.48, 0x9c5a30, [x, 0.5, -1.45]));
+  esc.add(caja(0.5, 0.62, 0.06, 0x9c5a30, [x, 0.85, -1.68]));
+  for (const [dx, dz] of [[-0.21, -0.2], [0.21, -0.2], [-0.21, 0.2], [0.21, 0.2]]) esc.add(caja(0.05, 0.48, 0.05, 0x7a4424, [x + dx, 0.24, -1.45 + dz]));
+}
+// cómoda con cajón y billetes
+const CX = -2.55, CZ = -3.12;
+esc.add(caja(1.6, 0.95, 0.6, 0x94603c, [CX, 0.535, CZ]));
+esc.add(caja(1.5, 0.36, 0.03, 0x8e5a38, [CX, 0.3, CZ + 0.31]));
+esc.add(bola(0.035, 0xe8c27a, [CX, 0.3, CZ + 0.34], 0));
+const cajon = new THREE.Group(); cajon.position.set(CX, 0.6, CZ + 0.3); esc.add(cajon);
+cajon.add(caja(1.5, 0.3, 0.04, 0x8e5a38, [0, 0.16, 0.02]));
+cajon.add(bola(0.04, 0xe8c27a, [0, 0.16, 0.06], 0));
+cajon.add(caja(1.4, 0.03, 0.52, 0x5c3820, [0, 0.04, -0.26]));
+for (const x of [-0.69, 0.69]) cajon.add(caja(0.03, 0.26, 0.52, 0x6b4227, [x, 0.16, -0.26]));
+cajon.add(caja(1.4, 0.26, 0.03, 0x6b4227, [0, 0.16, -0.51]));
+for (let i = 0; i < 5; i++) {
+  const g = new THREE.Group(); g.position.set(-0.5 + i * 0.25, 0.06, -0.2 + (i % 2) * 0.05); g.rotation.y = (i - 2) * 0.06;
+  g.add(caja(0.2, 0.2, 0.11, 0xf0a54e, [0, 0.1, 0]));
+  g.add(caja(0.05, 0.205, 0.115, 0xf5ecd8, [0, 0.1, 0]));
+  cajon.add(g);
+}
+esc.add(caja(1.6, 0.06, 0.62, 0x6b3f25, [CX, 1.04, CZ]));
+esc.add(cil(0.09, 0.12, 0.28, 0x5d8aa8, [CX - 0.45, 1.21, CZ]));
+esc.add(caja(0.34, 0.26, 0.04, 0x2c2c2c, [CX + 0.35, 1.2, CZ - 0.1]).rotateX(-0.15));
+// reloj, cuadros, lámpara, planta
+const reloj = new THREE.Group(); reloj.position.set(CX, 2.85, ZP + 0.12); esc.add(reloj);
+reloj.add(malla(new THREE.CylinderGeometry(0.34, 0.34, 0.06, 24), 0x2b2b2b).rotateX(Math.PI / 2));
+reloj.add(malla(new THREE.CylinderGeometry(0.3, 0.3, 0.07, 24), 0xf7f2e6).rotateX(Math.PI / 2));
+const aguja = (l, w) => { const g = new THREE.Group(); g.position.z = 0.05; g.add(caja(w, l, 0.02, 0x1a1a1a, [0, l / 2 - 0.03, 0])); reloj.add(g); return g; };
+const agH = aguja(0.17, 0.035), agM = aguja(0.25, 0.025);
+esc.add(caja(0.78, 0.6, 0.05, 0xe7a35b, [-0.75, 2.6, ZP + 0.12]));
+esc.add(caja(0.6, 0.42, 0.06, 0xf6c983, [-0.75, 2.6, ZP + 0.13]));
+esc.add(caja(0.44, 0.55, 0.05, 0x7c9a6a, [-1.55, 2.45, ZP + 0.12]));
+const lamp = new THREE.Group(); lamp.position.set(0, HT, -0.45); esc.add(lamp);
+lamp.add(cil(0.012, 0.012, 1.0, 0x222222, [0, -0.5, 0], 6));
+const pantalla = malla(new THREE.ConeGeometry(0.42, 0.34, 10, 1, true), 0x2f5d3a, [0, -1.12, 0]);
+lamp.add(pantalla);
+const interior = new THREE.Mesh(new THREE.ConeGeometry(0.4, 0.33, 10, 1, true), new THREE.MeshBasicMaterial({ color: 0xe9c48c, side: THREE.BackSide }));
+interior.position.y = -1.12; lamp.add(interior);
+const bombMat = new THREE.MeshBasicMaterial({ color: 0xfff1c9 });
+const bomb = new THREE.Mesh(new THREE.SphereGeometry(0.09, 12, 8), bombMat); bomb.position.y = -1.25; lamp.add(bomb);
+const luzLamp = new THREE.PointLight(0xffb86b, 0, 9, 1.6); luzLamp.position.y = -1.3; lamp.add(luzLamp);
+esc.add(cil(0.24, 0.18, 0.45, 0xc0663e, [3.75, 0.225, -2.9], 10));
+for (let i = 0; i < 7; i++) {
+  const h = malla(new THREE.ConeGeometry(0.12, 0.9 + (i % 3) * 0.25, 5), 0x4f8a3c, [3.75, 0.85, -2.9]);
+  h.rotation.set(Math.cos(i * 1.7) * 0.5, 0, Math.sin(i * 1.7) * 0.5); h.position.x += Math.sin(i * 1.7) * -0.12; h.position.z += Math.cos(i * 1.7) * 0.12;
+  esc.add(h);
+}
+
+// ---------- la compra ----------
+const Y0 = 0.91, COL = [-0.78, -0.26, 0.26, 0.78], FIL = [-0.9, -0.6, -0.3, 0.0];
+const prod = [];
+const P = (nombre, c, f, fn) => { const g = new THREE.Group(); fn(g); g.userData.base = new THREE.Vector3(COL[c], Y0, FIL[f]); g.position.copy(g.userData.base); esc.add(g); prod.push({ nombre, g }); return g; };
+P("aceite", 2, 0, (g) => { g.add(cil(0.085, 0.09, 0.36, 0x6f8f22, [0, 0.18, 0])); g.add(cil(0.03, 0.05, 0.12, 0x6f8f22, [0, 0.42, 0])); g.add(cil(0.035, 0.035, 0.04, 0xd4a017, [0, 0.5, 0])); g.add(cil(0.092, 0.092, 0.1, 0xf3d36b, [0, 0.17, 0])); });
+P("vino", 1, 0, (g) => { g.add(cil(0.075, 0.075, 0.34, 0x3d0f1e, [0, 0.17, 0])); g.add(cil(0.028, 0.045, 0.16, 0x3d0f1e, [0, 0.42, 0])); g.add(cil(0.078, 0.078, 0.1, 0xefe6d2, [0, 0.16, 0])); });
+P("cereales", 0, 0, (g) => { g.add(caja(0.26, 0.38, 0.09, 0xe0412f, [0, 0.19, 0])); g.add(caja(0.2, 0.12, 0.095, 0xffd34d, [0, 0.24, 0])); });
+P("agua", 3, 0, (g) => { g.add(cil(0.08, 0.08, 0.36, 0x9fd2ee, [0, 0.18, 0])); g.add(cil(0.03, 0.03, 0.05, 0x2b6cb0, [0, 0.39, 0])); g.add(cil(0.082, 0.082, 0.09, 0x2b6cb0, [0, 0.2, 0])); });
+P("leche", 0, 1, (g) => { g.add(caja(0.16, 0.28, 0.16, 0xf7f7f2, [0, 0.14, 0])); g.add(caja(0.165, 0.07, 0.165, 0x3a7bd5, [0, 0.24, 0])); g.add(malla(new THREE.ConeGeometry(0.115, 0.09, 4), 0xf7f7f2, [0, 0.325, 0]).rotateY(Math.PI / 4)); });
+P("café", 1, 1, (g) => { g.add(caja(0.18, 0.22, 0.11, 0x5b3a24, [0, 0.11, 0])); g.add(caja(0.185, 0.07, 0.115, 0xd9b26c, [0, 0.13, 0])); });
+P("jamón", 2, 1, (g) => { const j = malla(new THREE.IcosahedronGeometry(0.16, 1), 0x8c2f2a, [0.05, 0.1, 0]); j.scale.set(1.7, 0.7, 0.9); g.add(j); g.add(cil(0.025, 0.05, 0.22, 0xe8d4b0, [-0.27, 0.12, 0]).rotateZ(1.2)); g.add(caja(0.12, 0.03, 0.18, 0x6b4a2a, [0.05, 0.01, 0])); });
+P("detergente", 3, 1, (g) => { g.add(caja(0.18, 0.3, 0.12, 0xff8c1a, [0, 0.15, 0])); g.add(cil(0.03, 0.03, 0.05, 0x1f5fbf, [0.04, 0.32, 0])); });
+P("pasta", 0, 2, (g) => { g.add(caja(0.22, 0.12, 0.08, 0x2457c5, [0, 0.06, 0])); g.add(caja(0.1, 0.07, 0.082, 0xf3d36b, [0.03, 0.06, 0])); });
+P("pan", 1, 2, (g) => { const b = malla(new THREE.CapsuleGeometry(0.055, 0.36, 3, 8), 0xd9a55b, [0, 0.06, 0]); b.rotation.z = Math.PI / 2; b.rotation.y = 0.4; g.add(b); });
+P("queso", 2, 2, (g) => { g.add(malla(new THREE.CylinderGeometry(0.14, 0.14, 0.1, 12, 1, false, 0, Math.PI * 1.65), 0xf2c94c, [0, 0.05, 0])); });
+P("huevos", 3, 2, (g) => { g.add(caja(0.28, 0.06, 0.13, 0xb8b2a7, [0, 0.03, 0])); for (let i = 0; i < 6; i++) g.add(bola(0.03, 0xf3e3c8, [-0.09 + (i % 3) * 0.09, 0.075, i < 3 ? -0.03 : 0.03], 1)); });
+P("manzanas", 0, 3, (g) => { for (const [x, z] of [[-0.06, 0], [0.06, 0.02], [0, -0.07]]) g.add(bola(0.06, 0xc8302b, [x, 0.06, z], 1)); });
+P("naranjas", 1, 3, (g) => { for (const [x, z] of [[-0.07, 0], [0.07, 0.01], [0, -0.08]]) g.add(bola(0.065, 0xf28c28, [x, 0.065, z], 1)); });
+P("tomates", 2, 3, (g) => { for (const [x, z] of [[-0.05, 0], [0.06, 0.02]]) g.add(bola(0.055, 0xe0442e, [x, 0.055, z], 1)); });
+P("plátanos", 3, 3, (g) => { for (let i = 0; i < 3; i++) { const b = malla(new THREE.CapsuleGeometry(0.025, 0.2, 3, 6), 0xf5d142, [0, 0.03, -0.04 + i * 0.04]); b.rotation.z = Math.PI / 2; b.rotation.y = 0.3 - i * 0.1; g.add(b); } });
+const bez = (p0, p1, p2, p3, k) => { const u = 1 - k; return p0.clone().multiplyScalar(u * u * u).add(p1.clone().multiplyScalar(3 * u * u * k)).add(p2.clone().multiplyScalar(3 * u * k * k)).add(p3.clone().multiplyScalar(k * k * k)); };
+function vuelo(p, t, t0, dur = 1.25) {
+  // devuelve true si el producto está en el aire (o ya robado)
+  const g = p.g, b = p.g.userData.base;
+  if (t < t0) return false;
+  const jig = prog(t, t0, 0.3);
+  if (jig < 1) { g.position.copy(b); g.position.y += Math.abs(Math.sin(jig * Math.PI * 4)) * 0.03; g.rotation.z = Math.sin(jig * Math.PI * 6) * 0.08; g.scale.setScalar(1); return true; }
+  const k = prog(t, t0 + 0.3, dur);
+  if (k >= 1) { g.visible = false; return true; }
+  const e = easeInOut(k);
+  const p0 = b.clone(), p1 = b.clone().add(v3([0, 1.3, 0.2])), p2 = VENT.clone().add(v3([0, 0.2, 1.6])), p3 = VENT.clone().add(v3([0.2, 0.5, -3.5]));
+  g.position.copy(bez(p0, p1, p2, p3, e));
+  g.position.y += Math.sin(k * Math.PI * 3) * 0.05;
+  g.rotation.set(Math.sin(k * 5) * 0.6, k * 5.5, Math.sin(k * 3.2) * 0.5);
+  g.scale.setScalar(1 - 0.35 * easeIn(k));
+  return true;
+}
+
+
+// ---------- luces ----------
+const hemi = new THREE.HemisphereLight(0xdfe8ff, 0x5a3a28, 1); esc.add(hemi);
+const sol = new THREE.DirectionalLight(0xfff0d6, 3); sol.castShadow = true;
+sol.shadow.mapSize.set(2048, 2048); Object.assign(sol.shadow.camera, { left: -7, right: 7, top: 7, bottom: -7, near: 1, far: 40 });
+sol.shadow.bias = -0.0004; sol.shadow.normalBias = 0.03; sol.shadow.radius = 3;
+sol.target.position.set(0.5, 0, -0.8); esc.add(sol, sol.target);
+const luna = new THREE.DirectionalLight(0x8fa6ff, 0.0); luna.position.set(-3, 7, -6); esc.add(luna);
+const amb = new THREE.AmbientLight(0xffe6c8, 0.25); esc.add(amb);
+const relleno = new THREE.DirectionalLight(0xfff3e0, 0.9); relleno.position.set(2, 4, 8); relleno.target.position.set(0, 1, -1); esc.add(relleno, relleno.target);
+
+// ---------- luz de tarde FIJA (sin cambios de luz) ----------
+(function luzFija() {
+  const h = 0.6, u = (h - 0.25) / 0.5;
+  cielo.material.color.set("#9cc8ee");
+  sol.intensity = 3.2; sol.color.setHSL(0.09, 0.85, 0.78); sol.position.set(lerp(7.5, -7.5, u), 1.6 + 6.5 * Math.sin(Math.PI * u), -9);
+  hemi.intensity = 1.6; hemi.color.set(0xdfe8ff); relleno.intensity = 0.85; relleno.color.set(0xfff3e0);
+  luzLamp.intensity = 0.6; bombMat.color.set(0xd8d2c0); edifMat.color.set(0x8aa0b8); luzMat.opacity = 0;
+})();
+
+// ---------- la compra y los robos ----------
+const byName = Object.fromEntries(prod.map((p) => [p.nombre, p]));
+const orden = [12, 13, 14, 15, 8, 9, 10, 11, 4, 5, 6, 7, 0, 1, 2, 3].map((i) => prod[i]);
+orden.forEach((p, i) => (p.tPop = T.hoy - 0.05 + i * 0.06));
+const VENT = v3([wx, wy, ZP]);
+const robosGancho = [["aceite", 0.04], ["jamón", T.roba - 0.3], ["queso", T.mas - 0.15], ["huevos", T.subiendo - 0.3]];
+const robos = [["café", T.costara - 0.2], ["vino", T.cinco - 0.25], ["cereales", T.doce - 0.35], ["leche", T.setecientos - 0.2]];
+const pufs = [0, 1, 2, 3, 4, 5, 6, 7].map(() => L.puf(esc));
+
+// ---------- personaje y Listo ----------
+const yo = L.persona({});
+yo.root.position.set(1.55, 0, 0.42); yo.root.rotation.y = -0.85; esc.add(yo.root);
+const LIS = crearListo({ estilo: "lowpoly", escala: 0.27 }); esc.add(LIS.root);
+LIS.root.traverse((o) => { if (o.isMesh && !o.material.transparent) o.castShadow = true; });
+
+// ---------- cámara (todo movimiento, nada de luz) ----------
+const camara = L.camaraSuave([
+  { t: 0, p: [-0.6, 1.95, 3.15], m: [0.55, 1.45, -1.4], fov: 52 },
+  { t: T.s1 - 0.3, p: [-0.35, 2.0, 2.75], m: [0.9, 1.75, -2.0], fov: 50 },
+  { t: T.s1 + 0.6, p: [-0.15, 2.3, 3.7], m: [0.6, 1.8, -2.6], fov: 50 },
+  { t: T.s2 + 0.3, p: [-1.0, 2.0, 2.6], m: [-0.3, 0.72, -0.35], fov: 50 },
+  { t: T.subiendo, p: [-0.75, 2.05, 2.8], m: [-0.2, 0.7, -0.4], fov: 50 },
+  { t: T.s3 + 0.2, p: [-0.05, 2.4, 3.8], m: [0.55, 1.7, -2.4], fov: 50 },
+  { t: T.hoy + 0.3, p: [0.05, 3.7, 2.7], m: [0.0, 0.8, -0.45], fov: 50 },
+  { t: T.dentro - 0.2, p: [-0.1, 3.5, 2.5], m: [0.0, 0.8, -0.45], fov: 50 },
+  { t: T.dentro + 0.9, p: [0.0, 2.3, 4.8], m: [0.75, 1.4, -1.2], fov: 54 },
+  { t: T.setecientos + 0.3, p: [1.2, 2.2, 4.9], m: [0.7, 1.4, -1.2], fov: 54 },
+  { t: T.s5 + 0.4, p: [0.2, 1.8, 3.6], m: [0.4, 1.25, 0.3], fov: 50 },
+  { t: T.s7, p: [0.1, 1.85, 3.8], m: [0.35, 1.25, 0.2], fov: 50 },
+  { t: DUR, p: [-0.3, 2.2, 4.6], m: [0.5, 1.3, -0.6], fov: 52 },
+], 0.32);
+
+// ---------- capas 2D ----------
+const $ = (id) => document.getElementById(id);
+const subs = L.subtitulos($("subs"), TIM, {
+  sust: [{ de: ["diez", "mil", "euros"], a: "10.000 €" }, { de: ["cuatro", "coma", "uno", "por", "ciento"], a: "4,1 %" }, { de: ["diez", "mil", "cuatrocientos", "diez"], a: "10.410 €" },
+         { de: ["doce", "mil", "doscientos"], a: "12.200 €" }, { de: ["un", "año"], a: "1 año" }, { de: ["cinco", "años"], a: "5 años" }],
+  clave: ["ladrón", "menos", "inflaci", "4,1", "precios", "subiendo", "10.000", "10.410", "12.200", "quieto", "trabajando", "vuelve"],
+});
+const barra = $("barra"); barra.innerHTML = S.map(() => "<i><b></b></i>").join("");
+const show = (id, v) => ($(id).style.display = v ? "" : "none");
+
+window.renderAt = (t) => {
+  const PORT = window.PORTADA;
+  // productos: el gancho roba 3; con "lo que HOY compras" la compra entera vuelve a la mesa y el tiempo se la va llevando
+  for (const p of prod) {
+    const g = p.g; g.visible = true; g.rotation.set(0, 0, 0); g.scale.setScalar(1); g.position.copy(g.userData.base);
+    if (t < T.hoy - 0.1) { const rg = robosGancho.find(([n]) => n === p.nombre); if (rg) vuelo(p, t, rg[1], 1.1); continue; }
+    const k = prog(t, p.tPop, 0.36);
+    if (k <= 0) { g.visible = !robosGancho.some(([n]) => n === p.nombre); continue; }
+    if (robosGancho.some(([n]) => n === p.nombre)) { g.scale.setScalar(Math.max(0.001, easeBack(k, 2.2))); g.position.y += (1 - easeOut(k)) * 0.35; }
+    const rb = robos.find(([n]) => n === p.nombre); if (rb) vuelo(p, t, rb[1], 1.0);
+  }
+  robosGancho.forEach(([n, t0], i) => pufs[i](t, t0 + 0.3, byName[n].g.userData.base.clone().add(v3([0, 0.1, 0]))));
+  robos.forEach(([n, t0], i) => pufs[i + robosGancho.length](t, t0 + 0.3, byName[n].g.userData.base.clone().add(v3([0, 0.1, 0]))));
+  // reloj: el tiempo pasa en las agujas (no en la luz)
+  const y = anyos(t), horas = 15 + t * 0.4 + y * 24 * 3;
+  agH.rotation.z = -(horas / 12) * Math.PI * 2; agM.rotation.z = -(horas % 1) * Math.PI * 2;
+  lamp.rotation.z = Math.sin(t * 1.3) * 0.035; lamp.rotation.x = Math.sin(t * 0.9) * 0.025;
+
+  // personaje: mira los robos y se asusta
+  const p = yo; p.root.position.y = 0; p.torso.scale.y = 1 + 0.012 * Math.sin((t / 3.1) * Math.PI * 2);
+  let armX = 0.05 * Math.sin(t * 2), armZ = 0.06, robando = null;
+  for (const [n, t0] of [...robosGancho, ...robos]) { const q = byName[n]; if (t > t0 - 0.1 && t < t0 + 1.5 && q.g.visible) robando = q.g; }
+  for (const [, t0] of [...robosGancho, ...robos]) { const k = prog(t, t0 + 0.25, 0.5); if (k > 0 && k < 1) { const s = Math.sin(Math.PI * k); p.root.position.y = 0.14 * s; armX -= 1.0 * s; armZ += 0.3 * s; } }
+  const kShr = easeInOut(prog(t, T.s5 - 0.2, 0.5)); armX = lerp(armX, -0.55, kShr); armZ = lerp(armZ, -0.5, kShr);
+  p.brazoI.rotation.set(armX, 0, armZ); p.brazoD.rotation.set(armX, 0, -armZ);
+  p.root.rotation.y = lerp(-0.85, -0.3, easeInOut(prog(t, T.s5 - 0.2, 0.8)));
+  const objetivo = t < T.s5 ? v3([0, 0.95, -0.45]) : v3([0.2, 1.8, 3.6]);
+  if (robando) objetivo.copy(robando.getWorldPosition(new THREE.Vector3()));
+  L.mirarA(p, objetivo, 1);
+  const susto = Math.max(...[...robosGancho, ...robos].map(([, t0]) => Math.sin(Math.PI * prog(t, t0 + 0.2, 0.7))), Math.sin(Math.PI * prog(t, T.setecientos - 0.1, 1.2)));
+  p.boca.scale.set(1 - 0.3 * susto, 1 + 2.6 * susto, 1); p.cejas.forEach((c) => (c.position.y = 0.335 + 0.035 * susto));
+
+  // Listo (lowpoly): cae al empezar, reacciona y firma
+  const lo = { expr: "normal", pose: "reposo", mira: [0.3, 0.1], acc: [], accK: {} };
+  let glow = 1;
+  if (t < 1.05) { lo.anim = "entrada"; lo.animT = t + 0.25; }
+  else if (t < T.s1) { if (t < T.dicen) { lo.pose = "senala"; lo.expr = "sorpresa"; lo.mira = [0.6, 0.3]; } else { lo.pose = "brazosCruzados"; lo.expr = "normal"; lo.mira = [0.1, 0.0]; } }
+  else if (t < T.s2) { lo.pose = "celebra"; lo.expr = "feliz"; glow = lerp(1, 1.12, smooth(prog(t, T.bajado, 0.5))); if (t > T.bajado - 0.1 && t < T.bajado + 0.9) { lo.anim = "salto"; lo.animT = t - T.bajado + 0.1; } }
+  else if (t < T.s3) { glow = lerp(1.12, 0.9, smooth(prog(t, T.s2, 0.6)));
+    if (t < T.subiendo - 0.35) { lo.pose = "manosCadera"; lo.expr = "preocupado"; }
+    else { lo.pose = "senala"; lo.expr = "sorpresa"; lo.mira = [0.6, 0.3]; if (t < T.subiendo + 0.9) { lo.anim = "temblor"; lo.animT = t - T.subiendo + 0.35; lo.fijarPose = true; } } }
+  else if (t < T.s4) { lo.pose = t < T.dentro ? "piensa" : "telefono"; lo.expr = t < T.dentro ? "normal" : t < T.noventa ? "habla" : "sorpresa"; glow = 0.9; }
+  else if (t < T.s5) { lo.pose = "reposo"; lo.expr = "preocupado"; lo.modo = "arruinado"; lo.accK = { gorroRoto: easeOut(prog(t, T.doce - 0.2, 0.45)) }; if (t > T.setecientos - 0.15) { lo.anim = "desinfla"; lo.animT = t - T.setecientos + 0.15; } glow = lerp(0.9, 0.75, smooth(prog(t, T.doce, 0.6))); }
+  else if (t < T.s6) { lo.pose = "piensa"; lo.expr = "idea"; glow = lerp(0.75, 1.15, smooth(prog(t, T.s5, 0.5))); }
+  else if (t < T.s7) { lo.pose = t < T.dos ? "senala" : "celebra"; lo.expr = "feliz"; glow = 1.15; if (t > T.dos - 0.1 && t < T.dos + 0.9) { lo.anim = "salto"; lo.animT = t - T.dos + 0.1; } }
+  else { lo.pose = "pulgar"; lo.expr = "guino"; glow = 1.1; if (t < T.s7 + 0.75) { lo.anim = "giro"; lo.animT = t - T.s7; lo.fijarExpr = true; } }
+  if (PORT) { lo.anim = null; lo.modo = null; lo.accK = {}; lo.pose = "senala"; lo.expr = "sorpresa"; lo.mira = [0.6, 0.3]; }
+  lo.glow = glow;
+  LIS.root.position.set(-0.42, 0.91, 0.13); LIS.root.rotation.y = 0.3 + Math.sin(t * 0.7) * 0.06;
+  LIS.actualizar(t, lo);
+
+  const c = camara(PORT ? 0.8 : t);
+  const tg = T.setecientos - 0.05, sh = Math.exp(-Math.max(0, t - tg) * 7) * (t > tg ? 1 : 0) * 0.045;
+  cam.position.set(c.p[0] + Math.sin(t * 0.7) * 0.03 + Math.sin(t * 61) * sh, c.p[1] + Math.sin(t * 0.53) * 0.02 + Math.cos(t * 53) * sh, c.p[2]);
+  cam.lookAt(...c.m); cam.fov = c.fov; cam.updateProjectionMatrix();
+  r.render(esc, cam);
+
+  // ----- 2D -----
+  if (PORT) { document.querySelectorAll(".ov").forEach((e) => (e.style.display = "none")); return; }
+  subs(t);
+  [...barra.children].forEach((el, i) => { const a = st(i), b = i < S.length - 1 ? st(i + 1) : DUR; el.firstChild.style.width = 100 * clamp((t - a) / (b - a)) + "%"; });
+  // gancho (visible desde el fotograma 0)
+  const kh = 1 - easeIn(prog(t, T.s1 - 0.25, 0.35)); show("hook", kh > 0); $("hook").style.opacity = kh;
+  $("hook").style.transform = `scale(${(0.96 + 0.04 * easeBack(prog(t, 0, 0.5))) * (1 + 0.15 * (1 - kh))})`;
+  const km = easeBack(prog(t, T.ahora - 0.05, 0.35), 2.2); show("mas", km > 0 && kh > 0); $("mas").style.opacity = clamp(km * 2) * kh; $("mas").firstChild.style.transform = `rotate(-3deg) scale(${Math.max(0.01, km)})`;
+  // 4,1 % (sello verde) con el 4,9 % de octubre tachado encima
+  const ki = prog(t, T.cuatro - 0.12, 0.3), kio = prog(t, T.s2 + 0.25, 0.3); show("ipc", t > T.s1 - 0.05 && kio < 1);
+  $("ipc").style.opacity = 1 - kio; $("ipc").children[1].style.transform = `rotate(-6deg) scale(${lerp(1.45, 1, easeOut(ki))})`; $("ipc").children[1].style.opacity = clamp(ki * 2.2);
+  const ka = easeOut(prog(t, T.s1 - 0.05, 0.35)); $("ipc").children[0].style.opacity = ka; $("ipc").children[0].style.transform = `translateY(${(1 - ka) * -20}px)`;
+  $("ipc").querySelector(".antes i").style.transform = `scaleX(${easeInOut(prog(t, T.bajado - 0.05, 0.35))})`;
+  $("ipc").lastChild.style.opacity = easeOut(prog(t, T.cuatro + 0.4, 0.3));
+  // baja la inflación ≠ bajan los precios → siguen subiendo, más despacio
+  const nb = $("nobaja").children, kn0 = prog(t, T.s2 + 0.15, 0.35), kno = prog(t, T.s3 - 0.3, 0.3); show("nobaja", kn0 > 0 && kno < 1);
+  $("nobaja").style.opacity = 1 - kno; $("nobaja").style.transform = `translateY(${(1 - easeOut(kn0)) * 40}px)`;
+  nb[0].style.opacity = clamp(kn0 * 2); nb[0].style.transform = `scale(${Math.max(0.01, easeBack(kn0, 1.8))})`;
+  const kq = easeBack(prog(t, T.no - 0.1, 0.32), 2.4); nb[1].style.opacity = clamp(kq * 2); nb[1].style.transform = `scale(${Math.max(0.01, kq)}) rotate(${(1 - clamp(kq)) * 30}deg)`;
+  const k2 = easeBack(prog(t, T.bajen - 0.1, 0.32), 1.8), k2o = prog(t, T.siguen - 0.1, 0.25); nb[2].style.display = k2o < 1 ? "" : "none";
+  nb[2].style.opacity = clamp(k2 * 2) * (1 - k2o); nb[2].style.transform = `scale(${Math.max(0.01, k2) * (1 - 0.2 * k2o)})`;
+  nb[2].lastChild.style.transform = `scaleX(${easeInOut(prog(t, T.precios + 0.15, 0.3))})`;
+  const k3 = easeBack(prog(t, T.siguen - 0.05, 0.35), 2.2); nb[3].style.display = k3 > 0 ? "" : "none"; nb[3].style.opacity = clamp(k3 * 2);
+  nb[3].style.transform = `rotate(-2deg) scale(${Math.max(0.01, k3) * (t > T.subiendo && t < T.subiendo + 0.4 ? 1 + 0.07 * Math.sin((t - T.subiendo) / 0.4 * Math.PI) : 1)})`;
+  // panel tiempo / precio
+  const kp = easeOut(prog(t, T.diez - 0.3, 0.45)), kpo = prog(t, T.s5 - 0.1, 0.3); show("panel", kp > 0 && kpo < 1);
+  $("panel").style.opacity = kp * (1 - kpo); $("panel").style.transform = `translateX(${(1 - kp) * -60}px)`;
+  const n = Math.floor(y + 1e-6); $("n").textContent = n; $("nlab").textContent = n === 1 ? "año" : "años";
+  const v = precio(y); $("compra").textContent = L.fmtEur(v);
+  const rojo = clamp((v - 10000) / 2225); $("compra").style.color = `rgb(255,${Math.round(lerp(255, 95, rojo))},${Math.round(lerp(255, 80, rojo))})`;
+  const golpeV = t > T.setecientos - 0.1 ? 1 + 0.14 * Math.sin(clamp((t - T.setecientos + 0.1) / 0.3) * Math.PI) : 1;
+  $("compra").style.transform = `scale(${golpeV})`;
+  // +27 % (golpe de la cifra clave)
+  const kg = easeBack(prog(t, T.setecientos + 0.05, 0.32), 2), kgo = prog(t, T.s5 - 0.15, 0.3); show("golpe", kg > 0 && kgo < 1);
+  $("golpe").style.opacity = 1 - kgo; $("golpe").firstChild.style.transform = `rotate(-4deg) scale(${Math.max(0.01, kg)})`;
+  // lección + pregunta con botones
+  const kl = easeOut(prog(t, T.s5 + 0.1, 0.4)); show("leccion", kl > 0); $("leccion").style.opacity = kl; $("leccion").style.transform = `translateY(${(1 - kl) * 30}px)`;
+  const kb = prog(t, T.s5 - 0.05, 0.4); show("botones", kb > 0);
+  const bs = $("botones").children;
+  bs[0].style.transform = `scale(${Math.max(0.01, easeBack(kb, 1.8))})`; bs[0].style.opacity = clamp(kb * 2);
+  [[1, T.uno], [2, T.dos]].forEach(([i, tt]) => { const k = easeBack(prog(t, tt - 0.12, 0.35), 2); bs[i].style.transform = `scale(${Math.max(0.01, k) * (t > tt && t < tt + 0.5 ? 1 + 0.06 * Math.sin((t - tt) / 0.5 * Math.PI) : 1)})`; bs[i].style.opacity = clamp(k * 2); });
+  // SEGUIR: lo pulsa Listo al final
+  const lp = new THREE.Vector3(-0.42, 1.5, 0.13).project(cam), sx = (lp.x * 0.5 + 0.5) * W, sy = (-lp.y * 0.5 + 0.5) * H;
+  const ks = easeBack(prog(t, DUR - 1.45, 0.35), 2), press = prog(t, DUR - 0.75, 0.1) * (1 - prog(t, DUR - 0.55, 0.12)); show("seguir", ks > 0);
+  $("seguir").style.left = Math.max(250, Math.min(830, sx + 60)) + "px"; $("seguir").style.top = sy - 250 + "px"; $("seguir").style.transform = `translate(-50%,-50%) scale(${Math.max(0.01, ks) * (1 - 0.12 * press)})`;
+  $("fuente").style.opacity = t > T.s1 ? 1 : 0; $("marca").style.opacity = t > T.s1 - 0.2 ? 1 : 0;
+};
+window.listo = true;
+</script></body></html>

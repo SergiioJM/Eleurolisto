@@ -1,8 +1,8 @@
 # Ranking de vídeos — @eleurolisto
 
-Actualizado: 2026-11-26 21:20 (Madrid; IG; TikTok del 25-nov). Generado con `python3 toolkit/ranking.py` desde `content/metricas.json` (no editar a mano).
+Actualizado: 2026-11-27 21:15 (Madrid; IG y TikTok). Generado con `python3 toolkit/ranking.py` desde `content/metricas.json` (no editar a mano).
 
-**Cuenta:** IG 2 seguidores · IG 14 días: alcance 3847, vistas 5044, visitas al perfil 15, interacciones 87
+**Cuenta:** IG 2 seguidores · IG 14 días: alcance 3954, vistas 5232, visitas al perfil 16, interacciones 92
 
 | # | Fecha | Tema | Look | Voz | Gancho (0–3 s) | Vistas IG+TT | GANCHO | RETENC. | ALCANCE | INTERAC. | **TOTAL** |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -16,26 +16,27 @@ Actualizado: 2026-11-26 21:20 (Madrid; IG; TikTok del 25-nov). Generado con `pyt
 | 8 | 11-22 18:00 | GTA 6 parte 3: ¿1 empresa o 500? | R8b neón tropical de noche | ElevenLabs Juanjo | ¿1 empresa o 500? (GTA, parte tres) | 149+733 | 52 | 36 | 90 | 31 | **57** |
 | 9 | 11-17 20:30 | Regla 50/30/20 (cocina, tres tarros) | 3D de bloques (R7) | Javier | Regla 50/30/20 con una nómina de 1.400 € | 160+0 | 63 | 52 | 67 | 28 | **57** |
 | 10 | 11-16 20:30 | Estos dos cobran lo mismo (págate primero) | 2D A vs B con personajes | Javier | Estos dos cobran lo mismo | 149+1 | 42 | 34 | 66 | 100 | **57** |
-| 11 | 11-22 20:30 | ¿Comprar o alquilar e invertir? (polémica) | R1 monigotes | ElevenLabs Lucía | Alquilar ya se come el 39 %… comprar, el 29 %. ¿Entonces compro? | 134+696 | 48 | 31 | 89 | 33 | **54** |
-| 12 | 11-23 13:30 | El Gordo no son 400.000 € (Lotería, parte 1) | R9 cómic | ElevenLabs Juanjo | El Gordo no son 400.000 € | 141+0 | 47 | 42 | 65 | 53 | **52** |
-| 13 | 11-19 13:30 | ¿Cuánto efectivo puedes guardar en casa? | R6 pixel art | local k_santa | ¿Cuánto dinero en efectivo puedes guardar en casa? | 163+13 | 55 | 41 | 68 | 26 | **52** |
-| 14 | 11-18 20:30 | Subida de sueldo: ahorra la mitad | Tipografía cinética v2 | Javier | Si te suben 150 €, ahorra al menos la mitad | 168+19 | 45 | 45 | 69 | 40 | **51** |
-| 15 | 11-18 13:30 | Bizum por error | Interfaz de móvil 2D | local v1 | Bizum por error: para recibir dinero no tienes que aceptar nada | 122+0 | 33 | 27 | 64 | 98 | **51** |
-| 16 | 11-26 19:00 | Plan de pensiones parte 2: ¿plan o fondo indexado? (polémica) | R5 3D plastilina | ElevenLabs Mateo | 1.500 € al año: ¿plan de pensiones o fondo indexado? | 78+0 | 59 | 26 | 58 | 19 | **46** |
-| 17 | 11-16 13:30 | Gastos hormiga: café de 2 € | 2D reelkit | Javier | Gastos hormiga: un café de 2 € al día son 730 € al año | 125+5 | 28 | 39 | 64 | 46 | **44** |
-| 18 | 11-21 13:30 | ¿Hacienda ve tus criptos? | R2 llamadas entrantes (3D toon) | local k_santa | ¿Crees que si no pasas tus criptos a euros, Hacienda no se entera? | 126+40 | 42 | 28 | 68 | 18 | **43** |
-| 19 | 11-20 13:30 | ¿Te piden pagar para sacar tu dinero? (estafa) | R4 móviles en abanico | local v1 | ¿Te piden pagar para sacar tu dinero? | 101+5 | 37 | 21 | 62 | 28 | **40** |
-| 20 | 11-25 19:00 | Black Friday: ese −40 % puede ser mentira (3 trampas) | R10 papel recortado | local v1 | Ese −40 % del Black Friday… puede ser mentira | 115+4 | 35 | 27 | 63 | 13 | **38** |
+| 11 | 11-27 19:00 | La paga extra no es un regalo (12 → 14 pagas) | R11 plano técnico | ElevenLabs Lucía | La paga extra no es un regalo de tu empresa | 139+270 | 43 | 30 | 79 | 66 | **55** |
+| 12 | 11-22 20:30 | ¿Comprar o alquilar e invertir? (polémica) | R1 monigotes | ElevenLabs Lucía | Alquilar ya se come el 39 %… comprar, el 29 %. ¿Entonces compro? | 134+697 | 48 | 31 | 89 | 32 | **54** |
+| 13 | 11-23 13:30 | El Gordo no son 400.000 € (Lotería, parte 1) | R9 cómic | ElevenLabs Juanjo | El Gordo no son 400.000 € | 141+0 | 47 | 42 | 65 | 53 | **52** |
+| 14 | 11-19 13:30 | ¿Cuánto efectivo puedes guardar en casa? | R6 pixel art | local k_santa | ¿Cuánto dinero en efectivo puedes guardar en casa? | 163+13 | 55 | 41 | 68 | 26 | **52** |
+| 15 | 11-18 20:30 | Subida de sueldo: ahorra la mitad | Tipografía cinética v2 | Javier | Si te suben 150 €, ahorra al menos la mitad | 168+19 | 45 | 45 | 69 | 40 | **51** |
+| 16 | 11-18 13:30 | Bizum por error | Interfaz de móvil 2D | local v1 | Bizum por error: para recibir dinero no tienes que aceptar nada | 122+0 | 33 | 27 | 64 | 98 | **51** |
+| 17 | 11-26 19:00 | Plan de pensiones parte 2: ¿plan o fondo indexado? (polémica) | R5 3D plastilina | ElevenLabs Mateo | 1.500 € al año: ¿plan de pensiones o fondo indexado? | 118+676 | 50 | 28 | 88 | 6 | **50** |
+| 18 | 11-16 13:30 | Gastos hormiga: café de 2 € | 2D reelkit | Javier | Gastos hormiga: un café de 2 € al día son 730 € al año | 125+5 | 28 | 39 | 64 | 46 | **44** |
+| 19 | 11-21 13:30 | ¿Hacienda ve tus criptos? | R2 llamadas entrantes (3D toon) | local k_santa | ¿Crees que si no pasas tus criptos a euros, Hacienda no se entera? | 126+40 | 42 | 28 | 68 | 18 | **43** |
+| 20 | 11-20 13:30 | ¿Te piden pagar para sacar tu dinero? (estafa) | R4 móviles en abanico | local v1 | ¿Te piden pagar para sacar tu dinero? | 101+5 | 37 | 21 | 62 | 28 | **40** |
+| 21 | 11-25 19:00 | Black Friday: ese −40 % puede ser mentira (3 trampas) | R10 papel recortado | local v1 | Ese −40 % del Black Friday… puede ser mentira | 115+4 | 35 | 27 | 63 | 13 | **38** |
 
 ## Comparativas automáticas (media de la puntuación TOTAL)
 
-- **Voz premium (Javier/ElevenLabs) vs local:** premium: 57 (n=15) · local: 45 (n=5)
-- **3D vs 2D:** 3D: 53 (n=5) · 2D/otros: 54 (n=15)
-- **Gancho en pregunta (¿…?) vs afirmación:** pregunta: 54 (n=9) · afirmación: 54 (n=11)
-- **Ahorro básico vs resto de pilares:** ahorro: 52 (n=4) · resto: 54 (n=16)
-- **13:30 vs 20:30 vs especiales:** 13:30: 49 (n=7) · 20:30: 57 (n=7) · otras horas: 55 (n=6)
+- **Voz premium (Javier/ElevenLabs) vs local:** premium: 57 (n=16) · local: 45 (n=5)
+- **3D vs 2D:** 3D: 54 (n=5) · 2D/otros: 54 (n=16)
+- **Gancho en pregunta (¿…?) vs afirmación:** pregunta: 55 (n=9) · afirmación: 54 (n=12)
+- **Ahorro básico vs resto de pilares:** ahorro: 52 (n=4) · resto: 55 (n=17)
+- **13:30 vs 20:30 vs especiales:** 13:30: 49 (n=7) · 20:30: 57 (n=7) · otras horas: 56 (n=7)
 
-- Comentarios totales: 2 · compartidos: 3 · guardados: 11 en 20 vídeos.
+- Comentarios totales: 2 · compartidos: 4 · guardados: 13 en 21 vídeos.
 
 ## Posts de imágenes (carruseles)
 
