@@ -29,10 +29,14 @@
  "musica": "original sintetizada, style chill, 92 bpm, seed 11, baja (0.30 / ducking 0.09)",
  "creditos": "ElevenLabs 464 caracteres (Scribe 0); Creative Claw 0; vidIQ 5 (TikTok)",
  "elevenlabs_flow": "OtZNunTfV2BUyBxDdfKU (voz nodo JgZmpqX3kqueMsnW4k7u, generación 5KtLjepmqZuzA8fNocU7; transcripción YCNUJX5SuA0uHp5Lo6Bs)",
- "estado": "ENVIADO a Sergio para aprobar (27-nov noche)",
+ "estado": "APROBADO CON portada por Sergio (28-nov ~13:49, «✅»); aviso de publicación trig_019LxJAU2rWS2siZMuQqaszx (29-nov 18:57)",
  "portada": "portada/portada.jpg (fondo reutilizado del 22-nov: la habitación con el aceite saliendo por la ventana y Listo 'lowpoly' señalándolo sorprendido; kicker PARTE 2 · INFLACIÓN, 'El LADRÓN ha vuelto', '¿y ahora roba menos?', etiqueta ámbar 'IPC 4,1 %')",
  "duracion_s": 27.2,
  "brillo": "brillo medio por fotograma (54x96 gris): 87–123 (luz fija); salto máximo 3,0 (0 saltos > 8)",
  "loudness": "−14,5 LUFS",
- "mezcla": "sonido.py: audio.mezclar (música chill 92 bpm + 45 efectos) + voice.wav con amix y loudnorm −14 LUFS"
+ "mezcla": "sonido.py: audio.mezclar (música chill 92 bpm + 45 efectos) + voice.wav con amix y loudnorm −14 LUFS",
+ "commit_sha": "e0384395c213a65245b70f511fa9476dcaa62486",
+ "vidiq_uploadId_con_portada": "743d25e0-3dba-4b3d-ac2e-48efab79413c",
+ "vidiq_uploadId_sin_portada": "34cbe545-2344-4378-9721-ea7c5a5624a0",
+ "gmail_thread": "1a21eae2fba02b51"
 }
