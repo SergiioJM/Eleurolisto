@@ -1,0 +1,70 @@
+{
+ "fecha": "28 nov 2026 · IPC adelantado del INE (27-nov)",
+ "fuente": "Ministerio de Inclusión y Seguridad Social vía Europa Press · Canal Sur · INE",
+ "etiqueta": "PENSIONES 2027",
+ "slides": [
+  {
+   "tipo": "portada",
+   "titular": "Ya hay cifra: las pensiones subirán un <em>3,5&nbsp;%</em> en 2027",
+   "bajada": "La inflación de noviembre baja al 4,1&nbsp;%… y aun así la subida no es del 4,1&nbsp;%. Cuánto es en euros, quién cobra más y por qué."
+  },
+  {
+   "tipo": "cifra",
+   "etiqueta": "EN EUROS",
+   "cifra": "+774&nbsp;€",
+   "cifraTam": 210,
+   "texto": "al año para la pensión media de jubilación (1.580,6&nbsp;€ al mes)",
+   "nota": "Son unos <em>+55&nbsp;€ en cada una de las 14 pagas</em>. La pensión media de todo el sistema (1.379,1&nbsp;€) gana unos 676&nbsp;€ al año. Estimación del Ministerio con el IPC adelantado."
+  },
+  {
+   "tipo": "vs",
+   "etiqueta": "QUIÉN SUBE CUÁNTO",
+   "titulo": "No todas suben igual",
+   "izq": {
+    "lab": "CONTRIBUTIVAS",
+    "icono": "👵",
+    "nombre": "Jubilación, viudedad…",
+    "cifra": "+3,5&nbsp;%",
+    "texto": "unos 9,6 millones de pensionistas y 722.400 de clases pasivas",
+    "color": "azul"
+   },
+   "der": {
+    "lab": "MÍNIMAS Y NO CONTRIB.",
+    "icono": "🛟",
+    "nombre": "Según la modalidad",
+    "cifra": "+8,8 a 14,2&nbsp;%",
+    "texto": "y el ingreso mínimo vital, +14,1&nbsp;%",
+    "color": "verde"
+   },
+   "nota": "Pensión máxima: de 3.359,6&nbsp;€ a unos <em>3.481&nbsp;€ al mes</em> (14 pagas)."
+  },
+  {
+   "tipo": "mito",
+   "etiqueta": "MITO VS REALIDAD",
+   "mito": "La inflación de noviembre es del 4,1&nbsp;%, así que las pensiones suben un 4,1&nbsp;%",
+   "realidad": "Se usa la media del IPC de 12 meses, de diciembre de 2025 a noviembre de 2026 (Ley 20/2021). Hubo meses por encima del 4&nbsp;% y otros más bajos: la media sale un 3,5&nbsp;%.",
+   "nota": "En noviembre la inflación bajó de 4,9&nbsp;% a 4,1&nbsp;% sobre todo por los carburantes (dato adelantado del INE)."
+  },
+  {
+   "tipo": "puntos",
+   "etiqueta": "QUÉ SIGNIFICA PARA TI",
+   "titulo": "¿Y si aún no cobro pensión?",
+   "puntos": [
+    "Si tus padres o abuelos son pensionistas, lo notarán <em>desde enero</em>",
+    "Si trabajas: la <em>base máxima de cotización</em> sube un 4,7&nbsp;% (hasta 5.340,9&nbsp;€ al mes). Solo toca a quien cobra más de 5.101&nbsp;€",
+    "Aún no es oficial: falta el <em>IPC definitivo del 15 de diciembre</em> y el real decreto-ley del Gobierno"
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "etiqueta": "EN 10 SEGUNDOS",
+   "titulo": "Lo que tienes que saber",
+   "puntos": [
+    "Contributivas: <em>+3,5&nbsp;%</em>, unos +774&nbsp;€ al año la pensión media de jubilación",
+    "Mínimas, no contributivas e IMV suben <em>más</em> (del 8,8&nbsp;% al 14,2&nbsp;%)",
+    "Cifra definitiva: <em>15 de diciembre</em>"
+   ],
+   "cta": "Pásaselo a tus padres o abuelos 👵"
+  }
+ ]
+}
